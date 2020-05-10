@@ -1,0 +1,36 @@
+<template>
+  <div class="submit">
+    <el-steps :active="active" finish-status="success">
+      <el-step title="勾选承诺书"></el-step>
+      <el-step title="填写基本资料"></el-step>
+      <el-step title="上传作品文件"></el-step>
+      <el-step title="结束提交"></el-step>
+    </el-steps>
+
+    <el-divider></el-divider>
+
+    <div></div>
+
+    <el-divider></el-divider>
+    <div style="text-align: center;">
+      <el-button type="primary">结束提交</el-button>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  data: function() {
+    return {
+      active: 3
+    };
+  }
+};
+</script>
+
+<style lang="less" scoped>
+.submit {
+  width: @typical-width;
+  margin: 20px auto;
+}
+</style>

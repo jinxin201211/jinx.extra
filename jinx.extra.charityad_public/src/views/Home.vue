@@ -6,17 +6,31 @@
           <span><a @click.stop="handleAddFavorite">加入收藏</a></span>
           <span><a>联系我们</a></span>
         </div>
-        <div class="float_right">
+        <div class="float_right" v-if="account == null || account == ''">
           <span>
-            <router-link to="signin">登录</router-link>
+            <router-link to="/account/signin">登录</router-link>
           </span>
+          <span>|</span>
           <span>
-            <router-link to="signup">注册</router-link>
+            <router-link to="/account/signup">注册</router-link>
           </span>
+        </div>
+        <div class="float_right" v-if="account != null && account != ''">
+          <span>
+            <router-link to="/account/signin">获奖查询</router-link>
+          </span>
+          <span>|</span>
+          <span>
+            <router-link to="/work/convenant">作品提交</router-link>
+          </span>
+          <span>|</span>
+          <span v-text="account + '，您好！'"></span>
+          <span>|</span>
+          <span><a @click="handleSignOut" href="#">退出</a></span>
         </div>
       </div>
     </div>
-    <div class="jinx-banner" :style="{ backgroundImage: 'url(' + require('../assets/images/banner.jpg') + ')' }"></div>
+    <div class="jinx-banner" :style="{ backgroundImage: 'url(' + require('@/assets/images/banner.jpg') + ')' }"></div>
     <jinx-nav-menu :menu="menuList"></jinx-nav-menu>
     <div class="content">
       <router-view></router-view>
@@ -54,10 +68,16 @@ export default {
         },
         { title: "往届回顾", path: "history" },
         { title: "关于我们", path: "about" }
-      ]
+      ],
+      account: this.$store.state.Account
     };
   },
-  mounted: function() {},
+  mounted: function() {
+    console.log(this.$store.state);
+    console.log(this.$cookies.get("account"));
+    console.log(this.$cookies.get("token"));
+  },
+  inject: ["reload"],
   methods: {
     handleMenuSelect: function() {
       let index = this.activeIndex * 1;
@@ -92,15 +112,18 @@ export default {
           this.$alert("加入收藏失败，请使用Ctrl+D进行添加");
         }
       }
+    },
+    handleSignOut: function() {
+      this.$store.commit("resetAccount");
+      this.$cookies.remove("token");
+      this.$cookies.remove("account");
+      this.reload();
     }
   }
 };
 </script>
 
 <style lang="less" scoped>
-@typical-width: 1058px;
-@primary-color: #d7000f;
-
 .jinx-header {
   min-width: @typical-width;
   height: 42px;

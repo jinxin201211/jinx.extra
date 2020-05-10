@@ -1,8 +1,38 @@
 <template>
-  <div>
-    <router-view />
-  </div>
+  <div><router-view v-if="isRouterAlive" /></div>
 </template>
+<script>
+export default {
+  provide() {
+    return {
+      reload: this.reload
+    };
+  },
+  data() {
+    return {
+      isRouterAlive: true
+    };
+  },
+  mounted: function() {
+    this.$store.commit("syncAccount");
+    // if (this.$cookies.isKey("account") && this.$cookies.isKey("token")) {
+    //   let account = this.$cookies.get("account");
+    //   let token = this.$cookies.get("token");
+    //   this.$store.commit("changeAccount", { Token: token, Account: account });
+    //   this.$cookies.set("token", token, 60 * 60 * 24 * 7);
+    //   this.$cookies.set("account", account, 60 * 60 * 24 * 7);
+    // }
+  },
+  methods: {
+    reload() {
+      this.isRouterAlive = false;
+      this.$nextTick(function() {
+        this.isRouterAlive = true;
+      });
+    }
+  }
+};
+</script>
 <style>
 html,
 body {

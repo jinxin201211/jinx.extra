@@ -1,4 +1,4 @@
-# jinx.child_router
+# jinx.extra.charityad_public
 
 ## Project setup
 ```
