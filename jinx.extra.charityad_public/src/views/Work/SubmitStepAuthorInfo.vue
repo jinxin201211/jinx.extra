@@ -32,7 +32,7 @@
         <el-row>
           <el-col :span="12">
             <el-form-item label="创作分工" prop="author1.duty" :rules="[{ required: true, message: '请输入创作分工', trigger: 'blur' }]">
-              <el-input v-model="form.author1.name"></el-input>
+              <el-input v-model="form.author1.duty"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="12">
@@ -115,7 +115,7 @@
         <el-row>
           <el-col :span="12">
             <el-form-item label="创作分工">
-              <el-input v-model="form.author2.name"></el-input>
+              <el-input v-model="form.author2.duty"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="12">
