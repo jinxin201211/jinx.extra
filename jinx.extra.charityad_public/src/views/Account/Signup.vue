@@ -99,6 +99,7 @@
 
 <script>
 import JinxVerifyCode from "@/components/JinxVerifyCode.vue";
+import md5 from "@/assets/js/md5.js";
 import qs from "qs";
 
 export default {
@@ -125,6 +126,7 @@ export default {
       loading: false
     };
   },
+  mixins: [md5],
   mounted: function() {
     this.handleRefreshCode();
   },
@@ -142,7 +144,7 @@ export default {
       this.loading = true;
       let that = this;
       this.axios
-        .post("/api/gameUser/register", qs.stringify({ email: this.form.email, tel: this.form.phone, uname: this.form.nickname, pwd: this.form.password }))
+        .post("/api/gameUser/register", qs.stringify({ email: this.form.email, tel: this.form.phone, uname: this.form.nickname, pwd: this.hex_md5(this.form.password) }))
         .then(function(response) {
           if (response && response.data.code == "0") {
             let second = 3;

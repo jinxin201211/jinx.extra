@@ -43,10 +43,14 @@ export default {
       fileList: [],
       successList: [],
       param: {
-        wid: this.$route.query.wid
+        wid: this.$route.params.wid
       }
     };
   },
+  // mounted() {
+  //   console.log(this.$route);
+  //   console.log(this.$route.params.wid);
+  // },
   methods: {
     submitUpload() {
       this.$refs.upload.submit();

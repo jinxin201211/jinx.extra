@@ -224,7 +224,7 @@
 
     <el-divider></el-divider>
     <div style="text-align: center;">
-      <el-button type="primary" @click="handleNextStep">下一步</el-button>
+      <el-button type="primary" @click="handleNextStep" :loading="loading" :disabled="disabled">下一步</el-button>
     </div>
   </div>
 </template>
@@ -243,17 +243,24 @@ export default {
         author2: { name: "学生2", grade: "2", duty: "分工2", major: "2", identity_type: "1", identity_number: "2222222", phone: "11111", qq: "12345", email: "1234@sji.casd", address: "地址2", post: "332200" },
         teacher: { name: "老师", identity_type: "1", identity_number: "38872877738823", phone: "3567263531", qq: "1182736431", email: "hun@qq.com" }
       },
-      wid: this.$route.query.wid
+      loading: false,
+      disabled: false,
+      wid: this.$route.params.wid
     };
   },
+  // mounted() {
+  //   console.log(this.$route);
+  //   console.log(this.$route.params.wid);
+  // },
   methods: {
     handleNextStep: function() {
       // this.$router.push("/work/upload");
       this.$refs["form"].validate(valid => {
         if (valid) {
+          // that.disabled = true;
           // this.$router.push({
-          //   path: "/work/upload",
-          //   query: { wid: this.wid }
+          //   name: "upload",
+          //   params: { wid: this.wid }
           // });
           this.submit();
         } else {
@@ -301,9 +308,10 @@ export default {
         .post("/api/gameAuthorInfo/add", qs.stringify(data))
         .then(function(response) {
           if (response && response.data.code == "0") {
+            that.disabled = true;
             that.$router.push({
-              path: "/work/upload",
-              query: { wid: that.wid }
+              name: "upload",
+              params: { wid: that.wid }
             });
           } else {
             that.$message({

@@ -17,7 +17,7 @@
         </div>
         <div class="float_right" v-if="account != null && account != ''">
           <span>
-            <router-link to="/account/signin">获奖查询</router-link>
+            <router-link to="/">获奖查询</router-link>
           </span>
           <span>|</span>
           <span>

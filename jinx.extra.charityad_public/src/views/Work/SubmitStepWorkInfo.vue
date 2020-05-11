@@ -16,11 +16,25 @@
             <el-option v-for="item in RegionList" :key="item.value" :label="item.label" :value="item.value"> </el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="所属专业" prop="major" :rules="[{ required: true, message: '请输入所属专业', trigger: 'blur' }]">
-          <el-input v-model="form.major"></el-input>
+        <el-form-item
+          label="所属专业"
+          prop="major"
+          :rules="[
+            { required: true, message: '请输入所属专业', trigger: 'blur' },
+            { min: 0, max: 100, message: '最多 100 个字符', trigger: 'blur' }
+          ]"
+        >
+          <el-input v-model="form.major" maxlength="100"></el-input>
         </el-form-item>
-        <el-form-item label="作品名称" prop="name" :rules="[{ required: true, message: '请输入作品名称', trigger: 'blur' }]">
-          <el-input v-model="form.name"></el-input>
+        <el-form-item
+          label="作品名称"
+          prop="name"
+          :rules="[
+            { required: true, message: '请输入作品名称', trigger: 'blur' },
+            { min: 0, max: 200, message: '最多 200 个字符', trigger: 'blur' }
+          ]"
+        >
+          <el-input v-model="form.name" maxlength="200"></el-input>
         </el-form-item>
         <el-form-item label="命题类别">
           <el-radio-group v-model="form.topic_type">
@@ -57,7 +71,7 @@
 
     <el-divider></el-divider>
     <div style="text-align: center;">
-      <el-button type="primary" @click="handleNextStep" :loading="loading">下一步</el-button>
+      <el-button type="primary" @click="handleNextStep" :loading="loading" :disabled="disabled">下一步</el-button>
     </div>
   </div>
 </template>
@@ -151,6 +165,7 @@ export default {
         }
       ],
       loading: false,
+      disabled: false,
       wid: ""
     };
   },
@@ -160,9 +175,11 @@ export default {
       this.$refs["form"].validate(valid => {
         if (valid) {
           // this.wid = "123456";
+          // this.disabled = true;
           // this.$router.push({
-          //   path: "/work/authorinfo",
-          //   query: { wid: this.wid }
+          //   // path: "/work/authorinfo",
+          //   name: "authorinfo",
+          //   params: { wid: this.wid }
           // });
           this.submit(); //todo
         } else {
@@ -187,9 +204,10 @@ export default {
         .then(function(response) {
           if (response && response.data.code == "0") {
             that.wid = response.data.data;
+            that.disabled = true;
             that.$router.push({
-              path: "/work/authorinfo",
-              query: { wid: that.wid }
+              name: "authorinfo",
+              params: { wid: that.wid }
             });
           } else {
             that.$message({

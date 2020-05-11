@@ -37,13 +37,14 @@
 
 <script>
 import qs from "qs";
+import md5 from "@/assets/js/md5.js";
 
 export default {
   data: function() {
     return {
       form: {
         account: "jinxin",
-        password: "jinxin20200510"
+        password: "9081dc00909207eb9e655464fd3e3bf5"
       },
       rememberMe: true
     };
@@ -53,6 +54,7 @@ export default {
     this.$cookies.remove("token");
     this.$cookies.remove("account");
   },
+  mixins: [md5],
   methods: {
     handleSubmit: function() {
       this.$refs["form"].validate(valid => {
@@ -67,7 +69,7 @@ export default {
       this.loading = true;
       let that = this;
       this.axios
-        .get("/api/gameUser/login", { params: { uname: this.form.account, pwd: this.form.password } })
+        .get("/api/gameUser/login", { params: { uname: this.form.account, pwd: this.hex_md5(this.form.password) } })
         .then(function(response) {
           if (response && response.data.code == "0") {
             let token = response.data.data;
