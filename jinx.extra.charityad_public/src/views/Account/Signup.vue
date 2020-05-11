@@ -142,7 +142,7 @@ export default {
       this.loading = true;
       let that = this;
       this.axios
-        .post("/gameUser/register", qs.stringify({ email: this.form.email, tel: this.form.phone, uname: this.form.nickname, pwd: this.form.password }))
+        .post("/api/gameUser/register", qs.stringify({ email: this.form.email, tel: this.form.phone, uname: this.form.nickname, pwd: this.form.password }))
         .then(function(response) {
           if (response && response.data.code == "0") {
             let second = 3;

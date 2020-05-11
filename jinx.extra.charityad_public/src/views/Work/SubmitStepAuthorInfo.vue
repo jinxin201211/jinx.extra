@@ -230,28 +230,99 @@
 </template>
 
 <script>
+import qs from "qs";
 export default {
   data: function() {
     return {
       active: 1,
       form: {
-        author1: { name: "", grade: "", duty: "", major: "", identity_type: "", identity_number: "", phone: "", qq: "", email: "", address: "", post: "" },
-        author2: { name: "", grade: "", duty: "", major: "", identity_type: "", identity_number: "", phone: "", qq: "", email: "", address: "", post: "" },
-        teacher: { name: "", identity_type: "", identity_number: "", phone: "", qq: "", email: "" }
-      }
+        // author1: { name: "", grade: "", duty: "", major: "", identity_type: "", identity_number: "", phone: "", qq: "", email: "", address: "", post: "" },
+        // author2: { name: "", grade: "", duty: "", major: "", identity_type: "", identity_number: "", phone: "", qq: "", email: "", address: "", post: "" },
+        // teacher: { name: "", identity_type: "", identity_number: "", phone: "", qq: "", email: "" }
+        author1: { name: "张三", grade: "1", duty: "分工", major: "1", identity_type: "2", identity_number: "333333333333", phone: "17360266543", qq: "1123433212", email: "qwerty@baidu.com", address: "地址", post: "123455" },
+        author2: { name: "学生2", grade: "2", duty: "分工2", major: "2", identity_type: "1", identity_number: "2222222", phone: "11111", qq: "12345", email: "1234@sji.casd", address: "地址2", post: "332200" },
+        teacher: { name: "老师", identity_type: "1", identity_number: "38872877738823", phone: "3567263531", qq: "1182736431", email: "hun@qq.com" }
+      },
+      wid: this.$route.query.wid
     };
   },
   methods: {
     handleNextStep: function() {
-      this.$router.push("/work/upload");
+      // this.$router.push("/work/upload");
       this.$refs["form"].validate(valid => {
         if (valid) {
-          this.$router.push("/work/upload");
-          // this.signup();
+          // this.$router.push({
+          //   path: "/work/upload",
+          //   query: { wid: this.wid }
+          // });
+          this.submit();
         } else {
           return false;
         }
       });
+    },
+    submit: function() {
+      this.loading = true;
+      let that = this;
+      let data = {
+        addr: this.form.author1.address,
+        creationWork: this.form.author1.duty,
+        email: this.form.author1.email,
+        grade: this.form.author1.grade,
+        identityNo: this.form.author1.identity_number,
+        identityType: this.form.author1.identity_type,
+        major: this.form.author1.major,
+        name: this.form.author1.name,
+        postcode: this.form.author1.post,
+        qq: this.form.author1.qq,
+        tel: this.form.author1.phone,
+        wid: this.wid,
+
+        addr2: this.form.author2.address,
+        creationWork2: this.form.author2.duty,
+        email2: this.form.author2.email,
+        grade2: this.form.author2.grade,
+        identityNo2: this.form.author2.identity_number,
+        identityType2: this.form.author2.identity_type,
+        major2: this.form.author2.major,
+        name2: this.form.author2.name,
+        postcode2: this.form.author2.post,
+        qq2: this.form.author2.qq,
+        tel2: this.form.author2.phone,
+
+        email_t: this.form.teacher.email,
+        identityNo_t: this.form.teacher.identity_number,
+        identityType_t: this.form.teacher.identity_type,
+        name_t: this.form.teacher.name,
+        qq_t: this.form.teacher.qq,
+        tel_t: this.form.teacher.phone
+      };
+      this.axios
+        .post("/api/gameAuthorInfo/add", qs.stringify(data))
+        .then(function(response) {
+          if (response && response.data.code == "0") {
+            that.$router.push({
+              path: "/work/upload",
+              query: { wid: that.wid }
+            });
+          } else {
+            that.$message({
+              showClose: true,
+              message: "提交失败",
+              type: "warning"
+            });
+          }
+          that.loading = false;
+        })
+        .catch(function(err) {
+          console.log(err);
+          that.loading = false;
+          that.$message({
+            showClose: true,
+            message: "提交失败",
+            type: "warning"
+          });
+        });
     }
   }
 };

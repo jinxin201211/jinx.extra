@@ -57,24 +57,32 @@
 
     <el-divider></el-divider>
     <div style="text-align: center;">
-      <el-button type="primary" @click="handleNextStep">下一步</el-button>
+      <el-button type="primary" @click="handleNextStep" :loading="loading">下一步</el-button>
     </div>
   </div>
 </template>
 
 <script>
+import qs from "qs";
 export default {
   data: function() {
     return {
       active: 1,
       form: {
-        region: "",
-        major: "",
-        name: "",
-        topic_type: "",
-        topic_name: "",
-        summary: "",
-        source: ""
+        // region: "",
+        // major: "",
+        // name: "",
+        // topic_type: "",
+        // topic_name: "",
+        // summary: "",
+        // source: ""
+        region: "选项1",
+        major: "专业",
+        name: "名称",
+        topic_type: "Ba",
+        topic_name: "选项1",
+        summary: "概述",
+        source: "选项3"
       },
       RegionList: [
         {
@@ -141,7 +149,9 @@ export default {
           value: "选项5",
           label: "北京烤鸭"
         }
-      ]
+      ],
+      loading: false,
+      wid: ""
     };
   },
   mounted: function() {},
@@ -149,12 +159,56 @@ export default {
     handleNextStep: function() {
       this.$refs["form"].validate(valid => {
         if (valid) {
-          this.$router.push("/work/authorinfo");
-          // this.signup();
+          // this.wid = "123456";
+          // this.$router.push({
+          //   path: "/work/authorinfo",
+          //   query: { wid: this.wid }
+          // });
+          this.submit(); //todo
         } else {
           return false;
         }
       });
+    },
+    submit: function() {
+      this.loading = true;
+      let that = this;
+      let data = {
+        area: this.form.region,
+        creativeOverview: this.form.summary,
+        major: this.form.major,
+        materialSurce: this.form.source,
+        propositionName: this.form.topic_name,
+        propositionType: this.form.topic_type,
+        worksName: this.form.name
+      };
+      this.axios
+        .post("/api/gameWorks/add", qs.stringify(data))
+        .then(function(response) {
+          if (response && response.data.code == "0") {
+            that.wid = response.data.data;
+            that.$router.push({
+              path: "/work/authorinfo",
+              query: { wid: that.wid }
+            });
+          } else {
+            that.$message({
+              showClose: true,
+              message: "提交失败",
+              type: "warning"
+            });
+          }
+          that.loading = false;
+        })
+        .catch(function(err) {
+          console.log(err);
+          that.loading = false;
+          that.$message({
+            showClose: true,
+            message: "提交失败",
+            type: "warning"
+          });
+        });
     }
   }
 };

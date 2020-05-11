@@ -9,7 +9,7 @@
 
     <el-divider></el-divider>
 
-    <div></div>
+    <div style="text-align: center;"><i class="el-icon-success" style="font-size: 36px; display: inline-block; vertical-align: middle;"></i><span>提交成功</span></div>
 
     <el-divider></el-divider>
     <div style="text-align: center;">

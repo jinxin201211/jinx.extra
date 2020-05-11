@@ -67,7 +67,7 @@ export default {
       this.loading = true;
       let that = this;
       this.axios
-        .get("/gameUser/login", { params: { uname: this.form.account, pwd: this.form.password } })
+        .get("/api/gameUser/login", { params: { uname: this.form.account, pwd: this.form.password } })
         .then(function(response) {
           if (response && response.data.code == "0") {
             let token = response.data.data;
