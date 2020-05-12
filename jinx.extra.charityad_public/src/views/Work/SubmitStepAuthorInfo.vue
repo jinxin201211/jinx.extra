@@ -245,22 +245,19 @@ export default {
       },
       loading: false,
       disabled: false,
-      wid: this.$route.params.wid
+      wid: this.$route.query.wid
     };
   },
-  // mounted() {
-  //   console.log(this.$route);
-  //   console.log(this.$route.params.wid);
-  // },
   methods: {
     handleNextStep: function() {
-      // this.$router.push("/work/upload");
       this.$refs["form"].validate(valid => {
         if (valid) {
-          // that.disabled = true;
-          // this.$router.push({
-          //   name: "upload",
-          //   params: { wid: this.wid }
+          // this.disabled = true;
+          // this.$router.replace({
+          //   path: "/work/upload",
+          //   query: { wid: this.wid }
+          //   // name: "upload",
+          //   // params: { wid: this.wid }
           // });
           this.submit();
         } else {
@@ -309,9 +306,11 @@ export default {
         .then(function(response) {
           if (response && response.data.code == "0") {
             that.disabled = true;
-            that.$router.push({
-              name: "upload",
-              params: { wid: that.wid }
+            that.$router.replace({
+              path: "/work/upload",
+              query: { wid: this.wid }
+              // name: "upload",
+              // params: { wid: this.wid }
             });
           } else {
             that.$message({

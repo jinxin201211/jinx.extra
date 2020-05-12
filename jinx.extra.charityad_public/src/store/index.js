@@ -6,43 +6,46 @@ Vue.use(VueCookies);
 
 export default new Vuex.Store({
   state: {
-    Token: localStorage.getItem("Token") ? localStorage.getItem("Token") : "",
-    Account: localStorage.getItem("Account") ? localStorage.getItem("Account") : ""
+    Token: sessionStorage.getItem(window.$VuexPrefix + "Token") ? sessionStorage.getItem(window.$VuexPrefix + "Token") : "",
+    Account: sessionStorage.getItem(window.$VuexPrefix + "Account") ? sessionStorage.getItem(window.$VuexPrefix + "Account") : ""
   },
   mutations: {
     changeAccount(state, user) {
-      // debugger;
       if (user != null) {
         state.Token = user.Token;
         state.Account = user.Account;
-        localStorage.setItem("Token", user.Token);
-        localStorage.setItem("Account", user.Account);
-        // document.cookie = `token = ${user.Token}; account = ${user.Account}; expires = ${new Date()}`;
+        sessionStorage.setItem(window.$VuexPrefix + "Token", user.Token);
+        sessionStorage.setItem(window.$VuexPrefix + "Account", user.Account);
       } else {
         state.Token = "";
         state.Account = "";
-        localStorage.setItem("Token", "");
-        localStorage.setItem("Account", "");
-        // document.cookie = `token = ; account = ; expires = ${new Date()}`;
+        sessionStorage.setItem(window.$VuexPrefix + "Token", "");
+        sessionStorage.setItem(window.$VuexPrefix + "Account", "");
       }
     },
     resetAccount(state) {
       state.Token = "";
       state.Account = "";
-      localStorage.setItem("Token", "");
-      localStorage.setItem("Account", "");
+      sessionStorage.setItem(window.$VuexPrefix + "Token", "");
+      sessionStorage.setItem(window.$VuexPrefix + "Account", "");
     },
     syncAccount(state) {
-      console.log("syncAccount");
-      console.log(VueCookies.get("account"));
-      console.log(VueCookies.get("token"));
-      if (VueCookies.isKey("account") && VueCookies.isKey("token")) {
-        let account = VueCookies.get("account");
-        let token = VueCookies.get("token");
+      if (VueCookies.isKey(window.$VuexPrefix + "account") && VueCookies.isKey(window.$VuexPrefix + "token")) {
+        let account = VueCookies.get(window.$VuexPrefix + "account");
+        let token = VueCookies.get(window.$VuexPrefix + "token");
         this.commit("changeAccount", { Token: token, Account: account });
-        VueCookies.set("token", token, 60 * 60 * 24 * 7);
-        VueCookies.set("account", account, 60 * 60 * 24 * 7);
+        this.commit("changeCookie", { Token: token, Account: account });
       }
+    },
+    changeCookie(state, user) {
+      VueCookies.set(window.$VuexPrefix + "token", user.Token, 60 * 60 * 24 * window.$CookieStoreDays);
+      VueCookies.set(window.$VuexPrefix + "account", user.Account, 60 * 60 * 24 * window.$CookieStoreDays);
+      // VueCookies.set(window.$VuexPrefix + "token", user.Token, 10);
+      // VueCookies.set(window.$VuexPrefix + "account", user.Account, 10);
+    },
+    removeCookie(state) {
+      VueCookies.remove(window.$VuexPrefix + "token");
+      VueCookies.remove(window.$VuexPrefix + "account");
     }
   },
   actions: {},

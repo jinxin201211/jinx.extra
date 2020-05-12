@@ -153,7 +153,7 @@ router.beforeEach((to, from, next) => {
   if (to.path === "/login") {
     next();
   } else {
-    let token = sessionStorage.getItem("Charity-Token");
+    let token = sessionStorage.getItem(window.$VuexPrefix + "Token");
 
     //没有登录
     if (token === null || token === "null" || token === "") {

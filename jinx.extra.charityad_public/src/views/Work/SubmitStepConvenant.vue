@@ -16,7 +16,7 @@
 
     <el-divider></el-divider>
     <div style="text-align: center;">
-      <el-button type="primary" @click="$router.push('/work/workinfo')" :disabled="!agree">下一步</el-button>
+      <el-button type="primary" @click="$router.replace('/work/workinfo')" :disabled="!agree">下一步</el-button>
     </div>
   </div>
 </template>

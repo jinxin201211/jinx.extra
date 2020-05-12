@@ -43,7 +43,6 @@ export default {
     };
   },
   mounted() {
-    console.log(this.$route);
     // this.getAnnouncementList();
   },
   activated() {
@@ -98,7 +97,6 @@ export default {
       this.$router.push("addannouncement");
     },
     handleView: function(data) {
-      console.log(data);
       this.$router.push({
         path: "/viewannouncement",
         query: {
@@ -108,7 +106,6 @@ export default {
       // this.$router.push("addAnnouncement");
     },
     handleEdit: function(data) {
-      console.log(data);
       this.$router.push({
         path: "/editannouncement",
         query: {

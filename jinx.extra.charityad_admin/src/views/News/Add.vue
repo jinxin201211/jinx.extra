@@ -6,7 +6,7 @@
         <el-form-item label="标题" prop="title" :rules="[{ required: true, message: '请输入新闻标题', trigger: 'blur' }]">
           <el-input v-model="form.title"></el-input>
         </el-form-item>
-        <el-form-item label="副标题">
+        <el-form-item label="副标题" prop="subTitle" :rules="[{ required: true, message: '请输入副标题', trigger: 'blur' }]">
           <el-input v-model="form.subTitle"></el-input>
         </el-form-item>
       </el-form>
@@ -40,11 +40,9 @@ export default {
       this.$router.go(-1);
     },
     handleEditorChange: function(val) {
-      console.log(val);
       this.form.content = val;
     },
     handleSubmit: function() {
-      console.log("submit");
       this.$refs["form"].validate(valid => {
         if (valid) {
           if (this.form.content === null || this.form.content === "") {

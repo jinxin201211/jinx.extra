@@ -22,10 +22,6 @@ Vue.use(ElementUI);
 import Navigation from "vue-navigation";
 Vue.use(Navigation, { router, store });
 
-Vue.prototype.$Server = "http://47.108.88.211";
-Vue.prototype.$ImagePostServer = "http://47.108.88.211:8081";
-Vue.prototype.$ImageGetServer = "http://47.108.88.211/img/";
-
 import Router from "vue-router";
 const routerReplace = Router.prototype.replace;
 Router.prototype.replace = function replace(location) {
@@ -45,6 +41,11 @@ if (!!window.ActiveXObject || "ActiveXObject" in window) {
     false
   );
 }
+
+window.$VuexPrefix = "charity.admin.";
+Vue.prototype.$Server = "http://47.108.88.211";
+Vue.prototype.$ImagePostServer = "http://47.108.88.211:8081";
+Vue.prototype.$ImageGetServer = "http://47.108.88.211/img/";
 
 new Vue({
   router,

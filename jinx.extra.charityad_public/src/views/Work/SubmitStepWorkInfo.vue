@@ -176,10 +176,11 @@ export default {
         if (valid) {
           // this.wid = "123456";
           // this.disabled = true;
-          // this.$router.push({
-          //   // path: "/work/authorinfo",
-          //   name: "authorinfo",
-          //   params: { wid: this.wid }
+          // this.$router.replace({
+          //   path: "/work/authorinfo",
+          //   query: { wid: this.wid }
+          //   // name: "authorinfo",
+          //   // params: { wid: this.wid }
           // });
           this.submit(); //todo
         } else {
@@ -205,9 +206,11 @@ export default {
           if (response && response.data.code == "0") {
             that.wid = response.data.data;
             that.disabled = true;
-            that.$router.push({
-              name: "authorinfo",
-              params: { wid: that.wid }
+            that.$router.replace({
+              path: "/work/authorinfo",
+              query: { wid: this.wid }
+              // name: "authorinfo",
+              // params: { wid: this.wid }
             });
           } else {
             that.$message({

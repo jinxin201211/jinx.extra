@@ -32,6 +32,9 @@ if (!!window.ActiveXObject || "ActiveXObject" in window) {
   );
 }
 
+window.$VuexPrefix = "charity.public.";
+window.$CookieStoreDays = 1;
+
 new Vue({
   router,
   store,

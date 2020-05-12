@@ -44,7 +44,6 @@ export default {
     };
   },
   mounted() {
-    console.log(this.$route);
     // this.getList();
   },
   activated() {
@@ -94,7 +93,6 @@ export default {
       this.$router.push("addjudge");
     },
     handleEdit: function(data) {
-      console.log(data);
       this.$router.push({
         path: "/editjudge",
         query: {

@@ -72,34 +72,30 @@ export default {
       account: this.$store.state.Account
     };
   },
-  mounted: function() {
-    console.log(this.$store.state);
-    console.log(this.$cookies.get("account"));
-    console.log(this.$cookies.get("token"));
-  },
+  mounted: function() {},
   inject: ["reload"],
   methods: {
-    handleMenuSelect: function() {
-      let index = this.activeIndex * 1;
-      console.log(index);
-      switch (index) {
-        case 1:
-          console.log("first");
-          break;
-        case 2:
-          console.log("second");
-          break;
-        case 3:
-          console.log("third");
-          break;
-        case 4:
-          console.log("fourth");
-          break;
-        default:
-          console.log("first");
-          break;
-      }
-    },
+    // handleMenuSelect: function() {
+    //   let index = this.activeIndex * 1;
+    //   // console.log(index);
+    //   switch (index) {
+    //     case 1:
+    //       console.log("first");
+    //       break;
+    //     case 2:
+    //       console.log("second");
+    //       break;
+    //     case 3:
+    //       console.log("third");
+    //       break;
+    //     case 4:
+    //       console.log("fourth");
+    //       break;
+    //     default:
+    //       console.log("first");
+    //       break;
+    //   }
+    // },
     handleAddFavorite: function() {
       const sURL = window.location;
       const sTitle = document.title;
@@ -115,8 +111,8 @@ export default {
     },
     handleSignOut: function() {
       this.$store.commit("resetAccount");
-      this.$cookies.remove("token");
-      this.$cookies.remove("account");
+      this.$cookies.remove(window.$VuexPrefix + "token");
+      this.$cookies.remove(window.$VuexPrefix + "account");
       this.reload();
     }
   }

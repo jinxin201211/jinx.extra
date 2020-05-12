@@ -99,13 +99,13 @@ export default {
     handleSubmit: function() {
       this.$refs["form"].validate(valid => {
         if (valid) {
-          this.signup();
+          this.submit();
         } else {
           return false;
         }
       });
     },
-    signup: function() {
+    submit: function() {
       this.loading = true;
       let that = this;
       this.axios

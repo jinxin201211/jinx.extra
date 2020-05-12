@@ -90,7 +90,7 @@
         <el-col :span="6" style="padding: 30px;">
           <div style="margin-bottom: 15px;">已经有了账号？</div>
           <div style="margin-bottom: 15px;">请直接登录</div>
-          <el-button type="primary" size="small" @click="$router.push('signin')">登录</el-button>
+          <el-button type="primary" size="small" @click="$router.replace('signin')">登录</el-button>
         </el-col>
       </el-row>
     </div>
@@ -160,7 +160,7 @@ export default {
                 setTimeout(f, 1000);
               } else {
                 message.close();
-                that.$router.push("/account/signin");
+                that.$router.replace("/account/signin");
               }
             }, 1000);
           } else {

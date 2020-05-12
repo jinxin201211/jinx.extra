@@ -1,13 +1,13 @@
 <template>
   <div class="jinx-layout">
     <div class="jinx-header">
-      <div style="padding: 0 20px; float: left; line-height: 60px; font-weight: bold; font-size: 24px;">全国平面公益广告大赛官网</div>
+      <div style="padding: 0 20px; float: left; line-height: 60px; font-weight: bold; font-size: 24px;">全国平面公益广告大赛</div>
       <div style="float: right;">
-        <el-menu mode="horizontal">
-          <el-submenu index="2">
+        <el-menu mode="horizontal" default-active="1">
+          <el-submenu index="1">
             <template slot="title"><span v-text="User.uname"></span></template>
-            <el-menu-item index="2-1">修改密码</el-menu-item>
-            <el-menu-item index="2-2">退出</el-menu-item>
+            <el-menu-item @click="dialogTableVisible = true">修改密码</el-menu-item>
+            <el-menu-item @click="handleSignout">退出</el-menu-item>
           </el-submenu>
         </el-menu>
       </div>
@@ -34,30 +34,65 @@
     <div class="jinx-body">
       <router-view></router-view>
     </div>
+
+    <el-dialog title="修改密码" :visible.sync="dialogTableVisible" :close-on-click-modal="false" :close-on-press-escape="false" :destroy-on-close="true">
+      <jinx-reset-password @closeDialog="dialogTableVisible = false"></jinx-reset-password>
+    </el-dialog>
   </div>
 </template>
 
 <script>
+import JinxResetPassword from "@/components/JinxResetPassword.vue";
+
 export default {
   name: "Home",
+  components: { JinxResetPassword },
   data() {
     return {
       active: "",
       RouteList: ["/judge", "/log", "/news", "/announcement"],
-      User: this.$store.state.User
+      User: this.$store.getters.getUser,
+      dialogTableVisible: false
     };
   },
-  components: {},
   mounted() {
-    console.log(this.$route);
+    if (this.$route.path === "/") {
+      this.$router.replace(this.RouteList[0]);
+    }
     if (this.RouteList.indexOf(this.$route.path) != -1) {
       this.active = this.RouteList.indexOf(this.$route.path) + 1 + "";
     }
   },
   methods: {
     handleMenuSelect: function(index) {
-      console.log("select" + index);
       this.$router.replace(this.RouteList[index * 1 - 1]);
+    },
+    handleSignout: function() {
+      let that = this;
+      this.axios
+        .post("/api/sysUser/logout")
+        .then(function(response) {
+          if (response && response.data.code == "0") {
+            that.$store.commit("resetAccount");
+            that.$router.replace("/login");
+          } else {
+            that.$message({
+              showClose: true,
+              message: response.data.msg,
+              type: "warning"
+            });
+          }
+          that.loading = false;
+        })
+        .catch(function(err) {
+          console.log(err);
+          that.loading = false;
+          that.$message({
+            showClose: true,
+            message: "退出失败",
+            type: "warning"
+          });
+        });
     }
   }
 };

@@ -43,28 +43,19 @@ export default {
       fileList: [],
       successList: [],
       param: {
-        wid: this.$route.params.wid
+        wid: this.$route.query.wid
       }
     };
   },
-  // mounted() {
-  //   console.log(this.$route);
-  //   console.log(this.$route.params.wid);
-  // },
   methods: {
     submitUpload() {
       this.$refs.upload.submit();
     },
     handleRemove(file, fileList) {
-      console.log(file, fileList);
       this.successList.splice(this.successList.indexOf(file), 1);
     },
-    handlePreview(file) {
-      console.log(file);
-    },
+    handlePreview(file) {},
     handleSuccess: function(response, file, fileList) {
-      console.log(response, file, fileList);
-      console.log(fileList.indexOf(file));
       this.successList.push(file);
       this.successList.sort((a, b) => a.uid - b.uid);
     },
@@ -74,8 +65,6 @@ export default {
         message: `${file.name} 上传失败`,
         type: "error"
       });
-      console.log(err, file, fileList);
-      console.log(fileList.indexOf(file));
     },
     handleExceed: function() {
       this.$message({
@@ -85,7 +74,6 @@ export default {
       });
     },
     handleSubmit: function() {
-      console.log(this.successList);
       if (this.successList.length == 0) {
         this.$message({
           showClose: true,
@@ -95,7 +83,7 @@ export default {
       }
       // let data = [];
       // for (let i = 0; i < this.successList.length; i++) {}
-      this.$router.push("/work/submit");
+      this.$router.replace("/work/submit");
     }
   }
 };

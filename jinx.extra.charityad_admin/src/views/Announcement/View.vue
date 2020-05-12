@@ -20,7 +20,6 @@ export default {
     };
   },
   mounted() {
-    console.log(this.$route);
     let that = this;
     this.axios
       .get("/api/gameNews/getOne", { params: { id: this.$route.query.id } })

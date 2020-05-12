@@ -7,8 +7,6 @@
 
     <el-button @click="handleRefreshList" :loading="loading">刷新列表</el-button>
     <el-button @click="handleAdd">发布新闻</el-button>
-    <el-button @click="$router.push('/editnews')">编辑新闻</el-button>
-    <el-button @click="$router.push('/viewnews')">查看新闻</el-button>
 
     <el-table :data="NewsList" stripe style="width: 100%">
       <el-table-column type="index" width="50"> </el-table-column>
@@ -45,7 +43,6 @@ export default {
     };
   },
   mounted() {
-    console.log(this.$route);
     // this.getNewsList();
   },
   activated() {
@@ -100,7 +97,6 @@ export default {
       this.$router.push("addnews");
     },
     handleView: function(data) {
-      console.log(data);
       this.$router.push({
         path: "/viewnews",
         query: {
@@ -110,7 +106,6 @@ export default {
       // this.$router.push("addAnnouncement");
     },
     handleEdit: function(data) {
-      console.log(data);
       this.$router.push({
         path: "/editnews",
         query: {

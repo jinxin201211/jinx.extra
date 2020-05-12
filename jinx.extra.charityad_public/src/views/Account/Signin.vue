@@ -28,7 +28,7 @@
         <el-col :span="6" style="padding: 30px;">
           <div style="margin-bottom: 15px;">还没有账号？</div>
           <div style="margin-bottom: 15px;">注册一个</div>
-          <el-button type="primary" size="small" @click="$router.push('signup')">注册</el-button>
+          <el-button type="primary" size="small" @click="$router.replace('signup')">注册</el-button>
         </el-col>
       </el-row>
     </div>
@@ -44,15 +44,14 @@ export default {
     return {
       form: {
         account: "jinxin",
-        password: "9081dc00909207eb9e655464fd3e3bf5"
+        password: "jinxin20200510"
       },
       rememberMe: true
     };
   },
   mounted() {
     this.$store.commit("resetAccount");
-    this.$cookies.remove("token");
-    this.$cookies.remove("account");
+    this.$store.commit("removeCookie");
   },
   mixins: [md5],
   methods: {
@@ -76,10 +75,9 @@ export default {
             let account = that.form.account;
             that.$store.commit("changeAccount", { Token: token, Account: account });
             if (that.rememberMe) {
-              that.$cookies.set("token", token, 60 * 60 * 24 * 7);
-              that.$cookies.set("account", account, 60 * 60 * 24 * 7);
+              that.$store.commit("changeCookie", { Token: token, Account: account });
             }
-            that.$router.push("/");
+            that.$router.replace("/");
           } else {
             that.$message({
               showClose: true,

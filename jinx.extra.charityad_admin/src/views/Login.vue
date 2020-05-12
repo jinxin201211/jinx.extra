@@ -23,7 +23,7 @@ export default {
     return {
       form: {
         account: "jinxin",
-        password: "888888"
+        password: "666666"
       },
       loading: false
     };
