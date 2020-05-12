@@ -21,10 +21,7 @@ module.exports = {
     loaderOptions: {
       less: {
         modifyVars: {
-          hack: `true; @import "${path.join(
-            __dirname,
-            "src/assets/css/common.less"
-          )}";`
+          hack: `true; @import "${path.join(__dirname, "src/assets/css/common.less")}";`
         }
       }
     }

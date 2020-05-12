@@ -1,9 +1,36 @@
 <template>
   <div class="jinx-layout">
     <div class="jinx-header">
-      <div>大广赛</div>
+      <div style="padding: 0 20px; float: left; line-height: 60px; font-weight: bold; font-size: 24px;">全国平面公益广告大赛官网</div>
+      <div style="float: right;">
+        <el-menu mode="horizontal">
+          <el-submenu index="2">
+            <template slot="title"><span v-text="User.uname"></span></template>
+            <el-menu-item index="2-1">修改密码</el-menu-item>
+            <el-menu-item index="2-2">退出</el-menu-item>
+          </el-submenu>
+        </el-menu>
+      </div>
     </div>
-    <div class="jinx-side"></div>
+    <div class="jinx-side">
+      <el-menu :default-active="active" background-color="#333333" text-color="#fff" active-text-color="#ffd04b" @select="handleMenuSelect">
+        <el-menu-item index="1">
+          <span slot="title">评委管理</span>
+        </el-menu-item>
+        <el-menu-item index="2">
+          <span slot="title">日志管理</span>
+        </el-menu-item>
+        <el-menu-item index="3">
+          <span slot="title">发布新闻</span>
+        </el-menu-item>
+        <el-menu-item index="4">
+          <span slot="title">发布公告</span>
+        </el-menu-item>
+        <el-menu-item index="5">
+          <span slot="title">作品打分</span>
+        </el-menu-item>
+      </el-menu>
+    </div>
     <div class="jinx-body">
       <router-view></router-view>
     </div>
@@ -13,13 +40,32 @@
 <script>
 export default {
   name: "Home",
-  components: {}
+  data() {
+    return {
+      active: "",
+      RouteList: ["/judge", "/log", "/news", "/announcement"],
+      User: this.$store.state.User
+    };
+  },
+  components: {},
+  mounted() {
+    console.log(this.$route);
+    if (this.RouteList.indexOf(this.$route.path) != -1) {
+      this.active = this.RouteList.indexOf(this.$route.path) + 1 + "";
+    }
+  },
+  methods: {
+    handleMenuSelect: function(index) {
+      console.log("select" + index);
+      this.$router.replace(this.RouteList[index * 1 - 1]);
+    }
+  }
 };
 </script>
 
 <style lang="less" scoped>
 @side-width: 220px;
-@header-height: 50px;
+@header-height: 60px;
 .jinx-layout {
   height: 100%;
   width: 100%;
@@ -75,5 +121,10 @@ export default {
   // -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
   // border-radius: 10px;
   // background: #ededed;
+}
+
+.el-menu {
+  height: 100%;
+  border: none;
 }
 </style>

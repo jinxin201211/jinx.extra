@@ -1,42 +1,28 @@
-import {
-  Form,
-  FormItem,
-  Input,
-  Checkbox,
-  Button,
-  Link,
-  Row,
-  Col,
-  Steps,
-  Step,
-  Divider,
-  Select,
-  Option,
-  RadioGroup,
-  Radio,
-  Upload
-} from "element-ui";
+import { Form, FormItem, Input, Checkbox, Button, Link, Row, Col, Steps, Step, Divider, Select, Option, RadioGroup, Radio, Upload, Menu, MenuItem, Submenu, MenuItemGroup, Dialog, Table, TableColumn, Breadcrumb, BreadcrumbItem, PageHeader, Pagination } from "element-ui";
 
 import { Loading, MessageBox, Message, Notification } from "element-ui";
 
 export default {
   install(V) {
-    V.use(Form)
-      .use(FormItem)
-      .use(Input)
-      .use(Checkbox)
+    V.use(Menu)
+      .use(MenuItem)
+      .use(Submenu)
+      .use(MenuItemGroup)
       .use(Button)
-      .use(Link)
-      .use(Row)
-      .use(Col)
-      .use(Steps)
-      .use(Step)
-      .use(Divider)
+      .use(Dialog)
+      .use(Input)
+      .use(Form)
+      .use(FormItem)
+      .use(Table)
+      .use(TableColumn)
+      .use(Breadcrumb)
+      .use(BreadcrumbItem)
+      .use(PageHeader)
+      .use(Radio)
+      .use(RadioGroup)
       .use(Select)
       .use(Option)
-      .use(RadioGroup)
-      .use(Radio)
-      .use(Upload);
+      .use(Pagination);
     V.prototype.$loading = Loading.service;
     V.prototype.$msgbox = MessageBox;
     V.prototype.$alert = MessageBox.alert;

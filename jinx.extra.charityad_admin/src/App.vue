@@ -1,5 +1,10 @@
 <template>
-  <div id="app"><router-view v-if="isRouterAlive" /></div>
+  <div id="app">
+    <navigation>
+      <router-view v-if="isRouterAlive" :key="$route.fullPath" />
+    </navigation>
+    <!--<router-view v-if="isRouterAlive" :key="$route.fullPath" />-->
+  </div>
 </template>
 <script>
 export default {
@@ -14,7 +19,7 @@ export default {
     };
   },
   mounted: function() {
-    this.$store.commit("syncAccount");
+    // this.$store.commit("syncAccount");
     // if (this.$cookies.isKey("account") && this.$cookies.isKey("token")) {
     //   let account = this.$cookies.get("account");
     //   let token = this.$cookies.get("token");

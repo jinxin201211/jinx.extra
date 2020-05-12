@@ -8,19 +8,13 @@ export default {
   },
   methods: {
     hex_md5: function(s) {
-      return this.binl2hex(
-        this.core_md5(this.str2binl(s), s.length * this.chrsz)
-      );
+      return this.binl2hex(this.core_md5(this.str2binl(s), s.length * this.chrsz));
     },
     b64_md5: function(s) {
-      return this.binl2b64(
-        this.core_md5(this.str2binl(s), s.length * this.chrsz)
-      );
+      return this.binl2b64(this.core_md5(this.str2binl(s), s.length * this.chrsz));
     },
     str_md5: function(s) {
-      return this.binl2str(
-        this.core_md5(this.str2binl(s), s.length * this.chrsz)
-      );
+      return this.binl2str(this.core_md5(this.str2binl(s), s.length * this.chrsz));
     },
     hex_hmac_md5: function(key, data) {
       return this.binl2hex(this.core_hmac_md5(key, data));
@@ -138,13 +132,7 @@ export default {
      * These functions implement the four basic operations the algorithm uses.
      */
     md5_cmn: function(q, a, b, x, s, t) {
-      return this.safe_add(
-        this.bit_rol(
-          this.safe_add(this.safe_add(a, q), this.safe_add(x, t)),
-          s
-        ),
-        b
-      );
+      return this.safe_add(this.bit_rol(this.safe_add(this.safe_add(a, q), this.safe_add(x, t)), s), b);
     },
     md5_ff: function(a, b, c, d, x, s, t) {
       return this.md5_cmn((b & c) | (~b & d), a, b, x, s, t);
@@ -173,10 +161,7 @@ export default {
         opad[i] = bkey[i] ^ 0x5c5c5c5c;
       }
 
-      var hash = this.core_md5(
-        ipad.concat(this.str2binl(data)),
-        512 + data.length * this.chrsz
-      );
+      var hash = this.core_md5(ipad.concat(this.str2binl(data)), 512 + data.length * this.chrsz);
       return this.core_md5(opad.concat(hash), 512 + 128);
     },
 
@@ -204,8 +189,7 @@ export default {
     str2binl: function(str) {
       var bin = Array();
       var mask = (1 << this.chrsz) - 1;
-      for (var i = 0; i < str.length * this.chrsz; i += this.chrsz)
-        bin[i >> 5] |= (str.charCodeAt(i / this.chrsz) & mask) << i % 32;
+      for (var i = 0; i < str.length * this.chrsz; i += this.chrsz) bin[i >> 5] |= (str.charCodeAt(i / this.chrsz) & mask) << i % 32;
       return bin;
     },
 
@@ -215,8 +199,7 @@ export default {
     binl2str: function(bin) {
       var str = "";
       var mask = (1 << this.chrsz) - 1;
-      for (var i = 0; i < bin.length * 32; i += this.chrsz)
-        str += String.fromCharCode((bin[i >> 5] >>> i % 32) & mask);
+      for (var i = 0; i < bin.length * 32; i += this.chrsz) str += String.fromCharCode((bin[i >> 5] >>> i % 32) & mask);
       return str;
     },
 
@@ -227,9 +210,7 @@ export default {
       var hex_tab = this.hexcase ? "0123456789ABCDEF" : "0123456789abcdef";
       var str = "";
       for (var i = 0; i < binarray.length * 4; i++) {
-        str +=
-          hex_tab.charAt((binarray[i >> 2] >> ((i % 4) * 8 + 4)) & 0xf) +
-          hex_tab.charAt((binarray[i >> 2] >> ((i % 4) * 8)) & 0xf);
+        str += hex_tab.charAt((binarray[i >> 2] >> ((i % 4) * 8 + 4)) & 0xf) + hex_tab.charAt((binarray[i >> 2] >> ((i % 4) * 8)) & 0xf);
       }
       return str;
     },
@@ -238,14 +219,10 @@ export default {
      * Convert an array of little-endian words to a base-64 string
      */
     binl2b64: function(binarray) {
-      var tab =
-        "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+      var tab = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
       var str = "";
       for (var i = 0; i < binarray.length * 4; i += 3) {
-        var triplet =
-          (((binarray[i >> 2] >> (8 * (i % 4))) & 0xff) << 16) |
-          (((binarray[(i + 1) >> 2] >> (8 * ((i + 1) % 4))) & 0xff) << 8) |
-          ((binarray[(i + 2) >> 2] >> (8 * ((i + 2) % 4))) & 0xff);
+        var triplet = (((binarray[i >> 2] >> (8 * (i % 4))) & 0xff) << 16) | (((binarray[(i + 1) >> 2] >> (8 * ((i + 1) % 4))) & 0xff) << 8) | ((binarray[(i + 2) >> 2] >> (8 * ((i + 2) % 4))) & 0xff);
         for (var j = 0; j < 4; j++) {
           if (i * 8 + j * 6 > binarray.length * 32) str += this.b64pad;
           else str += tab.charAt((triplet >> (6 * (3 - j))) & 0x3f);

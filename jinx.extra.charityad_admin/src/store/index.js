@@ -6,45 +6,35 @@ Vue.use(VueCookies);
 
 export default new Vuex.Store({
   state: {
-    Token: localStorage.getItem("Token") ? localStorage.getItem("Token") : "",
-    Account: localStorage.getItem("Account")
-      ? localStorage.getItem("Account")
-      : ""
+    Token: sessionStorage.getItem("Charity-Token") ? sessionStorage.getItem("Charity-Token") : "",
+    Account: sessionStorage.getItem("Charity-Account") ? sessionStorage.getItem("Charity-Account") : "",
+    User: sessionStorage.getItem("Charity-User") ? JSON.parse(sessionStorage.getItem("Charity-User")) : {}
   },
   mutations: {
     changeAccount(state, user) {
-      // debugger;
       if (user != null) {
         state.Token = user.Token;
         state.Account = user.Account;
-        localStorage.setItem("Token", user.Token);
-        localStorage.setItem("Account", user.Account);
-        // document.cookie = `token = ${user.Token}; account = ${user.Account}; expires = ${new Date()}`;
+        state.User = user;
+        sessionStorage.setItem("Charity-Token", user.token);
+        sessionStorage.setItem("Charity-Account", user.uname);
+        sessionStorage.setItem("Charity-User", JSON.stringify(user));
       } else {
         state.Token = "";
         state.Account = "";
-        localStorage.setItem("Token", "");
-        localStorage.setItem("Account", "");
-        // document.cookie = `token = ; account = ; expires = ${new Date()}`;
+        state.User = {};
+        sessionStorage.setItem("Charity-Token", "");
+        sessionStorage.setItem("Charity-Account", "");
+        sessionStorage.setItem("Charity-User", "");
       }
     },
     resetAccount(state) {
       state.Token = "";
       state.Account = "";
-      localStorage.setItem("Token", "");
-      localStorage.setItem("Account", "");
-    },
-    syncAccount(state) {
-      console.log("syncAccount");
-      console.log(VueCookies.get("account"));
-      console.log(VueCookies.get("token"));
-      if (VueCookies.isKey("account") && VueCookies.isKey("token")) {
-        let account = VueCookies.get("account");
-        let token = VueCookies.get("token");
-        this.commit("changeAccount", { Token: token, Account: account });
-        VueCookies.set("token", token, 60 * 60 * 24 * 7);
-        VueCookies.set("account", account, 60 * 60 * 24 * 7);
-      }
+      state.User = {};
+      sessionStorage.setItem("Charity-Token", "");
+      sessionStorage.setItem("Charity-Account", "");
+      sessionStorage.setItem("Charity-User", "");
     }
   },
   actions: {},
