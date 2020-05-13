@@ -20,9 +20,8 @@
         </template>
       </el-table-column>
     </el-table>
-    <el-pagination background layout="prev, pager, next" :total="0" hide-on-single-page> </el-pagination>
 
-    <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="query.page" :page-sizes="[10, 20, 50]" :page-size="query.limit" layout="total, sizes, prev, pager, next, jumper" :total="total"> </el-pagination>
+    <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="query.page" :page-sizes="[10, 20, 50]" :page-size="query.limit" layout="total, sizes, prev, pager, next, jumper" :total="total" hide-on-single-page> </el-pagination>
   </div>
 </template>
 
@@ -43,7 +42,7 @@ export default {
     };
   },
   mounted() {
-    // this.getNewsList();
+    this.getNewsList();
   },
   activated() {
     this.getNewsList();

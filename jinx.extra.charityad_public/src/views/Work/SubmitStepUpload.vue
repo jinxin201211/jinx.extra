@@ -20,10 +20,10 @@
       <el-divider></el-divider>
 
       <div style="margin: 15px 0; font-size: 24px; font-weight: bold;">上传作品文件：</div>
-      <el-upload class="upload-demo" ref="upload" action="http://47.108.88.211:8080/gameWorksFile/upload" :on-preview="handlePreview" :on-remove="handleRemove" :file-list="fileList" :auto-upload="false" :on-success="handleSuccess" :on-error="handleError" :limit="3" :multiple="true" :on-exceed="handleExceed" :data="param">
+      <el-upload class="upload-demo" ref="upload" :action="action" :on-preview="handlePreview" :on-remove="handleRemove" :file-list="fileList" :auto-upload="false" :on-success="handleSuccess" :on-error="handleError" :limit="3" :multiple="true" :on-exceed="handleExceed" :data="param" acc>
         <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
         <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUpload">上传到服务器</el-button>
-        <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
+        <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过10Mb</div>
       </el-upload>
     </div>
 
@@ -44,7 +44,8 @@ export default {
       successList: [],
       param: {
         wid: this.$route.query.wid
-      }
+      },
+      action: window.$FileUploadServer + "/gameWorksFile/upload"
     };
   },
   methods: {

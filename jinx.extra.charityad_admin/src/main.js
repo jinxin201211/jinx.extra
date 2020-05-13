@@ -15,12 +15,13 @@ Vue.use(VueCookies);
 
 import ElementUI from "@/assets/js/element.config";
 import "@/assets/css/element-variables.scss";
+import "@/assets/css/common.css";
 
 Vue.use(ElementUI);
 
-//路由前进刷新后退不刷新
-import Navigation from "vue-navigation";
-Vue.use(Navigation, { router, store });
+// //路由前进刷新后退不刷新
+// import Navigation from "vue-navigation";
+// Vue.use(Navigation, { router, store });
 
 import Router from "vue-router";
 const routerReplace = Router.prototype.replace;

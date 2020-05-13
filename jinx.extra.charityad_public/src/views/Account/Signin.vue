@@ -49,6 +49,9 @@ export default {
       rememberMe: true
     };
   },
+  created() {
+    // console.log("created signin");
+  },
   mounted() {
     this.$store.commit("resetAccount");
     this.$store.commit("removeCookie");

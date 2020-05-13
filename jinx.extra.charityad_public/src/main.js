@@ -34,6 +34,7 @@ if (!!window.ActiveXObject || "ActiveXObject" in window) {
 
 window.$VuexPrefix = "charity.public.";
 window.$CookieStoreDays = 1;
+window.$FileUploadServer = "http://47.108.88.211:8080";
 
 new Vue({
   router,

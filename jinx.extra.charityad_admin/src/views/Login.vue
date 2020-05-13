@@ -23,12 +23,23 @@ export default {
     return {
       form: {
         account: "jinxin",
-        password: "666666"
+        password: "123456"
       },
       loading: false
     };
   },
   mounted() {
+    if (new Date().getUTCSeconds() % 2 == 1) {
+      this.form = {
+        account: "lxw",
+        password: "888888"
+      };
+    } else {
+      this.form = {
+        account: "jinxin",
+        password: "123456"
+      };
+    }
     this.$store.commit("resetAccount");
   },
   mixins: [md5],

@@ -8,6 +8,10 @@ const routes = [
     path: "/",
     name: "Home",
     component: () => import("../views/Home.vue"),
+    meta: {
+      title: "首页",
+      access: ["admin", "judge"]
+    },
     children: [
       // {
       //   path: "role",
@@ -23,7 +27,8 @@ const routes = [
         name: "Judge",
         component: () => import("../views/Judge/Main.vue"),
         meta: {
-          title: "评委管理"
+          title: "评委管理",
+          access: ["admin"]
         }
       },
       {
@@ -31,7 +36,8 @@ const routes = [
         name: "AddJudge",
         component: () => import("../views/Judge/Add.vue"),
         meta: {
-          title: "添加评委"
+          title: "添加评委",
+          access: ["admin"]
         }
       },
       {
@@ -39,7 +45,8 @@ const routes = [
         name: "EditJudge",
         component: () => import("../views/Judge/Edit.vue"),
         meta: {
-          title: "修改评委"
+          title: "修改评委",
+          access: ["admin"]
         }
       },
 
@@ -48,7 +55,8 @@ const routes = [
         name: "Log",
         component: () => import("../views/Log/Main.vue"),
         meta: {
-          title: "日志管理"
+          title: "日志管理",
+          access: ["admin"]
         }
       },
 
@@ -57,7 +65,8 @@ const routes = [
         name: "News",
         component: () => import("../views/News/Main.vue"),
         meta: {
-          title: "发布新闻"
+          title: "发布新闻",
+          access: ["admin"]
         }
       },
       {
@@ -65,7 +74,8 @@ const routes = [
         name: "AddNews",
         component: () => import("../views/News/Add.vue"),
         meta: {
-          title: "新增新闻"
+          title: "新增新闻",
+          access: ["admin"]
         }
       },
       {
@@ -73,7 +83,8 @@ const routes = [
         name: "EditNews",
         component: () => import("../views/News/Edit.vue"),
         meta: {
-          title: "编辑新闻"
+          title: "编辑新闻",
+          access: ["admin"]
         }
       },
       {
@@ -81,7 +92,8 @@ const routes = [
         name: "ViewNews",
         component: () => import("../views/News/View.vue"),
         meta: {
-          title: "查看新闻"
+          title: "查看新闻",
+          access: ["admin"]
         }
       },
 
@@ -90,7 +102,8 @@ const routes = [
         name: "Announcement",
         component: () => import("../views/Announcement/Main.vue"),
         meta: {
-          title: "发布公告"
+          title: "发布公告",
+          access: ["admin"]
         }
       },
       {
@@ -98,7 +111,8 @@ const routes = [
         name: "AddAnnouncement",
         component: () => import("../views/Announcement/Add.vue"),
         meta: {
-          title: "新增公告"
+          title: "新增公告",
+          access: ["admin"]
         }
       },
       {
@@ -106,7 +120,8 @@ const routes = [
         name: "EditAnnouncement",
         component: () => import("../views/Announcement/Edit.vue"),
         meta: {
-          title: "编辑公告"
+          title: "编辑公告",
+          access: ["admin"]
         }
       },
       {
@@ -114,18 +129,20 @@ const routes = [
         name: "ViewAnnouncement",
         component: () => import("../views/Announcement/View.vue"),
         meta: {
-          title: "查看公告"
+          title: "查看公告",
+          access: ["admin"]
+        }
+      },
+
+      {
+        path: "score",
+        name: "Score",
+        component: () => import("../views/Score/Main.vue"),
+        meta: {
+          title: "作品打分",
+          access: ["judge"]
         }
       }
-
-      // {
-      //   path: "score",
-      //   name: "Score",
-      //   // component: () => import("../views/Function/Score.vue"),
-      //   meta: {
-      //     title: "作品打分"
-      //   }
-      // }
     ]
   },
   {
@@ -139,11 +156,9 @@ const routes = [
 ];
 
 const router = new VueRouter({
-  // mode: "history",
-  // base: process.env.BASE_URL,
   routes
 });
-
+import { Message } from "element-ui";
 router.beforeEach((to, from, next) => {
   const title = to.meta && to.meta.title;
   if (title) {
@@ -163,7 +178,20 @@ router.beforeEach((to, from, next) => {
         });
       }
     } else {
-      next();
+      //权限验证
+      let user = JSON.parse(sessionStorage.getItem(window.$VuexPrefix + "User"));
+      let role = user.role;
+      let access = to.meta && to.meta.access ? to.meta.access : [];
+      // let access = new Array();
+      if (access.includes(role)) {
+        next();
+      } else {
+        //没有权限
+        Message({
+          message: `抱歉，您没有权限访问此页面`,
+          type: "error"
+        });
+      }
     }
   }
 });

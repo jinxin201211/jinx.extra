@@ -208,7 +208,7 @@ export default {
             that.disabled = true;
             that.$router.replace({
               path: "/work/authorinfo",
-              query: { wid: this.wid }
+              query: { wid: that.wid }
               // name: "authorinfo",
               // params: { wid: this.wid }
             });

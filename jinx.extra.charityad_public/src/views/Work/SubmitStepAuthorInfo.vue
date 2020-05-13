@@ -308,7 +308,7 @@ export default {
             that.disabled = true;
             that.$router.replace({
               path: "/work/upload",
-              query: { wid: this.wid }
+              query: { wid: that.wid }
               // name: "upload",
               // params: { wid: this.wid }
             });

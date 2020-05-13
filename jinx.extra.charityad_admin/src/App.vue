@@ -1,9 +1,9 @@
 <template>
   <div id="app">
-    <navigation>
+    <!--<navigation>
       <router-view v-if="isRouterAlive" :key="$route.fullPath" />
-    </navigation>
-    <!--<router-view v-if="isRouterAlive" :key="$route.fullPath" />-->
+    </navigation>-->
+    <router-view v-if="isRouterAlive" :key="$route.fullPath" />
   </div>
 </template>
 <script>
@@ -19,14 +19,7 @@ export default {
     };
   },
   mounted: function() {
-    // this.$store.commit("syncAccount");
-    // if (this.$cookies.isKey("account") && this.$cookies.isKey("token")) {
-    //   let account = this.$cookies.get("account");
-    //   let token = this.$cookies.get("token");
-    //   this.$store.commit("changeAccount", { Token: token, Account: account });
-    //   this.$cookies.set("token", token, 60 * 60 * 24 * 7);
-    //   this.$cookies.set("account", account, 60 * 60 * 24 * 7);
-    // }
+    this.$store.commit("syncAccount");
   },
   methods: {
     reload() {

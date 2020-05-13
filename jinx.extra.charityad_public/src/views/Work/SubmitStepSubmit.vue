@@ -13,7 +13,7 @@
 
     <el-divider></el-divider>
     <div style="text-align: center;">
-      <el-button type="primary">结束提交</el-button>
+      <el-button type="primary" @click="$router.replace('/')">结束提交</el-button>
     </div>
   </div>
 </template>
