@@ -20,7 +20,7 @@
       <el-divider></el-divider>
 
       <div style="margin: 15px 0; font-size: 24px; font-weight: bold;">上传作品文件：</div>
-      <el-upload class="upload-demo" ref="upload" :action="action" :on-preview="handlePreview" :on-remove="handleRemove" :file-list="fileList" :auto-upload="false" :on-success="handleSuccess" :on-error="handleError" :limit="3" :multiple="true" :on-exceed="handleExceed" :data="param" acc>
+      <el-upload class="upload-demo" ref="upload" :action="action" :on-preview="handlePreview" :on-remove="handleRemove" :file-list="fileList" :auto-upload="false" :on-success="handleSuccess" :on-error="handleError" :limit="3" :multiple="true" :on-exceed="handleExceed" :data="param" :before-upload="handleBeforeUpload">
         <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
         <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUpload">上传到服务器</el-button>
         <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过10Mb</div>
@@ -45,7 +45,8 @@ export default {
       param: {
         wid: this.$route.query.wid
       },
-      action: window.$FileUploadServer + "/gameWorksFile/upload"
+      action: window.$FileUploadServer + "/gameWorksFile/upload",
+      maxSize: 10
     };
   },
   methods: {
@@ -73,6 +74,14 @@ export default {
         message: `超出文件个数限制`,
         type: "error"
       });
+    },
+    handleBeforeUpload(file) {
+      const isLt2M = file.size / 1024 / 1024 < this.maxSize;
+      if (!isLt2M) {
+        this.$message.error(`上传文件大小不能超过 ${this.maxSize}MB!`);
+        return false;
+      }
+      return true;
     },
     handleSubmit: function() {
       if (this.successList.length == 0) {

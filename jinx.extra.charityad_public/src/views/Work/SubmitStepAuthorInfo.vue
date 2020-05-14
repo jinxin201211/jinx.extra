@@ -15,7 +15,7 @@
         <el-row>
           <el-col :span="12">
             <el-form-item label="姓名" prop="author1.name" :rules="[{ required: true, message: '请输入姓名', trigger: 'blur' }]">
-              <el-input v-model="form.author1.name"></el-input>
+              <el-input v-model="form.author1.name" maxlength="100"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="12">
@@ -32,7 +32,7 @@
         <el-row>
           <el-col :span="12">
             <el-form-item label="创作分工" prop="author1.duty" :rules="[{ required: true, message: '请输入创作分工', trigger: 'blur' }]">
-              <el-input v-model="form.author1.duty"></el-input>
+              <el-input v-model="form.author1.duty" maxlength="100"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="12">
@@ -59,36 +59,36 @@
           </el-col>
           <el-col :span="12">
             <el-form-item label="号码" prop="author1.identity_number" :rules="[{ required: true, message: '请输入证件号码', trigger: 'blur' }]">
-              <el-input v-model="form.author1.identity_number"></el-input>
+              <el-input v-model="form.author1.identity_number" maxlength="100"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
           <el-col :span="8">
             <el-form-item label="联系电话" prop="author1.phone" :rules="[{ required: true, message: '请输入联系电话', trigger: 'blur' }]">
-              <el-input v-model="form.author1.phone"></el-input>
+              <el-input v-model="form.author1.phone" maxlength="11"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="QQ号" prop="author1.qq" :rules="[{ required: true, message: '请输入QQ号', trigger: 'blur' }]">
-              <el-input v-model="form.author1.qq"></el-input>
+              <el-input v-model="form.author1.qq" maxlength="12"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="邮箱" prop="author1.email" :rules="[{ required: true, message: '请输入邮箱', trigger: 'blur' }]">
-              <el-input v-model="form.author1.email"></el-input>
+              <el-input v-model="form.author1.email" maxlength="100"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
           <el-col :span="16">
             <el-form-item label="联系地址">
-              <el-input v-model="form.author1.address"></el-input>
+              <el-input v-model="form.author1.address" maxlength="100"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="邮编">
-              <el-input v-model="form.author1.post"></el-input>
+              <el-input v-model="form.author1.post" maxlength="6"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
@@ -98,7 +98,7 @@
         <el-row>
           <el-col :span="12">
             <el-form-item label="姓名">
-              <el-input v-model="form.author2.name"></el-input>
+              <el-input v-model="form.author2.name" maxlength="100"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="12">
@@ -115,7 +115,7 @@
         <el-row>
           <el-col :span="12">
             <el-form-item label="创作分工">
-              <el-input v-model="form.author2.duty"></el-input>
+              <el-input v-model="form.author2.duty" maxlength="100"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="12">
@@ -142,36 +142,36 @@
           </el-col>
           <el-col :span="12">
             <el-form-item label="号码">
-              <el-input v-model="form.author2.identity_number"></el-input>
+              <el-input v-model="form.author2.identity_number" maxlength="100"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
           <el-col :span="8">
             <el-form-item label="联系电话">
-              <el-input v-model="form.author2.phone"></el-input>
+              <el-input v-model="form.author2.phone" maxlength="11"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="QQ号">
-              <el-input v-model="form.author2.qq"></el-input>
+              <el-input v-model="form.author2.qq" maxlength="12"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="邮箱">
-              <el-input v-model="form.author2.email"></el-input>
+              <el-input v-model="form.author2.email" maxlength="100"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
           <el-col :span="16">
             <el-form-item label="联系地址">
-              <el-input v-model="form.author2.address"></el-input>
+              <el-input v-model="form.author2.address" maxlength="100"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="邮编">
-              <el-input v-model="form.author2.post"></el-input>
+              <el-input v-model="form.author2.post" maxlength="6"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
@@ -181,7 +181,7 @@
         <el-row>
           <el-col :span="12">
             <el-form-item label="姓名">
-              <el-input v-model="form.teacher.name"></el-input>
+              <el-input v-model="form.teacher.name" maxlength="100"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
@@ -198,24 +198,24 @@
           </el-col>
           <el-col :span="12">
             <el-form-item label="号码">
-              <el-input v-model="form.teacher.identity_number"></el-input>
+              <el-input v-model="form.teacher.identity_number" maxlength="100"></el-input>
             </el-form-item>
           </el-col>
         </el-row>
         <el-row>
           <el-col :span="8">
             <el-form-item label="联系电话">
-              <el-input v-model="form.teacher.phone"></el-input>
+              <el-input v-model="form.teacher.phone" maxlength="11"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="QQ号">
-              <el-input v-model="form.teacher.qq"></el-input>
+              <el-input v-model="form.teacher.qq" maxlength="12"></el-input>
             </el-form-item>
           </el-col>
           <el-col :span="8">
             <el-form-item label="邮箱">
-              <el-input v-model="form.teacher.email"></el-input>
+              <el-input v-model="form.teacher.email" maxlength="6"></el-input>
             </el-form-item>
           </el-col>
         </el-row>

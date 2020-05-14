@@ -135,11 +135,29 @@ const routes = [
       },
 
       {
-        path: "score",
-        name: "Score",
-        component: () => import("../views/Score/Main.vue"),
+        path: "/work",
+        name: "Work",
+        component: () => import("../views/Work/Main.vue"),
         meta: {
           title: "作品打分",
+          access: ["judge"]
+        }
+      },
+      {
+        path: "/workscore",
+        name: "workscore",
+        component: () => import("../views/Work/Score.vue"),
+        meta: {
+          title: "作品打分",
+          access: ["judge"]
+        }
+      },
+      {
+        path: "/workrank",
+        name: "WorkRank",
+        component: () => import("../views/Work/Rank.vue"),
+        meta: {
+          title: "作品排行",
           access: ["judge"]
         }
       }

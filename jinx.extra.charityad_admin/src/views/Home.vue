@@ -25,7 +25,7 @@
       <router-view :key="routerViewKey"></router-view>
     </div>
 
-    <el-dialog title="修改密码" :visible.sync="dialogTableVisible" :close-on-click-modal="false" :close-on-press-escape="false" :destroy-on-close="true">
+    <el-dialog title="修改密码" :visible.sync="dialogTableVisible" :close-on-click-modal="false" :close-on-press-escape="false" :destroy-on-close="true" width="540px">
       <jinx-reset-password @closeDialog="dialogTableVisible = false"></jinx-reset-password>
     </el-dialog>
   </div>
@@ -46,7 +46,8 @@ export default {
         { path: "/log", access: ["admin"], title: "日志管理" },
         { path: "/news", access: ["admin"], title: "发布新闻" },
         { path: "/announcement", access: ["admin"], title: "发布公告" },
-        { path: "/score", access: ["judge"], title: "作品打分" }
+        { path: "/work", access: ["judge"], title: "作品打分" },
+        { path: "/workrank", access: ["judge"], title: "作品排行" }
       ],
       RouteList: [],
       User: this.$store.state.User,
