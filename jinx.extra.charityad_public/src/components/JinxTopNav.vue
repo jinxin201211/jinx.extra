@@ -2,8 +2,8 @@
   <div class="jinx-header">
     <div class="jinx-base_inner">
       <div class="float">
-        <span><a @click.stop="handleAddFavorite">加入收藏</a></span>
-        <span><a>联系我们</a></span>
+        <span><a href="#" @click.stop="handleAddFavorite">加入收藏</a></span>
+        <span><a @click="scrollToSection('anchor_contact_us')" style="cursor: pointer;">联系我们</a></span>
       </div>
       <div class="float_right" v-if="account == null || account == ''">
         <span>
@@ -57,6 +57,17 @@ export default {
       this.$store.commit("resetAccount");
       this.$store.commit("removeCookie");
       this.reload();
+    },
+    scrollToSection(path) {
+      // console.log(path.substring(1, path.length));
+      // path = path.substring(1, path.length);
+      console.log(path);
+      let section = document.getElementById(path);
+      console.log(section);
+      if (section) {
+        section.scrollIntoView({ behavior: "smooth" });
+      }
+      // this.$router.replace(path)
     }
   }
 };

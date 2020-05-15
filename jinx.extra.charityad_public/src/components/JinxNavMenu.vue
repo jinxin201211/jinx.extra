@@ -27,8 +27,8 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@typical-width: 1058px;
-@primary-color: #d7000f;
+@primary-color: #cf331f;
+@typical-width: 1200px;
 
 .jinx-nav {
   box-sizing: border-box;

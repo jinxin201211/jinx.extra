@@ -19,11 +19,13 @@ export default {
   mounted: function() {},
   methods: {
     scrollToSection(path) {
+      console.log(path);
       // console.log(path.substring(1, path.length));
       // path = path.substring(1, path.length);
       let section = document.getElementById(path);
+      console.log(section);
       if (section) {
-        section.scrollIntoView();
+        section.scrollIntoView({ behavior: "smooth" });
       }
       // this.$router.replace(path)
     }
@@ -32,8 +34,8 @@ export default {
 </script>
 
 <style lang="less" scoped>
-@typical-width: 1058px;
-@primary-color: #d7000f;
+// @primary-color: #cf331f;
+// @typical-width: 1200px;
 
 .jinx-nav {
   width: 100%;
@@ -41,7 +43,8 @@ export default {
   // border-bottom: 2px solid #c4c4c4;
   background: #ffffff;
   padding: 0;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 2px 24px 6px rgba(51, 51, 51, 0.6);
+  // box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
   -moz-user-select: none; /*火狐*/
   -webkit-user-select: none; /*webkit浏览器*/
   -ms-user-select: none; /*IE10*/
@@ -67,7 +70,7 @@ export default {
     .jinx-menu-item {
       // padding: 10px;
       display: inline-block;
-      margin: 0 20px;
+      margin: 0 30px;
       text-align: center;
       // box-sizing: content-box;
       transition: border-color 0.3s, background-color 0.3s, color 0.3s;
