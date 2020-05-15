@@ -323,14 +323,10 @@ export default {
 </script>
 
 <style lang="less" scoped>
-// @primary-color: #cf331f;
-// @typical-width: 1200px;
-
 .jinx-banner {
   min-width: @typical-width;
   height: 480px;
   color: #000;
-  // background-image: url(/assets/images/banner.jpg);
   background-position: center;
   background-size: cover;
   position: relative;
@@ -352,9 +348,6 @@ export default {
       .nav {
         display: inline-block;
         width: 20%;
-        // display: flex;
-        // justify-content: center;
-        // align-items: center;
         text-align: center;
         cursor: pointer;
 
@@ -364,7 +357,6 @@ export default {
           width: 38px;
           height: 38px;
           background-size: contain;
-          // border: 1px dashed #666666;
         }
 
         .title {
@@ -380,7 +372,6 @@ export default {
 .jinx-contest-intro {
   padding: 50px 0;
   padding-top: 115px;
-  // color: #cf321f;
   position: relative;
   width: @typical-width;
   margin: 0 auto;
@@ -412,8 +403,6 @@ export default {
     width: 463px;
     height: 523px;
     background-size: contain;
-    // background: #ffffff;
-    // box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
   }
 }
 
@@ -516,7 +505,6 @@ export default {
 
       .rows::after {
         content: "";
-        // border-left: 1px solid rgba(210, 210, 210, 1);
         background: url("../assets/images/home/news_eclipse@2x.png");
         background-size: contain;
         height: 16px;
@@ -542,7 +530,6 @@ export default {
 
     .news::after {
       content: "";
-      // border-left: 1px solid rgba(210, 210, 210, 1);
       width: 1px;
       background: rgba(210, 210, 210, 1);
       height: 90%;

@@ -59,15 +59,10 @@ export default {
       this.reload();
     },
     scrollToSection(path) {
-      // console.log(path.substring(1, path.length));
-      // path = path.substring(1, path.length);
-      console.log(path);
       let section = document.getElementById(path);
-      console.log(section);
       if (section) {
         section.scrollIntoView({ behavior: "smooth" });
       }
-      // this.$router.replace(path)
     }
   }
 };
