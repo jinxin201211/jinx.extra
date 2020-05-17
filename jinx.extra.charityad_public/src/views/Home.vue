@@ -2,7 +2,8 @@
   <div style="padding-top: 102px;">
     <jinx-top-nav style="position: absolute; top: 0; z-index: 2;"></jinx-top-nav>
     <jinx-nav-menu2 :menu="menuList2" style="position: absolute; top: 42px; z-index: 1;"></jinx-nav-menu2>
-    <div id="anchor_home" class="jinx-banner" :style="{ backgroundImage: 'url(' + require('@/assets/images/banner.jpg') + ')' }">
+    <!--<div id="anchor_home" class="jinx-banner" :style="{ backgroundImage: 'url(' + require('@/assets/images/banner.jpg') + ')' }">-->
+    <div id="anchor_home" class="jinx-banner">
       <div class="banner-navbar-pos">
         <div class="banner-navbar">
           <div class="nav">
@@ -258,7 +259,7 @@
 
     <div id="anchor_contact_us" class="jinx-contactus">
       <div class="contactus-pos">
-        <div class="contactus">
+        <div class="contactus" :style="{ backgroundImage: 'url(' + require('@/assets/images/home/contact_us_back.png') + ')' }">
           <div class="title-en">CONTACT US</div>
           <div class="title">联系我们</div>
           <div style="margin-top: 13px;">地址：北京市朝阳区广渠门外大街8号</div>
@@ -327,6 +328,7 @@ export default {
   min-width: @typical-width;
   height: 480px;
   color: #000;
+  background-color: @primary-color;
   background-position: center;
   background-size: cover;
   position: relative;
@@ -780,7 +782,7 @@ export default {
       box-sizing: border-box;
       margin: 0 auto;
       color: #ffffff;
-      background-image: url("../assets/images/home/contact_us_back.png");
+      // background-image: url("../assets/images/home/contact_us_back.png");
       background-size: contain;
       background-color: @primary-color;
       text-align: center;

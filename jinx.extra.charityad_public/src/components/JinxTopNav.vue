@@ -2,7 +2,7 @@
   <div class="jinx-header">
     <div class="jinx-base_inner">
       <div class="float">
-        <span><a href="#" @click.stop="handleAddFavorite">加入收藏</a></span>
+        <span><a href="#" @click.stop.prevent="handleAddFavorite">加入收藏</a></span>
         <span><a @click="scrollToSection('anchor_contact_us')" style="cursor: pointer;">联系我们</a></span>
       </div>
       <div class="float_right" v-if="account == null || account == ''">
