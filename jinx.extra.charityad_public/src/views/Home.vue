@@ -69,7 +69,7 @@
                   </div>
                 </div>
                 <div class="news-info">
-                  <div class="news-title" v-text="item.col1.title">这是一条新闻标题</div>
+                  <div class="news-title" v-text="item.col1.title" @click="handleViewNews(item.col1.id)">这是一条新闻标题</div>
                   <div class="news-body" v-html="item.col1.content">5月12日下午14:00，第12届全国大学生广告艺术大赛各赛区负责人沟通会借助腾讯会议平台在线举行。全国29个赛区负责人、联络人及赛区相关工作人员代表准时参会。</div>
                 </div>
               </div>
@@ -84,7 +84,7 @@
                   </div>
                 </div>
                 <div class="news-info">
-                  <div class="news-title" v-text="item.col2.title">这是一条新闻标题</div>
+                  <div class="news-title" v-text="item.col2.title" @click="handleViewNews(item.col2.id)">这是一条新闻标题</div>
                   <div class="news-body" v-html="item.col2.content">5月12日下午14:00，第12届全国大学生广告艺术大赛各赛区负责人沟通会借助腾讯会议平台在线举行。全国29个赛区负责人、联络人及赛区相关工作人员代表准时参会。</div>
                 </div>
               </div>
@@ -382,6 +382,7 @@ export default {
               let newsRow = { col1: null, col2: null };
               if (i < response.data.data.length) {
                 newsRow.col1 = {
+                  id: response.data.data[i].id,
                   title: response.data.data[i].title,
                   content: response.data.data[i].content.replace(/<[^>]*>|/g, ""),
                   time: response.data.data[i].utime,
@@ -391,6 +392,7 @@ export default {
               }
               if (i + 1 < response.data.data.length) {
                 newsRow.col2 = {
+                  id: response.data.data[i + 1].id,
                   title: response.data.data[i + 1].title,
                   content: response.data.data[i + 1].content.replace(/<[^>]*>|/g, ""),
                   time: response.data.data[i + 1].utime,
@@ -425,6 +427,14 @@ export default {
             type: "warning"
           });
         });
+    },
+    handleViewNews(id) {
+      this.$router.push({
+        path: "/news",
+        query: {
+          id: id
+        }
+      });
     }
   }
 };

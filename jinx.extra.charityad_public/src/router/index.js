@@ -9,80 +9,9 @@ const routes = [
     path: "/",
     name: "Home",
     component: Home,
-    children: [
-      {
-        name: "main",
-        path: "/",
-        component: () => import("../views/Home/Main.vue"),
-        meta: {
-          title: "首页",
-          access: false
-        }
-      },
-      {
-        name: "introduce",
-        path: "introduce",
-        component: () => import("../views/Home/Introduce.vue"),
-        meta: {
-          title: "活动简介",
-          access: false
-        }
-      },
-      {
-        name: "news",
-        path: "news",
-        component: () => import("../views/Home/News.vue"),
-        meta: {
-          title: "新闻动态",
-          access: false
-        }
-      },
-      {
-        name: "collect",
-        path: "collect",
-        component: () => import("../views/Home/Collect.vue"),
-        meta: {
-          title: "作品征集",
-          access: false
-        }
-      },
-      {
-        name: "awards",
-        path: "awards",
-        component: () => import("../views/Home/Awards.vue"),
-        meta: {
-          title: "奖项设置",
-          access: false
-        }
-      },
-      {
-        name: "works",
-        path: "works",
-        component: () => import("../views/Home/Works.vue"),
-        meta: {
-          title: "作品展示",
-          access: false
-        }
-      },
-      {
-        name: "history",
-        path: "history",
-        component: () => import("../views/Home/History.vue"),
-        meta: {
-          title: "往届回顾",
-          access: false
-        }
-      },
-      {
-        name: "about",
-        path: "about",
-        component: () => import("../views/Home/About.vue"),
-        meta: {
-          title: "关于我们",
-          access: false
-        }
-      }
-    ]
+    meta: {
+      title: "首页"
+    }
   },
   {
     path: "/account",
@@ -169,6 +98,15 @@ const routes = [
         }
       }
     ]
+  },
+  {
+    name: "news",
+    path: "/news",
+    component: () => import("../views/News/Main.vue"),
+    meta: {
+      title: "新闻",
+      access: false
+    }
   }
 ];
 
