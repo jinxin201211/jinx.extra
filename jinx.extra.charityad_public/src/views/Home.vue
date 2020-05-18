@@ -4,6 +4,8 @@
     <jinx-nav-menu2 :menu="menuList2" style="position: absolute; top: 42px; z-index: 1;"></jinx-nav-menu2>
     <!--<div id="anchor_home" class="jinx-banner" :style="{ backgroundImage: 'url(' + require('@/assets/images/banner.jpg') + ')' }">-->
     <div id="anchor_home" class="jinx-banner">
+      <div class="banner banner-1" :class="{ active: bannerShow === 1, hide: bannerShow !== 1 }"></div>
+      <div class="banner banner-2" :class="{ active: bannerShow !== 1, hide: bannerShow === 1 }"></div>
       <div class="banner-navbar-pos">
         <div class="banner-navbar">
           <div class="nav">
@@ -57,7 +59,39 @@
         <div class="title-en">NEWS</div>
         <div class="title">新闻动态</div>
         <div class="news">
-          <div class="rows">
+          <div class="rows" v-for="(item, index) in newsList" :key="'news' + index">
+            <div class="cols left" v-if="item.col1 != null">
+              <div class="news-panel">
+                <div class="date">
+                  <div class="date-pos">
+                    <div class="date-day" v-text="item.col1.date">11</div>
+                    <div class="date-month" v-text="item.col1.month">2020-05</div>
+                  </div>
+                </div>
+                <div class="news-info">
+                  <div class="news-title" v-text="item.col1.title">这是一条新闻标题</div>
+                  <div class="news-body" v-html="item.col1.content">5月12日下午14:00，第12届全国大学生广告艺术大赛各赛区负责人沟通会借助腾讯会议平台在线举行。全国29个赛区负责人、联络人及赛区相关工作人员代表准时参会。</div>
+                </div>
+              </div>
+            </div>
+
+            <div class="cols right" v-if="item.col2 != null">
+              <div class="news-panel">
+                <div class="date">
+                  <div class="date-pos">
+                    <div class="date-day" v-text="item.col2.date">11</div>
+                    <div class="date-month" v-text="item.col2.month">2020-05</div>
+                  </div>
+                </div>
+                <div class="news-info">
+                  <div class="news-title" v-text="item.col2.title">这是一条新闻标题</div>
+                  <div class="news-body" v-html="item.col2.content">5月12日下午14:00，第12届全国大学生广告艺术大赛各赛区负责人沟通会借助腾讯会议平台在线举行。全国29个赛区负责人、联络人及赛区相关工作人员代表准时参会。</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!--<div class="rows">
             <div class="cols left">
               <div class="news-panel">
                 <div class="date">
@@ -149,7 +183,7 @@
                 </div>
               </div>
             </div>
-          </div>
+          </div>-->
         </div>
       </div>
     </div>
@@ -285,6 +319,8 @@
 <script>
 import JinxNavMenu2 from "@/components/JinxNavMenu2.vue";
 import JinxTopNav from "@/components/JinxTopNav.vue";
+import qs from "qs";
+import moment from "moment";
 
 export default {
   name: "Home",
@@ -313,12 +349,83 @@ export default {
         { title: "新闻动态", path: "anchor_news" },
         { title: "联系我们", path: "anchor_contact_us" },
         { title: "素材下载", path: "anchor_download" }
-      ]
+      ],
+      newsList: [],
+      bannerShow: 1
     };
   },
-  mounted: function() {},
+  mounted: function() {
+    this.getNewsList();
+    this.turnBannerCarousel();
+  },
   methods: {
-    getNewsList() {}
+    turnBannerCarousel: function() {
+      let that = this;
+      let time = 0;
+      setTimeout(function f() {
+        time++;
+        that.bannerShow = time % 2;
+        setTimeout(f, 10000);
+      }, 0);
+    },
+    getNewsList() {
+      this.loading = true;
+      let that = this;
+      that.newsList = [];
+      let month_dict = ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"];
+      this.axios
+        .post("/api/gameNews/getData", qs.stringify(this.query))
+        .then(function(response) {
+          if (response && response.data.code == "0") {
+            console.log(response.data.data);
+            for (let i = 0; i < response.data.data.length; i += 2) {
+              let newsRow = { col1: null, col2: null };
+              if (i < response.data.data.length) {
+                newsRow.col1 = {
+                  title: response.data.data[i].title,
+                  content: response.data.data[i].content.replace(/<[^>]*>|/g, ""),
+                  time: response.data.data[i].utime,
+                  date: moment(response.data.data[i].utime).get("date"),
+                  month: moment(response.data.data[i].utime).get("year") + "-" + month_dict[moment(response.data.data[i].utime).get("month")]
+                };
+              }
+              if (i + 1 < response.data.data.length) {
+                newsRow.col2 = {
+                  title: response.data.data[i + 1].title,
+                  content: response.data.data[i + 1].content.replace(/<[^>]*>|/g, ""),
+                  time: response.data.data[i + 1].utime,
+                  date: moment(response.data.data[i + 1].utime).get("date"),
+                  month: moment(response.data.data[i + 1].utime).get("year") + "-" + month_dict[moment(response.data.data[i + 1].utime).get("month")]
+                };
+              }
+              that.newsList.push(newsRow);
+            }
+            // that.NewsList = response.data.data;
+            // that.total = response.data.count;
+            // that.$message({
+            //   showClose: true,
+            //   message: "发布成功",
+            //   type: "success"
+            // });
+          } else {
+            that.$message({
+              showClose: true,
+              message: "查询失败",
+              type: "warning"
+            });
+          }
+          that.loading = false;
+        })
+        .catch(function(err) {
+          console.log(err);
+          that.loading = false;
+          that.$message({
+            showClose: true,
+            message: "查询失败",
+            type: "warning"
+          });
+        });
+    }
   }
 };
 </script>
@@ -326,12 +433,57 @@ export default {
 <style lang="less" scoped>
 .jinx-banner {
   min-width: @typical-width;
-  height: 480px;
+  height: 900px;
   color: #000;
-  background-color: @primary-color;
-  background-position: center;
-  background-size: cover;
+  // background-color: @primary-color;
+  // background-position: center;
+  // background-size: cover;
+  // background-image: url("../assets/images/广告大赛网站图2.png");
   position: relative;
+
+  .banner {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-position: center;
+    background-size: cover;
+    transition: left 0.6s ease, opacity 0.6s, visibility 0.6s;
+  }
+
+  .banner-1 {
+    background-color: #ffffff;
+    background-image: url("../assets/images/广告大赛网站图2.png");
+  }
+
+  .banner-1.active {
+    left: 0;
+    visibility: visible;
+    opacity: 1;
+  }
+
+  .banner-1.hide {
+    // left: 100%;
+    visibility: hidden;
+    opacity: 0;
+  }
+
+  .banner-2 {
+    background-color: #b70102;
+    background-image: url("../assets/images/广告大赛网站图3.png");
+  }
+
+  .banner-2.active {
+    left: 0;
+    visibility: visible;
+    opacity: 1;
+  }
+
+  .banner-2.hide {
+    // left: 100%;
+    visibility: hidden;
+    opacity: 0;
+  }
 
   .banner-navbar-pos {
     position: absolute;
@@ -438,6 +590,7 @@ export default {
         position: relative;
         .cols {
           display: inline-block;
+          vertical-align: top;
           width: 50%;
           box-sizing: border-box;
           margin: 10px 0;
