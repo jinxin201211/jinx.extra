@@ -74,6 +74,7 @@ export default {
       });
     },
     submit: function() {
+      console.log(this.form);
       let that = this;
       this.axios
         .post("/api/gameNews/add", qs.stringify(this.form))

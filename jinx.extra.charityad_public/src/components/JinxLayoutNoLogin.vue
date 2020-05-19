@@ -1,6 +1,6 @@
-<template>
+a<template>
   <div style="padding-top: 102px;">
-    <jinx-top-nav style="position: absolute; top: 0; z-index: 2;" :authorize="true" @scrolltoview="handleScrollToView"></jinx-top-nav>
+    <jinx-top-nav style="position: absolute; top: 0; z-index: 2;" :authorize="false" @scrolltoview="handleScrollToView"></jinx-top-nav>
     <jinx-nav-menu :menu="menuList2" style="position: absolute; top: 42px; z-index: 1;" @scrolltoview="handleScrollToView"></jinx-nav-menu>
     <div id="anchor_home" class="jinx-banner"></div>
 

@@ -1,13 +1,8 @@
 <template>
   <div class="jinx-nav">
-    <ul class="jinx-menu horizontal">
-      <li class="jinx-menu-item" :class="{ 'jinx-submenu': item.children && item.children.length > 0, hover: hover === index }" v-for="(item, index) in menu" :key="'menu' + index" @mouseover="hover = index" @mouseout="hover = -1" @click.stop="$router.push(item.path)">
+    <ul class="jinx-menu">
+      <li class="jinx-menu-item" :class="{ 'jinx-submenu': item.children && item.children.length > 0, hover: hover === index }" v-for="(item, index) in menu" :key="'menu' + index" @mouseover="hover = index" @mouseout="hover = -1" @click="scrollToSection(item.path)">
         <span v-text="item.title"></span>
-        <div class="jinx-menu-popup">
-          <ul class="jinx-menu vertical">
-            <li class="jinx-menu-item" v-for="(child, index) in item.children" :key="'submenu' + index" @click.stop="$router.push(child.path)"><span v-text="child.title">征集办法</span></li>
-          </ul>
-        </div>
       </li>
     </ul>
   </div>
@@ -22,17 +17,25 @@ export default {
     };
   },
   mounted: function() {},
-  methods: {}
+  methods: {
+    scrollToSection(path) {
+      this.$emit("scrolltoview", path);
+      // let section = document.getElementById(path);
+      // if (section) {
+      //   section.scrollIntoView({ behavior: "smooth" });
+      // }
+    }
+  }
 };
 </script>
 
 <style lang="less" scoped>
-@primary-color: #cf331f;
-@typical-width: 1200px;
-
 .jinx-nav {
+  width: 100%;
   box-sizing: border-box;
-  border-bottom: 2px solid #c4c4c4;
+  background: #ffffff;
+  padding: 0;
+  box-shadow: 0px 2px 24px 6px rgba(51, 51, 51, 0.6);
   -moz-user-select: none; /*火狐*/
   -webkit-user-select: none; /*webkit浏览器*/
   -ms-user-select: none; /*IE10*/
@@ -40,85 +43,50 @@ export default {
   user-select: none;
 
   .jinx-menu {
-    list-style: none;
-  }
-
-  .jinx-menu.horizontal {
     margin: 0 auto;
     width: @typical-width;
-    display: flex;
-    display: -webkit-flex;
-    justify-content: space-between;
-    // list-style: none;
+    list-style: none;
     // border-bottom: none;
     height: 60px;
     line-height: 60px;
+    text-align: right;
 
-    & > .jinx-menu-item {
-      padding: 10px;
+    .jinx-menu-item {
+      display: inline-block;
+      margin: 0 30px;
       text-align: center;
-      box-sizing: content-box;
       transition: border-color 0.3s, background-color 0.3s, color 0.3s;
       cursor: pointer;
-      border-bottom: 4px solid transparent;
       z-index: 999;
+      position: relative;
 
-      & > span {
+      span {
         transition: border-color 0.3s, background-color 0.3s, color 0.3s;
       }
     }
 
-    & > .jinx-menu-item:hover {
-      border-bottom-color: @primary-color;
+    .jinx-menu-item::after {
+      content: "";
+      position: absolute;
+      bottom: 6px;
+      left: 10%;
+      width: 80%;
+      height: 3px;
+      border-radius: 3px;
+      background: @primary-color;
+      visibility: hidden;
+      opacity: 0;
+      transition: border-color 0.3s, background-color 0.3s, color 0.3s, opacity 0.3s;
+    }
 
-      & > span {
+    .jinx-menu-item:hover {
+      span {
         color: @primary-color;
       }
     }
-
-    & > .jinx-submenu {
-      position: relative;
-
-      .jinx-menu-popup {
-        position: absolute;
-        top: 80px;
-        left: 0;
-        background: white;
-        box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
-        list-style: none;
-        // display: none;
-        visibility: hidden;
-        opacity: 0;
-        transition: all 0.3s ease;
-      }
-    }
-
-    & > .jinx-submenu.hover {
-      .jinx-menu-popup {
-        visibility: visible;
-        opacity: 1;
-        top: 64px;
-      }
-    }
-  }
-
-  .jinx-menu.vertical {
-    padding: 0;
-    line-height: 40px;
-
-    & > .jinx-menu-item {
-      padding: 5px 40px;
-      cursor: pointer;
-
-      & > span {
-        word-break: keep-all;
-      }
-    }
-
-    & > .jinx-menu-item:hover {
-      & > span {
-        color: @primary-color;
-      }
+    .jinx-menu-item:hover:after {
+      visibility: visible;
+      opacity: 1;
     }
   }
 }

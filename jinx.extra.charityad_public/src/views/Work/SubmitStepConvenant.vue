@@ -1,5 +1,9 @@
 <template>
   <div class="submit">
+    <el-breadcrumb separator="/" style="margin-bottom: 20px;">
+      <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+      <el-breadcrumb-item>作品提交</el-breadcrumb-item>
+    </el-breadcrumb>
     <el-steps :active="active" finish-status="success">
       <el-step title="勾选承诺书"></el-step>
       <el-step title="填写基本资料"></el-step>

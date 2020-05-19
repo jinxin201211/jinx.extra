@@ -107,6 +107,15 @@ const routes = [
       title: "新闻",
       access: false
     }
+  },
+  {
+    name: "Regulation",
+    path: "/regulation",
+    component: () => import("../views/Home/Regulation.vue"),
+    meta: {
+      title: "大赛章程",
+      access: false
+    }
   }
 ];
 

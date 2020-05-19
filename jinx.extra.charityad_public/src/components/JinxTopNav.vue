@@ -5,7 +5,7 @@
         <span><a href="#" @click.stop.prevent="handleAddFavorite">加入收藏</a></span>
         <span><a @click="scrollToSection('anchor_contact_us')" style="cursor: pointer;">联系我们</a></span>
       </div>
-      <div class="float_right" v-if="account == null || account == ''">
+      <div class="float_right" v-if="(account == null || account == '') && authorize">
         <span>
           <router-link to="/account/signin">登录</router-link>
         </span>
@@ -14,7 +14,7 @@
           <router-link to="/account/signup">注册</router-link>
         </span>
       </div>
-      <div class="float_right" v-if="account != null && account != ''">
+      <div class="float_right" v-if="account != null && account != '' && authorize">
         <span>
           <router-link to="/">获奖查询</router-link>
         </span>
@@ -33,10 +33,15 @@
 
 <script>
 export default {
+  props: ["authorize"],
   data() {
     return {
       account: this.$store.state.Account
     };
+  },
+  mounted() {
+    // console.log("JinxTopNav");
+    // console.log(this.login);
   },
   inject: ["reload"],
   methods: {
@@ -59,10 +64,11 @@ export default {
       this.reload();
     },
     scrollToSection(path) {
-      let section = document.getElementById(path);
-      if (section) {
-        section.scrollIntoView({ behavior: "smooth" });
-      }
+      this.$emit("scrolltoview", path);
+      // let section = document.getElementById(path);
+      // if (section) {
+      //   section.scrollIntoView({ behavior: "smooth" });
+      // }
     }
   }
 };

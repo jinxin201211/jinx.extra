@@ -1,10 +1,17 @@
 <template>
   <jinx-layout>
-    <div class="jinx-news">
+    <div class="jinx-panel">
+      <el-breadcrumb separator="/">
+        <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+        <el-breadcrumb-item>新闻正文</el-breadcrumb-item>
+      </el-breadcrumb>
+
       <div class="title" style="" v-text="title"></div>
       <div class="subtitle" v-show="subTitle != null && subTitle != ''" style="" v-text="subTitle"></div>
-      <div class="time" style="">时间：<span v-text="time"></span></div>
+      <div class="time" style=""><span v-text="time"></span></div>
+      <div class="divider"></div>
       <div id="news"></div>
+      <div class="divider"></div>
     </div>
   </jinx-layout>
 </template>
@@ -55,22 +62,42 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.jinx-news {
+.jinx-panel {
   width: @typical-width;
-  margin: 0 auto;
-  margin-top: 20px;
+  margin: 30px auto 0 auto;
+  // padding: 30px 150px;
+  box-sizing: border-box;
+  // -moz-box-shadow: 0px -6px 20px #e0e4e9;
+  // -webkit-box-shadow: 0px -6px 20px #e0e4e9;
+  // box-shadow: 0px -6px 20px #e0e4e9;
 
   .title {
-    font-size: 24px;
+    margin-top: 30px;
+    padding: 0 20px;
     text-align: center;
-    color: #424242;
+    font-size: 33px;
+    color: #404040;
+  }
+
+  .subtitle {
+    margin-top: 10px;
+    text-align: center;
+    font-size: 16px;
+    color: #404040;
   }
 
   .time {
-    font-size: 14px;
+    margin-top: 10px;
     text-align: center;
-    color: #666666;
-    padding: 5px 0 20px;
+    font-size: 16px;
+    color: #404040;
+  }
+
+  .divider {
+    background-image: url("../../assets/images/news/divider.jpg");
+    margin: 30px auto;
+    width: 100%;
+    height: 8px;
   }
 }
 </style>

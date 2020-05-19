@@ -1,7 +1,7 @@
 <template>
   <div style="padding-top: 102px;">
-    <jinx-top-nav style="position: absolute; top: 0; z-index: 2;"></jinx-top-nav>
-    <jinx-nav-menu2 :menu="menuList2" style="position: absolute; top: 42px; z-index: 1;"></jinx-nav-menu2>
+    <jinx-top-nav style="position: absolute; top: 0; z-index: 2;" :authorize="true" @scrolltoview="handleScrollToView"></jinx-top-nav>
+    <jinx-nav-menu :menu="menuList" style="position: absolute; top: 42px; z-index: 1;" @scrolltoview="handleScrollToView"></jinx-nav-menu>
     <!--<div id="anchor_home" class="jinx-banner" :style="{ backgroundImage: 'url(' + require('@/assets/images/banner.jpg') + ')' }">-->
     <div id="anchor_home" class="jinx-banner">
       <div class="banner banner-1" :class="{ active: bannerShow === 1, hide: bannerShow !== 1 }"></div>
@@ -15,7 +15,7 @@
             </div>
           </div>
           <div class="nav">
-            <div>
+            <div @click="$router.push('/regulation')">
               <div class="icon" :style="{ backgroundImage: 'url(' + require('@/assets/images/home/banner大赛章程@2x.png') + ')' }"></div>
               <div class="title">大赛章程</div>
             </div>
@@ -90,100 +90,6 @@
               </div>
             </div>
           </div>
-
-          <!--<div class="rows">
-            <div class="cols left">
-              <div class="news-panel">
-                <div class="date">
-                  <div class="date-pos">
-                    <div class="date-day">11</div>
-                    <div class="date-month">2020-05</div>
-                  </div>
-                </div>
-                <div class="news-info">
-                  <div class="news-title">这是一条新闻标题</div>
-                  <div class="news-body">5月12日下午14:00，第12届全国大学生广告艺术大赛各赛区负责人沟通会借助腾讯会议平台在线举行。全国29个赛区负责人、联络人及赛区相关工作人员代表准时参会。</div>
-                </div>
-              </div>
-            </div>
-
-            <div class="cols right">
-              <div class="news-panel">
-                <div class="date">
-                  <div class="date-pos">
-                    <div class="date-day">11</div>
-                    <div class="date-month">2020-05</div>
-                  </div>
-                </div>
-                <div class="news-info">
-                  <div class="news-title">这是一条新闻标题</div>
-                  <div class="news-body">5月12日下午14:00，第12届全国大学生广告艺术大赛各赛区负责人沟通会借助腾讯会议平台在线举行。全国29个赛区负责人、联络人及赛区相关工作人员代表准时参会。</div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="rows">
-            <div class="cols left">
-              <div class="news-panel">
-                <div class="date">
-                  <div class="date-pos">
-                    <div class="date-day">11</div>
-                    <div class="date-month">2020-05</div>
-                  </div>
-                </div>
-                <div class="news-info">
-                  <div class="news-title">这是一条新闻标题</div>
-                  <div class="news-body">5月12日下午14:00，第12届全国大学生广告艺术大赛各赛区负责人沟通会借助腾讯会议平台在线举行。全国29个赛区负责人、联络人及赛区相关工作人员代表准时参会。</div>
-                </div>
-              </div>
-            </div>
-
-            <div class="cols right">
-              <div class="news-panel">
-                <div class="date">
-                  <div class="date-pos">
-                    <div class="date-day">11</div>
-                    <div class="date-month">2020-05</div>
-                  </div>
-                </div>
-                <div class="news-info">
-                  <div class="news-title">这是一条新闻标题</div>
-                  <div class="news-body">5月12日下午14:00，第12届全国大学生广告艺术大赛各赛区负责人沟通会借助腾讯会议平台在线举行。全国29个赛区负责人、联络人及赛区相关工作人员代表准时参会。</div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="rows">
-            <div class="cols left">
-              <div class="news-panel">
-                <div class="date">
-                  <div class="date-pos">
-                    <div class="date-day">11</div>
-                    <div class="date-month">2020-05</div>
-                  </div>
-                </div>
-                <div class="news-info">
-                  <div class="news-title">这是一条新闻标题</div>
-                  <div class="news-body">5月12日下午14:00，第12届全国大学生广告艺术大赛各赛区负责人沟通会借助腾讯会议平台在线举行。全国29个赛区负责人、联络人及赛区相关工作人员代表准时参会。</div>
-                </div>
-              </div>
-            </div>
-
-            <div class="cols right">
-              <div class="news-panel">
-                <div class="date">
-                  <div class="date-pos">
-                    <div class="date-day">11</div>
-                    <div class="date-month">2020-05</div>
-                  </div>
-                </div>
-                <div class="news-info">
-                  <div class="news-title">这是一条新闻标题</div>
-                  <div class="news-body">5月12日下午14:00，第12届全国大学生广告艺术大赛各赛区负责人沟通会借助腾讯会议平台在线举行。全国29个赛区负责人、联络人及赛区相关工作人员代表准时参会。</div>
-                </div>
-              </div>
-            </div>
-          </div>-->
         </div>
       </div>
     </div>
@@ -194,27 +100,44 @@
         <div class="title">作品展示</div>
 
         <div class="works-display">
-          <div class="works-body"></div>
+          <div class="works-body">
+            <div v-show="work.file > 0" class="left" @click="work.file--"></div>
+            <div class="works-file" v-if="work.list.length > 0">
+              <div class="image" v-if="work.list[work.index].files[work.file].endsWith('.jpg')" :style="{ backgroundImage: 'url(' + $FileGetServer + work.list[work.index].files[work.file] + ')' }"></div>
+              <video class="video" v-if="work.list[work.index].files[work.file].endsWith('.mp4')" :src="$FileGetServer + work.list[work.index].files[work.file]" controls="controls">您的浏览器不支持 video 标签。</video>
+            </div>
+            <div v-show="work.list.length > 0 && work.file < work.list[work.index].files.length - 1" class="right" @click="work.file++"></div>
+          </div>
           <div class="works-info">
-            <span class="author">作者名字</span>
+            <span class="author" v-text="work.list.length > 0 ? work.list[work.index].author : ''">作者名字</span>
             <span class="avatar"></span>
           </div>
         </div>
 
         <div class="works-carousel">
-          <div class="left"></div>
+          <div v-show="work.scroll > 0" class="left" @click="work.scroll--"></div>
           <div class="works-list">
-            <div class="works-item-pos">
-              <div class="works"></div>
-            </div>
-            <div class="works-item-pos">
-              <div class="works"></div>
-            </div>
-            <div class="works-item-pos">
-              <div class="works"></div>
+            <div class="works-list-scroll" :style="{ left: 261.33 * -1 * work.scroll + 'px' }">
+              <div class="works-item-pos" v-for="(item, index) in work.list" :key="'excellent_work' + index">
+                <div
+                  class="works"
+                  @click="
+                    work.index = index;
+                    work.file = 0;
+                  "
+                >
+                  <div class="image" v-if="item.files[0].endsWith('.jpg')" :style="{ backgroundImage: 'url(' + $FileGetServer + item.files[0] + ')' }"></div>
+                  <div class="video">
+                    <svg t="1589870741966" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1140" width="48" height="48">
+                      <path d="M981.184 160.096c-143.616-20.64-302.336-32.096-469.184-32.096s-325.568 11.456-469.184 32.096c-27.52 107.712-42.816 226.752-42.816 351.904s15.264 244.16 42.816 351.904c143.648 20.64 302.336 32.096 469.184 32.096s325.568-11.456 469.184-32.096c27.52-107.712 42.816-226.752 42.816-351.904s-15.264-244.16-42.816-351.904zM384 704l0-384 320 192-320 192z" p-id="1141" fill="#bfbfbf"></path>
+                    </svg>
+                  </div>
+                  <!--<video class="video" v-if="item.files[0].endsWith('.mp4')" :src="$FileGetServer + item.files[0]" controls="controls">您的浏览器不支持 video 标签。</video>-->
+                </div>
+              </div>
             </div>
           </div>
-          <div class="right"></div>
+          <div v-show="work.scroll + 3 < work.list.length" class="right" @click="work.scroll++"></div>
         </div>
       </div>
     </div>
@@ -317,46 +240,43 @@
 </template>
 
 <script>
-import JinxNavMenu2 from "@/components/JinxNavMenu2.vue";
+import JinxNavMenu from "@/components/JinxNavMenu.vue";
 import JinxTopNav from "@/components/JinxTopNav.vue";
 import qs from "qs";
 import moment from "moment";
 
 export default {
   name: "Home",
-  components: { JinxNavMenu2, JinxTopNav },
+  components: { JinxNavMenu, JinxTopNav },
   data: function() {
     return {
       menuList: [
-        { title: "首页", path: "/" },
-        { title: "活动简介", path: "introduce" },
-        { title: "新闻动态", path: "news" },
-        {
-          title: "作品征集",
-          path: "collect",
-          children: [
-            { title: "征集办法", path: "collect" },
-            { title: "奖项设置", path: "awards" },
-            { title: "作品展示", path: "works" }
-          ]
-        },
-        { title: "往届回顾", path: "history" },
-        { title: "关于我们", path: "about" }
-      ],
-      menuList2: [
         { title: "首页", path: "anchor_home" },
         { title: "大赛介绍", path: "anchor_contest_intro" },
         { title: "新闻动态", path: "anchor_news" },
-        { title: "联系我们", path: "anchor_contact_us" },
-        { title: "素材下载", path: "anchor_download" }
+        { title: "作品展示", path: "anchor_works" },
+        { title: "联系我们", path: "anchor_contact_us" }
       ],
       newsList: [],
-      bannerShow: 1
+      bannerShow: 1,
+      work: {
+        list: [],
+        index: 0,
+        scroll: 0,
+        select: {},
+        file: 0
+      }
     };
   },
   mounted: function() {
-    this.getNewsList();
     this.turnBannerCarousel();
+    this.getNewsList();
+    this.getWorksList();
+
+    let view = this.$route.params.view;
+    if (view) {
+      this.scrollToSection(view);
+    }
   },
   methods: {
     turnBannerCarousel: function() {
@@ -435,6 +355,76 @@ export default {
           id: id
         }
       });
+    },
+    handleScrollToView(path) {
+      console.log(path);
+      let section = document.getElementById(path);
+      if (section) {
+        section.scrollIntoView({ behavior: "smooth" });
+      }
+    },
+    scrollToSection(path) {
+      let section = document.getElementById(path);
+      if (section) {
+        section.scrollIntoView({ behavior: "smooth" });
+      }
+    },
+    getWorksList() {
+      this.loading = true;
+      let that = this;
+      that.work.list = [];
+      that.work.index = 0;
+      that.work.file = 0;
+      that.work.list.push({
+        title: "",
+        author: "作者名字1",
+        files: ["202005111736510487_C%E3%80%81%E8%A1%8C%E9%A9%B6%E8%AF%81%E7%85%A7%E7%89%87.jpg", "202005141017290497_视频%20免费下载%20-%20爱给网.mp4", "202005111736510487_C%E3%80%81%E8%A1%8C%E9%A9%B6%E8%AF%81%E7%85%A7%E7%89%87.jpg"]
+      });
+      that.work.list.push({
+        title: "",
+        author: "作者名字2",
+        files: ["202005141017290497_视频%20免费下载%20-%20爱给网.mp4", "202005111736510487_C%E3%80%81%E8%A1%8C%E9%A9%B6%E8%AF%81%E7%85%A7%E7%89%87.jpg", "202005111736510487_C%E3%80%81%E8%A1%8C%E9%A9%B6%E8%AF%81%E7%85%A7%E7%89%87.jpg"]
+      });
+      that.work.list.push({
+        title: "",
+        author: "作者名字3",
+        files: ["202005141017290497_视频%20免费下载%20-%20爱给网.mp4", "202005141017290497_视频%20免费下载%20-%20爱给网.mp4", "202005141017290497_视频%20免费下载%20-%20爱给网.mp4"]
+      });
+      that.work.list.push({
+        title: "",
+        author: "作者名字4",
+        files: ["202005111736510487_C%E3%80%81%E8%A1%8C%E9%A9%B6%E8%AF%81%E7%85%A7%E7%89%87.jpg", "202005111736510487_C%E3%80%81%E8%A1%8C%E9%A9%B6%E8%AF%81%E7%85%A7%E7%89%87.jpg", "202005111736510487_C%E3%80%81%E8%A1%8C%E9%A9%B6%E8%AF%81%E7%85%A7%E7%89%87.jpg"]
+      });
+      that.work.list.push({
+        title: "",
+        author: "作者名字5",
+        files: ["202005111736510487_C%E3%80%81%E8%A1%8C%E9%A9%B6%E8%AF%81%E7%85%A7%E7%89%87.jpg", "202005111736510487_C%E3%80%81%E8%A1%8C%E9%A9%B6%E8%AF%81%E7%85%A7%E7%89%87.jpg", "202005111736510487_C%E3%80%81%E8%A1%8C%E9%A9%B6%E8%AF%81%E7%85%A7%E7%89%87.jpg"]
+      });
+      that.work.list.push({
+        title: "",
+        author: "作者名字6",
+        files: ["202005111736510487_C%E3%80%81%E8%A1%8C%E9%A9%B6%E8%AF%81%E7%85%A7%E7%89%87.jpg", "202005111736510487_C%E3%80%81%E8%A1%8C%E9%A9%B6%E8%AF%81%E7%85%A7%E7%89%87.jpg", "202005111736510487_C%E3%80%81%E8%A1%8C%E9%A9%B6%E8%AF%81%E7%85%A7%E7%89%87.jpg"]
+      });
+      that.work.list.push({
+        title: "",
+        author: "作者名字7",
+        files: ["202005111736510487_C%E3%80%81%E8%A1%8C%E9%A9%B6%E8%AF%81%E7%85%A7%E7%89%87.jpg", "202005111736510487_C%E3%80%81%E8%A1%8C%E9%A9%B6%E8%AF%81%E7%85%A7%E7%89%87.jpg", "202005111736510487_C%E3%80%81%E8%A1%8C%E9%A9%B6%E8%AF%81%E7%85%A7%E7%89%87.jpg"]
+      });
+      that.work.list.push({
+        title: "",
+        author: "作者名字8",
+        files: ["202005111736510487_C%E3%80%81%E8%A1%8C%E9%A9%B6%E8%AF%81%E7%85%A7%E7%89%87.jpg", "202005111736510487_C%E3%80%81%E8%A1%8C%E9%A9%B6%E8%AF%81%E7%85%A7%E7%89%87.jpg", "202005111736510487_C%E3%80%81%E8%A1%8C%E9%A9%B6%E8%AF%81%E7%85%A7%E7%89%87.jpg"]
+      });
+      that.work.list.push({
+        title: "",
+        author: "作者名字9",
+        files: ["202005111736510487_C%E3%80%81%E8%A1%8C%E9%A9%B6%E8%AF%81%E7%85%A7%E7%89%87.jpg"]
+      });
+      that.work.list.push({
+        title: "",
+        author: "作者名字10",
+        files: ["202005111736510487_C%E3%80%81%E8%A1%8C%E9%A9%B6%E8%AF%81%E7%85%A7%E7%89%87.jpg", "202005111736510487_C%E3%80%81%E8%A1%8C%E9%A9%B6%E8%AF%81%E7%85%A7%E7%89%87.jpg"]
+      });
     }
   }
 };
@@ -443,7 +433,7 @@ export default {
 <style lang="less" scoped>
 .jinx-banner {
   min-width: @typical-width;
-  height: 900px;
+  height: 750px;
   color: #000;
   // background-color: @primary-color;
   // background-position: center;
@@ -457,7 +447,7 @@ export default {
     width: 100%;
     height: 100%;
     background-position: center;
-    background-size: cover;
+    background-size: contain;
     transition: left 0.6s ease, opacity 0.6s, visibility 0.6s;
   }
 
@@ -497,8 +487,9 @@ export default {
 
   .banner-navbar-pos {
     position: absolute;
-    bottom: -65px;
+    bottom: -115px;
     left: 0;
+    z-index: 999;
     width: 100%;
 
     .banner-navbar {
@@ -535,7 +526,7 @@ export default {
 
 .jinx-contest-intro {
   padding: 50px 0;
-  padding-top: 115px;
+  padding-top: 165px;
   position: relative;
   width: @typical-width;
   margin: 0 auto;
@@ -649,6 +640,12 @@ export default {
                 line-height: 30px;
                 color: #333333;
                 font-size: 16px;
+                cursor: pointer;
+                display: inline-block;
+              }
+
+              .news-title:hover {
+                text-decoration: underline;
               }
 
               .news-body {
@@ -741,6 +738,51 @@ export default {
         height: 350px;
         border-radius: 16px;
         background: #ffffff;
+        position: relative;
+
+        .left {
+          position: absolute;
+          height: 30px;
+          width: 16px;
+          top: 160px;
+          left: -50px;
+          background-position: center;
+          background-size: contain;
+          background-repeat: no-repeat;
+          background: url("../assets/images/home/works_left.png");
+          cursor: pointer;
+        }
+
+        .right {
+          position: absolute;
+          height: 30px;
+          width: 16px;
+          top: 160px;
+          right: -50px;
+          background-position: center;
+          background-size: contain;
+          background-repeat: no-repeat;
+          background: url("../assets/images/home/works_right.png");
+          cursor: pointer;
+        }
+
+        .works-file {
+          height: 100%;
+          width: 100%;
+
+          .image {
+            height: 100%;
+            width: 100%;
+            background-position: center;
+            background-size: contain;
+            background-repeat: no-repeat;
+          }
+
+          .video {
+            height: 100%;
+            width: 100%;
+          }
+        }
       }
 
       .works-info {
@@ -801,21 +843,54 @@ export default {
       }
 
       .works-list {
+        position: relative;
         width: 100%;
         height: 100%;
+        overflow: hidden;
+        // overflow-x: auto;
 
-        .works-item-pos {
-          display: inline-block;
-          width: 33.33333%;
+        .works-list-scroll {
           height: 100%;
-          box-sizing: border-box;
-          padding: 0 12px;
+          width: 100%;
+          // width: auto;
+          // overflow-y: hidden;
+          // overflow-x: auto;
+          white-space: nowrap;
+          position: absolute;
+          top: 0;
+          left: 0;
+          transition: left 0.3s;
 
-          .works {
-            background: #000000;
-            width: 100%;
+          .works-item-pos {
+            display: inline-block;
+            vertical-align: middle;
+            width: 33.33333%;
             height: 100%;
-            cursor: pointer;
+            box-sizing: border-box;
+            padding: 0 12px;
+
+            .works {
+              background: #000000;
+              width: 100%;
+              height: 100%;
+              cursor: pointer;
+
+              .image {
+                height: 100%;
+                width: 100%;
+                background-position: center;
+                background-size: contain;
+                background-repeat: no-repeat;
+              }
+
+              .video {
+                height: 100%;
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+              }
+            }
           }
         }
       }
