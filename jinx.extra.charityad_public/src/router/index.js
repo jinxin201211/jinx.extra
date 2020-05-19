@@ -96,6 +96,15 @@ const routes = [
           title: "作品列表",
           access: true
         }
+      },
+      {
+        name: "group",
+        path: "group",
+        component: () => import("../views/Work/EnterStepGroup.vue"),
+        meta: {
+          title: "选择分组",
+          access: true
+        }
       }
     ]
   },
