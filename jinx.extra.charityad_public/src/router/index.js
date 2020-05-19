@@ -43,66 +43,102 @@ const routes = [
     name: "Work",
     component: () => import("../views/Work/Main.vue"),
     children: [
+      // {
+      //   name: "convenant",
+      //   path: "convenant",
+      //   component: () => import("../views/Work/SubmitStepConvenant.vue"),
+      //   meta: {
+      //     title: "提交作品",
+      //     access: true
+      //   }
+      // },
+      // {
+      //   name: "workinfo",
+      //   path: "workinfo",
+      //   component: () => import("../views/Work/SubmitStepWorkInfo.vue"),
+      //   meta: {
+      //     title: "填写基本资料",
+      //     access: true
+      //   }
+      // },
+      // {
+      //   name: "authorinfo",
+      //   path: "authorinfo",
+      //   component: () => import("../views/Work/SubmitStepAuthorInfo.vue"),
+      //   meta: {
+      //     title: "结束提交",
+      //     access: true
+      //   }
+      // },
+      // {
+      //   name: "upload",
+      //   path: "upload",
+      //   component: () => import("../views/Work/SubmitStepUpload.vue"),
+      //   meta: {
+      //     title: "上传作品文件",
+      //     access: true
+      //   }
+      // },
+      // {
+      //   name: "submit",
+      //   path: "submit",
+      //   component: () => import("../views/Work/SubmitStepSubmit.vue"),
+      //   meta: {
+      //     title: "提交作品",
+      //     access: true
+      //   }
+      // },
+      // {
+      //   name: "list",
+      //   path: "list",
+      //   component: () => import("../views/Work/List.vue"),
+      //   meta: {
+      //     title: "作品列表",
+      //     access: true
+      //   }
+      // },
       {
-        name: "convenant",
-        path: "convenant",
-        component: () => import("../views/Work/SubmitStepConvenant.vue"),
+        name: "getconvenant",
+        path: "getconvenant",
+        component: () => import("../views/Work/EnterStepConvenant.vue"),
         meta: {
-          title: "提交作品",
+          title: "勾选承诺书",
           access: true
         }
       },
       {
-        name: "workinfo",
-        path: "workinfo",
-        component: () => import("../views/Work/SubmitStepWorkInfo.vue"),
+        name: "grouppublic",
+        path: "grouppublic",
+        component: () => import("../views/Work/EnterStepPublicForm.vue"),
         meta: {
-          title: "填写基本资料",
+          title: "专业类、公众类报名表",
           access: true
         }
       },
       {
-        name: "authorinfo",
-        path: "authorinfo",
-        component: () => import("../views/Work/SubmitStepAuthorInfo.vue"),
+        name: "groupschool",
+        path: "groupschool",
+        component: () => import("../views/Work/EnterStepSchoolForm.vue"),
+        meta: {
+          title: "高校类报名表",
+          access: true
+        }
+      },
+      {
+        name: "file",
+        path: "file",
+        component: () => import("../views/Work/EnterStepFile.vue"),
+        meta: {
+          title: "作品上传",
+          access: true
+        }
+      },
+      {
+        name: "finish",
+        path: "finish",
+        component: () => import("../views/Work/EnterStepFinish.vue"),
         meta: {
           title: "结束提交",
-          access: true
-        }
-      },
-      {
-        name: "upload",
-        path: "upload",
-        component: () => import("../views/Work/SubmitStepUpload.vue"),
-        meta: {
-          title: "上传作品文件",
-          access: true
-        }
-      },
-      {
-        name: "submit",
-        path: "submit",
-        component: () => import("../views/Work/SubmitStepSubmit.vue"),
-        meta: {
-          title: "提交作品",
-          access: true
-        }
-      },
-      {
-        name: "list",
-        path: "list",
-        component: () => import("../views/Work/List.vue"),
-        meta: {
-          title: "作品列表",
-          access: true
-        }
-      },
-      {
-        name: "group",
-        path: "group",
-        component: () => import("../views/Work/EnterStepGroup.vue"),
-        meta: {
-          title: "选择分组",
           access: true
         }
       }

@@ -66,11 +66,12 @@ export default {
         .get("/api/gameUser/login", { params: { uname: this.form.account, pwd: this.hex_md5(this.form.password) } })
         .then(function(response) {
           if (response && response.data.code == "0") {
-            let token = response.data.data;
+            let user = response.data.data;
+            let token = user.token;
             let account = that.form.account;
-            that.$store.commit("changeAccount", { Token: token, Account: account });
+            that.$store.commit("changeAccount", user);
             if (that.rememberMe) {
-              that.$store.commit("changeCookie", { Token: token, Account: account });
+              that.$store.commit("changeCookie", user);
             }
             that.$router.replace("/");
           } else {

@@ -13,6 +13,7 @@
       <el-table-column prop="uname" label="用户名"> </el-table-column>
       <el-table-column prop="tel" label="手机号码"> </el-table-column>
       <el-table-column prop="email" label="邮箱"> </el-table-column>
+      <el-table-column prop="series" label="作品类别"> </el-table-column>
       <el-table-column prop="ctime" label="创建时间"> </el-table-column>
       <el-table-column fixed="right" label="操作" width="180">
         <template slot-scope="scope">
@@ -38,7 +39,15 @@ export default {
         limit: 10
       },
       total: 0,
-      loading: false
+      loading: false,
+      SeriesCode: [
+        { code: "A", name: "中国梦系列" },
+        { code: "B", name: "营商环境系列" },
+        { code: "C", name: "生态保护系列" },
+        { code: "D", name: "传统文化系列" },
+        { code: "E", name: "社会热点系列" },
+        { code: "F", name: "其他主题" }
+      ]
     };
   },
   mounted() {
@@ -59,6 +68,15 @@ export default {
         .then(function(response) {
           if (response && response.data.code == "0") {
             that.List = response.data.data;
+            that.List.forEach((e, i) => {
+              console.log(e, i);
+              let series = that.SeriesCode.filter(p => p.code == e.series);
+              if (series.length > 0) {
+                e.series = series[0].name;
+              } else {
+                e.series = "/";
+              }
+            });
             that.total = response.data.count;
           } else {
             that.$message({

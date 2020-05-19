@@ -46,6 +46,7 @@ export default {
         { path: "/log", access: ["admin"], title: "日志管理" },
         { path: "/news", access: ["admin"], title: "发布新闻" },
         { path: "/announcement", access: ["admin"], title: "发布公告" },
+        { path: "/workregular", access: ["judge"], title: "评审办法" },
         { path: "/work", access: ["judge"], title: "作品打分" },
         { path: "/workrank", access: ["judge"], title: "作品排行" }
       ],

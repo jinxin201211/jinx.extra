@@ -20,7 +20,7 @@
         </span>
         <span>|</span>
         <span>
-          <router-link to="/work/convenant">作品提交</router-link>
+          <router-link to="/work">作品提交</router-link>
         </span>
         <span>|</span>
         <span v-text="account + '，您好！'"></span>
@@ -40,6 +40,8 @@ export default {
     };
   },
   mounted() {
+    console.log("--------------JinxTopNav----------------");
+    console.log(this.$store.state.Account);
     // console.log("JinxTopNav");
     // console.log(this.login);
   },

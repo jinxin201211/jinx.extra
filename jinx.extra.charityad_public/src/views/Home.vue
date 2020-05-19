@@ -27,7 +27,7 @@
             </div>
           </div>
           <div class="nav">
-            <div @click="$router.push('/work/convenant')">
+            <div @click="$router.push('/work')">
               <div class="icon" :style="{ backgroundImage: 'url(' + require('@/assets/images/home/banner作品提交@2x.png') + ')' }"></div>
               <div class="title">作品提交</div>
             </div>

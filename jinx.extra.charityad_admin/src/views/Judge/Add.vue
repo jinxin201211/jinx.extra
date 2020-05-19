@@ -32,6 +32,16 @@
       >
         <el-input v-model="form.tel" style="width: 250px;" maxlength="11"></el-input>
       </el-form-item>
+      <el-form-item label="作品类别" prop="series" :rules="[{ required: true, message: '请选择作品类别', trigger: 'blur' }]">
+        <el-radio-group v-model="form.series">
+          <el-radio label="A">A:中国梦系列</el-radio>
+          <el-radio label="B">B:营商环境系列</el-radio>
+          <el-radio label="C">C:生态保护系列</el-radio>
+          <el-radio label="D">D:传统文化系列</el-radio>
+          <el-radio label="E">E:社会热点系列</el-radio>
+          <el-radio label="F">F:其他主题</el-radio>
+        </el-radio-group>
+      </el-form-item>
       <el-form-item>
         <b>用户名用来登录系统，初始密码为888888</b>
       </el-form-item>
@@ -54,7 +64,8 @@ export default {
         tel: "",
         uname: "",
         pwd: "",
-        role: "judge"
+        role: "judge",
+        series: ""
       },
       loading: false
     };
@@ -78,7 +89,7 @@ export default {
       this.loading = true;
       let that = this;
       this.axios
-        .post("/api/sysUser/add", qs.stringify({ email: this.form.email, tel: this.form.tel, uname: this.form.uname, pwd: this.hex_md5("888888") }))
+        .post("/api/sysUser/add", qs.stringify({ email: this.form.email, tel: this.form.tel, uname: this.form.uname, pwd: this.hex_md5("888888"), series: this.form.series }))
         .then(function(response) {
           if (response && response.data.code == "0") {
             that.$message({

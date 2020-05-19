@@ -8,6 +8,13 @@
     <el-row style="padding: 15px 0;">
       <el-col :span="18" style="border-right: 1px solid #e6e6e6;">
         <el-form ref="form" :model="form" label-width="80px" style="padding: 0 20px; margin: 0 auto;">
+          <el-form-item label="用户组" prop="type" :rules="[{ required: true, message: '请选择用户组', trigger: 'blur' }]">
+            <el-radio-group v-model="form.type">
+              <el-radio label="0">高校组</el-radio>
+              <el-radio label="1">专业组</el-radio>
+              <el-radio label="2">公众组</el-radio>
+            </el-radio-group>
+          </el-form-item>
           <el-form-item
             label="邮箱"
             prop="email"
@@ -105,20 +112,22 @@ export default {
   data: function() {
     return {
       form: {
-        email: "",
-        phone: "",
-        nickname: "",
-        password: "",
-        repassword: "",
-        security: "",
-        agree: false
-        // email: "1137617085@qq.com",
-        // phone: "18708117389",
-        // nickname: "jinxin",
-        // password: "jinxin20200510",
-        // repassword: "jinxin20200510",
+        // type:"",
+        // email: "",
+        // phone: "",
+        // nickname: "",
+        // password: "",
+        // repassword: "",
         // security: "",
-        // agree: true
+        // agree: false
+        type: "1",
+        email: "1137617085@qq.com",
+        phone: "18708117389",
+        nickname: "jinxin",
+        password: "jinxin20200510",
+        repassword: "jinxin20200510",
+        security: "",
+        agree: true
       },
       verify_code: "",
       loading: false
@@ -142,7 +151,7 @@ export default {
       this.loading = true;
       let that = this;
       this.axios
-        .post("/api/gameUser/register", qs.stringify({ email: this.form.email, tel: this.form.phone, uname: this.form.nickname, pwd: this.hex_md5(this.form.password) }))
+        .post("/api/gameUser/register", qs.stringify({ type: this.form.type, email: this.form.email, tel: this.form.phone, uname: this.form.nickname, pwd: this.hex_md5(this.form.password) }))
         .then(function(response) {
           if (response && response.data.code == "0") {
             let second = 3;

@@ -160,6 +160,15 @@ const routes = [
           title: "作品排行",
           access: ["judge"]
         }
+      },
+      {
+        path: "/workregular",
+        name: "WorkRegular",
+        component: () => import("../views/Work/Regular.vue"),
+        meta: {
+          title: "评审办法",
+          access: ["judge"]
+        }
       }
     ]
   },

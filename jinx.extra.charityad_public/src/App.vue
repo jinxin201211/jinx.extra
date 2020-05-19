@@ -13,7 +13,7 @@ export default {
       isRouterAlive: true
     };
   },
-  mounted: function() {
+  created: function() {
     this.$store.commit("syncAccount");
   },
   methods: {

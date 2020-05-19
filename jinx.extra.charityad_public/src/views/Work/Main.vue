@@ -11,7 +11,9 @@ export default {
   data: function() {
     return {};
   },
-  mounted: function() {},
+  mounted: function() {
+    this.$router.replace("/work/getconvenant");
+  },
   methods: {}
 };
 </script>
