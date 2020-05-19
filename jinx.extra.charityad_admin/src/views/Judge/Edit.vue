@@ -32,7 +32,7 @@
       >
         <el-input v-model="form.tel" style="width: 250px;" maxlength="11"></el-input>
       </el-form-item>
-      <el-form-item label="作品类别" prop="series" :rules="[{ required: true, message: '请选择作品类别', trigger: 'blur' }]">
+      <el-form-item label="作品主题" prop="series" :rules="[{ required: true, message: '请选择作品主题', trigger: 'blur' }]">
         <el-radio-group v-model="form.series">
           <el-radio label="A">A:中国梦系列</el-radio>
           <el-radio label="B">B:营商环境系列</el-radio>

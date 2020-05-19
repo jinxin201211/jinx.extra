@@ -13,7 +13,7 @@
       <el-table-column prop="uname" label="用户名"> </el-table-column>
       <el-table-column prop="tel" label="手机号码"> </el-table-column>
       <el-table-column prop="email" label="邮箱"> </el-table-column>
-      <el-table-column prop="series" label="作品类别"> </el-table-column>
+      <el-table-column prop="series" label="作品主题"> </el-table-column>
       <el-table-column prop="ctime" label="创建时间"> </el-table-column>
       <el-table-column fixed="right" label="操作" width="180">
         <template slot-scope="scope">
