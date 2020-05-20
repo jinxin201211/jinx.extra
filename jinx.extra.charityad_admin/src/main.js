@@ -47,6 +47,7 @@ window.$VuexPrefix = "charity.admin.";
 Vue.prototype.$Server = "http://47.108.88.211";
 Vue.prototype.$ImagePostServer = "http://47.108.88.211:8081";
 Vue.prototype.$ImageGetServer = "http://47.108.88.211/img/";
+Vue.prototype.$WebSiteName = "河北省公益广告大赛后台管理系统";
 
 new Vue({
   router,

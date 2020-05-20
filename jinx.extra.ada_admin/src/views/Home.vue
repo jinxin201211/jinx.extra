@@ -1,7 +1,7 @@
 <template>
   <div class="jinx-layout">
     <div class="jinx-header">
-      <div style="padding: 0 20px; float: left; line-height: 60px; font-weight: bold; font-size: 24px;">全国大学生广告艺术大赛</div>
+      <div style="padding: 0 20px; float: left; line-height: 60px; font-weight: bold; font-size: 24px;">{{ $WebSiteName }}</div>
       <div style="float: right;">
         <el-menu mode="horizontal" default-active="1">
           <el-menu-item @click="handleFullscreen"><i class="el-icon-full-screen"></i></el-menu-item>
@@ -47,8 +47,8 @@ export default {
         { path: "/news", access: ["admin"], title: "发布新闻" },
         { path: "/announcement", access: ["admin"], title: "发布公告" },
         { path: "/workregular", access: ["judge"], title: "评审办法" },
-        { path: "/work", access: ["judge"], title: "作品打分" },
-        { path: "/workrank", access: ["judge"], title: "作品排行" }
+        { path: "/work", access: ["judge"], title: "作品打分" }
+        // { path: "/workrank", access: ["judge"], title: "作品排行" }
       ],
       RouteList: [],
       User: this.$store.state.User,

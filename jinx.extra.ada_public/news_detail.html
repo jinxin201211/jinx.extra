@@ -3,9 +3,9 @@
 
 <head>
   <meta charset="UTF-8" />
-  <title>中国大学生好创意　第12届全国大学生广告艺术大赛-组委会文件</title>
+  <title>中国大学生好创意　第12届全国大学生广告艺术大赛-【第十一届大广赛】河北赛区作品提交截止日期及纸质作品收取办法</title>
   <meta name="description" content="大广赛  中国大学生好创意 全国大学生广告艺术大赛" />
-  <meta name="keywords" content="大广赛  中国大学生好创意 全国大学生广告艺术大赛" />
+  <meta name="keywords" content="作品提交" />
   <link rel="stylesheet" type="text/css" href="Public/home/css/style.css" />
   <link rel="stylesheet" type="text/css" href="Public/home/css/animate.css" />
 </head>
@@ -51,18 +51,19 @@
     </div>
   </div>
 
-
   <div id="bd">
-    <div class="m-ban"><a href="javascript:;" style='background-image:url(data/img/2003/5e7b1d2cdd216.jpg);'></a></div>
+    <div class="m-ban"><a href="javascript:;" style='background-image:url(data/img/2003/5e7b1d3fa7854.jpg);'></a></div>
 
     <div class="wrap">
       <div class="m-cur">
         <span>您当前的位置：</span>
         <a href="indexs.html">首页</a>
         <span>»</span>
-        <a href="about_intrs.html">关于大赛</a>
+        <a href="dynamics.html">赛区动态</a>
         <span>»</span>
-        <a href="about_intrs.html">组委会文件</a>
+        <a href="dynamic_bulletins27.html">赛区公告</a>
+        <span>»</span>
+        <a href="javascript:;">公告详情</a>
       </div>
       <!-- m-cur end !-->
 
@@ -70,34 +71,34 @@
         <div class="col_l">
           <div class="m-subnav">
             <h3>
-              <strong>关于大赛</strong>
-              <span>about competition</span>
+              <strong>河北赛区</strong>
+              <span>HEBEI DIVISION</span>
             </h3>
-
             <ul>
-              <li class="li1"><a href="about_intrs5.html"><em>大赛简介</em></a></li>
-              <li class="li2"><a href="about_intrs4.html"><em>大赛章程</em></a></li>
-              <li class='li3 on'><a href="about_intrs3.html"><em>组委会文件</em></a></li>
-              <li class="li4"><a href="about_intrs2.html"><em>参赛办法</em></a></li>
-              <li class="li5"><a href="about_intrs1.html"><em>大赛视觉</em></a></li>
-              <li class="li6"><a href="about_intrs6.html"><em>赛区联系表</em></a></li>
-              <li class="li7"><a href="about_intrs7.html"><em>参赛流程</em></a></li>
+              <li class="li16 on"><a href="dynamic_newss27.html"><em>赛区新闻</em></a></li>
+              <li class="li3"><a href="dynamic_intrs27.html"><em>承办院校介绍</em></a></li>
+              <li class='li15'><a href="dynamic_bulletins27.html"><em>赛区公告</em></a></li>
+              <li class="li17"><a href="dynamic_downloads27.html"><em>文件下载</em></a></li>
+              <li class="li19"><a href="dynamic_mdggs27.html"><em>名单公告</em></a></li>
+              <li class="li20"><a href="dynamic_contacts27.html"><em>联系我们</em></a></li>
+              <li class="li14"><a href="dynamics27.html"><em>赛区列表</em></a></li>
             </ul>
           </div>
         </div>
         <!-- col_l end ! -->
 
         <div class="col_r">
-          <div class="main-title">
-            <h1>组委会文件</h1>
-            <h2><em class="line-l"></em><span>ORGANIZING COMMITTEE DOCUMENTS</span><em class="line-r"></em></h2>
-          </div>
-
           <div class="ins_xq">
-            <div style="text-align:center;">
-              <img src="Public/Admin/js/kindeditor/attached/image/20200317/20200317154359_16970.jpg" alt="" /><br />
+            <h1 id="news_title"></h1>
+            <h3 id="news_subTitle" style="text-align: center;"></h3>
+            <div class="timeName">
+              <!--<em>作者：河北赛区</em>-->
+              <em>时间：<span id="news_time"></span></em>
             </div>
           </div>
+          <div id="news_content"></div>
+
+
         </div>
         <!-- col_r end !-->
         <div class="c"></div>
@@ -148,10 +149,45 @@
       </div>
     </div>
   </div>
+
 </body>
 <script src="Public/home/js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
 <script src='Public/home/js/jquery.SuperSlide.2.1.1.js'></script>
 <script src='Public/home/js/wow.min.js'></script>
 <script src="Public/home/js/home.js" type="text/javascript" charset="utf-8"></script>
+
+
+<script>
+  $(function () {
+    $('.list_txt').html('');
+    $.ajax({
+      url: 'http://47.108.88.211:8082/gameNews/getOne',
+      type: 'GET',
+      data: { id: getQueryVariable('sid') },
+      success: function (data) {
+        console.log(data);
+        if (data.data == null) {
+          alert("没有该新闻");
+        }
+        else {
+          $('#news_title').html(data.data.title);
+          $('#news_subTitle').html(data.data.subTitle);
+          $('#news_time').html(data.data.utime);
+          $('#news_content').html(data.data.content);
+        }
+      }
+    })
+  });
+
+  function getQueryVariable(variable) {
+    var query = window.location.search.substring(1);
+    var vars = query.split("&");
+    for (var i = 0; i < vars.length; i++) {
+      var pair = vars[i].split("=");
+      if (pair[0] == variable) { return pair[1]; }
+    }
+    return (false);
+  }
+</script>
 
 </html>

@@ -1,14 +1,7 @@
 body,
 html,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
 ul,
 li,
-p,
 em {
   margin: 0;
   padding: 0;
@@ -17,7 +10,7 @@ em {
   /*color: #424242;*/
   font-weight: normal;
   font-style: normal;
-  font-family: "寰蒋闆呴粦", "Microsoft YaHei";
+  font-family: "΢���ź�", "Microsoft YaHei";
 }
 
 * {
@@ -257,7 +250,7 @@ body {
 .fixed-button .prev:hover {
   background-image: url(../images/arrow-l-act.png);
 }
-/*澶撮儴*/
+/*头部*/
 
 .header {
   height: auto;
@@ -395,14 +388,14 @@ body {
   background-color: #f5f5f5;
 }
 
-/*瀹氫箟婊氬姩鏉¤建閬� 鍐呴槾褰�+鍦嗚*/
+/*定义滚动条轨�? 内阴�?+圆角*/
 .header-nav .con::-webkit-scrollbar-track {
   -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
   border-radius: 10px;
   background-color: #f5f5f5;
 }
 
-/*瀹氫箟婊戝潡 鍐呴槾褰�+鍦嗚*/
+/*定义滑块 内阴�?+圆角*/
 .header-nav .con::-webkit-scrollbar-thumb {
   border-radius: 10px;
   -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
@@ -474,7 +467,7 @@ body {
   background: #fff;
 }
 
-/*鍐呭*/
+/*内容*/
 
 .main {
   overflow: hidden;
@@ -1410,7 +1403,7 @@ body {
   background: rgb(0, 72, 152, 0.8);
 }
 
-/*瑙嗛*/
+/*视频*/
 .video {
   position: relative;
 }
@@ -1697,7 +1690,7 @@ body {
   }
 }
 
-/* Safari 鍜� Chrome */
+/* Safari �? Chrome */
 @-webkit-keyframes myfirst {
   0% {
     transform: scale(1);
@@ -1741,7 +1734,7 @@ body {
   top: -200px;
   visibility: hidden;
 }
-/*瑙嗛end*/
+/*视频end*/
 
 .teacher-main {
   position: relative;
@@ -1906,7 +1899,7 @@ body {
   width: 100%;
   height: 100%;
 }
-/*搴曢儴*/
+/*底部*/
 .footer {
   overflow: hidden;
 }
@@ -1957,7 +1950,6 @@ body {
   line-height: 35px;
   background-position: 96% center;
   background-repeat: no-repeat;
-  background-image: url(../images/footer-menu.png);
 }
 
 .footer-menu span {
@@ -1971,7 +1963,6 @@ body {
 
 .footer-menu li:hover .a1 {
   background-color: #fff;
-  background-image: url(../images/footer-menu_on.png);
 }
 
 .footer-menu li .a1 img {
@@ -2088,7 +2079,7 @@ body {
 }
 
 /*******************************
-    -------[=鍏敤]-------
+    -------[=公用]-------
 ********************************/
 /* m-ban */
 .m-ban {
@@ -2200,318 +2191,6 @@ body {
 .m-subnav li.on em,
 .m-subnav li a:hover em {
   color: #fff;
-}
-
-.m-subnav .li1 em {
-  background-image: url(../images/subnav_icn1.png);
-}
-.m-subnav .li1.on em,
-.m-subnav .li1 a:hover em {
-  background-image: url(../images/subnav_icn1_on.png);
-}
-
-.m-subnav .li2 em {
-  background-image: url(../images/subnav_icn2.png);
-}
-.m-subnav .li2.on em,
-.m-subnav .li2 a:hover em {
-  background-image: url(../images/subnav_icn2_on.png);
-}
-
-.m-subnav .li3 em {
-  background-image: url(../images/subnav_icn3.png);
-}
-.m-subnav .li3.on em,
-.m-subnav .li3 a:hover em {
-  background-image: url(../images/subnav_icn3_on.png);
-}
-
-.m-subnav .li4 em {
-  background-image: url(../images/subnav_icn4.png);
-}
-.m-subnav .li4.on em,
-.m-subnav .li4 a:hover em {
-  background-image: url(../images/subnav_icn4_on.png);
-}
-
-.m-subnav .li5 em {
-  background-image: url(../images/subnav_icn5.png);
-}
-.m-subnav .li5.on em,
-.m-subnav .li5 a:hover em {
-  background-image: url(../images/subnav_icn5_on.png);
-}
-
-.m-subnav .li6 em {
-  background-image: url(../images/subnav_icn6.png);
-}
-.m-subnav .li6.on em,
-.m-subnav .li6 a:hover em {
-  background-image: url(../images/subnav_icn6_on.png);
-}
-
-.m-subnav .li7 em {
-  background-image: url(../images/subnav_icn7.png);
-}
-.m-subnav .li7.on em,
-.m-subnav .li7 a:hover em {
-  background-image: url(../images/subnav_icn7_on.png);
-}
-
-.m-subnav .li8 em {
-  background-image: url(../images/subnav_icn8.png);
-}
-.m-subnav .li8.on em,
-.m-subnav .li8 a:hover em {
-  background-image: url(../images/subnav_icn8_on.png);
-}
-
-.m-subnav .li9 em {
-  background-image: url(../images/subnav_icn9.png);
-}
-.m-subnav .li9.on em,
-.m-subnav .li9 a:hover em {
-  background-image: url(../images/subnav_icn9_on.png);
-}
-
-.m-subnav .li10 em {
-  background-image: url(../images/subnav_icn10.png);
-}
-.m-subnav .li10.on em,
-.m-subnav .li10 a:hover em {
-  background-image: url(../images/subnav_icn10_on.png);
-}
-
-.m-subnav .li11 em {
-  background-image: url(../images/subnav_icn11.png);
-}
-.m-subnav .li11.on em,
-.m-subnav .li11 a:hover em {
-  background-image: url(../images/subnav_icn11_on.png);
-}
-
-.m-subnav .li12 em {
-  background-image: url(../images/subnav_icn12.png);
-}
-.m-subnav .li12.on em,
-.m-subnav .li12 a:hover em {
-  background-image: url(../images/subnav_icn12_on.png);
-}
-
-.m-subnav .li13 em {
-  background-image: url(../images/subnav_icn13.png);
-}
-.m-subnav .li13.on em,
-.m-subnav .li13 a:hover em {
-  background-image: url(../images/subnav_icn13_on.png);
-}
-
-.m-subnav .li14 em {
-  background-image: url(../images/subnav_icn14.png);
-}
-.m-subnav .li14.on em,
-.m-subnav .li14 a:hover em {
-  background-image: url(../images/subnav_icn14_on.png);
-}
-
-.m-subnav .li15 em {
-  background-image: url(../images/subnav_icn15.png);
-}
-.m-subnav .li15.on em,
-.m-subnav .li15 a:hover em {
-  background-image: url(../images/subnav_icn15_on.png);
-}
-
-.m-subnav .li16 em {
-  background-image: url(../images/subnav_icn16.png);
-}
-.m-subnav .li16.on em,
-.m-subnav .li16 a:hover em {
-  background-image: url(../images/subnav_icn16_on.png);
-}
-
-.m-subnav .li17 em {
-  background-image: url(../images/subnav_icn17.png);
-}
-.m-subnav .li17.on em,
-.m-subnav .li17 a:hover em {
-  background-image: url(../images/subnav_icn17_on.png);
-}
-
-.m-subnav .li18 em {
-  background-image: url(../images/subnav_icn18.png);
-}
-.m-subnav .li18.on em,
-.m-subnav .li18 a:hover em {
-  background-image: url(../images/subnav_icn18_on.png);
-}
-
-.m-subnav .li19 em {
-  background-image: url(../images/subnav_icn19.png);
-}
-.m-subnav .li19.on em,
-.m-subnav .li19 a:hover em {
-  background-image: url(../images/subnav_icn19_on.png);
-}
-
-.m-subnav .li20 em {
-  background-image: url(../images/subnav_icn20.png);
-}
-.m-subnav .li20.on em,
-.m-subnav .li20 a:hover em {
-  background-image: url(../images/subnav_icn20_on.png);
-}
-
-.m-subnav .li21 em {
-  background-image: url(../images/subnav_icn21.png);
-}
-.m-subnav .li21.on em,
-.m-subnav .li21 a:hover em {
-  background-image: url(../images/subnav_icn21_on.png);
-}
-
-.m-subnav .li22 em {
-  background-image: url(../images/subnav_icn22.png);
-}
-.m-subnav .li22.on em,
-.m-subnav .li22 a:hover em {
-  background-image: url(../images/subnav_icn22_on.png);
-}
-
-.m-subnav .li23 em {
-  background-image: url(../images/subnav_icn23.png);
-}
-.m-subnav .li23.on em,
-.m-subnav .li23 a:hover em {
-  background-image: url(../images/subnav_icn23_on.png);
-}
-
-.m-subnav .li24 em {
-  background-image: url(../images/subnav_icn24.png);
-}
-.m-subnav .li24.on em,
-.m-subnav .li24 a:hover em {
-  background-image: url(../images/subnav_icn24_on.png);
-}
-
-.m-subnav .li25 em {
-  background-image: url(../images/subnav_icn25.png);
-}
-.m-subnav .li25.on em,
-.m-subnav .li25 a:hover em {
-  background-image: url(../images/subnav_icn25_on.png);
-}
-
-.m-subnav .li26 em {
-  background-image: url(../images/subnav_icn26.png);
-}
-.m-subnav .li26.on em,
-.m-subnav .li26 a:hover em {
-  background-image: url(../images/subnav_icn26_on.png);
-}
-
-.m-subnav .li27 em {
-  background-image: url(../images/subnav_icn27.png);
-}
-.m-subnav .li27.on em,
-.m-subnav .li27 a:hover em {
-  background-image: url(../images/subnav_icn27_on.png);
-}
-
-.m-subnav .li28 em {
-  background-image: url(../images/subnav_icn28.png);
-}
-.m-subnav .li28.on em,
-.m-subnav .li28 a:hover em {
-  background-image: url(../images/subnav_icn28_on.png);
-}
-
-.m-subnav .li29 em {
-  background-image: url(../images/subnav_icn29.png);
-}
-.m-subnav .li29.on em,
-.m-subnav .li29 a:hover em {
-  background-image: url(../images/subnav_icn29_on.png);
-}
-
-.m-subnav .li30 em {
-  background-image: url(../images/subnav_icn30.png);
-}
-.m-subnav .li30.on em,
-.m-subnav .li30 a:hover em {
-  background-image: url(../images/subnav_icn30_on.png);
-}
-
-.m-subnav .li31 em {
-  background-image: url(../images/subnav_icn31.png);
-}
-.m-subnav .li31.on em,
-.m-subnav .li31 a:hover em {
-  background-image: url(../images/subnav_icn31_on.png);
-}
-
-.m-subnav .li32 em {
-  background-image: url(../images/subnav_icn32.png);
-}
-.m-subnav .li32.on em,
-.m-subnav .li32 a:hover em {
-  background-image: url(../images/subnav_icn32_on.png);
-}
-
-.m-subnav .li33 em {
-  background-image: url(../images/subnav_icn33.png);
-}
-.m-subnav .li33.on em,
-.m-subnav .li33 a:hover em {
-  background-image: url(../images/subnav_icn33_on.png);
-}
-
-.m-subnav .li34 em {
-  background-image: url(../images/subnav_icn34.png);
-}
-.m-subnav .li34.on em,
-.m-subnav .li34 a:hover em {
-  background-image: url(../images/subnav_icn34_on.png);
-}
-
-.m-subnav .li35 em {
-  background-image: url(../images/subnav_icn35.png);
-}
-.m-subnav .li35.on em,
-.m-subnav .li35 a:hover em {
-  background-image: url(../images/subnav_icn35_on.png);
-}
-
-.m-subnav .li36 em {
-  background-image: url(../images/subnav_icn36.png);
-}
-.m-subnav .li36.on em,
-.m-subnav .li36 a:hover em {
-  background-image: url(../images/subnav_icn36_on.png);
-}
-
-.m-subnav .li37 em {
-  background-image: url(../images/subnav_icn37.png);
-}
-.m-subnav .li37.on em,
-.m-subnav .li37 a:hover em {
-  background-image: url(../images/subnav_icn37_on.png);
-}
-
-.m-subnav .li38 em {
-  background-image: url(../images/subnav_icn38.png);
-}
-.m-subnav .li38.on em,
-.m-subnav .li38 a:hover em {
-  background-image: url(../images/subnav_icn38_on.png);
-}
-
-.m-subnav .li39 em {
-  background-image: url(../images/subnav_icn39.png);
-}
-.m-subnav .li39.on em,
-.m-subnav .li39 a:hover em {
-  background-image: url(../images/subnav_icn39_on.png);
 }
 
 /* m-cur */
@@ -2672,9 +2351,9 @@ body {
 }
 
 /*******************************
-    -------[=澶ц禌鏂伴椈]-------
+    -------[=大赛新闻]-------
 ********************************/
-/* 澶ц禌鏂伴椈 */
+/* 大赛新闻 */
 .m-row .main-title {
   padding-top: 0;
   clear: both;
@@ -2795,7 +2474,7 @@ body {
   padding: 15px 0 10px;
 }
 
-/* 鏂伴椈璇︽儏 */
+/* 新闻详情 */
 .ins_xq h1 {
   font-size: 24px;
   text-align: center;
@@ -2838,7 +2517,7 @@ body {
 }
 
 /*******************************
-    -------[=鍏充簬鎴戜滑]-------
+    -------[=关于我们]-------
 ********************************/
 .about_dssj p {
   font-size: 16px;
@@ -2847,7 +2526,7 @@ body {
 }
 
 /*******************************
-    -------[=璁插笀涓撻]-------
+    -------[=讲师专题]-------
 ********************************/
 .lecturerTab {
   background: rgb(0, 72, 152);
@@ -3052,9 +2731,9 @@ body {
 }
 
 /*******************************
-    -------[=涓汉涓績]-------
+    -------[=个人中心]-------
 ********************************/
-/* 瀹夊叏涓績 */
+/* 安全中心 */
 .info_tit {
   padding-bottom: 17px;
   overflow: hidden;
@@ -3216,17 +2895,17 @@ body {
 }
 
 .g_form .txt::-webkit-input-placeholder {
-  font-family: "寰蒋闆呴粦", "Microsoft Yahei";
+  font-family: "微软雅黑", "Microsoft Yahei";
   color: #999;
 }
 
 .g_form .txt::-moz-placeholder {
-  font-family: "寰蒋闆呴粦", "Microsoft Yahei";
+  font-family: "微软雅黑", "Microsoft Yahei";
   color: #999;
 }
 
 .g_form .txt::-ms-input-placeholder {
-  font-family: "寰蒋闆呴粦", "Microsoft Yahei";
+  font-family: "微软雅黑", "Microsoft Yahei";
   color: #999;
 }
 
@@ -3381,9 +3060,9 @@ body {
 }
 
 /*******************************
-    -------[=鍙傝禌鐩稿叧]-------
+    -------[=参赛相关]-------
 ********************************/
-/* 鍛介瑙ｇ瓟 */
+/* 命题解答 */
 .list_answer {
   margin-left: -15px;
 }
@@ -3452,7 +3131,7 @@ body {
   color: #707070;
 }
 
-/* 鍛介璁ㄨ搴� */
+/* 命题讨论�? */
 .participation {
   overflow: hidden;
   margin-left: -62px;
@@ -3517,9 +3196,9 @@ body {
 }
 
 /*******************************
-    -------[=璧涘尯鍔ㄦ€乚-------
+    -------[=赛区动态]-------
 ********************************/
-/* 璧涘尯鍏憡 */
+/* 赛区公告 */
 .list_txt a {
   display: block;
 }
@@ -3604,7 +3283,7 @@ body {
   color: rgb(0, 72, 152);
 }
 
-/* 鍙備笌闄㈡牎 */
+/* 参与院校 */
 .list_brank {
   overflow: hidden;
   margin-left: -10px;
@@ -3660,7 +3339,7 @@ body {
     color:rgb(0,72,152);
 } */
 
-/* 鑱旂郴鎴戜滑 */
+/* 联系我们 */
 .dynamic_contact .img img {
   display: block;
   width: 100%;
@@ -4316,7 +3995,7 @@ h1.tit {
   line-height: 30px;
 }
 
-/* 搴旇仒淇℃伅 */
+/* 应聘信息 */
 
 .info_table h1 {
   padding-bottom: 24px;
@@ -4413,7 +4092,7 @@ h1.tit {
 }
 
 /*******************************
-    -------[=鑱旂郴鎴戜滑]-------
+    -------[=联系我们]-------
 ********************************/
 .contact {
   margin-left: -20px;
@@ -4501,7 +4180,7 @@ h1.tit {
   cursor: pointer;
 }
 
-/* 璇︾粏淇℃伅 */
+/* 详细信息 */
 .list_reward {
   padding-top: 30px;
 }
@@ -4621,7 +4300,7 @@ h1.tit {
 }
 
 /*******************************
-    -------[=鐧诲綍娉ㄥ唽]-------
+    -------[=登录注册]-------
 ********************************/
 .m_mask {
   position: fixed;
@@ -4759,7 +4438,7 @@ h1.tit {
   font-size: 24px;
   color: rgb(0, 72, 152);
   cursor: pointer;
-  font-family: "寰蒋闆呴粦", "Microsoft Yahei";
+  font-family: "微软雅黑", "Microsoft Yahei";
 }
 
 .popLogin .rig a {

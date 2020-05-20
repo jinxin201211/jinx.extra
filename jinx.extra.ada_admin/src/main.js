@@ -47,6 +47,7 @@ window.$VuexPrefix = "ada.admin.";
 Vue.prototype.$Server = "http://47.108.88.211";
 Vue.prototype.$ImagePostServer = "http://47.108.88.211:8083";
 Vue.prototype.$ImageGetServer = "http://47.108.88.211/img/";
+Vue.prototype.$WebSiteName = "大广赛后台管理系统";
 
 new Vue({
   router,

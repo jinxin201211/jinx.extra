@@ -7,38 +7,37 @@
       <div class="banner banner-1" :class="{ active: bannerShow === 0, hide: bannerShow !== 0 }"></div>
       <div class="banner banner-2" :class="{ active: bannerShow === 1, hide: bannerShow !== 1 }"></div>
       <div class="banner banner-3" :class="{ active: bannerShow === 2, hide: bannerShow !== 2 }"></div>
-      <div class="banner-navbar-pos">
-        <div class="banner-navbar">
-          <div class="nav">
-            <div>
-              <div class="icon" :style="{ backgroundImage: 'url(' + require('@/assets/images/home/banner大赛介绍@2x.png') + ')' }"></div>
-              <div class="title">大赛介绍</div>
-            </div>
-          </div>
-          <div class="nav">
-            <div @click="$router.push('/regulation')">
-              <div class="icon" :style="{ backgroundImage: 'url(' + require('@/assets/images/home/banner大赛章程@2x.png') + ')' }"></div>
-              <div class="title">大赛章程</div>
-            </div>
-          </div>
-          <div class="nav">
-            <div @click="$router.push('/account/signup')">
-              <div class="icon" :style="{ backgroundImage: 'url(' + require('@/assets/images/home/banner注册报名@2x.png') + ')' }"></div>
-              <div class="title">注册报名</div>
-            </div>
-          </div>
-          <div class="nav">
-            <div @click="$router.push('/work')">
-              <div class="icon" :style="{ backgroundImage: 'url(' + require('@/assets/images/home/banner作品提交@2x.png') + ')' }"></div>
-              <div class="title">作品提交</div>
-            </div>
-          </div>
-          <div class="nav">
-            <div>
-              <div class="icon" :style="{ backgroundImage: 'url(' + require('@/assets/images/home/banner结果查询@2x.png') + ')' }"></div>
-              <div class="title">结果查询</div>
-            </div>
-          </div>
+    </div>
+
+    <div class="jinx-banner-navbar">
+      <div class="nav">
+        <div>
+          <div class="icon" :style="{ backgroundImage: 'url(' + require('@/assets/images/home/banner大赛介绍@2x.png') + ')' }"></div>
+          <div class="title">大赛介绍</div>
+        </div>
+      </div>
+      <div class="nav">
+        <div @click="$router.push('/regulation')">
+          <div class="icon" :style="{ backgroundImage: 'url(' + require('@/assets/images/home/banner大赛章程@2x.png') + ')' }"></div>
+          <div class="title">大赛章程</div>
+        </div>
+      </div>
+      <div class="nav">
+        <div @click="$router.push('/account/signup')">
+          <div class="icon" :style="{ backgroundImage: 'url(' + require('@/assets/images/home/banner注册报名@2x.png') + ')' }"></div>
+          <div class="title">注册报名</div>
+        </div>
+      </div>
+      <div class="nav">
+        <div @click="$router.push('/work')">
+          <div class="icon" :style="{ backgroundImage: 'url(' + require('@/assets/images/home/banner作品提交@2x.png') + ')' }"></div>
+          <div class="title">作品提交</div>
+        </div>
+      </div>
+      <div class="nav">
+        <div>
+          <div class="icon" :style="{ backgroundImage: 'url(' + require('@/assets/images/home/banner结果查询@2x.png') + ')' }"></div>
+          <div class="title">结果查询</div>
         </div>
       </div>
     </div>
@@ -531,49 +530,41 @@ export default {
   .banner-3 {
     background-image: url("../assets/images/banner3.png");
   }
+}
 
-  .banner-navbar-pos {
-    position: absolute;
-    bottom: -115px;
-    left: 0;
-    z-index: 999;
-    width: 100%;
+.jinx-banner-navbar {
+  width: @typical-width;
+  height: 130px;
+  margin: 0 auto;
+  box-shadow: 0px 0px 43px 0px rgba(48, 4, 4, 0.18);
+  border-radius: 6px;
+  background: #ffffff;
 
-    .banner-navbar {
-      width: @typical-width;
-      height: 130px;
-      margin: 0 auto;
-      box-shadow: 0px 0px 43px 0px rgba(48, 4, 4, 0.18);
-      border-radius: 6px;
-      background: #ffffff;
+  .nav {
+    display: inline-block;
+    width: 20%;
+    text-align: center;
+    cursor: pointer;
 
-      .nav {
-        display: inline-block;
-        width: 20%;
-        text-align: center;
-        cursor: pointer;
+    .icon {
+      display: inline-block;
+      margin-top: 28px;
+      width: 38px;
+      height: 38px;
+      background-size: contain;
+    }
 
-        .icon {
-          display: inline-block;
-          margin-top: 28px;
-          width: 38px;
-          height: 38px;
-          background-size: contain;
-        }
-
-        .title {
-          font-size: 16px;
-          color: #666666;
-          margin-top: 13px;
-        }
-      }
+    .title {
+      font-size: 16px;
+      color: #666666;
+      margin-top: 13px;
     }
   }
 }
 
 .jinx-contest-intro {
   padding: 50px 0;
-  padding-top: 165px;
+  // padding-top: 165px;
   position: relative;
   width: @typical-width;
   margin: 0 auto;
@@ -600,7 +591,7 @@ export default {
 
   .avatar {
     position: absolute;
-    top: 115px;
+    top: 50px;
     right: 0;
     width: 463px;
     height: 523px;
