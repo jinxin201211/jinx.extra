@@ -55,7 +55,7 @@ export default {
   // background-color: @primary-color;
   background-position: center;
   background-size: contain;
-  background-image: url("../assets/images/广告大赛网站图3.png");
+  background-image: url("../assets/images/banner1.png");
   position: relative;
 }
 

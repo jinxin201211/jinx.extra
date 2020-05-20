@@ -1,0 +1,17 @@
+/*icon字体路径变量*/
+$--font-path: "~element-ui/lib/theme-chalk/fonts";
+
+/*主题颜色变量*/
+$--color-primary: #009688;
+
+/*按需引入用到的组件的scss文件和基础scss文件*/
+@import "~element-ui/packages/theme-chalk/src/base.scss";
+// @import "~element-ui/packages/theme-chalk/src/rate.scss";
+@import "~element-ui/packages/theme-chalk/src/button.scss";
+// @import "~element-ui/packages/theme-chalk/src/row.scss";
+@import "~element-ui/packages/theme-chalk/src/menu.scss";
+@import "~element-ui/packages/theme-chalk/src/checkbox.scss";
+@import "~element-ui/packages/theme-chalk/src/link.scss";
+@import "~element-ui/packages/theme-chalk/src/input.scss";
+@import "~element-ui/packages/theme-chalk/src/select.scss";
+@import "~element-ui/packages/theme-chalk/src/radio.scss";

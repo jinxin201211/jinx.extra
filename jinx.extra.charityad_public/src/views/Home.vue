@@ -4,8 +4,9 @@
     <jinx-nav-menu :menu="menuList" style="position: absolute; top: 42px; z-index: 1;" @scrolltoview="handleScrollToView"></jinx-nav-menu>
     <!--<div id="anchor_home" class="jinx-banner" :style="{ backgroundImage: 'url(' + require('@/assets/images/banner.jpg') + ')' }">-->
     <div id="anchor_home" class="jinx-banner">
-      <div class="banner banner-1" :class="{ active: bannerShow === 1, hide: bannerShow !== 1 }"></div>
-      <div class="banner banner-2" :class="{ active: bannerShow !== 1, hide: bannerShow === 1 }"></div>
+      <div class="banner banner-1" :class="{ active: bannerShow === 0, hide: bannerShow !== 0 }"></div>
+      <div class="banner banner-2" :class="{ active: bannerShow === 1, hide: bannerShow !== 1 }"></div>
+      <div class="banner banner-3" :class="{ active: bannerShow === 2, hide: bannerShow !== 2 }"></div>
       <div class="banner-navbar-pos">
         <div class="banner-navbar">
           <div class="nav">
@@ -103,8 +104,8 @@
           <div class="works-body">
             <div v-show="work.file > 0" class="left" @click="work.file--"></div>
             <div class="works-file" v-if="work.list.length > 0">
-              <div class="image" v-if="work.list[work.index].files[work.file].endsWith('.jpg')" :style="{ backgroundImage: 'url(' + $FileGetServer + work.list[work.index].files[work.file] + ')' }"></div>
-              <video class="video" v-if="work.list[work.index].files[work.file].endsWith('.mp4')" :src="$FileGetServer + work.list[work.index].files[work.file]" controls="controls">您的浏览器不支持 video 标签。</video>
+              <div class="image" v-if="work.list[work.index].files.length > 0 && isImage(work.list[work.index].files[work.file])" :style="{ backgroundImage: 'url(' + $FileGetServer + work.list[work.index].files[work.file] + ')' }"></div>
+              <video class="video" v-if="work.list[work.index].files.length > 0 && isVideo(work.list[work.index].files[work.file])" :src="$FileGetServer + work.list[work.index].files[work.file]" controls="controls">您的浏览器不支持 video 标签。</video>
             </div>
             <div v-show="work.list.length > 0 && work.file < work.list[work.index].files.length - 1" class="right" @click="work.file++"></div>
           </div>
@@ -126,8 +127,8 @@
                     work.file = 0;
                   "
                 >
-                  <div class="image" v-if="item.files[0].endsWith('.jpg')" :style="{ backgroundImage: 'url(' + $FileGetServer + item.files[0] + ')' }"></div>
-                  <div class="video">
+                  <div class="image" v-if="item.files.length > 0 && isImage(item.files[0])" :style="{ backgroundImage: 'url(' + $FileGetServer + item.files[0] + ')' }"></div>
+                  <div class="video" v-if="item.files.length > 0 && isVideo(item.files[0])">
                     <svg t="1589870741966" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1140" width="48" height="48">
                       <path d="M981.184 160.096c-143.616-20.64-302.336-32.096-469.184-32.096s-325.568 11.456-469.184 32.096c-27.52 107.712-42.816 226.752-42.816 351.904s15.264 244.16 42.816 351.904c143.648 20.64 302.336 32.096 469.184 32.096s325.568-11.456 469.184-32.096c27.52-107.712 42.816-226.752 42.816-351.904s-15.264-244.16-42.816-351.904zM384 704l0-384 320 192-320 192z" p-id="1141" fill="#bfbfbf"></path>
                     </svg>
@@ -258,7 +259,7 @@ export default {
         { title: "联系我们", path: "anchor_contact_us" }
       ],
       newsList: [],
-      bannerShow: 1,
+      bannerShow: 0,
       work: {
         list: [],
         index: 0,
@@ -283,13 +284,13 @@ export default {
       let that = this;
       let time = 0;
       setTimeout(function f() {
+        that.bannerShow = time % 3;
         time++;
-        that.bannerShow = time % 2;
         setTimeout(f, 10000);
       }, 0);
     },
     getNewsList() {
-      this.loading = true;
+      // this.loading = true;
       let that = this;
       that.newsList = [];
       let month_dict = ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"];
@@ -297,7 +298,6 @@ export default {
         .post("/api/gameNews/getData", qs.stringify(this.query))
         .then(function(response) {
           if (response && response.data.code == "0") {
-            console.log(response.data.data);
             for (let i = 0; i < response.data.data.length; i += 2) {
               let newsRow = { col1: null, col2: null };
               if (i < response.data.data.length) {
@@ -336,11 +336,11 @@ export default {
               type: "warning"
             });
           }
-          that.loading = false;
+          // that.loading = false;
         })
         .catch(function(err) {
           console.log(err);
-          that.loading = false;
+          // that.loading = false;
           that.$message({
             showClose: true,
             message: "查询失败",
@@ -357,7 +357,6 @@ export default {
       });
     },
     handleScrollToView(path) {
-      console.log(path);
       let section = document.getElementById(path);
       if (section) {
         section.scrollIntoView({ behavior: "smooth" });
@@ -370,61 +369,119 @@ export default {
       }
     },
     getWorksList() {
-      this.loading = true;
+      // this.loading = true;
       let that = this;
       that.work.list = [];
       that.work.index = 0;
       that.work.file = 0;
-      that.work.list.push({
-        title: "",
-        author: "作者名字1",
-        files: ["202005111736510487_C%E3%80%81%E8%A1%8C%E9%A9%B6%E8%AF%81%E7%85%A7%E7%89%87.jpg", "202005141017290497_视频%20免费下载%20-%20爱给网.mp4", "202005111736510487_C%E3%80%81%E8%A1%8C%E9%A9%B6%E8%AF%81%E7%85%A7%E7%89%87.jpg"]
-      });
-      that.work.list.push({
-        title: "",
-        author: "作者名字2",
-        files: ["202005141017290497_视频%20免费下载%20-%20爱给网.mp4", "202005111736510487_C%E3%80%81%E8%A1%8C%E9%A9%B6%E8%AF%81%E7%85%A7%E7%89%87.jpg", "202005111736510487_C%E3%80%81%E8%A1%8C%E9%A9%B6%E8%AF%81%E7%85%A7%E7%89%87.jpg"]
-      });
-      that.work.list.push({
-        title: "",
-        author: "作者名字3",
-        files: ["202005141017290497_视频%20免费下载%20-%20爱给网.mp4", "202005141017290497_视频%20免费下载%20-%20爱给网.mp4", "202005141017290497_视频%20免费下载%20-%20爱给网.mp4"]
-      });
-      that.work.list.push({
-        title: "",
-        author: "作者名字4",
-        files: ["202005111736510487_C%E3%80%81%E8%A1%8C%E9%A9%B6%E8%AF%81%E7%85%A7%E7%89%87.jpg", "202005111736510487_C%E3%80%81%E8%A1%8C%E9%A9%B6%E8%AF%81%E7%85%A7%E7%89%87.jpg", "202005111736510487_C%E3%80%81%E8%A1%8C%E9%A9%B6%E8%AF%81%E7%85%A7%E7%89%87.jpg"]
-      });
-      that.work.list.push({
-        title: "",
-        author: "作者名字5",
-        files: ["202005111736510487_C%E3%80%81%E8%A1%8C%E9%A9%B6%E8%AF%81%E7%85%A7%E7%89%87.jpg", "202005111736510487_C%E3%80%81%E8%A1%8C%E9%A9%B6%E8%AF%81%E7%85%A7%E7%89%87.jpg", "202005111736510487_C%E3%80%81%E8%A1%8C%E9%A9%B6%E8%AF%81%E7%85%A7%E7%89%87.jpg"]
-      });
-      that.work.list.push({
-        title: "",
-        author: "作者名字6",
-        files: ["202005111736510487_C%E3%80%81%E8%A1%8C%E9%A9%B6%E8%AF%81%E7%85%A7%E7%89%87.jpg", "202005111736510487_C%E3%80%81%E8%A1%8C%E9%A9%B6%E8%AF%81%E7%85%A7%E7%89%87.jpg", "202005111736510487_C%E3%80%81%E8%A1%8C%E9%A9%B6%E8%AF%81%E7%85%A7%E7%89%87.jpg"]
-      });
-      that.work.list.push({
-        title: "",
-        author: "作者名字7",
-        files: ["202005111736510487_C%E3%80%81%E8%A1%8C%E9%A9%B6%E8%AF%81%E7%85%A7%E7%89%87.jpg", "202005111736510487_C%E3%80%81%E8%A1%8C%E9%A9%B6%E8%AF%81%E7%85%A7%E7%89%87.jpg", "202005111736510487_C%E3%80%81%E8%A1%8C%E9%A9%B6%E8%AF%81%E7%85%A7%E7%89%87.jpg"]
-      });
-      that.work.list.push({
-        title: "",
-        author: "作者名字8",
-        files: ["202005111736510487_C%E3%80%81%E8%A1%8C%E9%A9%B6%E8%AF%81%E7%85%A7%E7%89%87.jpg", "202005111736510487_C%E3%80%81%E8%A1%8C%E9%A9%B6%E8%AF%81%E7%85%A7%E7%89%87.jpg", "202005111736510487_C%E3%80%81%E8%A1%8C%E9%A9%B6%E8%AF%81%E7%85%A7%E7%89%87.jpg"]
-      });
-      that.work.list.push({
-        title: "",
-        author: "作者名字9",
-        files: ["202005111736510487_C%E3%80%81%E8%A1%8C%E9%A9%B6%E8%AF%81%E7%85%A7%E7%89%87.jpg"]
-      });
-      that.work.list.push({
-        title: "",
-        author: "作者名字10",
-        files: ["202005111736510487_C%E3%80%81%E8%A1%8C%E9%A9%B6%E8%AF%81%E7%85%A7%E7%89%87.jpg", "202005111736510487_C%E3%80%81%E8%A1%8C%E9%A9%B6%E8%AF%81%E7%85%A7%E7%89%87.jpg"]
-      });
+      // that.work.list.push({
+      //   title: "",
+      //   author: "作者名字1",
+      //   files: ["202005111736510487_C%E3%80%81%E8%A1%8C%E9%A9%B6%E8%AF%81%E7%85%A7%E7%89%87.jpg", "202005141017290497_视频%20免费下载%20-%20爱给网.mp4", "202005111736510487_C%E3%80%81%E8%A1%8C%E9%A9%B6%E8%AF%81%E7%85%A7%E7%89%87.jpg"]
+      // });
+      // that.work.list.push({
+      //   title: "",
+      //   author: "作者名字2",
+      //   files: ["202005141017290497_视频%20免费下载%20-%20爱给网.mp4", "202005111736510487_C%E3%80%81%E8%A1%8C%E9%A9%B6%E8%AF%81%E7%85%A7%E7%89%87.jpg", "202005111736510487_C%E3%80%81%E8%A1%8C%E9%A9%B6%E8%AF%81%E7%85%A7%E7%89%87.jpg"]
+      // });
+      // that.work.list.push({
+      //   title: "",
+      //   author: "作者名字3",
+      //   files: ["202005141017290497_视频%20免费下载%20-%20爱给网.mp4", "202005141017290497_视频%20免费下载%20-%20爱给网.mp4", "202005141017290497_视频%20免费下载%20-%20爱给网.mp4"]
+      // });
+      // that.work.list.push({
+      //   title: "",
+      //   author: "作者名字4",
+      //   files: ["202005111736510487_C%E3%80%81%E8%A1%8C%E9%A9%B6%E8%AF%81%E7%85%A7%E7%89%87.jpg", "202005111736510487_C%E3%80%81%E8%A1%8C%E9%A9%B6%E8%AF%81%E7%85%A7%E7%89%87.jpg", "202005111736510487_C%E3%80%81%E8%A1%8C%E9%A9%B6%E8%AF%81%E7%85%A7%E7%89%87.jpg"]
+      // });
+      // that.work.list.push({
+      //   title: "",
+      //   author: "作者名字5",
+      //   files: ["202005111736510487_C%E3%80%81%E8%A1%8C%E9%A9%B6%E8%AF%81%E7%85%A7%E7%89%87.jpg", "202005111736510487_C%E3%80%81%E8%A1%8C%E9%A9%B6%E8%AF%81%E7%85%A7%E7%89%87.jpg", "202005111736510487_C%E3%80%81%E8%A1%8C%E9%A9%B6%E8%AF%81%E7%85%A7%E7%89%87.jpg"]
+      // });
+      // that.work.list.push({
+      //   title: "",
+      //   author: "作者名字6",
+      //   files: ["202005111736510487_C%E3%80%81%E8%A1%8C%E9%A9%B6%E8%AF%81%E7%85%A7%E7%89%87.jpg", "202005111736510487_C%E3%80%81%E8%A1%8C%E9%A9%B6%E8%AF%81%E7%85%A7%E7%89%87.jpg", "202005111736510487_C%E3%80%81%E8%A1%8C%E9%A9%B6%E8%AF%81%E7%85%A7%E7%89%87.jpg"]
+      // });
+      // that.work.list.push({
+      //   title: "",
+      //   author: "作者名字7",
+      //   files: ["202005111736510487_C%E3%80%81%E8%A1%8C%E9%A9%B6%E8%AF%81%E7%85%A7%E7%89%87.jpg", "202005111736510487_C%E3%80%81%E8%A1%8C%E9%A9%B6%E8%AF%81%E7%85%A7%E7%89%87.jpg", "202005111736510487_C%E3%80%81%E8%A1%8C%E9%A9%B6%E8%AF%81%E7%85%A7%E7%89%87.jpg"]
+      // });
+      // that.work.list.push({
+      //   title: "",
+      //   author: "作者名字8",
+      //   files: ["202005111736510487_C%E3%80%81%E8%A1%8C%E9%A9%B6%E8%AF%81%E7%85%A7%E7%89%87.jpg", "202005111736510487_C%E3%80%81%E8%A1%8C%E9%A9%B6%E8%AF%81%E7%85%A7%E7%89%87.jpg", "202005111736510487_C%E3%80%81%E8%A1%8C%E9%A9%B6%E8%AF%81%E7%85%A7%E7%89%87.jpg"]
+      // });
+      // that.work.list.push({
+      //   title: "",
+      //   author: "作者名字9",
+      //   files: ["202005111736510487_C%E3%80%81%E8%A1%8C%E9%A9%B6%E8%AF%81%E7%85%A7%E7%89%87.jpg"]
+      // });
+      // that.work.list.push({
+      //   title: "",
+      //   author: "作者名字10",
+      //   files: ["202005111736510487_C%E3%80%81%E8%A1%8C%E9%A9%B6%E8%AF%81%E7%85%A7%E7%89%87.jpg", "202005111736510487_C%E3%80%81%E8%A1%8C%E9%A9%B6%E8%AF%81%E7%85%A7%E7%89%87.jpg"]
+      // });
+
+      this.axios
+        .post("/api/gameWorks2/getExcellentWorks")
+        .then(function(response) {
+          if (response && response.data.code == "0") {
+            for (let i = 0; i < response.data.data.length; i++) {
+              let work = {
+                title: response.data.data[i].worksName,
+                author: response.data.data[i].gameWorks.author1,
+                files: []
+              };
+
+              for (let j = 0; j < response.data.data[i].gameWorksFiles.length; j++) {
+                work.files.push(response.data.data[i].gameWorksFiles[j].fileName);
+              }
+              that.work.list.push(work);
+            }
+            console.log(that.work.list);
+          } else {
+            that.$message({
+              showClose: true,
+              message: "获取优秀作品失败",
+              type: "warning"
+            });
+          }
+        })
+        .catch(function(err) {
+          console.log(err);
+          that.$message({
+            showClose: true,
+            message: "获取优秀作品失败",
+            type: "warning"
+          });
+        });
+    },
+    isImage: function(file) {
+      file = file.toLowerCase();
+      if (file.endsWith(".jpg") || file.endsWith(".jpeg") || file.endsWith(".png") || file.endsWith(".gif")) {
+        return true;
+      } else {
+        return false;
+      }
+    },
+    isVideo: function(file) {
+      file = file.toLowerCase();
+      if (file.endsWith(".mp4") || file.endsWith(".avi") || file.endsWith(".flv")) {
+        return true;
+      } else {
+        return false;
+      }
+    },
+    isAudio: function(file) {
+      file = file.toLowerCase();
+      if (file.endsWith(".mp3") || file.endsWith(".wav") || file.endsWith(".wma") || file.endsWith(".ogg")) {
+        return true;
+      } else {
+        return false;
+      }
     }
   }
 };
@@ -433,7 +490,7 @@ export default {
 <style lang="less" scoped>
 .jinx-banner {
   min-width: @typical-width;
-  height: 750px;
+  height: 600px;
   color: #000;
   // background-color: @primary-color;
   // background-position: center;
@@ -447,42 +504,32 @@ export default {
     width: 100%;
     height: 100%;
     background-position: center;
-    background-size: contain;
+    background-size: cover;
     transition: left 0.6s ease, opacity 0.6s, visibility 0.6s;
   }
 
-  .banner-1 {
-    background-color: #ffffff;
-    background-image: url("../assets/images/广告大赛网站图2.png");
-  }
-
-  .banner-1.active {
-    left: 0;
+  .banner.active {
     visibility: visible;
     opacity: 1;
   }
 
-  .banner-1.hide {
-    // left: 100%;
+  .banner.hide {
     visibility: hidden;
     opacity: 0;
+  }
+
+  .banner-1 {
+    // background-color: #ffffff;
+    background-image: url("../assets/images/banner1.png");
   }
 
   .banner-2 {
-    background-color: #b70102;
-    background-image: url("../assets/images/广告大赛网站图3.png");
+    // background-color: #b70102;
+    background-image: url("../assets/images/banner2.jpg");
   }
 
-  .banner-2.active {
-    left: 0;
-    visibility: visible;
-    opacity: 1;
-  }
-
-  .banner-2.hide {
-    // left: 100%;
-    visibility: hidden;
-    opacity: 0;
+  .banner-3 {
+    background-image: url("../assets/images/banner3.png");
   }
 
   .banner-navbar-pos {

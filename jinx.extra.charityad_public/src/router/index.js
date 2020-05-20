@@ -182,6 +182,8 @@ router.beforeEach((to, from, next) => {
       next();
     } else {
       let token = sessionStorage.getItem(window.$VuexPrefix + "Token");
+      console.log(token);
+      // console.log()
 
       //没有登录
       if (token === null || token === "null" || token === "") {

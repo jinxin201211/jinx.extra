@@ -1,0 +1,55 @@
+<template>
+  <div id="app">
+    <!--<navigation>
+      <router-view v-if="isRouterAlive" :key="$route.fullPath" />
+    </navigation>-->
+    <router-view v-if="isRouterAlive" :key="$route.fullPath" />
+  </div>
+</template>
+<script>
+export default {
+  provide() {
+    return {
+      reload: this.reload
+    };
+  },
+  data() {
+    return {
+      isRouterAlive: true
+    };
+  },
+  mounted: function() {
+    this.$store.commit("syncAccount");
+  },
+  methods: {
+    reload() {
+      this.isRouterAlive = false;
+      this.$nextTick(function() {
+        this.isRouterAlive = true;
+      });
+    }
+  }
+};
+</script>
+<style>
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+  font-family: "Microsoft YaHei", "微软雅黑", "simhei", "黑体", "Microsoft JhengHei", "华文细黑", "STHeiti", "MingLiu", "SimSun", Arial, Helv, Helvetica, sans-serif;
+  font-size: 14px;
+}
+
+#app {
+  height: 100%;
+  width: 100%;
+}
+
+a {
+  color: #333;
+  text-decoration: none;
+}
+</style>

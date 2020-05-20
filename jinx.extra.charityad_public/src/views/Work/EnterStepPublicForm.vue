@@ -21,18 +21,18 @@
         </el-form-item>
         <el-form-item
           label="作品名称"
-          prop="works_name"
+          prop="worksName"
           :rules="[
             { required: true, message: '请输入作品名称', trigger: 'blur' },
             { min: 0, max: 200, message: '最多 200 个字符', trigger: 'blur' }
           ]"
         >
-          <el-input v-model="form.works_name" maxlength="200"></el-input>
+          <el-input v-model="form.worksName" maxlength="200"></el-input>
         </el-form-item>
         <el-row>
           <el-col :span="12">
-            <el-form-item label="作品类别" prop="works_series" :rules="[{ required: true, message: '请选择作品类别', trigger: 'blur' }]">
-              <el-radio-group v-model="form.works_series">
+            <el-form-item label="作品类别" prop="worksSeries" :rules="[{ required: true, message: '请选择作品类别', trigger: 'blur' }]">
+              <el-radio-group v-model="form.worksSeries">
                 <el-radio label="A">A:中国梦系列</el-radio>
                 <el-radio label="B">B:营商环境系列</el-radio>
                 <el-radio label="C">C:生态保护系列</el-radio>
@@ -43,8 +43,8 @@
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item prop="works_type" :rules="[{ required: true, message: '请选择作品类别', trigger: 'blur' }]">
-              <el-radio-group v-model="form.works_type">
+            <el-form-item prop="worksType" :rules="[{ required: true, message: '请选择作品类别', trigger: 'blur' }]">
+              <el-radio-group v-model="form.worksType" @change="handleWorksTypeChange">
                 <el-radio label="1">1:平面类</el-radio>
                 <el-radio label="2">2:文案类</el-radio>
                 <el-radio label="3">3:广播类</el-radio>
@@ -55,8 +55,8 @@
             </el-form-item>
           </el-col>
         </el-row>
-        <el-form-item label="作品素材来源" prop="material_source" :rules="[{ required: true, message: '请选择作品素材来源', trigger: 'blur' }]">
-          <el-radio-group v-model="form.material_source">
+        <el-form-item label="作品素材来源" prop="materialSurce" :rules="[{ required: true, message: '请选择作品素材来源', trigger: 'blur' }]">
+          <el-radio-group v-model="form.materialSurce">
             <el-radio label="1">我保重此作品是我的原创</el-radio>
             <el-radio label="2">我使用了素材</el-radio>
           </el-radio-group>
@@ -66,8 +66,8 @@
             <el-input v-model="form.author1" maxlength="200" style="width: 150px;"><template slot="prepend">1</template></el-input>
             <el-input v-model="form.author2" maxlength="200" style="width: 150px; margin-left: 20px;"><template slot="prepend">2</template></el-input>
             <el-input v-model="form.author3" maxlength="200" style="width: 150px; margin-left: 20px;"><template slot="prepend">3</template></el-input>
-            <el-input v-model="form.author4" maxlength="200" style="width: 150px; margin-left: 20px;"><template slot="prepend">4</template></el-input>
-            <el-input v-model="form.author5" maxlength="200" style="width: 150px; margin-left: 20px;"><template slot="prepend">5</template></el-input>
+            <el-input v-if="AuthorCount > 3" v-model="form.author4" maxlength="200" style="width: 150px; margin-left: 20px;"><template slot="prepend">4</template></el-input>
+            <el-input v-if="AuthorCount > 4" v-model="form.author5" maxlength="200" style="width: 150px; margin-left: 20px;"><template slot="prepend">5</template></el-input>
           </div>
         </el-form-item>
         <el-card style="margin: 20px;" shadow="never">
@@ -76,8 +76,15 @@
           </div>
           <el-row>
             <el-col :span="12">
-              <el-form-item label="身份证号" prop="idcard_no" :rules="[{ required: true, message: '请填写身份证号', trigger: 'blur' }]">
-                <el-input v-model="form.idcard_no" maxlength="200"></el-input>
+              <el-form-item
+                label="身份证号"
+                prop="idcardNo"
+                :rules="[
+                  { required: true, message: '请填写身份证号', trigger: 'blur' },
+                  { validator: validateID, trigger: 'blur' }
+                ]"
+              >
+                <el-input v-model="form.idcardNo" maxlength="200"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="12">
@@ -114,8 +121,8 @@
           </el-row>
           <el-row>
             <el-col :span="24">
-              <el-form-item label="所属单位" prop="org_name" :rules="[{ required: true, message: '请填写所属单位', trigger: 'blur' }]">
-                <el-input v-model="form.org_name" maxlength="200"></el-input>
+              <el-form-item label="所属单位" prop="orgName" :rules="[{ required: true, message: '请填写所属单位', trigger: 'blur' }]">
+                <el-input v-model="form.orgName" maxlength="200"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
@@ -131,7 +138,7 @@
           <div slot="header" style="text-align: center;">
             <span>作品创意说明</span>
           </div>
-          <el-input type="textarea" maxlength="2000" show-word-limit v-model="form.creative_overview"></el-input>
+          <el-input type="textarea" maxlength="2000" show-word-limit v-model="form.creativeOverview"></el-input>
         </el-card>
       </el-card>
     </el-form>
@@ -148,33 +155,65 @@ export default {
   data: function() {
     return {
       form: {
-        // region: "",
-        // major: "",
-        // name: "",
-        // topic_type: "",
-        // topic_name: "",
-        // summary: "",
-        // source: ""
+        // wid: "",
+        // worksName: "",
+        // worksSeries: "",
+        // worksType: "",
+        // materialSurce: "",
+        // author1: "",
+        // author2: "",
+        // author3: "",
+        // author4: "",
+        // author5: "",
+        // idcardNo: "",
+        // tel: "",
+        // email: "",
+        // qq: "",
+        // orgName: "",
+        // addr: "",
+        // creativeOverview: "",
+        // gameUname: this.$store.state.User.uname,
+        // gameType: this.$store.state.User.type ?? "1",
+        // tTel: "",
+        // tEmail: "",
+        // tOrgName: "",
+        // tUname: "",
         wid: "",
-        works_name: "",
-        works_series: "",
-        works_type: "",
-        material_source: "",
-        author1: "",
+        worksName: "作品名称1qaz",
+        worksSeries: "A",
+        worksType: "1",
+        materialSurce: "1",
+        author1: "金鑫",
         author2: "",
         author3: "",
         author4: "",
         author5: "",
-        idcard_no: "",
-        tel: "",
-        email: "",
-        qq: "",
-        addr: "",
-        creative_overview: ""
+        idcardNo: "333333199901011111",
+        tel: "13333333333",
+        email: "11@xx.com",
+        qq: "123456789",
+        orgName: "单位5听广播yhn",
+        addr: "地址2wsx3edc",
+        creativeOverview: "创意说明创意说明创意说明创意说明创意说明创意说明创意说明创意说明创意说明创意说明",
+        gameUname: this.$store.state.User.uname,
+        gameType: this.$store.state.User.type ?? "1",
+        tTel: "",
+        tEmail: "",
+        tOrgName: "",
+        tUname: ""
       },
       loading: false,
       disabled: false,
-      wid: ""
+      wid: "",
+      AuthorCount: 3,
+      AuthorCountCode: [
+        { type: "1", count: 3 },
+        { type: "2", count: 3 },
+        { type: "3", count: 3 },
+        { type: "4", count: 5 },
+        { type: "5", count: 5 },
+        { type: "6", count: 4 }
+      ]
     };
   },
   mounted: function() {},
@@ -196,6 +235,29 @@ export default {
         }
       }, 100);
     },
+    validateID: function(rule, value, callback) {
+      const idReg = /^[1-9]\d{5}(18|19|20)\d{2}((0[1-9])|(1[0-2]))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$/;
+      if (!value) {
+        return callback(new Error("请输入身份证号"));
+      }
+      setTimeout(() => {
+        if (idReg.test(value)) {
+          callback();
+        } else {
+          callback(new Error("身份证号格式不正确"));
+        }
+      }, 100);
+    },
+    handleWorksTypeChange: function(val) {
+      console.log(val);
+      this.AuthorCount = this.AuthorCountCode.find(p => p.type === val).count;
+      if (this.AuthorCount === 3) {
+        this.form.author4 = "";
+        this.form.author5 = "";
+      } else if (this.AuthorCount === 4) {
+        this.form.author5 = "";
+      }
+    },
     handleNextStep: function() {
       this.$refs["form"].validate(valid => {
         if (valid) {
@@ -216,24 +278,25 @@ export default {
     submit: function() {
       this.loading = true;
       let that = this;
-      let data = {
-        area: this.form.region,
-        creativeOverview: this.form.summary,
-        major: this.form.major,
-        materialSurce: this.form.source,
-        propositionName: this.form.topic_name,
-        propositionType: this.form.topic_type,
-        worksName: this.form.name
-      };
+      // let data = {
+      //   area: this.form.region,
+      //   creativeOverview: this.form.summary,
+      //   major: this.form.major,
+      //   materialSurce: this.form.source,
+      //   propositionName: this.form.topic_name,
+      //   propositionType: this.form.topic_type,
+      //   worksName: this.form.name
+      // };
+      console.log(this.form);
       this.axios
-        .post("/api/gameWorks/add", qs.stringify(data))
+        .post("/api/gameWorks2/add", qs.stringify(this.form))
         .then(function(response) {
           if (response && response.data.code == "0") {
             that.wid = response.data.data;
             that.disabled = true;
             that.$router.replace({
-              path: "/work/authorinfo",
-              query: { wid: that.wid }
+              path: "/work/file",
+              query: { wid: that.wid, type: that.form.worksType }
               // name: "authorinfo",
               // params: { wid: this.wid }
             });

@@ -1,7 +1,7 @@
 <template>
   <div class="jinx-layout">
     <div class="jinx-header">
-      <div style="padding: 0 20px; float: left; line-height: 60px; font-weight: bold; font-size: 24px;">全国平面公益广告大赛</div>
+      <div style="padding: 0 20px; float: left; line-height: 60px; font-weight: bold; font-size: 24px;">河北省公益广告大赛</div>
       <div style="float: right;">
         <el-menu mode="horizontal" default-active="1">
           <el-menu-item @click="handleFullscreen"><i class="el-icon-full-screen"></i></el-menu-item>
