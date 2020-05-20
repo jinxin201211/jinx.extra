@@ -161,6 +161,15 @@ const routes = [
       title: "大赛章程",
       access: false
     }
+  },
+  {
+    name: "Prize",
+    path: "/prize",
+    component: () => import("../views/Prize/Type.vue"),
+    meta: {
+      title: "大赛章程",
+      access: false
+    }
   }
 ];
 

@@ -35,7 +35,7 @@
         </div>
       </div>
       <div class="nav">
-        <div>
+        <div @click="$router.push('/prize')">
           <div class="icon" :style="{ backgroundImage: 'url(' + require('@/assets/images/home/banner结果查询@2x.png') + ')' }"></div>
           <div class="title">结果查询</div>
         </div>
