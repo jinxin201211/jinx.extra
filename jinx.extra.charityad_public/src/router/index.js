@@ -43,60 +43,6 @@ const routes = [
     name: "Work",
     component: () => import("../views/Work/Main.vue"),
     children: [
-      // {
-      //   name: "convenant",
-      //   path: "convenant",
-      //   component: () => import("../views/Work/SubmitStepConvenant.vue"),
-      //   meta: {
-      //     title: "提交作品",
-      //     access: true
-      //   }
-      // },
-      // {
-      //   name: "workinfo",
-      //   path: "workinfo",
-      //   component: () => import("../views/Work/SubmitStepWorkInfo.vue"),
-      //   meta: {
-      //     title: "填写基本资料",
-      //     access: true
-      //   }
-      // },
-      // {
-      //   name: "authorinfo",
-      //   path: "authorinfo",
-      //   component: () => import("../views/Work/SubmitStepAuthorInfo.vue"),
-      //   meta: {
-      //     title: "结束提交",
-      //     access: true
-      //   }
-      // },
-      // {
-      //   name: "upload",
-      //   path: "upload",
-      //   component: () => import("../views/Work/SubmitStepUpload.vue"),
-      //   meta: {
-      //     title: "上传作品文件",
-      //     access: true
-      //   }
-      // },
-      // {
-      //   name: "submit",
-      //   path: "submit",
-      //   component: () => import("../views/Work/SubmitStepSubmit.vue"),
-      //   meta: {
-      //     title: "提交作品",
-      //     access: true
-      //   }
-      // },
-      // {
-      //   name: "list",
-      //   path: "list",
-      //   component: () => import("../views/Work/List.vue"),
-      //   meta: {
-      //     title: "作品列表",
-      //     access: true
-      //   }
-      // },
       {
         name: "getconvenant",
         path: "getconvenant",
@@ -170,6 +116,35 @@ const routes = [
       title: "大赛章程",
       access: false
     }
+  },
+  {
+    name: "Competitor",
+    path: "/competitor",
+    component: () => import("../views/Competitor/Main.vue"),
+    meta: {
+      title: "我的作品",
+      access: false
+    },
+    children: [
+      {
+        name: "works",
+        path: "works",
+        component: () => import("../views/Competitor/Works.vue"),
+        meta: {
+          title: "我的作品",
+          access: true
+        }
+      },
+      {
+        name: "work",
+        path: "work",
+        component: () => import("../views/Competitor/Work.vue"),
+        meta: {
+          title: "我的作品",
+          access: true
+        }
+      }
+    ]
   }
 ];
 
@@ -191,7 +166,7 @@ router.beforeEach((to, from, next) => {
       next();
     } else {
       let token = sessionStorage.getItem(window.$VuexPrefix + "Token");
-      console.log(token);
+      // console.log(token);
       // console.log()
 
       //没有登录

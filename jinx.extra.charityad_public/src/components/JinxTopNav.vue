@@ -16,13 +16,13 @@
       </div>
       <div class="float_right" v-if="account != null && account != '' && authorize">
         <span>
-          <router-link to="/prize">获奖查询</router-link>
+          <router-link to="/competitor/works">我的作品</router-link>
         </span>
         <span>|</span>
-        <span>
+        <!--<span>
           <router-link to="/work">作品提交</router-link>
         </span>
-        <span>|</span>
+        <span>|</span>-->
         <span v-text="account + '，您好！'"></span>
         <span>|</span>
         <span><a @click="handleSignOut" href="#">退出</a></span>
@@ -40,8 +40,8 @@ export default {
     };
   },
   mounted() {
-    console.log("--------------JinxTopNav----------------");
-    console.log(this.$store.state.Account);
+    // console.log("--------------JinxTopNav----------------");
+    // console.log(this.$store.state.Account);
     // console.log("JinxTopNav");
     // console.log(this.login);
   },

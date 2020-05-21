@@ -32,6 +32,7 @@ export default {
 <style lang="less" scoped>
 .jinx-nav {
   width: 100%;
+  min-width: @typical-width;
   box-sizing: border-box;
   background: #ffffff;
   padding: 0;
@@ -44,6 +45,7 @@ export default {
 
   .jinx-menu {
     margin: 0 auto;
+    padding: 0;
     width: @typical-width;
     list-style: none;
     // border-bottom: none;

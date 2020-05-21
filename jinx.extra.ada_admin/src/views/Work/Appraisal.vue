@@ -17,7 +17,7 @@
           </div>
           <div class="jinx-works-info">
             <span>作品类别</span>
-            <span v-text="(WorksInfo.works.worksSeries == null ? '' : WorksInfo.works.worksSeries == null) + ' | ' + (WorksInfo.works.worksType == null ? '' : WorksInfo.works.worksType == null)"></span>
+            <span v-text="(WorksInfo.works.worksSeries == null ? '' : WorksInfo.works.worksSeries) + ' | ' + (WorksInfo.works.worksType == null ? '' : WorksInfo.works.worksType)"></span>
           </div>
           <div class="jinx-works-info">
             <span>作品素材来源</span>
