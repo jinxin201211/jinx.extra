@@ -162,7 +162,7 @@ export default {
       let that = this;
       // this.next_status.loading = true;
       this.axios
-        .post("/api//gameWorks2/getWorksByWid", qs.stringify({ wid: this.$route.query.wid }))
+        .post("/api/gameWorks2/getWorksByWid", qs.stringify({ wid: this.$route.query.wid }))
         .then(function(response) {
           if (response && response.data.code == "0") {
             that.WorksInfo = response.data.data;

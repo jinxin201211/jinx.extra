@@ -28,7 +28,7 @@
       <el-divider></el-divider>
 
       <div style="margin: 15px 0; font-size: 24px; font-weight: bold;">上传作品文件：</div>
-      <el-upload class="upload-demo" ref="upload" :action="action" :on-preview="handlePreview" :on-remove="handleRemove" :file-list="fileList" :auto-upload="false" :on-success="handleSuccess" :on-error="handleError" :limit="file_count_limit" :multiple="true" :on-exceed="handleExceed" :data="param" :before-upload="handleBeforeUpload">
+      <el-upload class="upload-demo" ref="upload" :action="action" :on-preview="handlePreview" :on-remove="handleRemove" :file-list="fileList" :auto-upload="false" :on-success="handleSuccess" :on-error="handleError" :limit="file_count_limit" :multiple="true" :on-exceed="handleExceed" :data="param" :before-upload="handleBeforeUpload" :before-remove="handleBeforeRemove">
         <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
         <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUpload">上传到服务器</el-button>
         <div slot="tip" class="el-upload__tip">单个文件大小不超过<span v-text="maxSize"></span>Mb</div>
@@ -38,17 +38,21 @@
     <el-divider></el-divider>
 
     <div style="text-align: center;">
+      <el-button type="default" @click="handlePrevStep">上一步</el-button>
       <el-button type="primary" @click="handleSubmit">提交本作品</el-button>
     </div>
   </div>
 </template>
 
 <script>
+import qs from "qs";
+
 export default {
   data: function() {
     return {
       fileList: [],
       successList: [],
+      serverFileList: [],
       param: {
         wid: this.$route.query.wid
       },
@@ -107,6 +111,7 @@ export default {
     },
     handlePreview(file) {},
     handleSuccess: function(response, file, fileList) {
+      file.serverid = response.data;
       this.successList.push(file);
       this.successList.sort((a, b) => a.uid - b.uid);
     },
@@ -132,6 +137,35 @@ export default {
       }
       return true;
     },
+    handleBeforeRemove: function(file, list) {
+      if (file.status === "success") {
+        let delete_file = this.successList[list.indexOf(file)];
+        let that = this;
+        this.axios
+          .post("/api/gameWorksFile/delete", qs.stringify({ id: delete_file.serverid }))
+          .then(function(response) {
+            if (response && response.data.code == "0") {
+              //删除页面列表上的数据
+              list.splice(list.indexOf(file), 1);
+            } else {
+              that.$message({
+                showClose: true,
+                message: response.data.msg,
+                type: "warning"
+              });
+            }
+          })
+          .catch(function(err) {
+            console.log(err);
+            that.$message({
+              showClose: true,
+              message: "文件删除失败",
+              type: "warning"
+            });
+          });
+        return false;
+      }
+    },
     handleSubmit: function() {
       if (this.successList.length == 0) {
         this.$message({
@@ -143,6 +177,27 @@ export default {
         // let data = [];
         // for (let i = 0; i < this.successList.length; i++) {}
         this.$router.replace("/work/finish");
+      }
+    },
+    handlePrevStep: function() {
+      let group = this.$store.state.User.type;
+      // console.log(this.$store.state.User);
+      // console.log(group);
+      // group = 0; //todo
+      if (group === 0) {
+        this.$router.push({
+          path: "/work/groupschool",
+          query: {
+            wid: this.param.wid
+          }
+        });
+      } else {
+        this.$router.push({
+          path: "/work/grouppublic",
+          query: {
+            wid: this.param.wid
+          }
+        });
       }
     }
   }

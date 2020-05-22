@@ -1,5 +1,5 @@
 <template>
-  <div class="submit">
+  <div class="submit" id="page">
     <el-breadcrumb separator="/" style="margin-bottom: 20px;">
       <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
       <el-breadcrumb-item>作品提交</el-breadcrumb-item>
@@ -259,7 +259,67 @@ export default {
       ]
     };
   },
-  mounted: function() {},
+  mounted: function() {
+    let wid = this.$route.query.wid;
+    // console.log(wid);
+    if (wid) {
+      let loading_data = this.$loading({ target: "#page" });
+      let that = this;
+      // this.next_status.loading = true;
+      this.axios
+        .post("/api/gameWorks2/getWorksByWid", qs.stringify({ wid: wid }))
+        .then(function(response) {
+          if (response && response.data.code == "0") {
+            let data = response.data.data.works;
+
+            that.form = {
+              wid: data.wid,
+              worksName: data.worksName,
+              worksSeries: data.worksSeries,
+              worksType: data.worksType,
+              materialSurce: data.materialSurce,
+              author1: data.author1,
+              author2: data.author2,
+              author3: data.author3,
+              author4: data.author4,
+              author5: data.author5,
+              idcardNo: data.idcardNo,
+              tel: data.tel,
+              email: data.email,
+              qq: data.qq,
+              orgName: data.orgName,
+              addr: data.addr,
+              creativeOverview: data.creativeOverview,
+              gameUname: data.gameUname,
+              gameType: data.gameType,
+              tTel: data.tTel,
+              tEmail: data.tEmail,
+              tOrgName: data.tOrgName,
+              tUname: data.tUname
+            };
+            // console.log(data);
+          } else {
+            that.$message({
+              showClose: true,
+              message: response.data.msg,
+              type: "warning"
+            });
+          }
+          loading_data.close();
+          // that.next_status.loading = false;
+        })
+        .catch(function(err) {
+          console.log(err);
+          loading_data.close();
+          // that.next_status.loading = false;
+          that.$message({
+            showClose: true,
+            message: "获取作品信息失败",
+            type: "warning"
+          });
+        });
+    }
+  },
   methods: {
     validatePhone: function(rule, value, callback) {
       const phoneReg = /^1[3|4|5|6|7|8][0-9]{9}$/;
@@ -292,7 +352,7 @@ export default {
       }, 100);
     },
     handleWorksTypeChange: function(val) {
-      console.log(val);
+      // console.log(val);
       this.AuthorCount = this.AuthorCountCode.find(p => p.type === val).count;
       if (this.AuthorCount === 3) {
         this.form.author4 = "";
@@ -330,7 +390,7 @@ export default {
       //   propositionType: this.form.topic_type,
       //   worksName: this.form.name
       // };
-      console.log(this.form);
+      // console.log(this.form);
       this.axios
         .post("/api/gameWorks2/add", qs.stringify(this.form))
         .then(function(response) {

@@ -8,6 +8,7 @@
     <el-table :data="List" stripe style="width: 100%; margin: 30px auto;">
       <el-table-column type="index" width="50"> </el-table-column>
       <!--<el-table-column prop="area" label="赛区"> </el-table-column>-->
+      <el-table-column prop="wid" label="作品编号"> </el-table-column>
       <el-table-column prop="worksName" label="作品名称"> </el-table-column>
       <el-table-column prop="worksSeries" label="作品主题"> </el-table-column>
       <el-table-column prop="worksType" label="作品类别"> </el-table-column>
