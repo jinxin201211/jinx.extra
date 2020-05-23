@@ -111,11 +111,31 @@ const routes = [
   {
     name: "Prize",
     path: "/prize",
-    component: () => import("../views/Prize/Type.vue"),
+    component: () => import("../views/Prize/Main.vue"),
     meta: {
-      title: "大赛章程",
+      title: "获奖查询",
       access: false
-    }
+    },
+    children: [
+      {
+        name: "prizetype",
+        path: "/",
+        component: () => import("../views/Prize/Type.vue"),
+        meta: {
+          title: "获奖查询",
+          access: false
+        }
+      },
+      {
+        name: "prizework",
+        path: "/prize/work",
+        component: () => import("../views/Prize/Work.vue"),
+        meta: {
+          title: "获奖作品",
+          access: false
+        }
+      }
+    ]
   },
   {
     name: "Competitor",
