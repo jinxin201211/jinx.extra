@@ -33,32 +33,21 @@
           <el-col :span="12">
             <el-form-item label="作品类别" prop="worksSeries" :rules="[{ required: true, message: '请选择作品类别', trigger: 'blur' }]">
               <el-radio-group v-model="form.worksSeries">
-                <el-radio label="A">A:中国梦系列</el-radio>
-                <el-radio label="B">B:营商环境系列</el-radio>
-                <el-radio label="C">C:生态保护系列</el-radio>
-                <el-radio label="D">D:传统文化系列</el-radio>
-                <el-radio label="E">E:社会热点系列</el-radio>
-                <el-radio label="F">F:其他主题</el-radio>
+                <el-radio :label="item.code" v-for="(item, index) in $WorksSeriesCode" :key="'series' + index"> {{ item.code + ":" + item.value }}</el-radio>
               </el-radio-group>
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item prop="worksType" :rules="[{ required: true, message: '请选择作品类别', trigger: 'blur' }]">
               <el-radio-group v-model="form.worksType" @change="handleWorksTypeChange">
-                <el-radio label="1">1:平面类</el-radio>
-                <el-radio label="2">2:文案类</el-radio>
-                <el-radio label="3">3:广播类</el-radio>
-                <el-radio label="4">4:视频类</el-radio>
-                <el-radio label="5">5:动画类</el-radio>
-                <el-radio label="6">6:互动类</el-radio>
+                <el-radio :label="item.code" v-for="(item, index) in $WorksTypeCode" :key="'series' + index"> {{ item.code + ":" + item.value }}</el-radio>
               </el-radio-group>
             </el-form-item>
           </el-col>
         </el-row>
         <el-form-item label="作品素材来源" prop="materialSurce" :rules="[{ required: true, message: '请选择作品素材来源', trigger: 'blur' }]">
           <el-radio-group v-model="form.materialSurce">
-            <el-radio label="1">我保重此作品是我的原创</el-radio>
-            <el-radio label="2">我使用了素材</el-radio>
+            <el-radio :label="item.code" v-for="(item, index) in $MaterialSurceCode" :key="'series' + index"> {{ item.code + ":" + item.value }}</el-radio>
           </el-radio-group>
         </el-form-item>
         <el-form-item label="作者姓名" prop="author1" :rules="[{ required: true, message: '请填写作者1的姓名', trigger: 'blur' }]">

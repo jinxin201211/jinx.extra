@@ -38,27 +38,7 @@ export default {
         limit: 10
       },
       total: 0,
-      loading: false,
-      WorksSeriesCode: [
-        { code: "A", value: "中国梦系列" },
-        { code: "B", value: "营商环境系列" },
-        { code: "C", value: "生态保护系列" },
-        { code: "D", value: "传统文化系列" },
-        { code: "E", value: "社会热点系列" },
-        { code: "F", value: "其他主题" }
-      ],
-      WorksTypeCode: [
-        { code: "1", value: "平面类" },
-        { code: "2", value: "文案类" },
-        { code: "3", value: "广播类" },
-        { code: "4", value: "视频类" },
-        { code: "5", value: "动画类" },
-        { code: "6", value: "互动类" }
-      ],
-      MaterialSurceCode: [
-        { code: "1", value: "我保重此作品是我的原创" },
-        { code: "2", value: "我使用了素材" }
-      ]
+      loading: false
     };
   },
   mounted() {
@@ -75,20 +55,16 @@ export default {
       this.loading = true;
       let that = this;
       this.axios
-        .post("/api/gameWorks2/getNoAppraisalList")
+        .post("/api/gameWorks2/getNoAppraisalList_Round2", qs.stringify(this.query))
         .then(function(response) {
           if (response && response.data.code == "0") {
             that.List = response.data.data;
             that.List.forEach(p => {
-              console.log(p);
-              console.log(that.WorksSeriesCode.find(x => x.code == p.worksSeries));
-              console.log(that.WorksTypeCode.find(x => x.code == p.worksType));
-              console.log(that.MaterialSurceCode.find(x => x.code == p.materialSurce));
-              let series = that.WorksSeriesCode.find(x => x.code == p.worksSeries);
+              let series = that.$WorksSeriesCode.find(x => x.code == p.worksSeries);
               p.worksSeries = series == null ? "" : series.value;
-              let type = that.WorksTypeCode.find(x => x.code == p.worksType);
+              let type = that.$WorksTypeCode.find(x => x.code == p.worksType);
               p.worksType = type == null ? "" : type.value;
-              let source = that.MaterialSurceCode.find(x => x.code == p.materialSurce);
+              let source = that.$MaterialSurceCode.find(x => x.code == p.materialSurce);
               p.materialSurce = source == null ? "" : source.value;
             });
             that.total = response.data.count;
@@ -120,7 +96,7 @@ export default {
       this.getList();
     },
     handleScore: function() {
-      this.$router.push("/worksappraisal");
+      this.$router.push("/score/round2/score");
     },
     handleView: function(data) {
       this.$router.push({

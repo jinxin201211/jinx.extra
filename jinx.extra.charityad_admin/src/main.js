@@ -49,6 +49,32 @@ Vue.prototype.$ImagePostServer = "http://47.108.88.211:8081";
 Vue.prototype.$ImageGetServer = "http://47.108.88.211/img/";
 Vue.prototype.$WebSiteName = "河北省公益广告大赛后台管理系统";
 
+Vue.prototype.$WorksGroupCode = [
+  { code: "0", value: "高校类" },
+  { code: "1", value: "专业类" },
+  { code: "2", value: "公众类" }
+];
+Vue.prototype.$WorksSeriesCode = [
+  { code: "A", value: "中国梦系列" },
+  { code: "B", value: "营商环境系列" },
+  { code: "C", value: "生态保护系列" },
+  { code: "D", value: "传统文化系列" },
+  { code: "E", value: "社会热点系列" },
+  { code: "F", value: "其他主题" }
+];
+Vue.prototype.$WorksTypeCode = [
+  { code: "1", value: "平面类" },
+  { code: "2", value: "文案类" },
+  { code: "3", value: "广播类" },
+  { code: "4", value: "视频类" },
+  { code: "5", value: "动画类" },
+  { code: "6", value: "互动类" }
+];
+Vue.prototype.$MaterialSurceCode = [
+  { code: "1", value: "我保重此作品是我的原创" },
+  { code: "2", value: "我使用了素材" }
+];
+
 new Vue({
   router,
   store,

@@ -85,13 +85,14 @@
 
     <el-card v-for="(item, index) in WorksInfo.works_file" :key="'works_file' + index" style="margin-top: 15px;">
       <div slot="header" class="clearfix">
-        <span v-text="'文件' + (index + 1)"></span>
+        <span v-text="'文件' + (index + 1) + '. ' + item.fileName"></span>
       </div>
       <div v-if="isImage(item.fileName)" style="text-align: center;">
-        <img :src="$FileGetServer + item.fileName" style="width: 960px; margin: 0 auto;" />
+        <el-image :src="$FileGetServer + item.fileName" style="max-width: 960px; margin: 0 auto;" :preview-src-list="[$FileGetServer + item.fileName]"></el-image>
+        <!--<img :src="$FileGetServer + item.fileName" style="width: 960px; margin: 0 auto;" />-->
       </div>
       <div v-else-if="isVideo(item.fileName)" style="text-align: center;">
-        <video :src="$FileGetServer + item.fileName" controls="controls" style="width: 960px; margin: 0 auto;">您的浏览器不支持 video 标签。</video>
+        <video :src="$FileGetServer + item.fileName" controls="controls" style="max-width: 960px; margin: 0 auto;">您的浏览器不支持 video 标签。</video>
       </div>
       <div v-else-if="isAudio(item.fileName)" style="text-align: center;">
         <audio :src="$FileGetServer + item.fileName" controls="controls" style="width: 960px; margin: 0 auto;">您的浏览器不支持 audio 标签。</audio>
@@ -116,31 +117,6 @@ export default {
   data() {
     return {
       Scored: false,
-      WorksGroupCode: [
-        { code: "0", value: "高校类" },
-        { code: "1", value: "专业类" },
-        { code: "2", value: "公众类" }
-      ],
-      WorksSeriesCode: [
-        { code: "A", value: "中国梦系列" },
-        { code: "B", value: "营商环境系列" },
-        { code: "C", value: "生态保护系列" },
-        { code: "D", value: "传统文化系列" },
-        { code: "E", value: "社会热点系列" },
-        { code: "F", value: "其他主题" }
-      ],
-      WorksTypeCode: [
-        { code: "1", value: "平面类" },
-        { code: "2", value: "文案类" },
-        { code: "3", value: "广播类" },
-        { code: "4", value: "视频类" },
-        { code: "5", value: "动画类" },
-        { code: "6", value: "互动类" }
-      ],
-      MaterialSurceCode: [
-        { code: "1", value: "我保重此作品是我的原创" },
-        { code: "2", value: "我使用了素材" }
-      ],
       WorksInfo: {
         works: {},
         works_file: {},
@@ -173,10 +149,10 @@ export default {
               that.Scored = true;
             }
 
-            that.WorksInfo.works.worksSeries = that.WorksSeriesCode.find(p => p.code == that.WorksInfo.works.worksSeries).value;
-            that.WorksInfo.works.worksType = that.WorksTypeCode.find(p => p.code == that.WorksInfo.works.worksType).value;
-            that.WorksInfo.works.materialSurce = that.MaterialSurceCode.find(p => p.code == that.WorksInfo.works.materialSurce).value;
-            that.WorksInfo.works.gameType = that.WorksGroupCode.find(p => p.code == that.WorksInfo.works.gameType).value;
+            that.WorksInfo.works.worksSeries = that.$WorksSeriesCode.find(p => p.code == that.WorksInfo.works.worksSeries).value;
+            that.WorksInfo.works.worksType = that.$WorksTypeCode.find(p => p.code == that.WorksInfo.works.worksType).value;
+            that.WorksInfo.works.materialSurce = that.$MaterialSurceCode.find(p => p.code == that.WorksInfo.works.materialSurce).value;
+            that.WorksInfo.works.gameType = that.$WorksGroupCode.find(p => p.code == that.WorksInfo.works.gameType).value;
             console.log(that.WorksInfo);
           } else {
             that.$message({
@@ -200,16 +176,7 @@ export default {
         });
     },
     isImage: function(file) {
-      file = file.toLowerCase();
       if (file.endsWith(".jpg") || file.endsWith(".jpeg") || file.endsWith(".png") || file.endsWith(".gif")) {
-        return true;
-      } else {
-        return false;
-      }
-    },
-    isVideo: function(file) {
-      file = file.toLowerCase();
-      if (file.endsWith(".mp4") || file.endsWith(".avi") || file.endsWith(".flv")) {
         return true;
       } else {
         return false;
@@ -223,8 +190,16 @@ export default {
         return false;
       }
     },
+    isVideo: function(file) {
+      file = file.toLowerCase();
+      if (file.endsWith(".mp4") || file.endsWith(".avi") || file.endsWith(".flv") || file.endsWith(".mov") || file.endsWith(".mkv")) {
+        return true;
+      } else {
+        return false;
+      }
+    },
     isPDF: function(file) {
-      console.log(file);
+      file = file.toLowerCase();
       if (file.endsWith(".pdf")) {
         return true;
       } else {

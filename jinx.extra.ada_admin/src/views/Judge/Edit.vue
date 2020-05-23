@@ -1,6 +1,6 @@
 <template>
   <div style="padding: 20px;">
-    <el-page-header @back="handleBack" content="添加评委" style="margin-bottom: 20px;"> </el-page-header>
+    <el-page-header @back="handleBack" content="修改评委" style="margin-bottom: 20px;"> </el-page-header>
     <el-form ref="form" :model="form" label-width="80px" style="padding: 0 20px; margin: 0 auto;">
       <el-form-item
         label="用户名"
@@ -32,14 +32,14 @@
       >
         <el-input v-model="form.tel" style="width: 250px;" maxlength="11"></el-input>
       </el-form-item>
-      <el-form-item label="作品主题" prop="series" :rules="[{ required: true, message: '请选择作品主题', trigger: 'blur' }]">
+      <!--<el-form-item label="作品主题" prop="series" :rules="[{ required: true, message: '请选择作品主题', trigger: 'blur' }]">
         <el-radio-group v-model="form.series">
-          <el-radio label="A">A:中国梦系列</el-radio>
-          <el-radio label="B">B:营商环境系列</el-radio>
-          <el-radio label="C">C:生态保护系列</el-radio>
-          <el-radio label="D">D:传统文化系列</el-radio>
-          <el-radio label="E">E:社会热点系列</el-radio>
-          <el-radio label="F">F:其他主题</el-radio>
+          <el-radio :label="item.code" v-for="(item, index) in $WorksSeriesCode" :key="'series' + index"> {{ item.code + ":" + item.value }}</el-radio>
+        </el-radio-group>
+      </el-form-item>-->
+      <el-form-item label="作品类别" prop="worksType" :rules="[{ required: true, message: '请选择作品类别', trigger: 'blur' }]">
+        <el-radio-group v-model="form.worksType" disabled>
+          <el-radio :label="item.code" v-for="(item, index) in $WorksTypeCode" :key="'series' + index"> {{ item.code + ":" + item.value }}</el-radio>
         </el-radio-group>
       </el-form-item>
       <el-form-item>
@@ -66,7 +66,8 @@ export default {
         uname: "",
         pwd: "",
         role: "judge",
-        series: ""
+        // series: "",
+        worksType: ""
       },
       loading: false
     };
@@ -84,7 +85,8 @@ export default {
           that.form.uname = response.data.data.uname;
           that.form.pwd = response.data.data.pwd;
           that.form.role = response.data.data.role;
-          that.form.series = response.data.data.series;
+          // that.form.series = response.data.data.series;
+          that.form.worksType = response.data.data.worksType;
         } else {
           that.$message({
             showClose: true,

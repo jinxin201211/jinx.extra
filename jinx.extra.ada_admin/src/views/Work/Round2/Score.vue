@@ -17,7 +17,7 @@
           </div>
           <div class="jinx-works-info">
             <span>作品类别</span>
-            <span v-text="(WorksInfo.works.worksSeries == null ? '' : WorksInfo.works.worksSeries == null) + ' | ' + (WorksInfo.works.worksType == null ? '' : WorksInfo.works.worksType == null)"></span>
+            <span v-text="(WorksInfo.works.worksSeries == null ? '' : WorksInfo.works.worksSeries) + ' | ' + (WorksInfo.works.worksType == null ? '' : WorksInfo.works.worksType)"></span>
           </div>
           <div class="jinx-works-info">
             <span>作品素材来源</span>
@@ -30,13 +30,13 @@
         </el-card>
         <el-card v-for="(item, index) in WorksInfo.works_file" :key="'works_file' + index" style="margin-top: 15px;">
           <div slot="header" class="clearfix">
-            <span v-text="'文件' + (index + 1)"></span>
+            <span v-text="'文件' + (index + 1) + '. ' + item.fileName"></span>
           </div>
           <div v-if="isImage(item.fileName)" style="text-align: center;">
-            <img :src="$ImageGetServer + item.fileName" style="width: 960px; margin: 0 auto;" />
+            <el-image :src="$ImageGetServer + item.fileName" style="max-width: 960px; margin: 0 auto;" :preview-src-list="[$ImageGetServer + item.fileName]"></el-image>
           </div>
           <div v-else-if="isVideo(item.fileName)" style="text-align: center;">
-            <video :src="$ImageGetServer + item.fileName" controls="controls" style="width: 960px; margin: 0 auto;">您的浏览器不支持 video 标签。</video>
+            <video :src="$ImageGetServer + item.fileName" controls="controls" style="max-width: 960px; margin: 0 auto;">您的浏览器不支持 video 标签。</video>
           </div>
           <div v-else-if="isAudio(item.fileName)" style="text-align: center;">
             <audio :src="$ImageGetServer + item.fileName" controls="controls" style="width: 960px; margin: 0 auto;">您的浏览器不支持 audio 标签。</audio>
@@ -55,14 +55,28 @@
     </div>
 
     <div style="position: absolute; bottom: 0; left: 0; width: 100%; padding: 20px; box-shadow: rgba(0, 0, 0, 0.5) 0px 1px 5px 0px; background: #ffffff; box-sizing: border-box;">
-      <div style="position: relative; text-align: center;" v-show="!WorksInfo.empty">
-        <el-radio-group v-model="appraisal" :disabled="submit_status.disabled">
-          <el-radio label="1">通过</el-radio>
-          <el-radio label="2">不通过</el-radio>
-        </el-radio-group>
-        <el-button size="small" type="primary" @click="handleSubmit" :loading="submit_status.loading" :disabled="submit_status.disabled" style="margin: 15px;">确 定</el-button>
+      <div style="position: relative;" class="jinx-score-area" v-show="!WorksInfo.empty">
+        <div class="ranks">
+          <div class="rank" v-for="(item, index) in ScoreRule.Rank" :key="'ranks' + index">
+            <span class="rank-name" v-text="item.Name"></span>
+          </div>
+        </div>
+        <div class="score-area" v-show="!Scored">
+          <div class="scores" v-for="(item, index) in ScoreRule.Rank" :key="'keys' + index">
+            <span :class="{ active: score === ScoreResult.Rank[index] }" class="score" v-for="score in ScoreRule.Score" :key="item + score" v-text="score" @click="handleScoreClick(score, index)"></span>
+          </div>
+        </div>
+        <div class="score-area disabled" v-show="Scored">
+          <div class="scores" v-for="(item, index) in ScoreRule.Rank" :key="'keys' + index">
+            <span :class="{ active: score === ScoreResult.Rank[index] }" class="score" v-for="score in ScoreRule.Score" :key="item + score" v-text="score"></span>
+          </div>
+        </div>
+        <div class="result">
+          <div style="margin-bottom: 10px;">总得分</div>
+          <div style="margin-bottom: 30px; font-size: 24px; font-weight: bold;"><span v-text="ScoreResult.Sum">8.500</span></div>
+          <el-button size="small" type="primary" @click="handleSubmit" :loading="submit_status.loading" :disabled="submit_status.disabled" v-show="!Scored">确 定</el-button>
+        </div>
       </div>
-      <el-divider></el-divider>
       <div style="text-align: center;">
         <!--<el-button size="small" type="primary" @click="handleSubmit">上一个</el-button>-->
         <el-button size="small" type="primary" @click="handleNextWorks" :loading="next_status.loading" :disabled="next_status.disabled">下一个</el-button>
@@ -78,27 +92,32 @@ import qs from "qs";
 export default {
   data() {
     return {
+      ScoreRule: {
+        Rank: [
+          {
+            Name: "维度1 30%",
+            Percentage: 0.3
+          },
+          {
+            Name: "维度2 30%",
+            Percentage: 0.3
+          },
+          {
+            Name: "维度3 20%",
+            Percentage: 0.2
+          },
+          {
+            Name: "维度4 20%",
+            Percentage: 0.2
+          }
+        ],
+        Score: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+      },
       Scored: false,
-      WorksSeriesCode: [
-        { code: "A", value: "中国梦系列" },
-        { code: "B", value: "营商环境系列" },
-        { code: "C", value: "生态保护系列" },
-        { code: "D", value: "传统文化系列" },
-        { code: "E", value: "社会热点系列" },
-        { code: "F", value: "其他主题" }
-      ],
-      WorksTypeCode: [
-        { code: "1", value: "平面类" },
-        { code: "2", value: "文案类" },
-        { code: "3", value: "广播类" },
-        { code: "4", value: "视频类" },
-        { code: "5", value: "动画类" },
-        { code: "6", value: "互动类" }
-      ],
-      MaterialSurceCode: [
-        { code: "1", value: "我保重此作品是我的原创" },
-        { code: "2", value: "我使用了素材" }
-      ],
+      ScoreResult: {
+        Rank: [0, 0, 0, 0],
+        Sum: 0
+      },
       WorksInfo: {
         works: {},
         works_file: {},
@@ -112,8 +131,7 @@ export default {
       next_status: {
         loading: false,
         disabled: false
-      },
-      appraisal: ""
+      }
     };
   },
   mounted() {
@@ -130,21 +148,27 @@ export default {
       let loading = this.$loading({ target: "#page" });
       let that = this;
       this.next_status.loading = true;
+      this.submit_status.disabled = false;
       this.axios
-        .post("/api/gameWorks2/getWorks")
+        .post("/api/gameWorks2/getWorks", qs.stringify({ round: 2 }))
         .then(function(response) {
           if (response && response.data.code == "0") {
             that.WorksInfo = response.data.data;
             that.WorksInfo.empty = false;
-            if (that.WorksInfo.works.state === 0) {
-              that.Scored = false;
-            } else {
+            that.ScoreResult.Rank[0] = that.WorksInfo.works.score1;
+            that.ScoreResult.Rank[1] = that.WorksInfo.works.score2;
+            that.ScoreResult.Rank[2] = that.WorksInfo.works.score3;
+            that.ScoreResult.Rank[3] = that.WorksInfo.works.score4;
+            that.ScoreResult.Sum = that.WorksInfo.works.scoreTotal;
+            if (that.WorksInfo.works.state === 1) {
               that.Scored = true;
+            } else {
+              that.Scored = false;
             }
 
-            that.WorksInfo.works.worksSeries = that.WorksSeriesCode.find(p => p.code == that.WorksInfo.works.worksSeries).value;
-            that.WorksInfo.works.worksType = that.WorksTypeCode.find(p => p.code == that.WorksInfo.works.worksType).value;
-            that.WorksInfo.works.materialSurce = that.MaterialSurceCode.find(p => p.code == that.WorksInfo.works.materialSurce).value;
+            that.WorksInfo.works.worksSeries = that.$WorksSeriesCode.find(p => p.code == that.WorksInfo.works.worksSeries).value;
+            that.WorksInfo.works.worksType = that.$WorksTypeCode.find(p => p.code == that.WorksInfo.works.worksType).value;
+            that.WorksInfo.works.materialSurce = that.$MaterialSurceCode.find(p => p.code == that.WorksInfo.works.materialSurce).value;
           } else {
             that.$message({
               showClose: true,
@@ -167,24 +191,40 @@ export default {
         });
     },
     handleSubmit: function() {
-      if (this.appraisal == "") {
+      let complete = true;
+      for (let i = 0; i < this.ScoreRule.Rank.length; i++) {
+        if (this.ScoreResult.Rank[i] === 0) {
+          complete = false;
+        }
+      }
+
+      if (!complete) {
         this.$message({
           type: "warning",
-          message: "请选择是否通过"
+          message: "还有打分项没有打分，不能提交"
         });
         return;
       }
-
-      this.submit();
+      this.$confirm("分数提交之后不能修改, 是否继续?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      }).then(() => {
+        this.submit();
+      });
     },
     submit: function() {
       let that = this;
       let data = {
         wid: this.WorksInfo.works.wid,
-        state: this.appraisal
+        score1: this.ScoreResult.Rank[0],
+        score2: this.ScoreResult.Rank[1],
+        score3: this.ScoreResult.Rank[2],
+        score4: this.ScoreResult.Rank[3],
+        scoreTotal: this.ScoreResult.Sum
       };
       this.axios
-        .post("/api/gameWorks2/appraisal", qs.stringify(data))
+        .post("/api/gameWorks2/appraisal_round2", qs.stringify(data))
         .then(function(response) {
           if (response && response.data.code == "0") {
             that.$message({
@@ -214,16 +254,7 @@ export default {
         });
     },
     isImage: function(file) {
-      file = file.toLowerCase();
       if (file.endsWith(".jpg") || file.endsWith(".jpeg") || file.endsWith(".png") || file.endsWith(".gif")) {
-        return true;
-      } else {
-        return false;
-      }
-    },
-    isVideo: function(file) {
-      file = file.toLowerCase();
-      if (file.endsWith(".mp4") || file.endsWith(".avi") || file.endsWith(".flv")) {
         return true;
       } else {
         return false;
@@ -237,8 +268,16 @@ export default {
         return false;
       }
     },
+    isVideo: function(file) {
+      file = file.toLowerCase();
+      if (file.endsWith(".mp4") || file.endsWith(".avi") || file.endsWith(".flv") || file.endsWith(".mov") || file.endsWith(".mkv")) {
+        return true;
+      } else {
+        return false;
+      }
+    },
     isPDF: function(file) {
-      console.log(file);
+      file = file.toLowerCase();
       if (file.endsWith(".pdf")) {
         return true;
       } else {
@@ -247,6 +286,16 @@ export default {
     },
     handleDownload: function(file) {
       window.location.href = file;
+    },
+    handleScoreClick(score, index) {
+      this.ScoreResult.Rank[index] = score;
+      console.log(this.ScoreResult.Rank);
+
+      let sum = 0;
+      for (let i = 0; i < this.ScoreRule.Rank.length; i++) {
+        sum += this.ScoreResult.Rank[i] * this.ScoreRule.Rank[i].Percentage;
+      }
+      this.ScoreResult.Sum = sum.toFixed(3);
     }
   }
 };
@@ -276,19 +325,89 @@ export default {
   // border-radius: 10px;
   // background: #ededed;
 }
+@line-height: 30px;
 
-.jinx-works-info {
-  margin: 15px 0;
+.jinx-score-area {
+  position: relative;
+  padding: 0 200px 0 200px;
 
-  span:first-child {
-    display: inline-block;
-    width: 100px;
-    text-align: right;
-    padding: 0 20px;
+  .ranks {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 200px;
+    line-height: @line-height;
+    padding-left: 20px;
+
+    .rank {
+      .rank-name {
+        width: 100px;
+        display: inline-block;
+        margin: 5px 10px;
+      }
+    }
+    .rank:not(:last-child) {
+      border-bottom: 1px solid transparent;
+      margin-bottom: 10px;
+    }
   }
-  span:last-child {
-    display: inline-block;
-    padding: 0 20px;
+
+  @score-color: #ff6600;
+  .score-area {
+    .scores {
+      // display: inline-block;
+      line-height: @line-height;
+      box-sizing: border-box;
+      display: flex;
+      flex-wrap: wrap;
+      align-content: flex-center;
+      align-items: center;
+      justify-content: space-around;
+
+      .score {
+        display: inline-block;
+        margin: 5px 10px;
+        cursor: pointer;
+        width: @line-height;
+        text-align: center;
+        transition: background-color 0.2s, color 0.2s;
+      }
+
+      .score:hover,
+      .score.active {
+        background: @score-color;
+        color: #ffffff;
+      }
+    }
+    .scores:not(:last-child) {
+      border-bottom: 1px solid black;
+      margin-bottom: 10px;
+    }
+  }
+
+  .score-area.disabled {
+    .scores {
+      .score {
+        cursor: initial;
+      }
+      .score:hover {
+        background: initial;
+        color: initial;
+      }
+      .score.active {
+        background: lighten(@score-color, 10%);
+        color: #ffffff;
+      }
+    }
+  }
+
+  .result {
+    position: absolute;
+    right: 0;
+    top: 0;
+    text-align: center;
+    width: 200px;
+    padding-top: 20px;
   }
 }
 </style>

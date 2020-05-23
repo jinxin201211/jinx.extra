@@ -1,4 +1,4 @@
-import { Form, FormItem, Input, Checkbox, Button, Link, Row, Col, Steps, Step, Divider, Select, Option, RadioGroup, Radio, Upload, Menu, MenuItem, Submenu, MenuItemGroup, Dialog, Table, TableColumn, Breadcrumb, BreadcrumbItem, PageHeader, Pagination, Card } from "element-ui";
+import { Form, FormItem, Input, Checkbox, Button, Link, Row, Col, Steps, Step, Divider, Select, Option, RadioGroup, Radio, Upload, Menu, MenuItem, Submenu, MenuItemGroup, Dialog, Table, TableColumn, Breadcrumb, BreadcrumbItem, PageHeader, Pagination, Card, Image } from "element-ui";
 
 import { Loading, MessageBox, Message, Notification } from "element-ui";
 
@@ -27,7 +27,8 @@ export default {
       .use(Link)
       .use(Row)
       .use(Col)
-      .use(Divider);
+      .use(Divider)
+      .use(Image);
     V.prototype.$loading = Loading.service;
     V.prototype.$msgbox = MessageBox;
     V.prototype.$alert = MessageBox.alert;

@@ -135,27 +135,36 @@ const routes = [
       },
 
       {
-        path: "/work",
-        name: "Work",
-        component: () => import("../views/Work/Main.vue"),
+        path: "/score/round1",
+        name: "scoreround1",
+        component: () => import("../views/Work/Round1/Main.vue"),
         meta: {
-          title: "作品打分",
+          title: "作品打分(第一轮)",
           access: ["judge"]
         }
       },
       {
-        path: "/worksappraisal",
-        name: "worksappraisal",
-        component: () => import("../views/Work/Appraisal.vue"),
+        path: "/score/round1/score",
+        name: "scoreround1score",
+        component: () => import("../views/Work/Round1/Appraisal.vue"),
         meta: {
-          title: "作品打分",
+          title: "作品打分(第一轮)",
           access: ["judge"]
         }
       },
       {
-        path: "/workscore",
-        name: "workscore",
-        component: () => import("../views/Work/Score.vue"),
+        path: "/score/round2",
+        name: "scoreround2",
+        component: () => import("../views/Work/Round2/Main.vue"),
+        meta: {
+          title: "作品打分(第二轮)",
+          access: ["judge"]
+        }
+      },
+      {
+        path: "/score/round2/score",
+        name: "scoreround2score",
+        component: () => import("../views/Work/Round2/Score.vue"),
         meta: {
           title: "作品打分",
           access: ["judge"]
@@ -196,9 +205,10 @@ const router = new VueRouter({
 });
 import { Message } from "element-ui";
 router.beforeEach((to, from, next) => {
+  window.scrollTo(0, 0);
   const title = to.meta && to.meta.title;
   if (title) {
-    document.title = title;
+    document.title = title + " - " + Vue.prototype.$WebSiteName;
   }
 
   if (to.path === "/login") {

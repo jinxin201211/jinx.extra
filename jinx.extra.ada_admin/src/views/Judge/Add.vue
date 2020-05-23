@@ -32,14 +32,14 @@
       >
         <el-input v-model="form.tel" style="width: 250px;" maxlength="11"></el-input>
       </el-form-item>
-      <el-form-item label="作品主题" prop="series" :rules="[{ required: true, message: '请选择作品主题', trigger: 'blur' }]">
+      <!--<el-form-item label="作品主题" prop="series" :rules="[{ required: true, message: '请选择作品主题', trigger: 'blur' }]">
         <el-radio-group v-model="form.series">
-          <el-radio label="A">A:中国梦系列</el-radio>
-          <el-radio label="B">B:营商环境系列</el-radio>
-          <el-radio label="C">C:生态保护系列</el-radio>
-          <el-radio label="D">D:传统文化系列</el-radio>
-          <el-radio label="E">E:社会热点系列</el-radio>
-          <el-radio label="F">F:其他主题</el-radio>
+          <el-radio :label="item.code" v-for="(item, index) in $WorksSeriesCode" :key="'series' + index"> {{ item.code + ":" + item.value }}</el-radio>
+        </el-radio-group>
+      </el-form-item>-->
+      <el-form-item label="作品类别" prop="worksType" :rules="[{ required: true, message: '请选择作品类别', trigger: 'blur' }]">
+        <el-radio-group v-model="form.worksType">
+          <el-radio :label="item.code" v-for="(item, index) in $WorksTypeCode" :key="'series' + index"> {{ item.code + ":" + item.value }}</el-radio>
         </el-radio-group>
       </el-form-item>
       <el-form-item>
@@ -65,7 +65,8 @@ export default {
         uname: "",
         pwd: "",
         role: "judge",
-        series: ""
+        // series: "",
+        worksType: ""
       },
       loading: false
     };
@@ -89,7 +90,7 @@ export default {
       this.loading = true;
       let that = this;
       this.axios
-        .post("/api/sysUser/add", qs.stringify({ email: this.form.email, tel: this.form.tel, uname: this.form.uname, pwd: this.hex_md5("888888"), series: this.form.series }))
+        .post("/api/sysUser/add", qs.stringify({ email: this.form.email, tel: this.form.tel, uname: this.form.uname, pwd: this.hex_md5("888888"), series: this.form.series, worksType: this.form.worksType }))
         .then(function(response) {
           if (response && response.data.code == "0") {
             that.$message({

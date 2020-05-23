@@ -7,24 +7,39 @@
           <div>
             <span style="font-size: 24px; font-weight: bold;" v-text="WorksInfo.works.worksName"></span>
           </div>
-          <div>
-            <span>命题类别：</span>
-            <span v-text="WorksInfo.works.propositionType"></span>
+          <div class="jinx-works-info">
+            <span>作品编号</span>
+            <span v-text="WorksInfo.works.wid"></span>
           </div>
-          <div>
-            <span>命题名称：</span>
-            <span v-text="WorksInfo.works.proindexpositionName"></span>
+          <div class="jinx-works-info">
+            <span>作品名称</span>
+            <span v-text="WorksInfo.works.worksName"></span>
+          </div>
+          <div class="jinx-works-info">
+            <span>作品类别</span>
+            <span v-text="(WorksInfo.works.worksSeries == null ? '' : WorksInfo.works.worksSeries) + ' | ' + (WorksInfo.works.worksType == null ? '' : WorksInfo.works.worksType)"></span>
+          </div>
+          <div class="jinx-works-info">
+            <span>作品素材来源</span>
+            <span v-text="WorksInfo.works.materialSurce"></span>
+          </div>
+          <div class="jinx-works-info">
+            <span>作品创意说明</span>
+            <span v-text="WorksInfo.works.creativeOverview"></span>
           </div>
         </el-card>
         <el-card v-for="(item, index) in WorksInfo.works_file" :key="'works_file' + index" style="margin-top: 15px;">
           <div slot="header" class="clearfix">
-            <span v-text="'文件' + (index + 1)"></span>
+            <span v-text="'文件' + (index + 1) + '. ' + item.fileName"></span>
           </div>
           <div v-if="isImage(item.fileName)" style="text-align: center;">
-            <img :src="$ImageGetServer + item.fileName" style="width: 960px; margin: 0 auto;" />
+            <el-image :src="$ImageGetServer + item.fileName" style="max-width: 960px; margin: 0 auto;" :preview-src-list="[$ImageGetServer + item.fileName]"></el-image>
           </div>
           <div v-else-if="isVideo(item.fileName)" style="text-align: center;">
-            <video :src="$ImageGetServer + item.fileName" controls="controls" style="width: 960px; margin: 0 auto;">您的浏览器不支持 video 标签。</video>
+            <video :src="$ImageGetServer + item.fileName" controls="controls" style="max-width: 960px; margin: 0 auto;">您的浏览器不支持 video 标签。</video>
+          </div>
+          <div v-else-if="isAudio(item.fileName)" style="text-align: center;">
+            <audio :src="$ImageGetServer + item.fileName" controls="controls" style="width: 960px; margin: 0 auto;">您的浏览器不支持 audio 标签。</audio>
           </div>
           <div v-else-if="isPDF(item.fileName)" style="text-align: center;">
             <a :href="$ImageGetServer + item.fileName" v-text="item.fileName" target="_blank"></a>
@@ -59,7 +74,7 @@
         <div class="result">
           <div style="margin-bottom: 10px;">总得分</div>
           <div style="margin-bottom: 30px; font-size: 24px; font-weight: bold;"><span v-text="ScoreResult.Sum">8.500</span></div>
-          <el-button size="small" type="primary" @click="handleSubmit" :loading="submit_status.loading" :disabled="submit_status.disabled">确 定</el-button>
+          <el-button size="small" type="primary" @click="handleSubmit" :loading="submit_status.loading" :disabled="submit_status.disabled" v-show="!Scored">确 定</el-button>
         </div>
       </div>
       <div style="text-align: center;">
@@ -133,8 +148,9 @@ export default {
       let loading = this.$loading({ target: "#page" });
       let that = this;
       this.next_status.loading = true;
+      this.submit_status.disabled = false;
       this.axios
-        .post("/api/gameWorks2/getWorks")
+        .post("/api/gameWorks2/getWorks", qs.stringify({ round: 2 }))
         .then(function(response) {
           if (response && response.data.code == "0") {
             that.WorksInfo = response.data.data;
@@ -149,6 +165,10 @@ export default {
             } else {
               that.Scored = false;
             }
+
+            that.WorksInfo.works.worksSeries = that.$WorksSeriesCode.find(p => p.code == that.WorksInfo.works.worksSeries).value;
+            that.WorksInfo.works.worksType = that.$WorksTypeCode.find(p => p.code == that.WorksInfo.works.worksType).value;
+            that.WorksInfo.works.materialSurce = that.$MaterialSurceCode.find(p => p.code == that.WorksInfo.works.materialSurce).value;
           } else {
             that.$message({
               showClose: true,
@@ -204,7 +224,7 @@ export default {
         scoreTotal: this.ScoreResult.Sum
       };
       this.axios
-        .post("/api/gameWorks/appraisal", qs.stringify(data))
+        .post("/api/gameWorks2/appraisal_round2", qs.stringify(data))
         .then(function(response) {
           if (response && response.data.code == "0") {
             that.$message({
@@ -234,15 +254,22 @@ export default {
         });
     },
     isImage: function(file) {
-      console.log(file);
       if (file.endsWith(".jpg") || file.endsWith(".jpeg") || file.endsWith(".png") || file.endsWith(".gif")) {
         return true;
       } else {
         return false;
       }
     },
+    isAudio: function(file) {
+      file = file.toLowerCase();
+      if (file.endsWith(".mp3") || file.endsWith(".wav") || file.endsWith(".wma") || file.endsWith(".ogg")) {
+        return true;
+      } else {
+        return false;
+      }
+    },
     isVideo: function(file) {
-      console.log(file);
+      file = file.toLowerCase();
       if (file.endsWith(".mp4") || file.endsWith(".avi") || file.endsWith(".flv") || file.endsWith(".mov") || file.endsWith(".mkv")) {
         return true;
       } else {
@@ -250,7 +277,7 @@ export default {
       }
     },
     isPDF: function(file) {
-      console.log(file);
+      file = file.toLowerCase();
       if (file.endsWith(".pdf")) {
         return true;
       } else {

@@ -84,7 +84,7 @@ export default {
           type: "5",
           name: "动画类（移动端、电视）",
           desc:
-            "<p>（1）移动端：符合移动端发布的动画广告作品，时间30秒以内。（推荐使用iH5平台制作，其他平台亦可）</p><p>（2）电视端：符合电视及电脑发布的动画广告作品。</p><p>　　（3）创作方式及制作软件不限，作品要符合动画广告的概念。24帧/秒，时间30秒以内，配音、配乐，系列作品不得超过3件，画面宽度600—960像素，不要倒计时。 </p><p>（4）要求提交作品文件名为：动画类-姓名-作品名称-单位。</p><p>（5）作品结尾处展示“2020河北省公益广告大赛”的组合标识（标识素材从大赛官网下载）。</p><p>（6）每组参赛人员不得超过5人。</p>"
+            "<p>（1）移动端：符合移动端发布的动画广告作品，时间30秒以内。（推荐使用iH5平台制作，其他平台亦可）</p><p>（2）电视端：符合电视及电脑发布的动画广告作品。</p><p>（3）创作方式及制作软件不限，作品要符合动画广告的概念。24帧/秒，时间30秒以内，配音、配乐，系列作品不得超过3件，画面宽度600—960像素，不要倒计时。 </p><p>（4）要求提交作品文件名为：动画类-姓名-作品名称-单位。</p><p>（5）作品结尾处展示“2020河北省公益广告大赛”的组合标识（标识素材从大赛官网下载）。</p><p>（6）每组参赛人员不得超过5人。</p>"
         },
         {
           type: "6",
@@ -174,9 +174,35 @@ export default {
           type: "warning"
         });
       } else {
+        let that = this;
+        this.axios
+          .post("/api/gameWorks2/submit", qs.stringify({ wid: this.param.wid }))
+          .then(function(response) {
+            if (response && response.data.code == "0") {
+              that.$message({
+                showClose: true,
+                message: "提交成功",
+                type: "success"
+              });
+              that.$router.replace("/work/finish");
+            } else {
+              that.$message({
+                showClose: true,
+                message: response.data.msg,
+                type: "warning"
+              });
+            }
+          })
+          .catch(function(err) {
+            console.log(err);
+            that.$message({
+              showClose: true,
+              message: "提交失败",
+              type: "warning"
+            });
+          });
         // let data = [];
         // for (let i = 0; i < this.successList.length; i++) {}
-        this.$router.replace("/work/finish");
       }
     },
     handlePrevStep: function() {
@@ -185,14 +211,14 @@ export default {
       // console.log(group);
       // group = 0; //todo
       if (group === 0) {
-        this.$router.push({
+        this.$router.replace({
           path: "/work/groupschool",
           query: {
             wid: this.param.wid
           }
         });
       } else {
-        this.$router.push({
+        this.$router.replace({
           path: "/work/grouppublic",
           query: {
             wid: this.param.wid

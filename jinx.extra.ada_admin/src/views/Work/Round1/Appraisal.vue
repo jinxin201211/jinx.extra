@@ -1,5 +1,5 @@
 <template>
-  <div id="page" style="padding: 20px 0; padding-bottom: 300px; position: relative; height: 100%; overflow: hidden; box-sizing: border-box;">
+  <div id="page" style="padding: 20px 0; padding-bottom: 200px; position: relative; height: 100%; overflow: hidden; box-sizing: border-box;">
     <div style="height: 100%; overflow-y: auto; padding: 0 20px; padding-bottom: 20px;">
       <el-page-header @back="handleBack" content="作品打分" style="margin-bottom: 20px;"> </el-page-header>
       <div style="margin-top: 20px;">
@@ -30,13 +30,13 @@
         </el-card>
         <el-card v-for="(item, index) in WorksInfo.works_file" :key="'works_file' + index" style="margin-top: 15px;">
           <div slot="header" class="clearfix">
-            <span v-text="'文件' + (index + 1)"></span>
+            <span v-text="'文件' + (index + 1) + '. ' + item.fileName"></span>
           </div>
           <div v-if="isImage(item.fileName)" style="text-align: center;">
-            <img :src="$ImageGetServer + item.fileName" style="width: 960px; margin: 0 auto;" />
+            <el-image :src="$ImageGetServer + item.fileName" style="max-width: 960px; margin: 0 auto;" :preview-src-list="[$ImageGetServer + item.fileName]"></el-image>
           </div>
           <div v-else-if="isVideo(item.fileName)" style="text-align: center;">
-            <video :src="$ImageGetServer + item.fileName" controls="controls" style="width: 960px; margin: 0 auto;">您的浏览器不支持 video 标签。</video>
+            <video :src="$ImageGetServer + item.fileName" controls="controls" style="max-width: 960px; margin: 0 auto;">您的浏览器不支持 video 标签。</video>
           </div>
           <div v-else-if="isAudio(item.fileName)" style="text-align: center;">
             <audio :src="$ImageGetServer + item.fileName" controls="controls" style="width: 960px; margin: 0 auto;">您的浏览器不支持 audio 标签。</audio>
@@ -79,26 +79,6 @@ export default {
   data() {
     return {
       Scored: false,
-      WorksSeriesCode: [
-        { code: "A", value: "中国梦系列" },
-        { code: "B", value: "营商环境系列" },
-        { code: "C", value: "生态保护系列" },
-        { code: "D", value: "传统文化系列" },
-        { code: "E", value: "社会热点系列" },
-        { code: "F", value: "其他主题" }
-      ],
-      WorksTypeCode: [
-        { code: "1", value: "平面类" },
-        { code: "2", value: "文案类" },
-        { code: "3", value: "广播类" },
-        { code: "4", value: "视频类" },
-        { code: "5", value: "动画类" },
-        { code: "6", value: "互动类" }
-      ],
-      MaterialSurceCode: [
-        { code: "1", value: "我保重此作品是我的原创" },
-        { code: "2", value: "我使用了素材" }
-      ],
       WorksInfo: {
         works: {},
         works_file: {},
@@ -130,8 +110,9 @@ export default {
       let loading = this.$loading({ target: "#page" });
       let that = this;
       this.next_status.loading = true;
+      that.submit_status.disabled = false;
       this.axios
-        .post("/api/gameWorks2/getWorks")
+        .post("/api/gameWorks2/getWorks", qs.stringify({ round: 1 }))
         .then(function(response) {
           if (response && response.data.code == "0") {
             that.WorksInfo = response.data.data;
@@ -142,10 +123,12 @@ export default {
               that.Scored = true;
             }
 
-            that.WorksInfo.works.worksSeries = that.WorksSeriesCode.find(p => p.code == that.WorksInfo.works.worksSeries).value;
-            that.WorksInfo.works.worksType = that.WorksTypeCode.find(p => p.code == that.WorksInfo.works.worksType).value;
-            that.WorksInfo.works.materialSurce = that.MaterialSurceCode.find(p => p.code == that.WorksInfo.works.materialSurce).value;
+            that.WorksInfo.works.worksSeries = that.$WorksSeriesCode.find(p => p.code == that.WorksInfo.works.worksSeries).value;
+            that.WorksInfo.works.worksType = that.$WorksTypeCode.find(p => p.code == that.WorksInfo.works.worksType).value;
+            that.WorksInfo.works.materialSurce = that.$MaterialSurceCode.find(p => p.code == that.WorksInfo.works.materialSurce).value;
           } else {
+            // that.Scored = true;
+            that.submit_status.disabled = true;
             that.$message({
               showClose: true,
               message: response.data.msg,
@@ -184,7 +167,7 @@ export default {
         state: this.appraisal
       };
       this.axios
-        .post("/api/gameWorks2/appraisal", qs.stringify(data))
+        .post("/api/gameWorks2/appraisal_round1", qs.stringify(data))
         .then(function(response) {
           if (response && response.data.code == "0") {
             that.$message({
@@ -214,16 +197,7 @@ export default {
         });
     },
     isImage: function(file) {
-      file = file.toLowerCase();
       if (file.endsWith(".jpg") || file.endsWith(".jpeg") || file.endsWith(".png") || file.endsWith(".gif")) {
-        return true;
-      } else {
-        return false;
-      }
-    },
-    isVideo: function(file) {
-      file = file.toLowerCase();
-      if (file.endsWith(".mp4") || file.endsWith(".avi") || file.endsWith(".flv")) {
         return true;
       } else {
         return false;
@@ -237,8 +211,16 @@ export default {
         return false;
       }
     },
+    isVideo: function(file) {
+      file = file.toLowerCase();
+      if (file.endsWith(".mp4") || file.endsWith(".avi") || file.endsWith(".flv") || file.endsWith(".mov") || file.endsWith(".mkv")) {
+        return true;
+      } else {
+        return false;
+      }
+    },
     isPDF: function(file) {
-      console.log(file);
+      file = file.toLowerCase();
       if (file.endsWith(".pdf")) {
         return true;
       } else {

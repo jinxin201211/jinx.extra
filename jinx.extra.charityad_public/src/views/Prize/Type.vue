@@ -6,7 +6,7 @@
         <el-breadcrumb-item>获奖查询</el-breadcrumb-item>
       </el-breadcrumb>
 
-      <div class="jinx-types">
+      <div class="jinx-types" v-if="false">
         <div class="type"><div :class="{ active: group === 0 }" @click="group = 0">高校类</div></div>
         <div class="type"><div :class="{ active: group === 1 }" @click="group = 1">专业类</div></div>
         <div class="type"><div :class="{ active: group === 2 }" @click="group = 2">公众类</div></div>

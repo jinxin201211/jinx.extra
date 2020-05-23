@@ -31,22 +31,6 @@ export default {
   data: function() {
     return {
       loading: false,
-      WorksSeriesCode: [
-        { code: "A", value: "中国梦系列" },
-        { code: "B", value: "营商环境系列" },
-        { code: "C", value: "生态保护系列" },
-        { code: "D", value: "传统文化系列" },
-        { code: "E", value: "社会热点系列" },
-        { code: "F", value: "其他主题" }
-      ],
-      WorksTypeCode: [
-        { code: "1", value: "平面类" },
-        { code: "2", value: "文案类" },
-        { code: "3", value: "广播类" },
-        { code: "4", value: "视频类" },
-        { code: "5", value: "动画类" },
-        { code: "6", value: "互动类" }
-      ],
       List: []
     };
   },
@@ -54,14 +38,14 @@ export default {
     let that = this;
     this.List = [];
     this.axios
-      .post("/api/gameWorks2/getWorksList")
+      .post("/api/gameWorks2/getWorksList", qs.stringify({ page: 1, limit: 999 }))
       .then(function(response) {
         console.log(response);
         if (response && response.data.code == "0") {
           that.List = response.data.data;
           that.List.forEach(p => {
-            p.worksType = that.WorksTypeCode.find(x => x.code == p.worksType).value;
-            p.worksSeries = that.WorksSeriesCode.find(x => x.code == p.worksSeries).value;
+            p.worksType = that.$WorksTypeCode.find(x => x.code == p.worksType).value;
+            p.worksSeries = that.$WorksSeriesCode.find(x => x.code == p.worksSeries).value;
             let authors = [];
             for (let i = 1; i <= 5; i++) {
               if (p["author" + i] !== "") {

@@ -153,9 +153,10 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
+  window.scrollTo(0, 0);
   const title = to.meta && to.meta.title;
   if (title) {
-    document.title = title;
+    document.title = title + " - " + Vue.prototype.$WebSiteName;
   }
 
   if (to.path === "/account/signin") {
@@ -182,5 +183,10 @@ router.beforeEach((to, from, next) => {
     }
   }
 });
+
+// router.afterEach((to, from, next) => {
+//   window.scrollTo(0, 0);
+//   next();
+// });
 
 export default router;

@@ -10,7 +10,7 @@
     </div>
 
     <div class="jinx-banner-navbar">
-      <div class="nav">
+      <div class="nav" v-if="false">
         <div>
           <div class="icon" :style="{ backgroundImage: 'url(' + require('@/assets/images/home/banner大赛介绍@2x.png') + ')' }"></div>
           <div class="title">大赛介绍</div>
@@ -46,10 +46,11 @@
       <div class="title-en">Contest Intro</div>
       <div class="title">大赛介绍</div>
       <div class="intro">
-        <p>全国大学生广告艺术大赛（简称大广赛）自2005年首次举办至今，遵循“促进教改、启迪智慧、强化能力、提高素质”的大赛宗旨，成功举办了11届12次赛事。第11届大广赛全国共有1504所高校参与，超过百万学生提交作品。大广赛发挥了大学生群体的智慧和创造力，培养了大学生的创新意识和解决问题的能力，展示了新一代大学生的学识水平和精神风貌，迄今为止已成为规模庞大、覆盖高等院校广泛、参与师生人数众多、作品水准很高的全国性高校文科竞赛。</p>
-        <p>参赛作品分为平面类、视频类、动画类、互动类、广播类、策划案类、文案类、营销创客类、公益类九大类。</p>
-        <p>大广赛整合社会资源、服务教学改革，以企业真实营销项目作为命题，与教学相结合，真题真做，指导学生了解受众，调研分析，提出策略，现场提案，实现教学与市场相关联；大学与企业、行业交互，线上、线下互动分享、交流，提升了学生实践能力，产生了大量优秀作品，不仅使企业收获鲜活的、有创意的作品，也建树了有活力的年轻品牌形象，让企业的文化理念、产品在大学生这个庞大的群体中得到有效的推广，产生了深远影响。</p>
-        <p>大广赛秉持公平公正的办赛原则，聘请学界、业界资深专家、学者和企业高管组成专业评审团，评选参赛作品，并将评审后的作品进行网络公示，杜绝抄袭，不断提升赛事的公信力。</p>
+        <p>河北省公益广告大赛于2020年首次举办，以“河北省市场监督管理局”为主办单位，以“河北省广告研究院、河北省广告协会、河北广播电视台”为承办单位，在河北省委省政府深入开展“三创四建”活动的大背景下，为创建全国文明城市、弘扬社会主义核心价值观，在全社会积极倡导“讲文明树新风”的良好社会风尚，凝聚新时代全面建设经济强省、美丽河北的磅礴力量，共同组织开展2020河北省公益广告大赛。</p>
+        <p>本次大赛以“文明河北我创益”为主题，征稿作品主题细分为“中国梦”系列、“自然+环境”系列、“消费者权益保护+知识产权”系列、“社会+安全”系列、“传承+关爱”系列、“成长+校园”系列、“美丽河北”系列七大系列。</p>
+        <p>参赛作品分为平面类、文案类、广播类、视频类、动画类、互动类六大类。</p>
+        <p>大赛落地“三创四建”，推进文明城市建设。对于深入推进我省全国文明城市创建工作具有重要作用。同时集合专业与社会力量，发挥公益广告导向作用。倡导公益风尚，呼唤社会关注。通过遴选并在众多媒体展播相关优秀作品资源，发挥各大媒体传播优势，将公益广告蕴含的社会正能量向社会大众广泛传播。此外，公益广告大赛将作为河北公益广告业发展的重要吸引核，推进人才、资源交流，以赛促学，以赛促交流，以赛促大发展，在业内进一步完善人才和资源交流，促进河北公益事业发展。</p>
+        <p>大赛秉持公平公正的办赛原则，聘请学界、业界资深专家、学者和企业高管组成专业评审团，评选参赛作品，并将评审后的作品进行网络公示，杜绝抄袭，不断提升赛事的公信力。</p>
       </div>
       <div class="avatar" :style="{ backgroundImage: 'url(' + require('@/assets/images/home/contest_intro_avatar@2x.png') + ')' }"></div>
     </div>
@@ -199,16 +200,19 @@
         <div class="title">友情链接</div>
         <div class="links-panel">
           <div class="item-pos">
-            <div class="link-item"></div>
+            <div class="link-item"><el-link href="http://xwcbxy.hebtu.edu.cn/a/2019/04/19/AE56753B9B30477D8B23405AA82DCF18.html" target="_blank">河北省广告研究院</el-link></div>
           </div>
           <div class="item-pos">
-            <div class="link-item"></div>
+            <div class="link-item"><el-link href="http://www.hebtu.edu.cn/" target="'_blank'">河北师大</el-link></div>
           </div>
           <div class="item-pos">
-            <div class="link-item"></div>
+            <div class="link-item"><el-link href="http://scjg.hebei.gov.cn/" target="_blank">河北省市场监督管理局</el-link></div>
           </div>
           <div class="item-pos">
-            <div class="link-item"></div>
+            <div class="link-item"><el-link href="http://www.hbggw.com.cn/" target="_blank">河北省广告协会</el-link></div>
+          </div>
+          <div class="item-pos">
+            <div class="link-item"><el-link href="http://www.hebtv.com/" target="_blank">河北广播电视台</el-link></div>
           </div>
         </div>
       </div>
@@ -219,10 +223,10 @@
         <div class="contactus" :style="{ backgroundImage: 'url(' + require('@/assets/images/home/contact_us_back.png') + ')' }">
           <div class="title-en">CONTACT US</div>
           <div class="title">联系我们</div>
-          <div style="margin-top: 13px;">地址：北京市朝阳区广渠门外大街8号</div>
-          <div style="margin-top: 13px;">邮编：100022</div>
-          <div style="margin-top: 13px;">电话：800800800</div>
-          <div style="text-align: center; margin-top: 28px;">
+          <div style="margin-top: 30px;">地址：河北省石家庄市南二环东路20号河北师范大学新校区</div>
+          <div style="margin-top: 30px;">邮编：050024</div>
+          <div style="margin-top: 30px;">电话：15632194562</div>
+          <div style="text-align: center; margin-top: 28px; display: none;" v-if="false">
             <div style="display: inline-block; height: 100px; width: 100px; background: #ffffff; margin-right: 30px;"></div>
             <div style="display: inline-block; height: 100px; width: 100px; background: #ffffff; margin-right: 30px;"></div>
             <div style="display: inline-block; height: 100px; width: 100px; background: #ffffff;"></div>
@@ -232,7 +236,7 @@
     </div>
 
     <div class="jinx-footer">
-      <div>版权所有&nbsp;2005-2020&nbsp;全国大学生广告艺术大赛&nbsp;（www.sun-ada.net）</div>
+      <div>版权所有&nbsp;2005-2020&nbsp;河北省公益广告大赛&nbsp;（www.sun-ada.net）</div>
       <div>Copyright ＠ 2005-2020&nbsp;www.sun-ada.net All rights reserved.</div>
       <div>京ICP备06010242号-2 工业和信息化部备案管理系统（http://beian.miit.gov.cn）网站统计</div>
     </div>
@@ -542,7 +546,7 @@ export default {
 
   .nav {
     display: inline-block;
-    width: 20%;
+    width: 25%;
     text-align: center;
     cursor: pointer;
 
@@ -1026,15 +1030,20 @@ export default {
 
       .item-pos {
         display: inline-block;
-        width: 25%;
+        width: 20%;
         height: 60px;
         box-sizing: border-box;
         padding: 0 15px;
+        // line-height: 60px;
+        // text-align: center;
 
         .link-item {
           width: 100%;
           height: 100%;
           background: #ffffff;
+          display: flex;
+          justify-content: center;
+          align-items: center;
         }
       }
     }
@@ -1071,7 +1080,7 @@ export default {
 
       .title {
         font-size: 24px;
-        margin-bottom: 60px;
+        margin-bottom: 100px;
         margin-top: 10px;
         // text-align: center;
         // color: @primary-color-dark;
