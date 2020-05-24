@@ -43,7 +43,7 @@
               <a href="dynamic_newss27.html" class='a1'>赛区动态</a>
             </li>
             <li>
-              <a href="#" class='a1'>获奖查询</a>
+              <a href="prize.html" class='a1'>获奖查询</a>
             </li>
           </ul>
         </div>
@@ -177,17 +177,8 @@
       type: 'POST',
       success: function (data) {
         lsNews = data.data;
-
-        // lsNews = [];
-        // for (let i = 0; i < 123; i++) {
-        //   lsNews.push({ "content": "<h1>公告</h1>", "ctime": "2020-05-21 01:23:00", "id": 37, "state": "1", "subTitle": "公告" + i, "title": "公告副标题" + i, "type": "2", "utime": "2020-05-21 01:23:00" })
-        // }
-
         total = lsNews.length;
         refreshNewsList();
-
-        console.log(JSON.stringify(lsNews));
-
         $('.m-page').pagination({
           pageCount: Math.ceil(total / size * 1.0),
           totalData: total,
@@ -199,7 +190,7 @@
           }
         });
       }
-    })
+    });
   });
 
 

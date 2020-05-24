@@ -28,6 +28,8 @@
         <el-table-column type="index" width="50" label="序号"> </el-table-column>
         <el-table-column prop="wid" label="作品编号"> </el-table-column>
         <el-table-column prop="worksName" label="作品名称"> </el-table-column>
+        <el-table-column prop="gameType" label="参加对象"> </el-table-column>
+        <el-table-column prop="worksSeries" label="作品主题"> </el-table-column>
         <el-table-column prop="tUname" label="指导老师"> </el-table-column>
         <el-table-column prop="orgName" label="所属单位"> </el-table-column>
         <el-table-column fixed="right" label="操作" width="180">
@@ -45,6 +47,8 @@
         <el-table-column type="index" width="50" label="序号"> </el-table-column>
         <el-table-column prop="wid" label="作品编号"> </el-table-column>
         <el-table-column prop="worksName" label="作品名称"> </el-table-column>
+        <el-table-column prop="gameType" label="参加对象"> </el-table-column>
+        <el-table-column prop="worksSeries" label="作品主题"> </el-table-column>
         <el-table-column prop="tUname" label="指导老师"> </el-table-column>
         <el-table-column prop="orgName" label="所属单位"> </el-table-column>
         <el-table-column fixed="right" label="操作" width="180">
@@ -62,6 +66,8 @@
         <el-table-column type="index" width="50" label="序号"> </el-table-column>
         <el-table-column prop="wid" label="作品编号"> </el-table-column>
         <el-table-column prop="worksName" label="作品名称"> </el-table-column>
+        <el-table-column prop="gameType" label="参加对象"> </el-table-column>
+        <el-table-column prop="worksSeries" label="作品主题"> </el-table-column>
         <el-table-column prop="tUname" label="指导老师"> </el-table-column>
         <el-table-column prop="orgName" label="所属单位"> </el-table-column>
         <el-table-column fixed="right" label="操作" width="180">
@@ -79,6 +85,8 @@
         <el-table-column type="index" width="50" label="序号"> </el-table-column>
         <el-table-column prop="wid" label="作品编号"> </el-table-column>
         <el-table-column prop="worksName" label="作品名称"> </el-table-column>
+        <el-table-column prop="gameType" label="参加对象"> </el-table-column>
+        <el-table-column prop="worksSeries" label="作品主题"> </el-table-column>
         <el-table-column prop="tUname" label="指导老师"> </el-table-column>
         <el-table-column prop="orgName" label="所属单位"> </el-table-column>
         <el-table-column fixed="right" label="操作" width="180">
@@ -131,12 +139,22 @@ export default {
           console.log(response);
           if (response && response.data.code == "0") {
             let data = response.data.data;
+
+            data.forEach(p => {
+              let game_type = that.$WorksGroupCode.find(x => x.code === p.gameType);
+              if (game_type != null) {
+                p.gameType = game_type.value;
+              }
+              let works_series = that.$WorksSeriesCode.find(x => x.code === p.worksSeries);
+              if (works_series != null) {
+                p.worksSeries = works_series.value;
+              }
+            });
+
             that.FirstPrizeList = data.filter(p => p.prize == 1);
             that.SecondPrizeList = data.filter(p => p.prize == 2);
             that.ThirdPrizeList = data.filter(p => p.prize == 3);
             that.FourthPrizeList = data.filter(p => p.prize == 4);
-
-            // that.FirstPrizeList.forEach(p => {});
           } else {
             that.$message({
               showClose: true,
