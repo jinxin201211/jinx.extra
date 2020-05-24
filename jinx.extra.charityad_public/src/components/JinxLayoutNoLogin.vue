@@ -7,7 +7,7 @@ a<template>
     <slot></slot>
 
     <div class="jinx-footer">
-      <div>版权所有&nbsp;2005-2020&nbsp;全国大学生广告艺术大赛&nbsp;（www.sun-ada.net）</div>
+      <div>版权所有&nbsp;2005-2020&nbsp;河北省公益广告大赛&nbsp;（www.sun-ada.net）</div>
       <div>Copyright ＠ 2005-2020&nbsp;www.sun-ada.net All rights reserved.</div>
       <div>京ICP备06010242号-2 工业和信息化部备案管理系统（http://beian.miit.gov.cn）网站统计</div>
     </div>
