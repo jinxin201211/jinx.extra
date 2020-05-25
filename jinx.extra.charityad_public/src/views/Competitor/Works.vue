@@ -8,8 +8,9 @@
     <el-table :data="List" stripe style="width: 100%; margin: 30px auto;">
       <el-table-column type="index" width="50"> </el-table-column>
       <!--<el-table-column prop="area" label="赛区"> </el-table-column>-->
-      <el-table-column prop="wid" label="作品编号"> </el-table-column>
+      <el-table-column prop="wno" label="作品编号"> </el-table-column>
       <el-table-column prop="worksName" label="作品名称"> </el-table-column>
+      <el-table-column prop="gameType" label="参加对象"> </el-table-column>
       <el-table-column prop="worksSeries" label="作品主题"> </el-table-column>
       <el-table-column prop="worksType" label="作品类别"> </el-table-column>
       <el-table-column prop="author1" label="作者"> </el-table-column>
@@ -46,6 +47,7 @@ export default {
           that.List.forEach(p => {
             p.worksType = that.$WorksTypeCode.find(x => x.code == p.worksType).value;
             p.worksSeries = that.$WorksSeriesCode.find(x => x.code == p.worksSeries).value;
+            p.gameType = that.$WorksGroupCode.find(x => x.code == p.gameType).value;
             let authors = [];
             for (let i = 1; i <= 5; i++) {
               if (p["author" + i] !== "") {

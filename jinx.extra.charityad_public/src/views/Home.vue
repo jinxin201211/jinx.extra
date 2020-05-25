@@ -493,8 +493,8 @@ export default {
 <style lang="less" scoped>
 .jinx-banner {
   min-width: @typical-width;
-  height: 600px;
-  color: #000;
+  height: 480px;
+  // color: #000;
   // background-color: @primary-color;
   // background-position: center;
   // background-size: cover;
@@ -1054,24 +1054,24 @@ export default {
 }
 
 .jinx-contactus {
-  height: 430px;
+  height: 340px;
   position: relative;
 
   .contactus-pos {
     position: absolute;
     width: 100%;
     top: 100px;
-    height: 430px;
+    height: 340px;
 
     .contactus {
       padding: 50px 0;
       width: @typical-width;
-      height: 430px;
+      height: 340px;
       box-sizing: border-box;
       margin: 0 auto;
       color: #ffffff;
       // background-image: url("../assets/images/home/contact_us_back.png");
-      background-size: contain;
+      background-size: cover;
       background-color: @primary-color;
       text-align: center;
 
@@ -1083,7 +1083,7 @@ export default {
 
       .title {
         font-size: 24px;
-        margin-bottom: 100px;
+        margin-bottom: 50px;
         margin-top: 10px;
         // text-align: center;
         // color: @primary-color-dark;

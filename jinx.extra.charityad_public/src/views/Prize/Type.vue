@@ -26,7 +26,8 @@
       </div>
       <el-table style="width: 100%" :data="FirstPrizeList">
         <el-table-column type="index" width="50" label="序号"> </el-table-column>
-        <el-table-column prop="wid" label="作品编号"> </el-table-column>
+        <el-table-column prop="wno" label="作品编号"> </el-table-column>
+        <el-table-column prop="gameType" label="参加对象"> </el-table-column>
         <el-table-column prop="worksName" label="作品名称"> </el-table-column>
         <el-table-column prop="gameType" label="参加对象"> </el-table-column>
         <el-table-column prop="worksSeries" label="作品主题"> </el-table-column>
@@ -45,7 +46,8 @@
       </div>
       <el-table style="width: 100%" :data="SecondPrizeList">
         <el-table-column type="index" width="50" label="序号"> </el-table-column>
-        <el-table-column prop="wid" label="作品编号"> </el-table-column>
+        <el-table-column prop="wno" label="作品编号"> </el-table-column>
+        <el-table-column prop="gameType" label="参加对象"> </el-table-column>
         <el-table-column prop="worksName" label="作品名称"> </el-table-column>
         <el-table-column prop="gameType" label="参加对象"> </el-table-column>
         <el-table-column prop="worksSeries" label="作品主题"> </el-table-column>
@@ -64,7 +66,8 @@
       </div>
       <el-table style="width: 100%" :data="ThirdPrizeList">
         <el-table-column type="index" width="50" label="序号"> </el-table-column>
-        <el-table-column prop="wid" label="作品编号"> </el-table-column>
+        <el-table-column prop="wno" label="作品编号"> </el-table-column>
+        <el-table-column prop="gameType" label="参加对象"> </el-table-column>
         <el-table-column prop="worksName" label="作品名称"> </el-table-column>
         <el-table-column prop="gameType" label="参加对象"> </el-table-column>
         <el-table-column prop="worksSeries" label="作品主题"> </el-table-column>
@@ -83,7 +86,8 @@
       </div>
       <el-table style="width: 100%" :data="FourthPrizeList">
         <el-table-column type="index" width="50" label="序号"> </el-table-column>
-        <el-table-column prop="wid" label="作品编号"> </el-table-column>
+        <el-table-column prop="wno" label="作品编号"> </el-table-column>
+        <el-table-column prop="gameType" label="参加对象"> </el-table-column>
         <el-table-column prop="worksName" label="作品名称"> </el-table-column>
         <el-table-column prop="gameType" label="参加对象"> </el-table-column>
         <el-table-column prop="worksSeries" label="作品主题"> </el-table-column>
@@ -141,6 +145,10 @@ export default {
             let data = response.data.data;
 
             data.forEach(p => {
+              let works_type = that.$WorksTypeCode.find(x => x.code === p.worksType);
+              if (works_type != null) {
+                p.worksType = works_type.value;
+              }
               let game_type = that.$WorksGroupCode.find(x => x.code === p.gameType);
               if (game_type != null) {
                 p.gameType = game_type.value;

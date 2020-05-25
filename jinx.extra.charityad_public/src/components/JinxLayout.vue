@@ -50,11 +50,11 @@ export default {
 <style lang="less" scoped>
 .jinx-banner {
   min-width: @typical-width;
-  height: 500px;
-  color: #000;
+  height: 480px;
+  // color: #000;
   // background-color: @primary-color;
   background-position: center;
-  background-size: contain;
+  background-size: cover;
   background-image: url("../assets/images/banner1.png");
   position: relative;
 }

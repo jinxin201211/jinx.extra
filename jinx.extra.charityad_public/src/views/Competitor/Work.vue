@@ -12,7 +12,7 @@
 
       <div class="jinx-works-info">
         <span class="title">作品编号</span>
-        <span class="value" v-text="WorksInfo.works.wid"></span>
+        <span class="value" v-text="WorksInfo.works.wno"></span>
       </div>
       <div class="jinx-works-info">
         <span class="title">作品名称</span>
