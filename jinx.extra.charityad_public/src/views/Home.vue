@@ -500,6 +500,7 @@ export default {
   // background-size: cover;
   // background-image: url("../assets/images/广告大赛网站图2.png");
   position: relative;
+  z-index: -1;
 
   .banner {
     position: absolute;
@@ -543,6 +544,8 @@ export default {
   box-shadow: 0px 0px 43px 0px rgba(48, 4, 4, 0.18);
   border-radius: 6px;
   background: #ffffff;
+  z-index: 1;
+  margin-top: -65px;
 
   .nav {
     display: inline-block;
