@@ -27,24 +27,24 @@ export default {
   data: function() {
     return {
       form: {
-        account: "jinxin",
-        password: "123456"
+        account: "",
+        password: ""
       },
       loading: false
     };
   },
   mounted() {
-    if (new Date().getUTCSeconds() % 2 == 1) {
-      this.form = {
-        account: "lxw",
-        password: "888888"
-      };
-    } else {
-      this.form = {
-        account: "jinxin",
-        password: "123456"
-      };
-    }
+    // if (new Date().getUTCSeconds() % 2 == 1) {
+    //   this.form = {
+    //     account: "lxw",
+    //     password: "888888"
+    //   };
+    // } else {
+    //   this.form = {
+    //     account: "jinxin",
+    //     password: "123456"
+    //   };
+    // }
     this.$store.commit("resetAccount");
   },
   mixins: [md5],

@@ -112,22 +112,22 @@ export default {
   data: function() {
     return {
       form: {
-        // type:"",
-        // email: "",
-        // phone: "",
-        // nickname: "",
-        // password: "",
-        // repassword: "",
-        // security: "",
-        // agree: false
-        type: "1",
-        email: "1137617085@qq.com",
-        phone: "18708117389",
-        nickname: "jinxin",
-        password: "jinxin20200510",
-        repassword: "jinxin20200510",
+        type: "",
+        email: "",
+        phone: "",
+        nickname: "",
+        password: "",
+        repassword: "",
         security: "",
-        agree: true
+        agree: false
+        // type: "1",
+        // email: "1137617085@qq.com",
+        // phone: "18708117389",
+        // nickname: "jinxin",
+        // password: "jinxin20200510",
+        // repassword: "jinxin20200510",
+        // security: "",
+        // agree: true
       },
       verify_code: "",
       loading: false

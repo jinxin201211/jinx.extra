@@ -35,8 +35,10 @@ export default {
   data: function() {
     return {
       form: {
-        account: "jinxin",
-        password: "jinxin20200510"
+        account: "",
+        password: ""
+        // account: "jinxin",
+        // password: "jinxin20200510"
       },
       rememberMe: true
     };
