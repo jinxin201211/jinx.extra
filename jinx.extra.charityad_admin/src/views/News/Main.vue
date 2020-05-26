@@ -102,7 +102,6 @@ export default {
           id: data.id
         }
       });
-      // this.$router.push("addAnnouncement");
     },
     handleEdit: function(data) {
       this.$router.push({
@@ -111,7 +110,6 @@ export default {
           id: data.id
         }
       });
-      // this.$router.push("addAnnouncement");
     },
     handleDelete: function(data) {
       this.$confirm("此操作将删除该新闻, 是否继续?", "提示", {
@@ -140,11 +138,11 @@ export default {
               type: "success",
               message: "删除成功!"
             });
-            that.getAnnouncementList();
+            that.getNewsList();
           } else {
             that.$message({
               showClose: true,
-              message: "删除成功",
+              message: "删除失败",
               type: "warning"
             });
           }
@@ -153,7 +151,7 @@ export default {
           console.log(err);
           that.$message({
             showClose: true,
-            message: "删除成功",
+            message: "删除失败",
             type: "warning"
           });
         });

@@ -3,10 +3,10 @@
     <el-page-header @back="handleBack" content="编辑公告" style="margin-bottom: 20px;"> </el-page-header>
     <div style="margin-top: 20px;">
       <el-form ref="form" :model="form" label-width="80px">
-        <el-form-item label="标题" prop="title" :rules="[{ required: true, message: '请输入公告标题', trigger: 'blur' }]">
+        <el-form-item label="标题" prop="title">
           <el-input v-model="form.title"></el-input>
         </el-form-item>
-        <el-form-item label="副标题" prop="subTitle" :rules="[{ required: true, message: '请输入副标题', trigger: 'blur' }]">
+        <el-form-item label="副标题" prop="subTitle">
           <el-input v-model="form.subTitle"></el-input>
         </el-form-item>
       </el-form>

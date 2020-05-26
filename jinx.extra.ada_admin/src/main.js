@@ -55,12 +55,16 @@ Vue.prototype.$WorksGroupCode = [
   { code: "2", value: "公众类" }
 ];
 Vue.prototype.$WorksSeriesCode = [
-  { code: "A", value: "中国梦系列" },
-  { code: "B", value: "营商环境系列" },
-  { code: "C", value: "生态保护系列" },
-  { code: "D", value: "传统文化系列" },
-  { code: "E", value: "社会热点系列" },
-  { code: "F", value: "其他主题" }
+  { code: "A", value: "平面类" },
+  { code: "Ba", value: "视频类影视广告" },
+  { code: "Bb", value: "视频类微电影广告" },
+  { code: "Bc", value: "视频类短视频" },
+  { code: "C", value: "动画类" },
+  { code: "D", value: "互动类" },
+  { code: "E", value: "广播类" },
+  { code: "F", value: "策划案类" },
+  { code: "Ga", value: "文案类广告语" },
+  { code: "Gb", value: "文案类长文案" }
 ];
 Vue.prototype.$WorksTypeCode = [
   { code: "1", value: "平面类" },

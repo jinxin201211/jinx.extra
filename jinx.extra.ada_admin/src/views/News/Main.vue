@@ -140,11 +140,11 @@ export default {
               type: "success",
               message: "删除成功!"
             });
-            that.getAnnouncementList();
+            that.getNewsList();
           } else {
             that.$message({
               showClose: true,
-              message: "删除成功",
+              message: "删除失败",
               type: "warning"
             });
           }
@@ -153,7 +153,7 @@ export default {
           console.log(err);
           that.$message({
             showClose: true,
-            message: "删除成功",
+            message: "删除失败",
             type: "warning"
           });
         });

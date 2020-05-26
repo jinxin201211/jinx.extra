@@ -376,4 +376,9 @@ export default {
   width: @typical-width;
   margin: 20px auto;
 }
+
+.el-radio {
+  margin-bottom: 5px;
+  margin-top: 5px;
+}
 </style>
