@@ -326,6 +326,23 @@ export default {
   // border-radius: 10px;
   // background: #ededed;
 }
+
+.jinx-works-info {
+  margin: 15px 0;
+
+  span:first-child {
+    display: inline-block;
+    width: 100px;
+    text-align: right;
+    padding: 0 20px;
+  }
+  span:last-child {
+    display: inline-block;
+    padding: 0 20px;
+    word-break: break-all;
+  }
+}
+
 @line-height: 30px;
 
 .jinx-score-area {

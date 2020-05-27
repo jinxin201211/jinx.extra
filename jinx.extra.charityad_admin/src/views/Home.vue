@@ -15,7 +15,7 @@
       </div>
     </div>
     <div class="jinx-side">
-      <el-menu :default-active="active" @select="handleMenuSelect" class="jinx-custom-menu green">
+      <el-menu :default-active="active" @select="handleMenuSelect" class="jinx-custom-menu red">
         <el-menu-item :index="item.path" v-for="(item, index) in RouteList" :key="'menu' + index">
           <span slot="title" v-text="item.title"></span>
         </el-menu-item>
@@ -136,7 +136,7 @@ export default {
   background: #ffffff;
   box-sizing: border-box;
   color: #000000;
-  z-index: 9999;
+  z-index: 999;
 }
 .jinx-side {
   position: absolute;
@@ -223,6 +223,30 @@ export default {
   .el-menu-item.is-active {
     background: @theme-green-bg-color-active;
     color: @theme-green-color-active;
+  }
+}
+
+@theme-red-bg-color: #28333e;
+@theme-red-bg-color-active: #c71d26;
+@theme-red-color: #eeeeee;
+@theme-red-color-active: #ffffff;
+.el-menu.jinx-custom-menu.red {
+  height: 100%;
+  // border: none;
+  background: @theme-red-bg-color;
+
+  .el-menu-item {
+    background: @theme-red-bg-color;
+    color: @theme-red-color;
+  }
+  .el-menu-item:hover {
+    background: lighten(@theme-red-bg-color-active, 10%);
+    color: @theme-red-color-active;
+  }
+
+  .el-menu-item.is-active {
+    background: @theme-red-bg-color-active;
+    color: @theme-red-color-active;
   }
 }
 </style>

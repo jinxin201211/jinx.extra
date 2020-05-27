@@ -276,6 +276,7 @@ export default {
   span:last-child {
     display: inline-block;
     padding: 0 20px;
+    word-break: break-all;
   }
 }
 </style>

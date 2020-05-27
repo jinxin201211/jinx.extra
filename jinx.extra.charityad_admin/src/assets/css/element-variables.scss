@@ -2,7 +2,7 @@
 $--font-path: "~element-ui/lib/theme-chalk/fonts";
 
 /*主题颜色变量*/
-$--color-primary: #009688;
+$--color-primary: #c71d26;
 
 /*按需引入用到的组件的scss文件和基础scss文件*/
 @import "~element-ui/packages/theme-chalk/src/base.scss";
@@ -15,3 +15,4 @@ $--color-primary: #009688;
 @import "~element-ui/packages/theme-chalk/src/input.scss";
 @import "~element-ui/packages/theme-chalk/src/select.scss";
 @import "~element-ui/packages/theme-chalk/src/radio.scss";
+@import "~element-ui/packages/theme-chalk/src/tabs.scss";
