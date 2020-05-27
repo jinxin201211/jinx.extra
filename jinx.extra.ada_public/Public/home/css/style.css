@@ -10,7 +10,7 @@ em {
   /*color: #424242;*/
   font-weight: normal;
   font-style: normal;
-  font-family: "΢���ź�", "Microsoft YaHei";
+  font-family: "΢���ź�", "Microsoft YaHei";
 }
 
 * {
@@ -348,12 +348,13 @@ body {
   position: relative;
   /*margin-left: 10px;*/
   float: left;
+  min-width: 100px;
 }
 
 .header-nav .a1 {
   display: block;
-  width: 100px;
-  padding: 0 5px;
+  /* min-width: 100px; */
+  padding: 0 30px;
   height: 52px;
   line-height: 52px;
   overflow: hidden;
@@ -388,14 +389,14 @@ body {
   background-color: #f5f5f5;
 }
 
-/*定义滚动条轨�? 内阴�?+圆角*/
+/*定义滚动条轨�? 内阴�?+圆角*/
 .header-nav .con::-webkit-scrollbar-track {
   -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
   border-radius: 10px;
   background-color: #f5f5f5;
 }
 
-/*定义滑块 内阴�?+圆角*/
+/*定义滑块 内阴�?+圆角*/
 .header-nav .con::-webkit-scrollbar-thumb {
   border-radius: 10px;
   -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
@@ -1690,7 +1691,7 @@ body {
   }
 }
 
-/* Safari �? Chrome */
+/* Safari �? Chrome */
 @-webkit-keyframes myfirst {
   0% {
     transform: scale(1);
@@ -3131,7 +3132,7 @@ body {
   color: #707070;
 }
 
-/* 命题讨论�? */
+/* 命题讨论�? */
 .participation {
   overflow: hidden;
   margin-left: -62px;

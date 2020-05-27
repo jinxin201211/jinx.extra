@@ -2,7 +2,7 @@
   <div style="padding: 20px;">
     <el-breadcrumb separator="/" style="margin-bottom: 20px;">
       <el-breadcrumb-item>首页</el-breadcrumb-item>
-      <el-breadcrumb-item>作品打分</el-breadcrumb-item>
+      <el-breadcrumb-item>作品打分(第一轮)</el-breadcrumb-item>
     </el-breadcrumb>
 
     <el-button @click="handleRefreshList" :loading="loading">刷新列表</el-button>
@@ -44,9 +44,6 @@ export default {
     };
   },
   mounted() {
-    this.getList();
-  },
-  activated() {
     this.getList();
   },
   methods: {

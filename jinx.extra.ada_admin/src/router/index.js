@@ -10,7 +10,7 @@ const routes = [
     component: () => import("../views/Home.vue"),
     meta: {
       title: "首页",
-      access: ["admin", "judge"]
+      access: ["admin", "judge", "leader"]
     },
     children: [
       // {
@@ -140,7 +140,7 @@ const routes = [
         component: () => import("../views/Work/Round1/Main.vue"),
         meta: {
           title: "作品打分(第一轮)",
-          access: ["judge"]
+          access: ["judge", "leader"]
         }
       },
       {
@@ -149,7 +149,7 @@ const routes = [
         component: () => import("../views/Work/Round1/Appraisal.vue"),
         meta: {
           title: "作品打分(第一轮)",
-          access: ["judge"]
+          access: ["judge", "leader"]
         }
       },
       {
@@ -158,7 +158,7 @@ const routes = [
         component: () => import("../views/Work/Round2/Main.vue"),
         meta: {
           title: "作品打分(第二轮)",
-          access: ["judge"]
+          access: ["judge", "leader"]
         }
       },
       {
@@ -167,7 +167,16 @@ const routes = [
         component: () => import("../views/Work/Round2/Score.vue"),
         meta: {
           title: "作品打分",
-          access: ["judge"]
+          access: ["judge", "leader"]
+        }
+      },
+      {
+        path: "/score/round3",
+        name: "scoreround3",
+        component: () => import("../views/Work/Round3/Main.vue"),
+        meta: {
+          title: "作品打分(第三轮)",
+          access: ["leader"]
         }
       },
       {
@@ -176,7 +185,7 @@ const routes = [
         component: () => import("../views/Work/Rank.vue"),
         meta: {
           title: "作品排行",
-          access: ["judge"]
+          access: ["judge", "leader"]
         }
       },
       {
@@ -185,7 +194,7 @@ const routes = [
         component: () => import("../views/Work/Regular.vue"),
         meta: {
           title: "评审办法",
-          access: ["judge"]
+          access: ["judge", "leader"]
         }
       }
     ]
@@ -226,6 +235,8 @@ router.beforeEach((to, from, next) => {
     } else {
       //权限验证
       let user = JSON.parse(sessionStorage.getItem(window.$VuexPrefix + "User"));
+      console.log("---------------beforeEach----------------");
+      console.log(user);
       let role = user.role;
       let access = to.meta && to.meta.access ? to.meta.access : [];
       // let access = new Array();

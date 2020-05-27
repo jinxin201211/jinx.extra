@@ -4,6 +4,8 @@ $--font-path: "~element-ui/lib/theme-chalk/fonts";
 /*主题颜色变量*/
 $--color-primary: #c71d26;
 
+$--border-color-base: #676869;
+
 /*按需引入用到的组件的scss文件和基础scss文件*/
 @import "~element-ui/packages/theme-chalk/src/base.scss";
 // @import "~element-ui/packages/theme-chalk/src/rate.scss";

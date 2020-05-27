@@ -200,19 +200,22 @@
         <div class="title">友情链接</div>
         <div class="links-panel">
           <div class="item-pos">
-            <div class="link-item"><el-link href="http://xwcbxy.hebtu.edu.cn/a/2019/04/19/AE56753B9B30477D8B23405AA82DCF18.html" target="_blank">河北省广告研究院</el-link></div>
-          </div>
-          <div class="item-pos">
-            <div class="link-item"><el-link href="http://www.hebtu.edu.cn/" target="'_blank'">河北师大</el-link></div>
-          </div>
-          <div class="item-pos">
             <div class="link-item"><el-link href="http://scjg.hebei.gov.cn/" target="_blank">河北省市场监督管理局</el-link></div>
+          </div>
+          <div class="item-pos">
+            <div class="link-item"><el-link href="http://www.hebtu.edu.cn/" target="'_blank'">河北师范大学</el-link></div>
+          </div>
+          <div class="item-pos">
+            <div class="link-item"><el-link href="http://xwcbxy.hebtu.edu.cn/a/2019/04/19/AE56753B9B30477D8B23405AA82DCF18.html" target="_blank">河北省广告研究院</el-link></div>
           </div>
           <div class="item-pos">
             <div class="link-item"><el-link href="http://www.hbggw.com.cn/" target="_blank">河北省广告协会</el-link></div>
           </div>
           <div class="item-pos">
             <div class="link-item"><el-link href="http://www.hebtv.com/" target="_blank">河北广播电视台</el-link></div>
+          </div>
+          <div class="item-pos">
+            <div class="link-item"><el-link href="http://www.heb315.org.cn/" target="_blank">河北省消费者权益保护委员会</el-link></div>
           </div>
         </div>
       </div>
@@ -1030,10 +1033,11 @@ export default {
     .links-panel {
       width: @links-width;
       margin-left: -15px;
+      text-align: center;
 
       .item-pos {
         display: inline-block;
-        width: 20%;
+        // width: 20%;
         height: 60px;
         box-sizing: border-box;
         padding: 0 15px;
@@ -1047,6 +1051,8 @@ export default {
           display: flex;
           justify-content: center;
           align-items: center;
+          padding: 0 15px;
+          box-sizing: border-box;
         }
       }
     }

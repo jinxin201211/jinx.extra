@@ -32,7 +32,7 @@
         <el-row>
           <el-col :span="12">
             <el-form-item label="作品类别" prop="worksSeries" :rules="[{ required: true, message: '请选择作品类别', trigger: 'blur' }]">
-              <el-radio-group v-model="form.worksSeries">
+              <el-radio-group v-model="form.worksSeries" id="radioWorksSeries">
                 <el-radio :label="item.code" v-for="(item, index) in $WorksSeriesCode" :key="'series' + index"> {{ item.code + ":" + item.value }}</el-radio>
               </el-radio-group>
             </el-form-item>
@@ -383,5 +383,9 @@ export default {
 .el-radio {
   margin-bottom: 5px;
   margin-top: 5px;
+}
+
+#radioWorksSeries > .el-radio {
+  min-width: 170px;
 }
 </style>

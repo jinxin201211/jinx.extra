@@ -15,6 +15,7 @@
       <el-table-column prop="email" label="邮箱"> </el-table-column>
       <!--<el-table-column prop="series" label="作品主题"> </el-table-column>-->
       <el-table-column prop="worksType" label="作品类别"> </el-table-column>
+      <el-table-column prop="groupLeader" label="是否小组长"> </el-table-column>
       <el-table-column prop="ctime" label="创建时间"> </el-table-column>
       <el-table-column fixed="right" label="操作" width="180">
         <template slot-scope="scope">
@@ -82,7 +83,9 @@ export default {
               } else {
                 e.worksType = "/";
               }
+              e.groupLeader = e.groupLeader === "1" ? "是" : "否";
             });
+            that.List.sort((a, b) => new Date(b.ctime).getTime() - new Date(a.ctime).getTime());
             that.total = response.data.count;
           } else {
             that.$message({

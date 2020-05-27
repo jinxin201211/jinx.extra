@@ -15,14 +15,7 @@
               <el-radio label="2">公众组</el-radio>
             </el-radio-group>
           </el-form-item>
-          <el-form-item
-            label="邮箱"
-            prop="email"
-            :rules="[
-              { required: true, message: '请输入邮箱', trigger: 'blur' },
-              { type: 'email', message: '请输入正确的邮箱地址', trigger: ['blur', 'change'] }
-            ]"
-          >
+          <el-form-item label="邮箱" prop="email" :rules="[{ type: 'email', message: '请输入正确的邮箱地址', trigger: ['blur', 'change'] }]">
             <el-input v-model="form.email" style="width: 250px;"></el-input>
             <label style="margin-left: 20px;">请牢记并填写有效邮箱地址，可用于登录平台</label>
           </el-form-item>
@@ -57,7 +50,7 @@
             ]"
           >
             <el-input v-model="form.password" show-password style="width: 250px;" maxlength="15" minlength="6"></el-input>
-            <label style="margin-left: 20px;">密码为6到15个字符，只能含有半高英文字母及数字</label>
+            <label style="margin-left: 20px;">密码为6到15个字符，只能含有半角英文字母及数字</label>
           </el-form-item>
           <el-form-item
             label="确认密码"

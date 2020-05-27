@@ -1,7 +1,7 @@
 <template>
   <div style="padding: 20px;">
     <el-page-header @back="handleBack" content="添加评委" style="margin-bottom: 20px;"> </el-page-header>
-    <el-form ref="form" :model="form" label-width="80px" style="padding: 0 20px; margin: 0 auto;">
+    <el-form ref="form" :model="form" label-width="120px" style="padding: 0 20px; margin: 0 auto;">
       <el-form-item
         label="用户名"
         prop="uname"
@@ -42,6 +42,12 @@
           <el-radio :label="item.code" v-for="(item, index) in $WorksTypeCode" :key="'series' + index"> {{ item.code + ":" + item.value }}</el-radio>
         </el-radio-group>
       </el-form-item>
+      <el-form-item label="是否小组长" prop="groupLeader" :rules="[{ required: true, message: '请选择是否小组长', trigger: 'blur' }]">
+        <el-radio-group v-model="form.groupLeader">
+          <el-radio label="1">是</el-radio>
+          <el-radio label="0">否</el-radio>
+        </el-radio-group>
+      </el-form-item>
       <el-form-item>
         <b>用户名用来登录系统，初始密码为888888</b>
       </el-form-item>
@@ -66,7 +72,8 @@ export default {
         pwd: "",
         role: "judge",
         // series: "",
-        worksType: ""
+        worksType: "",
+        groupLeader: "0"
       },
       loading: false
     };
@@ -90,7 +97,7 @@ export default {
       this.loading = true;
       let that = this;
       this.axios
-        .post("/api/sysUser/add", qs.stringify({ email: this.form.email, tel: this.form.tel, uname: this.form.uname, pwd: this.hex_md5("888888"), series: this.form.series, worksType: this.form.worksType }))
+        .post("/api/sysUser/add", qs.stringify({ email: this.form.email, tel: this.form.tel, uname: this.form.uname, pwd: this.hex_md5("888888"), series: this.form.series, worksType: this.form.worksType, groupLeader: this.form.groupLeader }))
         .then(function(response) {
           if (response && response.data.code == "0") {
             that.$message({

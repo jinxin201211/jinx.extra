@@ -1,7 +1,7 @@
 <template>
   <div style="padding: 20px;">
     <el-page-header @back="handleBack" content="修改评委" style="margin-bottom: 20px;"> </el-page-header>
-    <el-form ref="form" :model="form" label-width="80px" style="padding: 0 20px; margin: 0 auto;">
+    <el-form ref="form" :model="form" label-width="120px" style="padding: 0 20px; margin: 0 auto;">
       <el-form-item
         label="用户名"
         prop="uname"
@@ -42,6 +42,12 @@
           <el-radio :label="item.code" v-for="(item, index) in $WorksTypeCode" :key="'series' + index"> {{ item.code + ":" + item.value }}</el-radio>
         </el-radio-group>
       </el-form-item>
+      <el-form-item label="是否小组长" prop="groupLeader" :rules="[{ required: true, message: '请选择是否小组长', trigger: 'blur' }]">
+        <el-radio-group v-model="form.groupLeader">
+          <el-radio label="1">是</el-radio>
+          <el-radio label="0">否</el-radio>
+        </el-radio-group>
+      </el-form-item>
       <el-form-item>
         <b>用户名用来登录系统，初始密码为888888</b>
       </el-form-item>
@@ -67,7 +73,8 @@ export default {
         pwd: "",
         role: "judge",
         // series: "",
-        worksType: ""
+        worksType: "",
+        groupLeader: "0"
       },
       loading: false
     };
@@ -87,6 +94,7 @@ export default {
           that.form.role = response.data.data.role;
           // that.form.series = response.data.data.series;
           that.form.worksType = response.data.data.worksType;
+          that.form.groupLeader = response.data.data.groupLeader;
         } else {
           that.$message({
             showClose: true,

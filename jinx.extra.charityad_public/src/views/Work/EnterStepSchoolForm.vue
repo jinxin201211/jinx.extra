@@ -32,7 +32,7 @@
         <el-row>
           <el-col :span="12">
             <el-form-item label="作品类别" prop="worksSeries" :rules="[{ required: true, message: '请选择作品类别', trigger: 'blur' }]">
-              <el-radio-group v-model="form.worksSeries">
+              <el-radio-group v-model="form.worksSeries" id="radioWorksSeries">
                 <el-radio :label="item.code" v-for="(item, index) in $WorksSeriesCode" :key="'series' + index"> {{ item.code + ":" + item.value }}</el-radio>
               </el-radio-group>
             </el-form-item>
@@ -148,14 +148,7 @@
           </el-row>
           <el-row>
             <el-col :span="12">
-              <el-form-item
-                label="电子邮箱"
-                prop="tEmail"
-                :rules="[
-                  { required: true, message: '请填写指导老师电子邮箱', trigger: 'blur' },
-                  { type: 'email', message: '请输入正确的邮箱地址', trigger: ['blur', 'change'] }
-                ]"
-              >
+              <el-form-item label="电子邮箱" prop="tEmail" :rules="[{ type: 'email', message: '请输入正确的邮箱地址', trigger: ['blur', 'change'] }]">
                 <el-input v-model="form.tEmail" maxlength="200"></el-input>
               </el-form-item>
             </el-col>
@@ -427,5 +420,9 @@ export default {
 .el-radio {
   margin-bottom: 5px;
   margin-top: 5px;
+}
+
+#radioWorksSeries > .el-radio {
+  min-width: 170px;
 }
 </style>

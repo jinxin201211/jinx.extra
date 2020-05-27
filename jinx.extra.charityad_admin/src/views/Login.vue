@@ -66,6 +66,9 @@ export default {
         .then(function(response) {
           if (response && response.data.code == "0") {
             let data = response.data.data;
+            if (data.role === "judge" && data.groupLeader === "1") {
+              data.role = "leader";
+            }
             that.$store.commit("changeAccount", data);
             that.$router.replace("/");
           } else {
