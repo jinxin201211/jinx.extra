@@ -31,7 +31,7 @@
       <el-upload class="upload-demo" ref="upload" :action="action" :on-preview="handlePreview" :on-remove="handleRemove" :file-list="fileList" :auto-upload="false" :on-success="handleSuccess" :on-error="handleError" :limit="file_count_limit" :multiple="true" :on-exceed="handleExceed" :data="param" :before-upload="handleBeforeUpload" :before-remove="handleBeforeRemove">
         <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
         <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUpload">上传到服务器</el-button>
-        <div slot="tip" class="el-upload__tip">单个文件大小不超过<span v-text="maxSize"></span>Mb</div>
+        <div slot="tip" class="el-upload__tip">点击‘选取文件’按钮选取要上传的文件，选取完成后，点击‘上传到服务器’按钮将文件上传到服务器，待文件全部上传成功之后单击‘提交本作品’按钮结束本次上传，单个文件大小不超过<span v-text="maxSize"></span>Mb</div>
       </el-upload>
     </div>
 

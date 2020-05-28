@@ -410,6 +410,12 @@ export default {
 };
 </script>
 
+<style>
+:focus {
+  outline: 0;
+}
+</style>
+
 <style lang="less" scoped>
 /deep/ .el-card {
   margin-top: 20px;
