@@ -25,6 +25,9 @@
         <div class="header-nav">
           <ul>
             <li>
+              <a href="http://hbsggyjy.hebtu.edu.cn" class='a1'>首页</a>
+            </li>
+            <li>
               <a href="about_intrs.html" class='a1'>关于大赛</a>
               <dl class="con">
                 <dd><a href="about_intrs5.html">大赛简介</a></dd>
@@ -49,7 +52,8 @@
   </div>
 
   <div id="bd">
-    <div class="m-ban"><a href="javascript:;" style='background-image:url(data/img/2003/5e7b1d3fa7854.jpg); background-size: cover;'></a></div>
+    <div class="m-ban"><a href="javascript:;"
+        style='background-image:url(data/img/2003/5e7b1d3fa7854.jpg); background-size: cover;'></a></div>
 
     <div class="wrap">
       <div class="m-cur">
@@ -87,20 +91,6 @@
             <h2><em class="line-l"></em><span>The news</span><em class="line-r"></em></h2>
           </div>
           <ul class="list_txt">
-            <li>
-              <a href="news_xq2s102.html?sid=27">
-                <h3>【河北赛区公示】2019年第十一届大广赛河北赛区获奖结果公示</h3>
-                <p>第十一届大广赛河北赛区获奖结果公示</p>
-                <em>日期：2019/07/09</em>
-              </a>
-            </li>
-            <li>
-              <a href="news_xq2s69.html?sid=27">
-                <h3>【第十一届大广赛】河北赛区作品提交截止日期及纸质作品收取办法</h3>
-                <p>河北赛区作品提交截止日期为2019年6月20日，平面类作品需要提交纸质版作品。</p>
-                <em>日期：2019/06/06</em>
-              </a>
-            </li>
           </ul>
 
           <div class="m-page"></div>
@@ -117,7 +107,8 @@
       <div class="wrap">
         <ul>
           <li>
-            <a href="http://xwcbxy.hebtu.edu.cn/a/2019/04/19/AE56753B9B30477D8B23405AA82DCF18.html" class='a1'><span>河北省广告研究院</span></a>
+            <a href="http://xwcbxy.hebtu.edu.cn/a/2019/04/19/AE56753B9B30477D8B23405AA82DCF18.html"
+              class='a1'><span>河北省广告研究院</span></a>
           </li>
           <li>
             <a href="http://www.sun-ada.net/" class='a1'><span>大广赛全国赛区</span></a>
@@ -160,6 +151,7 @@
 <script src='Public/home/js/jquery.SuperSlide.2.1.1.js'></script>
 <script src='Public/home/js/wow.min.js'></script>
 <script src="Public/home/js/home.js" type="text/javascript" charset="utf-8"></script>
+<script src="Public/home/js/request.config.js" type="text/javascript" charset="utf-8"></script>
 
 <script>
 
@@ -170,7 +162,7 @@
 
   $(function () {
     $.ajax({
-      url: 'http://47.108.88.211:8082/gameNews/getData',
+      url: $base_request_url + '/gameNews/getData',
       type: 'POST',
       success: function (data) {
         lsNews = data.data;

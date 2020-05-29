@@ -44,9 +44,10 @@ if (!!window.ActiveXObject || "ActiveXObject" in window) {
 }
 
 window.$VuexPrefix = "ada.admin.";
-Vue.prototype.$Server = "http://47.108.88.211";
-Vue.prototype.$ImagePostServer = "http://47.108.88.211:8083";
-Vue.prototype.$ImageGetServer = "http://47.108.88.211/img/";
+// window.$Server = "http://47.108.88.211"; // todo
+window.$Server = "http://211.82.246.251";
+Vue.prototype.$ImagePostServer = window.$Server + ":8083";
+Vue.prototype.$ImageGetServer = window.$Server + "/img/";
 Vue.prototype.$WebSiteName = "全国大学生广告艺术大赛（河北赛区）评审系统";
 
 Vue.prototype.$WorksGroupCode = [
