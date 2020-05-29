@@ -3,7 +3,7 @@
     <div class="jinx-header">
       <div style="padding: 0 20px; float: left; line-height: 60px; font-weight: bold; font-size: 24px;">{{ $WebSiteName }}</div>
       <div style="float: right;">
-        <el-menu mode="horizontal" default-active="1" background-color="#fefefe" text-color="#000000">
+        <el-menu mode="horizontal" default-active="1">
           <el-menu-item @click="handleFullscreen"><i class="el-icon-full-screen"></i></el-menu-item>
           <el-menu-item @click="routerViewKey = routerViewKey + 1"><i class="el-icon-refresh-right"></i></el-menu-item>
           <el-submenu index="1">
@@ -46,6 +46,7 @@ export default {
         { path: "/log", access: ["admin"], title: "日志管理" },
         { path: "/news", access: ["admin"], title: "发布新闻" },
         { path: "/announcement", access: ["admin"], title: "发布公告" },
+        { path: "/workimport", access: ["admin"], title: "作品导入" },
         { path: "/workregular", access: ["judge", "leader"], title: "评审办法" },
         { path: "/score/round1", access: ["judge", "leader"], title: "作品打分(第一轮)" },
         { path: "/score/round2", access: ["judge", "leader"], title: "作品打分(第二轮)" },
@@ -66,7 +67,7 @@ export default {
     this.RouteList = this.FullRouteList.filter(p => p.access.includes(role));
 
     if (this.$route.path != "/") {
-      this.active = this.$route.path;
+      this.active = this.$route.meta.menu || this.$route.path;
     }
   },
   methods: {
@@ -240,13 +241,15 @@ export default {
     color: @theme-red-color;
   }
   .el-menu-item:hover {
-    background: lighten(@theme-red-bg-color-active, 10%);
+    background: darken(@theme-red-bg-color-active, 10%);
     color: @theme-red-color-active;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.9) inset;
   }
 
   .el-menu-item.is-active {
     background: @theme-red-bg-color-active;
     color: @theme-red-color-active;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.9) inset;
   }
 }
 </style>

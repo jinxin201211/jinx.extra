@@ -55,7 +55,7 @@
     </div>
 
     <div style="position: absolute; bottom: 0; left: 0; width: 100%; padding: 20px; box-shadow: rgba(0, 0, 0, 0.5) 0px 1px 5px 0px; background: #ffffff; box-sizing: border-box;">
-      <div style="position: relative;" class="jinx-score-area" v-show="!WorksInfo.empty">
+      <div style="position: relative;" class="jinx-score-area">
         <div class="ranks">
           <div class="rank" v-for="(item, index) in ScoreRule.Rank" :key="'ranks' + index">
             <span class="rank-name" v-text="item.Name"></span>

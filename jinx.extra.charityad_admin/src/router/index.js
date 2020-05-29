@@ -21,7 +21,6 @@ const routes = [
       //     title: "角色管理"
       //   }
       // },
-
       {
         path: "judge",
         name: "Judge",
@@ -37,7 +36,8 @@ const routes = [
         component: () => import("../views/Judge/Add.vue"),
         meta: {
           title: "添加评委",
-          access: ["admin"]
+          access: ["admin"],
+          menu: "/judge"
         }
       },
       {
@@ -46,7 +46,8 @@ const routes = [
         component: () => import("../views/Judge/Edit.vue"),
         meta: {
           title: "修改评委",
-          access: ["admin"]
+          access: ["admin"],
+          menu: "/judge"
         }
       },
 
@@ -75,7 +76,8 @@ const routes = [
         component: () => import("../views/News/Add.vue"),
         meta: {
           title: "新增新闻",
-          access: ["admin"]
+          access: ["admin"],
+          menu: "/news"
         }
       },
       {
@@ -84,7 +86,8 @@ const routes = [
         component: () => import("../views/News/Edit.vue"),
         meta: {
           title: "编辑新闻",
-          access: ["admin"]
+          access: ["admin"],
+          menu: "/news"
         }
       },
       {
@@ -93,7 +96,8 @@ const routes = [
         component: () => import("../views/News/View.vue"),
         meta: {
           title: "查看新闻",
-          access: ["admin"]
+          access: ["admin"],
+          menu: "/news"
         }
       },
 
@@ -112,7 +116,8 @@ const routes = [
         component: () => import("../views/Announcement/Add.vue"),
         meta: {
           title: "新增公告",
-          access: ["admin"]
+          access: ["admin"],
+          menu: "/announcement"
         }
       },
       {
@@ -121,7 +126,8 @@ const routes = [
         component: () => import("../views/Announcement/Edit.vue"),
         meta: {
           title: "编辑公告",
-          access: ["admin"]
+          access: ["admin"],
+          menu: "/announcement"
         }
       },
       {
@@ -130,7 +136,8 @@ const routes = [
         component: () => import("../views/Announcement/View.vue"),
         meta: {
           title: "查看公告",
-          access: ["admin"]
+          access: ["admin"],
+          menu: "/announcement"
         }
       },
 
@@ -149,7 +156,8 @@ const routes = [
         component: () => import("../views/Work/Round1/Appraisal.vue"),
         meta: {
           title: "作品打分(第一轮)",
-          access: ["judge", "leader"]
+          access: ["judge", "leader"],
+          menu: "/score/round1"
         }
       },
       {
@@ -167,7 +175,8 @@ const routes = [
         component: () => import("../views/Work/Round2/Score.vue"),
         meta: {
           title: "作品打分",
-          access: ["judge", "leader"]
+          access: ["judge", "leader"],
+          menu: "/score/round2"
         }
       },
       {
@@ -195,6 +204,15 @@ const routes = [
         meta: {
           title: "评审办法",
           access: ["judge", "leader"]
+        }
+      },
+      {
+        path: "/workimport",
+        name: "workImport",
+        component: () => import("../views/Work/Import.vue"),
+        meta: {
+          title: "作品导入",
+          access: ["admin"]
         }
       }
     ]
@@ -235,8 +253,6 @@ router.beforeEach((to, from, next) => {
     } else {
       //权限验证
       let user = JSON.parse(sessionStorage.getItem(window.$VuexPrefix + "User"));
-      console.log("---------------beforeEach----------------");
-      console.log(user);
       let role = user.role;
       let access = to.meta && to.meta.access ? to.meta.access : [];
       // let access = new Array();

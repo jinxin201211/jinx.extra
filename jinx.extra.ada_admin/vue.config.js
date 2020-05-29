@@ -26,5 +26,11 @@ module.exports = {
         }
       }
     }
+  },
+  chainWebpack: config => {
+    config.plugin("html").tap(args => {
+      args[0].title = "全国大学生广告艺术大赛（河北赛区）评审系统";
+      return args;
+    });
   }
 };

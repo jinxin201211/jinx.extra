@@ -17,7 +17,7 @@ module.exports = {
   },
   productionSourceMap: process.env.NODE_ENV === "production" ? false : true,
   publicPath: "./",
-  assetsDir: 'static',
+  assetsDir: "static",
   css: {
     loaderOptions: {
       less: {
@@ -26,5 +26,11 @@ module.exports = {
         }
       }
     }
+  },
+  chainWebpack: config => {
+    config.plugin("html").tap(args => {
+      args[0].title = "河北省公益广告大赛评审系统";
+      return args;
+    });
   }
 };

@@ -47,7 +47,7 @@ window.$VuexPrefix = "charity.admin.";
 Vue.prototype.$Server = "http://47.108.88.211";
 Vue.prototype.$ImagePostServer = "http://47.108.88.211:8081";
 Vue.prototype.$ImageGetServer = "http://47.108.88.211/img/";
-Vue.prototype.$WebSiteName = "河北省公益广告大赛后台管理系统";
+Vue.prototype.$WebSiteName = "河北省公益广告大赛评审系统";
 
 Vue.prototype.$WorksGroupCode = [
   { code: "0", value: "高校类" },

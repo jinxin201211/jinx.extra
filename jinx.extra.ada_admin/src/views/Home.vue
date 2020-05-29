@@ -66,7 +66,7 @@ export default {
     this.RouteList = this.FullRouteList.filter(p => p.access.includes(role));
 
     if (this.$route.path != "/") {
-      this.active = this.$route.path;
+      this.active = this.$route.meta.menu || this.$route.path;
     }
   },
   methods: {
@@ -133,7 +133,7 @@ export default {
   width: 100%;
   height: @header-height;
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2);
-  background: #ffffff;
+  background: #fefefe;
   box-sizing: border-box;
   color: #000000;
   z-index: 999;
@@ -226,7 +226,7 @@ export default {
   }
 }
 
-@theme-red-bg-color: #28333e;
+@theme-red-bg-color: #303132;
 @theme-red-bg-color-active: #c71d26;
 @theme-red-color: #eeeeee;
 @theme-red-color-active: #ffffff;
@@ -240,13 +240,15 @@ export default {
     color: @theme-red-color;
   }
   .el-menu-item:hover {
-    background: lighten(@theme-red-bg-color-active, 10%);
+    background: darken(@theme-red-bg-color-active, 10%);
     color: @theme-red-color-active;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.9) inset;
   }
 
   .el-menu-item.is-active {
     background: @theme-red-bg-color-active;
     color: @theme-red-color-active;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.9) inset;
   }
 }
 </style>

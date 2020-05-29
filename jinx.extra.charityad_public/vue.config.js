@@ -26,5 +26,11 @@ module.exports = {
         }
       }
     }
+  },
+  chainWebpack: config => {
+    config.plugin("html").tap(args => {
+      args[0].title = "河北省公益广告大赛";
+      return args;
+    });
   }
 };

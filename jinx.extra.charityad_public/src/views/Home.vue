@@ -52,7 +52,7 @@
         <p>大赛落地“三创四建”，推进文明城市建设。对于深入推进我省全国文明城市创建工作具有重要作用。同时集合专业与社会力量，发挥公益广告导向作用。倡导公益风尚，呼唤社会关注。通过遴选并在众多媒体展播相关优秀作品资源，发挥各大媒体传播优势，将公益广告蕴含的社会正能量向社会大众广泛传播。此外，公益广告大赛将作为河北公益广告业发展的重要吸引核，推进人才、资源交流，以赛促学，以赛促交流，以赛促大发展，在业内进一步完善人才和资源交流，促进河北公益事业发展。</p>
         <p>大赛秉持公平公正的办赛原则，聘请学界、业界资深专家、学者和企业高管组成专业评审团，评选参赛作品，并将评审后的作品进行网络公示，杜绝抄袭，不断提升赛事的公信力。</p>
       </div>
-      <div class="avatar" :style="{ backgroundImage: 'url(' + require('@/assets/images/home/contest_intro_avatar@2x.png') + ')' }"></div>
+      <div class="avatar" :style="{ backgroundImage: 'url(' + require('@/assets/images/home/醉美河北.png') + ')' }"></div>
     </div>
 
     <div id="anchor_news" class="jinx-news">
@@ -239,8 +239,8 @@
     </div>
 
     <div class="jinx-footer">
-      <div>版权所有&nbsp;2005-2020&nbsp;河北省公益广告大赛&nbsp;（www.sun-ada.net）</div>
-      <div>Copyright ＠ 2005-2020&nbsp;www.sun-ada.net All rights reserved.</div>
+      <div>版权所有&nbsp;2020&nbsp;河北省公益广告大赛&nbsp;（hbsggyjy.hebtu.edu.cn）</div>
+      <div><span style="display: inline-block; vertical-align: bottom; margin-right: 20px;">© 2020&nbsp;</span><el-link :href="'http://hbsggyjy.hebtu.edu.cn'">hbsggyjy.hebtu.edu.cn</el-link></div>
       <div>京ICP备06010242号-2 工业和信息化部备案管理系统（http://beian.miit.gov.cn）网站统计</div>
     </div>
   </div>
@@ -600,12 +600,21 @@ export default {
   }
 
   .avatar {
+    // position: absolute;
+    // top: 50px;
+    // right: 0;
+    // width: 463px;
+    // height: 523px;
+    // background-size: contain;
     position: absolute;
     top: 50px;
-    right: 0;
-    width: 463px;
-    height: 523px;
-    background-size: contain;
+    right: 20px;
+    width: 423px;
+    height: 536px;
+    background-size: cover;
+    background-position-x: center;
+    overflow: hidden;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
   }
 }
 

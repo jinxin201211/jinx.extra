@@ -16,6 +16,7 @@
       <el-table-column prop="gameType" label="参赛对象"> </el-table-column>
       <el-table-column prop="worksSeries" label="作品主题"> </el-table-column>
       <el-table-column prop="worksType" label="作品类别"> </el-table-column>
+      <el-table-column prop="scoreTotal" label="评审结果"> </el-table-column>
       <!--<el-table-column prop="scoreTotal" label="得分"> </el-table-column>-->
       <el-table-column fixed="right" label="操作" width="180" v-if="false">
         <template slot-scope="scope">
