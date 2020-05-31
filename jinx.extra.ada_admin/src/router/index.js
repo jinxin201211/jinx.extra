@@ -206,6 +206,15 @@ const routes = [
           title: "评审办法",
           access: ["judge", "leader"]
         }
+      },
+      {
+        path: "/workimport",
+        name: "workImport",
+        component: () => import("../views/Work/Import/Main.vue"),
+        meta: {
+          title: "作品导入",
+          access: ["admin"]
+        }
       }
     ]
   },

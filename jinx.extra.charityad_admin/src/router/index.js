@@ -209,7 +209,7 @@ const routes = [
       {
         path: "/workimport",
         name: "workImport",
-        component: () => import("../views/Work/Import.vue"),
+        component: () => import("../views/Work/Import/Main.vue"),
         meta: {
           title: "作品导入",
           access: ["admin"]

@@ -44,8 +44,8 @@ if (!!window.ActiveXObject || "ActiveXObject" in window) {
 }
 
 window.$VuexPrefix = "charity.admin.";
-// window.$Server = "http://47.108.88.211"; // todo
-window.$Server = "http://211.82.246.251";
+window.$Server = "http://47.108.88.211"; // todo
+// window.$Server = "http://211.82.246.251";
 Vue.prototype.$ImagePostServer = window.$Server + ":8081";
 Vue.prototype.$ImageGetServer = window.$Server + "/img/";
 Vue.prototype.$WebSiteName = "河北省公益广告大赛评审系统";

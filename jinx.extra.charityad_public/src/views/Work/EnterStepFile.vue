@@ -111,9 +111,18 @@ export default {
     },
     handlePreview(file) {},
     handleSuccess: function(response, file, fileList) {
-      file.serverid = response.data;
-      this.successList.push(file);
-      this.successList.sort((a, b) => a.uid - b.uid);
+      if (response.code == -1) {
+        this.$message({
+          showClose: true,
+          message: `${file.name} 上传失败`,
+          type: "error"
+        });
+        fileList.splice(fileList.indexOf(file), 1);
+      } else {
+        file.serverid = response.data;
+        this.successList.push(file);
+        this.successList.sort((a, b) => a.uid - b.uid);
+      }
     },
     handleError: function(err, file, fileList) {
       this.$message({
@@ -146,6 +155,11 @@ export default {
           .then(function(response) {
             if (response && response.data.code == "0") {
               //删除页面列表上的数据
+              that.$message({
+                showClose: true,
+                message: "删除成功",
+                type: "info"
+              });
               list.splice(list.indexOf(file), 1);
             } else {
               that.$message({

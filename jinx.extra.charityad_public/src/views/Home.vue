@@ -338,7 +338,7 @@ export default {
           } else {
             that.$message({
               showClose: true,
-              message: "查询失败",
+              message: response.data.msg,
               type: "warning"
             });
           }
@@ -349,7 +349,7 @@ export default {
           // that.loading = false;
           that.$message({
             showClose: true,
-            message: "查询失败",
+            message: "获取新闻动态失败",
             type: "warning"
           });
         });
@@ -363,15 +363,23 @@ export default {
       });
     },
     handleScrollToView(path) {
-      let section = document.getElementById(path);
-      if (section) {
-        section.scrollIntoView({ behavior: "smooth" });
+      if (path == "anchor_home") {
+        window.location.href = "http://hbsggyjy.hebtu.edu.cn";
+      } else {
+        let section = document.getElementById(path);
+        if (section) {
+          section.scrollIntoView({ behavior: "smooth" });
+        }
       }
     },
     scrollToSection(path) {
-      let section = document.getElementById(path);
-      if (section) {
-        section.scrollIntoView({ behavior: "smooth" });
+      if (path == "anchor_home") {
+        window.location.href = "http://hbsggyjy.hebtu.edu.cn";
+      } else {
+        let section = document.getElementById(path);
+        if (section) {
+          section.scrollIntoView({ behavior: "smooth" });
+        }
       }
     },
     getWorksList() {

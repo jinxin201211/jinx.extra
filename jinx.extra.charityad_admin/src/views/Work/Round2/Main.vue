@@ -18,9 +18,9 @@
       <el-table-column prop="worksType" label="作品类别"> </el-table-column>
       <el-table-column prop="scoreTotal" label="评审结果"> </el-table-column>
       <!--<el-table-column prop="scoreTotal" label="得分"> </el-table-column>-->
-      <el-table-column fixed="right" label="操作" width="180" v-if="false">
+      <el-table-column fixed="right" label="操作" width="180">
         <template slot-scope="scope">
-          <el-button @click="handleView(scope.row)" type="text" size="small">查看</el-button>
+          <el-button @click="handleWorksScore(scope)" type="text" size="small">评审</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -36,7 +36,7 @@ export default {
     return {
       List: [],
       query: {
-        role: "judge",
+        // role: "judge",
         page: 1,
         limit: 10
       },
@@ -98,7 +98,24 @@ export default {
       this.getList();
     },
     handleScore: function() {
-      this.$router.push("/score/round2/score");
+      this.$router.push({
+        path: "/score/round2/score",
+        query: {
+          limit: this.query.limit,
+          page: this.query.page,
+          index: 0
+        }
+      });
+    },
+    handleWorksScore: function(scope) {
+      this.$router.push({
+        path: "/score/round2/score",
+        query: {
+          limit: this.query.limit,
+          page: this.query.page,
+          index: scope.$index
+        }
+      });
     },
     handleView: function(data) {
       this.$router.push({

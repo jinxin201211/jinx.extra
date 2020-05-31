@@ -9,7 +9,7 @@
           </div>
           <div class="jinx-works-info">
             <span>作品编号</span>
-            <span v-text="WorksInfo.works.wid"></span>
+            <span v-text="WorksInfo.works.wno"></span>
           </div>
           <div class="jinx-works-info">
             <span>作品名称</span>
@@ -56,12 +56,12 @@
 
     <div style="position: absolute; bottom: 0; left: 0; width: 100%; padding: 20px; box-shadow: rgba(0, 0, 0, 0.5) 0px 1px 5px 0px; background: #ffffff; box-sizing: border-box;">
       <div style="text-align: center;">
-        <el-rate v-model="Score" :max="10" :disabled="!WorksInfo.empty" show-score score-template="{value}" style="display: inline-block; margin-right: 20px;"></el-rate>
-        <el-button size="small" type="primary" @click="handleSubmit" :loading="submit_status.loading" :disabled="submit_status.disabled" style="margin: 15px;">确 定</el-button>
+        <el-rate v-model="Score" :max="10" :disabled="WorksInfo.empty" show-score score-template="{value}" style="display: inline-block; margin-right: 20px;"></el-rate>
+        <el-button size="small" type="primary" @click="handleSubmit" :loading="submit_status.loading" style="margin: 15px;">确 定</el-button>
       </div>
       <el-divider></el-divider>
       <div style="text-align: center;">
-        <!--<el-button size="small" type="primary" @click="handleSubmit">上一个</el-button>-->
+        <el-button size="small" type="primary" @click="handlePrevWorks" :disabled="query.index === 0 && query.page === 1">上一个</el-button>
         <el-button size="small" type="primary" @click="handleNextWorks" :loading="next_status.loading" :disabled="next_status.disabled">下一个</el-button>
         <el-button size="small" type="primary" @click="handleBack">返 回</el-button>
       </div>
@@ -75,13 +75,18 @@ import qs from "qs";
 export default {
   data() {
     return {
+      query: {
+        limit: this.$route.query.limit * 1,
+        page: this.$route.query.page * 1,
+        index: this.$route.query.index * 1
+      },
       ScoreIconClasses: ["icon-rate-face-1", "icon-rate-face-2", "icon-rate-face-3"],
       ScoreIconColors: ["#99A9BF", "#F7BA2A", "#FF9900"],
       Score: 0,
+      List: [],
       WorksInfo: {
         works: {},
         works_file: {},
-        works_author: {},
         empty: true
       },
       submit_status: {
@@ -95,34 +100,101 @@ export default {
     };
   },
   mounted() {
-    this.getNextWork();
+    this.getList();
   },
   methods: {
     handleBack: function() {
       this.$router.go(-1);
     },
+    getList: function() {
+      let loading = this.$loading({ target: "#page" });
+      let that = this;
+      this.axios
+        .post("/api/gameWorks2/getNoAppraisalList_Round2", qs.stringify(this.query))
+        .then(function(response) {
+          if (response && response.data.code == "0") {
+            if (response.data.data.length == 0) {
+              that.List = [];
+              that.WorksInfo = {
+                works: {},
+                works_file: {},
+                empty: true
+              };
+              that.submit_status.disabled = true;
+              that.query.index = 0;
+              // that.query.page--;
+              that.$message({
+                showClose: true,
+                message: "没有更多的作品需要评审",
+                type: "warning"
+              });
+            } else {
+              that.List = response.data.data;
+              that.getNextWork();
+            }
+          } else {
+            that.$message({
+              showClose: true,
+              message: response.data.msg,
+              type: "warning"
+            });
+          }
+          loading.close();
+        })
+        .catch(function(err) {
+          console.log(err);
+          loading.close();
+          that.$message({
+            showClose: true,
+            message: "获取作品失败",
+            type: "warning"
+          });
+        });
+    },
     handleNextWorks: function() {
-      this.getNextWork();
+      if (this.query.index < this.query.limit - 1 && this.query.index < this.List.length - 1) {
+        this.query.index++;
+        this.getNextWork();
+      } else {
+        this.query.page++;
+        this.query.index = 0;
+        this.getList();
+      }
+    },
+    handlePrevWorks: function() {
+      if (this.query.index > 0) {
+        this.query.index--;
+        this.getNextWork();
+      } else {
+        this.query.page--;
+        this.query.index = this.query.limit - 1;
+        this.getList();
+      }
     },
     getNextWork: function() {
       let loading = this.$loading({ target: "#page" });
       let that = this;
-      this.WorksInfo.empty = true;
       this.next_status.loading = true;
-      this.submit_status.disabled = false;
+      that.submit_status.disabled = false;
+      that.WorksInfo.empty = true;
+      if (this.query.index > this.List.length - 1) {
+        this.query.index = this.List.length - 1;
+      }
       this.axios
-        .post("/api/gameWorks2/getWorks", qs.stringify({ round: 2 }))
+        .get("/api/gameWorks2/getOne", { params: { wid: this.List[this.query.index].wid } })
         .then(function(response) {
           if (response && response.data.code == "0") {
             that.WorksInfo = response.data.data;
             that.WorksInfo.empty = false;
-            that.Score = that.WorksInfo.works.scoreTotal;
+            that.Score = that.WorksInfo.works.scoreTotal * 1;
 
             that.WorksInfo.works.gameType = that.$WorksGroupCode.find(p => p.code == that.WorksInfo.works.gameType).value;
             that.WorksInfo.works.worksSeries = that.$WorksSeriesCode.find(p => p.code == that.WorksInfo.works.worksSeries).value;
             that.WorksInfo.works.worksType = that.$WorksTypeCode.find(p => p.code == that.WorksInfo.works.worksType).value;
             that.WorksInfo.works.materialSurce = that.$MaterialSurceCode.find(p => p.code == that.WorksInfo.works.materialSurce).value;
+            console.log(that.WorksInfo);
           } else {
+            that.submit_status.disabled = true;
             that.$message({
               showClose: true,
               message: response.data.msg,
@@ -157,7 +229,11 @@ export default {
       let that = this;
       let data = {
         wid: this.WorksInfo.works.wid,
-        score: this.Score
+        score1: this.Score,
+        score2: 0,
+        score3: 0,
+        score4: 0,
+        scoreTotal: this.Score
       };
       this.axios
         .post("/api/gameWorks2/appraisal_round2", qs.stringify(data))
@@ -173,7 +249,7 @@ export default {
           } else {
             that.$message({
               showClose: true,
-              message: "提交失败",
+              message: response.data.msg,
               type: "warning"
             });
           }

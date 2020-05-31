@@ -34,7 +34,8 @@ export default {
       .use(Tooltip)
       .use(Icon)
       .use(Drawer)
-      .use(Rate);
+      .use(Rate)
+      .use(Upload);
     V.prototype.$loading = Loading.service;
     V.prototype.$msgbox = MessageBox;
     V.prototype.$alert = MessageBox.alert;

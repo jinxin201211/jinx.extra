@@ -6,7 +6,7 @@
       </div>
       <div class="jinx-works-info">
         <span>作品编号</span>
-        <span v-text="WorksInfo.works.wid"></span>
+        <span v-text="WorksInfo.works.wno"></span>
       </div>
       <div class="jinx-works-info">
         <span>作品名称</span>
@@ -57,9 +57,7 @@ export default {
     return {
       WorksInfo: {
         works: {},
-        works_file: {},
-        works_author: {},
-        empty: true
+        works_file: {}
       }
     };
   },
@@ -77,20 +75,11 @@ export default {
         .then(function(response) {
           if (response && response.data.code == "0") {
             that.WorksInfo = response.data.data;
-            that.WorksInfo.empty = false;
-            if (that.WorksInfo.works.state === 0) {
-              that.Scored = false;
-            } else {
-              that.Scored = true;
-            }
-
             that.WorksInfo.works.gameType = that.$WorksGroupCode.find(p => p.code == that.WorksInfo.works.gameType).value;
             that.WorksInfo.works.worksSeries = that.$WorksSeriesCode.find(p => p.code == that.WorksInfo.works.worksSeries).value;
             that.WorksInfo.works.worksType = that.$WorksTypeCode.find(p => p.code == that.WorksInfo.works.worksType).value;
             that.WorksInfo.works.materialSurce = that.$MaterialSurceCode.find(p => p.code == that.WorksInfo.works.materialSurce).value;
           } else {
-            // that.Scored = true;
-            // that.submit_status.disabled = true;
             that.$message({
               showClose: true,
               message: response.data.msg,

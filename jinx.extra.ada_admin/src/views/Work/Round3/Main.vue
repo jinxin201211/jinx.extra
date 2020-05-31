@@ -319,7 +319,7 @@ export default {
           } else {
             that.$message({
               showClose: true,
-              message: "查询失败",
+              message: response.data.msg,
               type: "warning"
             });
           }
@@ -390,7 +390,7 @@ export default {
           } else {
             that.$message({
               showClose: true,
-              message: "提交失败",
+              message: response.data.msg,
               type: "warning"
             });
           }

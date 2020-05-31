@@ -12,18 +12,6 @@
         <span>作品名称</span>
         <span v-text="WorksInfo.works.worksName"></span>
       </div>
-      <div class="jinx-works-info">
-        <span>作品类别</span>
-        <span v-text="(WorksInfo.works.worksSeries == null ? '' : WorksInfo.works.worksSeries) + ' | ' + (WorksInfo.works.worksType == null ? '' : WorksInfo.works.worksType)"></span>
-      </div>
-      <div class="jinx-works-info">
-        <span>作品素材来源</span>
-        <span v-text="WorksInfo.works.materialSurce"></span>
-      </div>
-      <div class="jinx-works-info">
-        <span>作品创意说明</span>
-        <span v-text="WorksInfo.works.creativeOverview"></span>
-      </div>
     </el-card>
     <el-card v-for="(item, index) in WorksInfo.works_file" :key="'works_file' + index" style="margin-top: 15px;">
       <div slot="header" class="clearfix">
@@ -68,17 +56,11 @@ export default {
     getWorksData: function() {
       let loading = this.$loading({ target: "#page" });
       let that = this;
-      // this.next_status.loading = true;
-      // that.submit_status.disabled = false;
       this.axios
         .get("/api/gameWorks2/getOne", { params: { wid: this.wid } })
         .then(function(response) {
           if (response && response.data.code == "0") {
             that.WorksInfo = response.data.data;
-            that.WorksInfo.works.gameType = that.$WorksGroupCode.find(p => p.code == that.WorksInfo.works.gameType).value;
-            that.WorksInfo.works.worksSeries = that.$WorksSeriesCode.find(p => p.code == that.WorksInfo.works.worksSeries).value;
-            that.WorksInfo.works.worksType = that.$WorksTypeCode.find(p => p.code == that.WorksInfo.works.worksType).value;
-            that.WorksInfo.works.materialSurce = that.$MaterialSurceCode.find(p => p.code == that.WorksInfo.works.materialSurce).value;
           } else {
             that.$message({
               showClose: true,
@@ -87,12 +69,10 @@ export default {
             });
           }
           loading.close();
-          // that.next_status.loading = false;
         })
         .catch(function(err) {
           console.log(err);
           loading.close();
-          // that.next_status.loading = false;
           that.$message({
             showClose: true,
             message: "获取作品信息失败",

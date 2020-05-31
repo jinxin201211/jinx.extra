@@ -68,7 +68,7 @@
       </div>
       <el-divider></el-divider>
       <div style="text-align: center;">
-        <!--<el-button size="small" type="primary" @click="handleSubmit">上一个</el-button>-->
+        <el-button size="small" type="primary" @click="handlePrevWorks" :disabled="query.index === 0 && query.page === 1">上一个</el-button>
         <el-button size="small" type="primary" @click="handleNextWorks" :loading="next_status.loading" :disabled="next_status.disabled">下一个</el-button>
         <el-button size="small" type="primary" @click="handleBack">返 回</el-button>
       </div>
@@ -82,12 +82,10 @@ import qs from "qs";
 export default {
   data() {
     return {
-      Scored: false,
+      List: [],
       WorksInfo: {
         works: {},
-        works_file: {},
-        works_author: {},
-        empty: true
+        works_file: {}
       },
       submit_status: {
         loading: false,
@@ -97,42 +95,104 @@ export default {
         loading: false,
         disabled: false
       },
-      appraisal: ""
+      appraisal: "",
+      query: {
+        limit: this.$route.query.limit * 1,
+        page: this.$route.query.page * 1,
+        index: this.$route.query.index * 1
+      }
     };
   },
   mounted() {
-    this.getNextWork();
+    this.getList();
   },
   methods: {
     handleBack: function() {
       this.$router.go(-1);
     },
+    getList: function() {
+      let loading = this.$loading({ target: "#page" });
+      let that = this;
+      this.axios
+        .post("/api/gameWorks2/getNoAppraisalList_Round1", qs.stringify(this.query))
+        .then(function(response) {
+          if (response && response.data.code == "0") {
+            if (response.data.data.length == 0) {
+              that.WorksInfo = {
+                works: {},
+                works_file: {}
+              };
+              that.submit_status.disabled = true;
+              that.query.index = 0;
+              // that.query.page--;
+              that.$message({
+                showClose: true,
+                message: "没有更多的作品需要评审",
+                type: "warning"
+              });
+            } else {
+              that.List = response.data.data;
+              that.getNextWork();
+            }
+          } else {
+            that.$message({
+              showClose: true,
+              message: response.data.msg,
+              type: "warning"
+            });
+          }
+          loading.close();
+        })
+        .catch(function(err) {
+          console.log(err);
+          loading.close();
+          that.$message({
+            showClose: true,
+            message: "获取作品失败",
+            type: "warning"
+          });
+        });
+    },
     handleNextWorks: function() {
-      this.getNextWork();
+      if (this.query.index < this.query.limit - 1 && this.query.index < this.List.length - 1) {
+        this.query.index++;
+        this.getNextWork();
+      } else {
+        this.query.page++;
+        this.query.index = 0;
+        this.getList();
+      }
+    },
+    handlePrevWorks: function() {
+      if (this.query.index > 0) {
+        this.query.index--;
+        this.getNextWork();
+      } else {
+        this.query.page--;
+        this.query.index = this.query.limit - 1;
+        this.getList();
+      }
     },
     getNextWork: function() {
       let loading = this.$loading({ target: "#page" });
       let that = this;
       this.next_status.loading = true;
       that.submit_status.disabled = false;
+      if (this.query.index > this.List.length - 1) {
+        this.query.index = this.List.length - 1;
+      }
       this.axios
-        .post("/api/gameWorks2/getWorks", qs.stringify({ round: 1 }))
+        .get("/api/gameWorks2/getOne", { params: { wid: this.List[this.query.index].wid } })
         .then(function(response) {
           if (response && response.data.code == "0") {
             that.WorksInfo = response.data.data;
-            that.WorksInfo.empty = false;
-            if (that.WorksInfo.works.state === 0) {
-              that.Scored = false;
-            } else {
-              that.Scored = true;
-            }
+            that.appraisal = that.WorksInfo.works.state + "";
 
             that.WorksInfo.works.gameType = that.$WorksGroupCode.find(p => p.code == that.WorksInfo.works.gameType).value;
             that.WorksInfo.works.worksSeries = that.$WorksSeriesCode.find(p => p.code == that.WorksInfo.works.worksSeries).value;
             that.WorksInfo.works.worksType = that.$WorksTypeCode.find(p => p.code == that.WorksInfo.works.worksType).value;
             that.WorksInfo.works.materialSurce = that.$MaterialSurceCode.find(p => p.code == that.WorksInfo.works.materialSurce).value;
           } else {
-            // that.Scored = true;
             that.submit_status.disabled = true;
             that.$message({
               showClose: true,
@@ -180,12 +240,10 @@ export default {
               message: "提交成功",
               type: "success"
             });
-            that.Scored = true;
-            that.submit_status.disabled = true;
           } else {
             that.$message({
               showClose: true,
-              message: "提交失败",
+              message: response.data.msg,
               type: "warning"
             });
           }
