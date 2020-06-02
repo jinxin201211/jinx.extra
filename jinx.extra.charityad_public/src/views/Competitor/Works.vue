@@ -15,10 +15,13 @@
       <el-table-column prop="worksType" label="作品类别"> </el-table-column>
       <el-table-column prop="author1" label="作者"> </el-table-column>
       <el-table-column prop="tUname" label="指导老师"> </el-table-column>
-      <!--<el-table-column prop="scoreTotal" label="得分"> </el-table-column>-->
+      <el-table-column prop="submitState" label="提交状态"> </el-table-column>
       <el-table-column fixed="right" label="操作" width="180">
         <template slot-scope="scope">
+          <el-button @click="handleSubmit(scope.row)" type="text" size="small" v-if="scope.row.submitState == '未提交'">提交</el-button>
           <el-button @click="handleView(scope.row)" type="text" size="small">查看</el-button>
+          <el-button @click="handleModify(scope.row)" type="text" size="small">修改</el-button>
+          <el-button @click="handleDelete(scope.row)" type="text" size="small">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -48,6 +51,7 @@ export default {
             p.worksType = that.$WorksTypeCode.find(x => x.code == p.worksType).value;
             p.worksSeries = that.$WorksSeriesCode.find(x => x.code == p.worksSeries).value;
             p.gameType = that.$WorksGroupCode.find(x => x.code == p.gameType).value;
+            p.submitState = p.submitState == null || p.submitState == "" ? "未提交" : "已提交";
             let authors = [];
             for (let i = 1; i <= 5; i++) {
               if (p["author" + i] !== "") {
@@ -75,6 +79,7 @@ export default {
         });
       });
   },
+  inject: ["reload"],
   methods: {
     handleView: function(data) {
       this.$router.push({
@@ -83,6 +88,76 @@ export default {
           wid: data.wid
         }
       });
+    },
+    handleModify: function(data) {
+      this.$router.push({
+        path: "/competitor/modify",
+        query: {
+          wid: data.wid
+        }
+      });
+    },
+    handleDelete: function(data) {
+      this.$confirm("确认删除？")
+        .then(_ => {
+          let that = this;
+          this.axios
+            .post("/api/gameWorks2/delete", qs.stringify({ wid: data.wid }))
+            .then(function(response) {
+              if (response && response.data.code == "0") {
+                that.$message({
+                  showClose: true,
+                  message: "删除成功",
+                  type: "success"
+                });
+                that.reload();
+              } else {
+                that.$message({
+                  showClose: true,
+                  message: response.data.msg,
+                  type: "warning"
+                });
+              }
+            })
+            .catch(function(err) {
+              console.log(err);
+              that.$message({
+                showClose: true,
+                message: "删除失败",
+                type: "warning"
+              });
+            });
+        })
+        .catch(_ => {});
+    },
+    handleSubmit: function(data) {
+      let that = this;
+      this.axios
+        .post("/api/gameWorks2/submit", qs.stringify({ wid: data.wid }))
+        .then(function(response) {
+          if (response && response.data.code == "0") {
+            that.$message({
+              showClose: true,
+              message: "提交成功",
+              type: "success"
+            });
+            that.reload();
+          } else {
+            that.$message({
+              showClose: true,
+              message: response.data.msg,
+              type: "warning"
+            });
+          }
+        })
+        .catch(function(err) {
+          console.log(err);
+          that.$message({
+            showClose: true,
+            message: "提交失败",
+            type: "warning"
+          });
+        });
     }
   }
 };

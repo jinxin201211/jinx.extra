@@ -17,40 +17,92 @@
           <span>2020河北省公益广告大赛作品征集报名表（高校类）</span>
         </div>
         <el-form-item label="作品编号">
-          <el-input v-model="form.wid" maxlength="100" readonly disabled></el-input>
+          <el-input v-model="form.wno" maxlength="100" readonly disabled></el-input>
         </el-form-item>
         <el-form-item
           label="作品名称"
           prop="worksName"
+          required
           :rules="[
-            { required: true, message: '请输入作品名称', trigger: 'blur' },
-            { min: 0, max: 200, message: '最多 200 个字符', trigger: 'blur' }
+            {
+              validator: (rule, value, callback) => {
+                validateRequired(rule, value, callback, '请填写作品名称');
+              },
+              trigger: ['blur', 'change']
+            }
           ]"
         >
           <el-input v-model="form.worksName" maxlength="200"></el-input>
         </el-form-item>
         <el-row>
           <el-col :span="12">
-            <el-form-item label="作品类别" prop="worksSeries" :rules="[{ required: true, message: '请选择作品类别', trigger: 'blur' }]">
+            <el-form-item
+              label="作品类别"
+              prop="worksSeries"
+              required
+              :rules="[
+                {
+                  validator: (rule, value, callback) => {
+                    validateRequired(rule, value, callback, '请选择作品主题');
+                  },
+                  trigger: ['blur', 'change']
+                }
+              ]"
+            >
               <el-radio-group v-model="form.worksSeries" id="radioWorksSeries">
                 <el-radio :label="item.code" v-for="(item, index) in $WorksSeriesCode" :key="'series' + index"> {{ item.code + ":" + item.value }}</el-radio>
               </el-radio-group>
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item prop="worksType" :rules="[{ required: true, message: '请选择作品类别', trigger: 'blur' }]">
+            <el-form-item
+              prop="worksType"
+              required
+              :rules="[
+                {
+                  validator: (rule, value, callback) => {
+                    validateRequired(rule, value, callback, '请选择作品类别');
+                  },
+                  trigger: ['blur', 'change']
+                }
+              ]"
+            >
               <el-radio-group v-model="form.worksType" @change="handleWorksTypeChange">
                 <el-radio :label="item.code" v-for="(item, index) in $WorksTypeCode" :key="'series' + index"> {{ item.code + ":" + item.value }}</el-radio>
               </el-radio-group>
             </el-form-item>
           </el-col>
         </el-row>
-        <el-form-item label="作品素材来源" prop="materialSurce" :rules="[{ required: true, message: '请选择作品素材来源', trigger: 'blur' }]">
+        <el-form-item
+          label="作品素材来源"
+          prop="materialSurce"
+          required
+          :rules="[
+            {
+              validator: (rule, value, callback) => {
+                validateRequired(rule, value, callback, '请选择作品素材来源');
+              },
+              trigger: ['blur', 'change']
+            }
+          ]"
+        >
           <el-radio-group v-model="form.materialSurce">
-            <el-radio :label="item.code" v-for="(item, index) in $MaterialSurceCode" :key="'series' + index"> {{ item.code + ":" + item.value }}</el-radio>
+            <el-radio :label="item.code" v-for="(item, index) in $MaterialSurceCode" :key="'series' + index" border> {{ item.code + ":" + item.value }}</el-radio>
           </el-radio-group>
         </el-form-item>
-        <el-form-item label="作者姓名" prop="author1" :rules="[{ required: true, message: '请填写作者1的姓名', trigger: 'blur' }]">
+        <el-form-item
+          label="作者姓名"
+          prop="author1"
+          required
+          :rules="[
+            {
+              validator: (rule, value, callback) => {
+                validateRequired(rule, value, callback, '请填写作者的姓名');
+              },
+              trigger: ['blur', 'change']
+            }
+          ]"
+        >
           <div>
             <el-input v-model="form.author1" maxlength="200" style="width: 150px;"><template slot="prepend">1</template></el-input>
             <el-input v-model="form.author2" maxlength="200" style="width: 150px; margin-left: 20px;"><template slot="prepend">2</template></el-input>
@@ -68,9 +120,15 @@
               <el-form-item
                 label="身份证号"
                 prop="idcardNo"
+                required
                 :rules="[
-                  { required: true, message: '请填写身份证号', trigger: 'blur' },
-                  { validator: validateID, trigger: 'blur' }
+                  {
+                    validator: (rule, value, callback) => {
+                      validateRequired(rule, value, callback, '请填写身份证号');
+                    },
+                    trigger: ['blur', 'change']
+                  },
+                  { validator: validateID, trigger: ['blur', 'change'] }
                 ]"
               >
                 <el-input v-model="form.idcardNo" maxlength="200"></el-input>
@@ -79,10 +137,16 @@
             <el-col :span="12">
               <el-form-item
                 label="联系电话"
+                required
                 prop="tel"
                 :rules="[
-                  { required: true, message: '请填写联系电话', trigger: 'blur' },
-                  { validator: validatePhone, trigger: 'blur' }
+                  {
+                    validator: (rule, value, callback) => {
+                      validateRequired(rule, value, callback, '请填写联系电话');
+                    },
+                    trigger: ['blur', 'change']
+                  },
+                  { validator: validatePhone, trigger: ['blur', 'change'] }
                 ]"
               >
                 <el-input v-model="form.tel" maxlength="200"></el-input>
@@ -94,30 +158,72 @@
               <el-form-item
                 label="电子邮箱"
                 prop="email"
+                required
                 :rules="[
-                  { required: true, message: '请填写电子邮箱', trigger: 'blur' },
-                  { type: 'email', message: '请输入正确的邮箱地址', trigger: ['blur', 'change'] }
+                  {
+                    validator: (rule, value, callback) => {
+                      validateRequired(rule, value, callback, '请填写电子邮箱');
+                    },
+                    trigger: ['blur', 'change']
+                  },
+                  { validator: validateEmail, trigger: ['blur', 'change'] }
                 ]"
               >
                 <el-input v-model="form.email" maxlength="200"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="12">
-              <el-form-item label="QQ" prop="qq" :rules="[{ required: true, message: '请填写QQ', trigger: 'blur' }]">
+              <el-form-item
+                label="QQ"
+                prop="qq"
+                required
+                :rules="[
+                  {
+                    validator: (rule, value, callback) => {
+                      validateRequired(rule, value, callback, '请填写QQ');
+                    },
+                    trigger: ['blur', 'change']
+                  }
+                ]"
+              >
                 <el-input v-model="form.qq" maxlength="200"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
           <el-row>
             <el-col :span="24">
-              <el-form-item label="所属单位" prop="orgName" :rules="[{ required: true, message: '请填写所属单位', trigger: 'blur' }]">
+              <el-form-item
+                label="所属单位"
+                prop="orgName"
+                required
+                :rules="[
+                  {
+                    validator: (rule, value, callback) => {
+                      validateRequired(rule, value, callback, '请填写所属单位');
+                    },
+                    trigger: ['blur', 'change']
+                  }
+                ]"
+              >
                 <el-input v-model="form.orgName" maxlength="200"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
           <el-row>
             <el-col :span="24">
-              <el-form-item label="有效通讯地址" prop="addr" :rules="[{ required: true, message: '请填写有效通讯地址', trigger: 'blur' }]">
+              <el-form-item
+                label="有效通讯地址"
+                prop="addr"
+                required
+                :rules="[
+                  {
+                    validator: (rule, value, callback) => {
+                      validateRequired(rule, value, callback, '请填写有效通讯地址');
+                    },
+                    trigger: ['blur', 'change']
+                  }
+                ]"
+              >
                 <el-input v-model="form.addr" maxlength="200"></el-input>
               </el-form-item>
             </el-col>
@@ -129,7 +235,19 @@
           </div>
           <el-row>
             <el-col :span="12">
-              <el-form-item label="姓名" prop="tUname" :rules="[{ required: true, message: '请填写指导老师姓名', trigger: 'blur' }]">
+              <el-form-item
+                label="姓名"
+                prop="tUname"
+                required
+                :rules="[
+                  {
+                    validator: (rule, value, callback) => {
+                      validateRequired(rule, value, callback, '请填写指导老师姓名');
+                    },
+                    trigger: ['blur', 'change']
+                  }
+                ]"
+              >
                 <el-input v-model="form.tUname" maxlength="200"></el-input>
               </el-form-item>
             </el-col>
@@ -137,9 +255,15 @@
               <el-form-item
                 label="联系电话"
                 prop="tTel"
+                required
                 :rules="[
-                  { required: true, message: '请填写指导老师联系电话', trigger: 'blur' },
-                  { validator: validatePhone, trigger: 'blur' }
+                  {
+                    validator: (rule, value, callback) => {
+                      validateRequired(rule, value, callback, '请填写指导老师联系电话');
+                    },
+                    trigger: ['blur', 'change']
+                  },
+                  { validator: validatePhone, trigger: ['blur', 'change'] }
                 ]"
               >
                 <el-input v-model="form.tTel" maxlength="200"></el-input>
@@ -148,22 +272,47 @@
           </el-row>
           <el-row>
             <el-col :span="12">
-              <el-form-item label="电子邮箱" prop="tEmail" :rules="[{ type: 'email', message: '请输入正确的邮箱地址', trigger: ['blur', 'change'] }]">
+              <el-form-item label="电子邮箱" prop="tEmail" :rules="[{ validator: validateEmail, trigger: 'blur' }]">
                 <el-input v-model="form.tEmail" maxlength="200"></el-input>
               </el-form-item>
             </el-col>
             <el-col :span="12">
-              <el-form-item label="所属单位" prop="orgName" :rules="[{ required: true, message: '请填写指导老师所属单位', trigger: 'blur' }]">
+              <el-form-item
+                label="所属单位"
+                prop="orgName"
+                required
+                :rules="[
+                  {
+                    validator: (rule, value, callback) => {
+                      validateRequired(rule, value, callback, '请填写指导老师所属单位');
+                    },
+                    trigger: ['blur', 'change']
+                  }
+                ]"
+              >
                 <el-input v-model="form.tOrgName" maxlength="200"></el-input>
               </el-form-item>
             </el-col>
           </el-row>
         </el-card>
         <el-card style="margin: 20px;" shadow="never">
-          <div slot="header" style="text-align: center;">
-            <span>作品创意说明</span>
-          </div>
-          <el-input type="textarea" maxlength="2000" show-word-limit v-model="form.creativeOverview"></el-input>
+          <div slot="header" style="text-align: center;"><span style="color: #f56c6c; margin-right: 4px;">*</span><span>作品创意说明</span></div>
+          <el-form-item
+            label=""
+            prop="creativeOverview"
+            required
+            :rules="[
+              {
+                validator: (rule, value, callback) => {
+                  validateRequired(rule, value, callback, '请填写作品创意说明');
+                },
+                trigger: ['blur', 'change']
+              }
+            ]"
+            id="txtCreativeOverview"
+          >
+            <el-input type="textarea" maxlength="2000" show-word-limit v-model="form.creativeOverview"></el-input>
+          </el-form-item>
         </el-card>
       </el-card>
     </el-form>
@@ -240,16 +389,15 @@ export default {
         { type: "4", count: 5 },
         { type: "5", count: 5 },
         { type: "6", count: 4 }
-      ]
+      ],
+      ValidateErrorMessage: []
     };
   },
   mounted: function() {
     let wid = this.$route.query.wid;
-    // console.log(wid);
     if (wid) {
       let loading_data = this.$loading({ target: "#page" });
       let that = this;
-      // this.next_status.loading = true;
       this.axios
         .post("/api/gameWorks2/getWorksByWid", qs.stringify({ wid: wid }))
         .then(function(response) {
@@ -282,7 +430,6 @@ export default {
               tOrgName: data.tOrgName,
               tUname: data.tUname
             };
-            // console.log(data);
           } else {
             that.$message({
               showClose: true,
@@ -291,12 +438,10 @@ export default {
             });
           }
           loading_data.close();
-          // that.next_status.loading = false;
         })
         .catch(function(err) {
           console.log(err);
           loading_data.close();
-          // that.next_status.loading = false;
           that.$message({
             showClose: true,
             message: "获取作品信息失败",
@@ -306,18 +451,42 @@ export default {
     }
   },
   methods: {
+    validateRequired: function(rule, value, callback, msg) {
+      if (value == null || value.trim().length == 0) {
+        this.ValidateErrorMessage.push(msg);
+        return callback(new Error(msg));
+      } else {
+        callback();
+      }
+    },
+    validateEmail: function(rule, value, callback) {
+      const emailReg = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/;
+      if (!value) {
+        callback();
+      }
+      setTimeout(() => {
+        if (emailReg.test(value)) {
+          callback();
+        } else {
+          this.ValidateErrorMessage.push("邮箱地址格式不正确");
+          callback(new Error("邮箱地址格式不正确"));
+        }
+      }, 100);
+    },
     validatePhone: function(rule, value, callback) {
       const phoneReg = /^1[3|4|5|6|7|8][0-9]{9}$/;
       if (!value) {
-        return callback(new Error("请输入手机号码"));
+        callback();
       }
       setTimeout(() => {
         if (!Number.isInteger(+value)) {
+          this.ValidateErrorMessage.push("手机号码格式不正确");
           callback(new Error("手机号码格式不正确"));
         } else {
           if (phoneReg.test(value)) {
             callback();
           } else {
+            this.ValidateErrorMessage.push("手机号码格式不正确");
             callback(new Error("手机号码格式不正确"));
           }
         }
@@ -326,18 +495,18 @@ export default {
     validateID: function(rule, value, callback) {
       const idReg = /^[1-9]\d{5}(18|19|20)\d{2}((0[1-9])|(1[0-2]))(([0-2][1-9])|10|20|30|31)\d{3}[0-9Xx]$/;
       if (!value) {
-        return callback(new Error("请输入身份证号"));
+        callback();
       }
       setTimeout(() => {
         if (idReg.test(value)) {
           callback();
         } else {
+          this.ValidateErrorMessage.push("身份证号格式不正确");
           callback(new Error("身份证号格式不正确"));
         }
       }, 100);
     },
     handleWorksTypeChange: function(val) {
-      // console.log(val);
       this.AuthorCount = this.AuthorCountCode.find(p => p.type === val).count;
       if (this.AuthorCount === 3) {
         this.form.author4 = "";
@@ -347,18 +516,23 @@ export default {
       }
     },
     handleNextStep: function() {
+      this.ValidateErrorMessage = [];
       this.$refs["form"].validate(valid => {
+        console.log(this.ValidateErrorMessage);
         if (valid) {
-          // this.wid = "123456";
-          // this.disabled = true;
-          // this.$router.replace({
-          //   path: "/work/file",
-          //   query: { wid: this.wid }
-          //   // name: "file",
-          //   // params: { wid: this.wid }
-          // });
-          this.submit(); //todo
+          this.submit();
         } else {
+          let msg = "";
+          for (let i = 0; i < this.ValidateErrorMessage.length; i++) {
+            msg += "<p>" + this.ValidateErrorMessage[i] + "</p>";
+          }
+          this.$notify({
+            title: "警告",
+            message: msg,
+            dangerouslyUseHTMLString: true,
+            type: "warning",
+            duration: 0
+          });
           return false;
         }
       });
@@ -366,16 +540,6 @@ export default {
     submit: function() {
       this.loading = true;
       let that = this;
-      // let data = {
-      //   area: this.form.region,
-      //   creativeOverview: this.form.summary,
-      //   major: this.form.major,
-      //   materialSurce: this.form.source,
-      //   propositionName: this.form.topic_name,
-      //   propositionType: this.form.topic_type,
-      //   worksName: this.form.name
-      // };
-      // console.log(this.form);
       this.axios
         .post("/api/gameWorks2/add", qs.stringify(this.form))
         .then(function(response) {
@@ -385,13 +549,11 @@ export default {
             that.$router.replace({
               path: "/work/file",
               query: { wid: that.wid, type: that.form.worksType }
-              // name: "authorinfo",
-              // params: { wid: this.wid }
             });
           } else {
             that.$message({
               showClose: true,
-              message: "提交失败",
+              message: response.data.msg,
               type: "warning"
             });
           }
@@ -424,5 +586,9 @@ export default {
 
 #radioWorksSeries > .el-radio {
   min-width: 170px;
+}
+
+/deep/ #txtCreativeOverview > .el-form-item__content {
+  margin: 0 !important;
 }
 </style>

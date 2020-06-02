@@ -163,6 +163,15 @@ const routes = [
           title: "我的作品",
           access: true
         }
+      },
+      {
+        name: "modify",
+        path: "modify",
+        component: () => import("../views/Competitor/Modify.vue"),
+        meta: {
+          title: "作品更改",
+          access: true
+        }
       }
     ]
   }

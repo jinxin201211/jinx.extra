@@ -1,4 +1,4 @@
-import { Form, FormItem, Input, Checkbox, Button, Link, Row, Col, Steps, Step, Divider, Select, Option, RadioGroup, Radio, Upload, Breadcrumb, BreadcrumbItem, Card, Table, TableColumn, Image } from "element-ui";
+import { Form, FormItem, Input, Checkbox, Button, Link, Row, Col, Steps, Step, Divider, Select, Option, RadioGroup, Radio, Upload, Breadcrumb, BreadcrumbItem, Card, Table, TableColumn, Image, Tabs, TabPane } from "element-ui";
 
 import { Loading, MessageBox, Message, Notification } from "element-ui";
 
@@ -25,7 +25,9 @@ export default {
       .use(Card)
       .use(Table)
       .use(TableColumn)
-      .use(Image);
+      .use(Image)
+      .use(Tabs)
+      .use(TabPane);
     V.prototype.$loading = Loading.service;
     V.prototype.$msgbox = MessageBox;
     V.prototype.$alert = MessageBox.alert;

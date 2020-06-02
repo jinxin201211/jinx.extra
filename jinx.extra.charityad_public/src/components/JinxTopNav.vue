@@ -63,7 +63,7 @@ export default {
     handleSignOut: function() {
       this.$store.commit("resetAccount");
       this.$store.commit("removeCookie");
-      this.reload();
+      this.$router.replace("/");
     },
     scrollToSection(path) {
       this.$emit("scrolltoview", path);

@@ -88,7 +88,12 @@
         <span v-text="'文件' + (index + 1) + '. ' + item.fileName"></span>
       </div>
       <div v-if="isImage(item.fileName)" style="text-align: center;">
-        <el-image :src="$FileGetServer + item.fileName" style="max-width: 960px; margin: 0 auto;" :preview-src-list="[$FileGetServer + item.fileName]"></el-image>
+        <el-image :src="$FileGetServer + item.fileName" style="max-width: 960px; margin: 0 auto;" :preview-src-list="[$FileGetServer + item.fileName]">
+          <div slot="placeholder" class="image-slot">加载中<span class="dot">...</span></div>
+          <div slot="error" class="image-slot">
+            <i class="el-icon-picture-outline"></i>
+          </div>
+        </el-image>
         <!--<img :src="$FileGetServer + item.fileName" style="width: 960px; margin: 0 auto;" />-->
       </div>
       <div v-else-if="isVideo(item.fileName)" style="text-align: center;">

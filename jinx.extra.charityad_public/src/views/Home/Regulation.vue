@@ -91,7 +91,7 @@
         <p><b>附件：</b></p>
         <p style="text-decoration: underline;"><a :href="$FileGetServer + '20.4.20河北省公益广告大赛作品格式要求.docx'" target="_blank" alt="1、河北省公益广告大赛作品格式要求">1、河北省公益广告大赛作品格式要求</a></p>
         <p style="text-decoration: underline;"><a :href="$FileGetServer + '20.5.25河北省广告大赛评审办法.docx'" target="_blank" alt="2、河北省公益广告大赛作品评审办法">2、河北省公益广告大赛作品评审办法</a></p>
-        <p style="text-decoration: underline;"><a href="#" target="_blank" alt="3、河北省公益广告大赛报名流程">3、河北省公益广告大赛报名流程</a></p>
+        <p style="text-decoration: underline;"><a :href="$FileGetServer + '公益广告大赛报名流程.docx'" target="_blank" alt="3、河北省公益广告大赛报名流程">3、河北省公益广告大赛报名流程</a></p>
 
         <p style="text-align: right;"><b>河北公益广告大赛组委会</b></p>
         <p style="text-align: right;"><b>2020年5月31日</b></p>
