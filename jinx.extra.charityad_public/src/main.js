@@ -34,8 +34,8 @@ if (!!window.ActiveXObject || "ActiveXObject" in window) {
 
 window.$VuexPrefix = "charity.public.";
 window.$CookieStoreDays = 1;
-// window.$Server = "http://47.108.88.211"; // todo
-window.$Server = "http://211.82.246.251";
+window.$Server = "http://47.108.88.211"; // todo
+// window.$Server = "http://211.82.246.251";
 window.$FileUploadServer = window.$Server + ":8080";
 Vue.prototype.$FileGetServer = window.$Server + "/img/";
 Vue.prototype.$WebSiteName = "河北省公益广告大赛";
@@ -64,7 +64,7 @@ Vue.prototype.$WorksTypeCode = [
   { code: "6", value: "互动类" }
 ];
 Vue.prototype.$MaterialSurceCode = [
-  { code: "1", value: "我保重此作品是我的原创" },
+  { code: "1", value: "我保证此作品是我的原创" },
   { code: "2", value: "我使用了素材" }
 ];
 

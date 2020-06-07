@@ -5,7 +5,7 @@
       <el-breadcrumb-item>我的作品</el-breadcrumb-item>
     </el-breadcrumb>
 
-    <el-table :data="List" stripe style="width: 100%; margin: 30px auto;">
+    <el-table :data="List" stripe style="width: 100%; margin: 30px auto;" @row-dblclick="handleRowDbclick">
       <el-table-column type="index" width="50"> </el-table-column>
       <!--<el-table-column prop="area" label="赛区"> </el-table-column>-->
       <el-table-column prop="wno" label="作品编号"> </el-table-column>
@@ -86,6 +86,14 @@ export default {
         path: "/competitor/work",
         query: {
           wid: data.wid
+        }
+      });
+    },
+    handleRowDbclick: function(row, column, event) {
+      this.$router.push({
+        path: "/competitor/work",
+        query: {
+          wid: row.wid
         }
       });
     },

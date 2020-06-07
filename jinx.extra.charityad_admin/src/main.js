@@ -44,8 +44,8 @@ if (!!window.ActiveXObject || "ActiveXObject" in window) {
 }
 
 window.$VuexPrefix = "charity.admin.";
-// window.$Server = "http://47.108.88.211"; // todo
-window.$Server = "http://211.82.246.251";
+window.$Server = "http://47.108.88.211"; // todo
+// window.$Server = "http://211.82.246.251";
 Vue.prototype.$ImagePostServer = window.$Server + ":8081";
 Vue.prototype.$ImageGetServer = window.$Server + "/img/";
 Vue.prototype.$WebSiteName = "河北省公益广告大赛评审系统";
@@ -53,7 +53,8 @@ Vue.prototype.$WebSiteName = "河北省公益广告大赛评审系统";
 Vue.prototype.$WorksGroupCode = [
   { code: "0", value: "高校类" },
   { code: "1", value: "专业类" },
-  { code: "2", value: "公众类" }
+  { code: "2", value: "公众类" },
+  { code: "4", value: "战疫类" }
 ];
 Vue.prototype.$WorksSeriesCode = [
   { code: "A", value: "“中国梦”系列" },

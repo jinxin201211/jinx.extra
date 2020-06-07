@@ -14,16 +14,16 @@
           <div slot="header">
             <span v-text="pitem"></span>
           </div>
-          <el-table :data="Data.group[gindex].prize[pindex].list" stripe style="width: 100%">
+          <el-table :data="Data.group[gindex].prize[pindex].list" stripe style="width: 100%" @row-dblclick="handleRowDbclick">
             <el-table-column type="index" width="50"> </el-table-column>
             <!--<el-table-column prop="area" label="赛区"> </el-table-column>-->
-            <el-table-column prop="wno" label="作品编号"> </el-table-column>
+            <el-table-column prop="wno" label="作品编号" width="120"> </el-table-column>
             <el-table-column prop="worksName" label="作品名称"> </el-table-column>
-            <el-table-column prop="gameType" label="参赛对象"> </el-table-column>
+            <el-table-column prop="gameType" label="参赛对象" width="120"> </el-table-column>
             <el-table-column prop="worksSeries" label="作品主题"> </el-table-column>
-            <el-table-column prop="worksType" label="作品类别"> </el-table-column>
-            <el-table-column prop="scoreTotal" label="得分"> </el-table-column>
-            <el-table-column fixed="right" label="操作" width="180">
+            <el-table-column prop="worksType" label="作品类别" width="120"> </el-table-column>
+            <el-table-column prop="scoreTotal" label="得分" width="120"> </el-table-column>
+            <el-table-column label="操作" width="180">
               <template slot-scope="scope">
                 <el-tooltip content="提升等级" placement="top" :open-delay="1000">
                   <el-button @click="handleMoveUp(gindex, pindex, scope.$index, scope.row)" type="text"><i class="el-icon-top"></i></el-button>
@@ -337,6 +337,10 @@ export default {
     },
     handleView: function(data) {
       this.view_wid = data.wid;
+      this.drawer = true;
+    },
+    handleRowDbclick: function(row, column, event) {
+      this.view_wid = row.wid;
       this.drawer = true;
     },
     handleMoveUp: function(group, prize, index, data) {

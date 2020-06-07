@@ -24,7 +24,7 @@
       <div slot="header">
         <span>一等奖</span>
       </div>
-      <el-table style="width: 100%" :data="FirstPrizeList">
+      <el-table style="width: 100%" :data="FirstPrizeList" @row-dblclick="handleRowDbclick">
         <el-table-column type="index" width="50" label="序号"> </el-table-column>
         <el-table-column prop="wno" label="作品编号"> </el-table-column>
         <el-table-column prop="gameType" label="参加对象"> </el-table-column>
@@ -44,7 +44,7 @@
       <div slot="header">
         <span>二等奖</span>
       </div>
-      <el-table style="width: 100%" :data="SecondPrizeList">
+      <el-table style="width: 100%" :data="SecondPrizeList" @row-dblclick="handleRowDbclick">
         <el-table-column type="index" width="50" label="序号"> </el-table-column>
         <el-table-column prop="wno" label="作品编号"> </el-table-column>
         <el-table-column prop="gameType" label="参加对象"> </el-table-column>
@@ -64,7 +64,7 @@
       <div slot="header">
         <span>三等奖</span>
       </div>
-      <el-table style="width: 100%" :data="ThirdPrizeList">
+      <el-table style="width: 100%" :data="ThirdPrizeList" @row-dblclick="handleRowDbclick">
         <el-table-column type="index" width="50" label="序号"> </el-table-column>
         <el-table-column prop="wno" label="作品编号"> </el-table-column>
         <el-table-column prop="gameType" label="参加对象"> </el-table-column>
@@ -84,7 +84,7 @@
       <div slot="header">
         <span>优秀奖</span>
       </div>
-      <el-table style="width: 100%" :data="FourthPrizeList">
+      <el-table style="width: 100%" :data="FourthPrizeList" @row-dblclick="handleRowDbclick">
         <el-table-column type="index" width="50" label="序号"> </el-table-column>
         <el-table-column prop="wno" label="作品编号"> </el-table-column>
         <el-table-column prop="gameType" label="参加对象"> </el-table-column>
@@ -187,6 +187,14 @@ export default {
         path: "/prize/work",
         query: {
           wid: data.wid
+        }
+      });
+    },
+    handleRowDbclick: function(row, column, event) {
+      this.$router.push({
+        path: "/prize/work",
+        query: {
+          wid: row.wid
         }
       });
     }
