@@ -33,7 +33,7 @@
       <el-table-column prop="scoreTotal" label="评审结果" width="120"> </el-table-column>
       <el-table-column label="操作" width="180">
         <template slot-scope="scope">
-          <el-button @click="handleWorksScore(scope)" type="text" size="small" v-if="scope.row.scoreTotal == 0">评审</el-button>
+          <el-button @click="handleWorksScore(scope)" type="text" size="small" v-if="scope.row.scoreTotal == null || scope.row.scoreTotal == 0">评审</el-button>
           <el-button @click="handleWorksScore(scope)" type="text" size="small" v-else>已评审</el-button>
         </template>
       </el-table-column>
