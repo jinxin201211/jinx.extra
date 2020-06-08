@@ -1,3 +1,18 @@
 .el-pagination {
   padding: 10px 5px;
 }
+
+*::-webkit-scrollbar {
+  width: 6px;
+  height: 1px;
+}
+*::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background: #d7d8d9;
+}
+*::-webkit-scrollbar-thumb:hover {
+  border-radius: 10px;
+  background: #f1f2f3;
+}
+*::-webkit-scrollbar-track {
+}

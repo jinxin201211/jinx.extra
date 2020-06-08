@@ -39,9 +39,3 @@
     </div>
   </div>
 </template>
-
-<style lang="less" scoped>
-.red {
-  color: #ff0000;
-}
-</style>

@@ -6,10 +6,10 @@
     <div style="width: 450px; margin: 0 auto; margin-top: 120px; box-shadow: 0 1px 15px 0 rgba(0, 0, 0, 0.3); padding: 65px 65px;">
       <el-form ref="form" :model="form" label-width="120px">
         <el-form-item label="用户名" prop="account" :rules="[{ required: true, message: '请输入用户名', trigger: 'blur' }]">
-          <el-input v-model="form.account"></el-input>
+          <el-input v-model="form.account" @keyup.enter.native="handleSubmit"></el-input>
         </el-form-item>
         <el-form-item label="密码" prop="password" :rules="[{ required: true, message: '请输入密码', trigger: 'blur' }]">
-          <el-input v-model="form.password" show-password></el-input>
+          <el-input v-model="form.password" show-password @keyup.enter.native="handleSubmit"></el-input>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="handleSubmit" :loading="loading">立即登录</el-button>

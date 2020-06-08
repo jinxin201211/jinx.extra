@@ -33,7 +33,7 @@ if (!!window.ActiveXObject || "ActiveXObject" in window) {
 }
 
 window.$VuexPrefix = "charity.public.";
-window.$CookieStoreDays = 1;
+window.$CookieStoreDays = 7;
 window.$Server = "http://47.108.88.211"; // todo
 // window.$Server = "http://211.82.246.251";
 window.$FileUploadServer = window.$Server + ":8080";

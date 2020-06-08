@@ -157,23 +157,6 @@ export default {
   background: #ffffff;
   overflow-y: auto;
 }
-.jinx-body::-webkit-scrollbar {
-  width: 6px;
-  height: 1px;
-}
-.jinx-body::-webkit-scrollbar-thumb {
-  border-radius: 10px;
-  background: #d7d8d9;
-}
-.jinx-body::-webkit-scrollbar-thumb:hover {
-  border-radius: 10px;
-  background: #f1f2f3;
-}
-.jinx-body::-webkit-scrollbar-track {
-  // -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
-  // border-radius: 10px;
-  // background: #ededed;
-}
 
 .el-menu {
   border: none;

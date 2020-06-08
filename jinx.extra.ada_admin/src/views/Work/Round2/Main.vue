@@ -6,14 +6,18 @@
     </el-breadcrumb>
 
     <div>
-      <el-select v-model="query.gameType" placeholder="请选择参赛对象" style="width: 150px; margin-right: 10px;" size="">
+      <el-select v-model="query.gameType" placeholder="请选择参赛组别" style="width: 150px; margin-right: 10px;" size="">
         <el-option v-for="item in SelectGameType" :key="item.value" :label="item.label" :value="item.value"> </el-option>
       </el-select>
-      <el-input v-model="query.author1" placeholder="请输入作者姓名" size="" style="width: 150px; margin-right: 10px;"></el-input>
-      <el-input v-model="query.orgName" placeholder="请输入所属单位" size="" style="width: 150px; margin-right: 10px;"></el-input>
-      <el-input v-model="query.worksName" placeholder="请输入作品名称" size="" style="width: 150px; margin-right: 10px;"></el-input>
+      <el-input v-model="query.author1" placeholder="请输入作者姓名" size="" style="width: 150px; margin-right: 10px;" @keyup.enter.native="handleRefreshList"></el-input>
+      <el-input v-model="query.orgName" placeholder="请输入所属单位" size="" style="width: 150px; margin-right: 10px;" @keyup.enter.native="handleRefreshList"></el-input>
+      <el-input v-model="query.worksName" placeholder="请输入作品名称" size="" style="width: 150px; margin-right: 10px;" @keyup.enter.native="handleRefreshList"></el-input>
       <el-button @click="handleRefreshList" :loading="loading" type="primary">查 询</el-button>
       <el-button @click="handleBeginScore" type="primary">开始评审</el-button>
+    </div>
+    <div style="line-height: 40px; color: #787878;">
+      <span style="margin: 0 20px;">总数：<span v-text="statistics.total_num"></span></span>
+      <span style="margin: 0 20px;">已评审数：<span v-text="statistics.appraisal_num"></span></span>
     </div>
 
     <el-table :data="List" stripe style="width: 100%" @row-dblclick="handleRowDbclick">
@@ -21,15 +25,16 @@
       <!--<el-table-column prop="area" label="赛区"> </el-table-column>-->
       <el-table-column prop="wno" label="作品编号" width="120"> </el-table-column>
       <el-table-column prop="worksName" label="作品名称"> </el-table-column>
-      <el-table-column prop="gameType" label="参赛对象" width="120"> </el-table-column>
+      <el-table-column prop="gameType" label="参赛组别" width="120"> </el-table-column>
       <el-table-column prop="worksSeries" label="作品主题"> </el-table-column>
       <el-table-column prop="worksType" label="作品类别" width="120"> </el-table-column>
       <el-table-column prop="author1" label="作者"> </el-table-column>
       <el-table-column prop="orgName" label="所属部门"> </el-table-column>
-      <el-table-column prop="state" label="评审结果" width="120"> </el-table-column>
+      <el-table-column prop="scoreTotal" label="评审结果" width="120"> </el-table-column>
       <el-table-column label="操作" width="180">
         <template slot-scope="scope">
-          <el-button @click="handleWorksScore(scope)" type="text" size="small">评审</el-button>
+          <el-button @click="handleWorksScore(scope)" type="text" size="small" v-if="scope.row.scoreTotal == 0">评审</el-button>
+          <el-button @click="handleWorksScore(scope)" type="text" size="small" v-else>已评审</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -55,14 +60,19 @@ export default {
         worksName: ""
       },
       total: 0,
-      loading: false
+      loading: false,
+      statistics: {
+        total_num: 0,
+        appraisal_num: 0
+      }
     };
   },
   mounted() {
     this.getList();
+    this.getProgress();
     this.SelectGameType.push({
       value: "",
-      label: "请选择参赛对象"
+      label: "请选择参赛组别"
     });
     for (let i = 0; i < this.$WorksGroupCode.length; i++) {
       this.SelectGameType.push({
@@ -75,6 +85,7 @@ export default {
     handleRefreshList: function() {
       this.query.page = 1;
       this.getList();
+      this.getProgress();
     },
     getList() {
       this.loading = true;
@@ -129,6 +140,34 @@ export default {
           that.$message({
             showClose: true,
             message: "查询失败",
+            type: "warning"
+          });
+        });
+    },
+    getProgress() {
+      this.loading = true;
+      let that = this;
+      this.axios
+        .post("/api/gameWorks2/AppraisalProgress_Round2")
+        .then(function(response) {
+          if (response && response.data.code == "0") {
+            console.log(response.data);
+            that.statistics.total_num = response.data.data.total_num;
+            that.statistics.appraisal_num = response.data.data.appraisal_num;
+          } else {
+            that.$message({
+              showClose: true,
+              message: response.data.msg,
+              type: "warning"
+            });
+          }
+          that.loading = false;
+        })
+        .catch(function(err) {
+          console.log(err);
+          that.$message({
+            showClose: true,
+            message: "查询进度失败",
             type: "warning"
           });
         });

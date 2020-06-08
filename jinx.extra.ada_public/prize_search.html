@@ -160,22 +160,12 @@
 <script src="Public/home/js/request.config.js" type="text/javascript" charset="utf-8"></script>
 
 <script>
-
-  $(function () {
-    // $('li.on').removeClass('on');
-    // $('#type' + TYPE).addClass('on');
-    // getRankList();
-  });
-
-
   function getData() {
     $.ajax({
-      // url: 'http://47.108.88.211:8082/gameWorksRank/getRankByMap', //todo
-      url: $base_request_url + '/gameWorksRank/getRankByMap', //todo
-      // url: 'http://47.108.88.211:8080/gameWorksRank/getRankByMap',
+      url: $base_request_url + '/gameWorks3/getPrizeInfo',
       type: 'POST',
       data: {
-        worksType: TYPE
+        wno: $('#txtWno').val()
       },
       success: function (data) {
         console.log(data);

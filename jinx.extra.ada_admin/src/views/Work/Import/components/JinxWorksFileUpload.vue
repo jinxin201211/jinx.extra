@@ -257,24 +257,6 @@ export default {
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
 }
 
-*::-webkit-scrollbar {
-  width: 6px;
-  height: 1px;
-}
-*::-webkit-scrollbar-thumb {
-  border-radius: 10px;
-  background: #d7d8d9;
-}
-*::-webkit-scrollbar-thumb:hover {
-  border-radius: 10px;
-  background: #f1f2f3;
-}
-*::-webkit-scrollbar-track {
-  // -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
-  // border-radius: 10px;
-  // background: #ededed;
-}
-
 .jinx-works-info {
   margin: 15px 0;
 

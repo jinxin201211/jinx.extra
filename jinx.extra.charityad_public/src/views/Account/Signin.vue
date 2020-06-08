@@ -4,10 +4,10 @@
       <el-col :span="18" style="border-right: 1px solid #e6e6e6;">
         <el-form ref="form" :model="form" label-width="120px" style="width: 450px; margin: 0 auto;">
           <el-form-item label="邮箱/手机号码" prop="account" :rules="[{ required: true, message: '请输入邮箱/手机号码', trigger: 'blur' }]">
-            <el-input v-model="form.account"></el-input>
+            <el-input v-model="form.account" @keyup.enter.native="handleSubmit"></el-input>
           </el-form-item>
           <el-form-item label="密码" prop="password" :rules="[{ required: true, message: '请输入密码', trigger: 'blur' }]">
-            <el-input v-model="form.password" show-password></el-input>
+            <el-input v-model="form.password" show-password @keyup.enter.native="handleSubmit"></el-input>
           </el-form-item>
           <el-form-item>
             <el-checkbox label="下次自动登录" name="type" v-model="rememberMe"></el-checkbox>
