@@ -76,7 +76,7 @@
           <el-radio label="1">通过</el-radio>
           <el-radio label="2">不通过</el-radio>
         </el-radio-group>
-        <el-button size="small" type="primary" @click="handleSubmit" :loading="submit_status.loading" :disabled="submit_status.disabled" style="margin: 15px;">确 定</el-button>
+        <el-button size="small" type="primary" @click="handleSubmit" :loading="submit_status.loading" :disabled="submit_status.disabled || appraisal === ''" style="margin: 15px;">确 定</el-button>
       </div>
       <el-divider></el-divider>
       <div style="text-align: center;">
@@ -198,6 +198,7 @@ export default {
       if (this.query.index > this.List.length - 1) {
         this.query.index = this.List.length - 1;
       }
+      this.appraisal = "";
       this.axios
         .get("/api/gameWorks2/getOne", { params: { wid: this.List[this.query.index].wid } })
         .then(function(response) {
