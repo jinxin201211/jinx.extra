@@ -73,7 +73,7 @@
     <div style="position: absolute; bottom: 0; left: 0; width: 100%; padding: 20px; box-shadow: rgba(0, 0, 0, 0.5) 0px 1px 5px 0px; background: #ffffff; box-sizing: border-box;">
       <div style="text-align: center;">
         <el-rate v-model="Score" :max="10" :disabled="WorksInfo.empty" show-score score-template="{value}" style="display: inline-block; margin-right: 20px;"></el-rate>
-        <el-button size="small" type="primary" @click="handleSubmit" :loading="submit_status.loading" style="margin: 15px;">确 定</el-button>
+        <el-button size="small" type="primary" @click="handleSubmit" :loading="submit_status.loading" :disabled="submit_status.disabled || Score === null || Score === 0" style="margin: 15px;">确 定</el-button>
       </div>
       <el-divider></el-divider>
       <div style="text-align: center;">
@@ -323,7 +323,6 @@ export default {
     },
     handleScoreClick(score, index) {
       this.ScoreResult.Rank[index] = score;
-      console.log(this.ScoreResult.Rank);
 
       let sum = 0;
       for (let i = 0; i < this.ScoreRule.Rank.length; i++) {

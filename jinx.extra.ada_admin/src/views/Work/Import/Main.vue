@@ -28,6 +28,7 @@
       <el-table-column fixed="right" label="操作" width="280">
         <template slot-scope="scope">
           <el-button @click="handleView(scope.row)" type="text" size="small">查看</el-button>
+          <el-button @click="handleDelete(scope.row)" type="text" size="small">删除</el-button>
           <el-button @click="handleUpload(scope.row)" type="text" size="small">上传作品附件</el-button>
           <el-button @click="handleShow(scope.row)" type="text" size="small" v-show="scope.row.frontShow == 0">设为前台展示</el-button>
           <el-button @click="handleUnshow(scope.row)" type="text" size="small" v-show="scope.row.frontShow == 1">取消前台展示</el-button>
@@ -167,6 +168,39 @@ export default {
     handleView: function(data) {
       this.view_wid = data.wid;
       this.view_drawer = true;
+    },
+    handleDelete: function(data) {
+      this.$confirm("确认删除？")
+        .then(_ => {
+          let that = this;
+          this.axios
+            .post("/api/gameWorks2/delete", qs.stringify({ wid: data.wid }))
+            .then(function(response) {
+              if (response && response.data.code == "0") {
+                that.$message({
+                  showClose: true,
+                  message: "删除成功",
+                  type: "success"
+                });
+                that.getList();
+              } else {
+                that.$message({
+                  showClose: true,
+                  message: response.data.msg,
+                  type: "warning"
+                });
+              }
+            })
+            .catch(function(err) {
+              console.log(err);
+              that.$message({
+                showClose: true,
+                message: "删除失败",
+                type: "warning"
+              });
+            });
+        })
+        .catch(_ => {});
     },
     handleUpload: function(data) {
       this.file_upload_wid = data.wid;

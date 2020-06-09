@@ -34,7 +34,7 @@
       <el-table-column prop="state" label="评审结果" width="120"> </el-table-column>
       <el-table-column label="操作" width="180">
         <template slot-scope="scope">
-          <el-button @click="handleWorksScore(scope)" type="text" size="small" v-if="scope.row.state == null">评审</el-button>
+          <el-button @click="handleWorksScore(scope)" type="text" size="small" v-if="scope.row.state === '-'">评审</el-button>
           <el-button @click="handleWorksScore(scope)" type="text" size="small" v-else>已评审</el-button>
         </template>
       </el-table-column>
@@ -107,7 +107,7 @@ export default {
               let source = that.$MaterialSurceCode.find(x => x.code == p.materialSurce);
               p.materialSurce = source == null ? "" : source.value;
 
-              p.state = p.state * 1 === 0 ? "-" : p.state * 1 === 1 ? "通过" : "不通过";
+              p.state = p.state == null || p.state * 1 === 0 ? "-" : p.state * 1 === 1 ? "通过" : "不通过";
               let authors = [];
               if (p.author1 != null && p.author1 != "") {
                 authors.push(p.author1);
@@ -153,7 +153,6 @@ export default {
         .post("/api/gameWorks2/AppraisalProgress_Round1")
         .then(function(response) {
           if (response && response.data.code == "0") {
-            console.log(response.data);
             that.statistics.total_num = response.data.data.total_num;
             that.statistics.appraisal_num = response.data.data.appraisal_num;
             that.statistics.pass_num = response.data.data.pass_num;
@@ -187,7 +186,6 @@ export default {
       this.score(0);
     },
     handleWorksScore: function(scope) {
-      // console.log(scope)
       this.score(scope.$index);
     },
     handleRowDbclick: function(row, column, event) {
