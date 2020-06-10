@@ -52,6 +52,26 @@ const routes = [
       },
 
       {
+        path: "config",
+        name: "Config",
+        component: () => import("../views/Config/Main.vue"),
+        meta: {
+          title: "系统配置",
+          access: ["admin"]
+        }
+      },
+      {
+        path: "/editconfig",
+        name: "EditConfig",
+        component: () => import("../views/Config/Edit.vue"),
+        meta: {
+          title: "修改配置",
+          access: ["admin"],
+          menu: "/judge"
+        }
+      },
+
+      {
         path: "/log",
         name: "Log",
         component: () => import("../views/Log/Main.vue"),

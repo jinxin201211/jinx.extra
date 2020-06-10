@@ -17,7 +17,7 @@ module.exports = {
   },
   productionSourceMap: process.env.NODE_ENV === "production" ? false : true,
   publicPath: "./",
-  assetsDir: 'static',
+  assetsDir: "static",
   css: {
     loaderOptions: {
       less: {

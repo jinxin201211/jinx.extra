@@ -32,7 +32,7 @@ export default {
         } else {
           that.$message({
             showClose: true,
-            message: "获取新闻失败",
+            message: response.data.msg,
             type: "warning"
           });
         }

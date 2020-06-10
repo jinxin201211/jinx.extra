@@ -43,6 +43,7 @@ export default {
       active: "",
       FullRouteList: [
         { path: "/judge", access: ["admin"], title: "评委管理" },
+        { path: "/config", access: ["admin"], title: "系统配置" },
         { path: "/log", access: ["admin"], title: "日志管理" },
         { path: "/news", access: ["admin"], title: "发布新闻" },
         { path: "/announcement", access: ["admin"], title: "发布公告" },

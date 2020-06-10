@@ -68,7 +68,7 @@ export default {
           } else {
             that.$message({
               showClose: true,
-              message: "查询失败",
+              message: response.data.msg,
               type: "warning"
             });
           }
@@ -144,7 +144,7 @@ export default {
           } else {
             that.$message({
               showClose: true,
-              message: "删除失败",
+              message: response.data.msg,
               type: "warning"
             });
           }

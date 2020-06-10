@@ -43,9 +43,11 @@ export default {
       active: "",
       FullRouteList: [
         { path: "/judge", access: ["admin"], title: "评委管理" },
+        { path: "/config", access: ["admin"], title: "系统配置" },
         { path: "/log", access: ["admin"], title: "日志管理" },
         { path: "/news", access: ["admin"], title: "发布新闻" },
         { path: "/announcement", access: ["admin"], title: "发布公告" },
+        { path: "/workimport", access: ["admin"], title: "作品导入" },
         { path: "/workregular", access: ["judge", "leader"], title: "评审办法" },
         { path: "/score/round1", access: ["judge", "leader"], title: "作品打分(第一轮)" },
         { path: "/score/round2", access: ["judge", "leader"], title: "作品打分(第二轮)" },
@@ -59,11 +61,11 @@ export default {
     };
   },
   mounted() {
-    // if (this.$route.path === "/") {
-    //   this.$router.replace(this.RouteList[0]);
-    // }
     let role = this.User.role;
     this.RouteList = this.FullRouteList.filter(p => p.access.includes(role));
+    if (this.$route.path === "/") {
+      this.$router.replace(this.RouteList[0]);
+    }
 
     if (this.$route.path != "/") {
       this.active = this.$route.meta.menu || this.$route.path;

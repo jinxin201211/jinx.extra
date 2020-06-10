@@ -2,21 +2,19 @@
   <div style="padding: 20px;">
     <el-breadcrumb separator="/" style="margin-bottom: 20px;">
       <el-breadcrumb-item>首页</el-breadcrumb-item>
-      <el-breadcrumb-item>作品排行</el-breadcrumb-item>
+      <el-breadcrumb-item>系统配置</el-breadcrumb-item>
     </el-breadcrumb>
 
     <el-button @click="handleRefreshList" :loading="loading">刷新列表</el-button>
 
     <el-table :data="List" stripe style="width: 100%">
       <el-table-column type="index" width="50"> </el-table-column>
-      <el-table-column prop="area" label="赛区"> </el-table-column>
-      <el-table-column prop="worksName" label="作品名称"> </el-table-column>
-      <el-table-column prop="propositionType" label="命题类别"> </el-table-column>
-      <el-table-column prop="propositionName" label="命题名称"> </el-table-column>
-      <el-table-column prop="scoreTotal" label="得分"> </el-table-column>
-      <el-table-column fixed="right" label="操作" width="180" v-if="false">
+      <el-table-column prop="sysKey" label="键"> </el-table-column>
+      <el-table-column prop="sysValue" label="值"> </el-table-column>
+      <el-table-column prop="remark" label="说明"> </el-table-column>
+      <el-table-column fixed="right" label="操作" width="180">
         <template slot-scope="scope">
-          <el-button @click="handleView(scope.row)" type="text" size="small">查看</el-button>
+          <el-button @click="handleEdit(scope.row)" type="text" size="small">编辑</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -32,7 +30,6 @@ export default {
     return {
       List: [],
       query: {
-        role: "judge",
         page: 1,
         limit: 10
       },
@@ -54,7 +51,7 @@ export default {
       this.loading = true;
       let that = this;
       this.axios
-        .post("/api/gameWorks2/getWorksRanking")
+        .post("/api/sysConfig/getData", qs.stringify(this.query))
         .then(function(response) {
           if (response && response.data.code == "0") {
             that.List = response.data.data;
@@ -86,11 +83,11 @@ export default {
       this.query.page = val;
       this.getList();
     },
-    handleView: function(data) {
+    handleEdit: function(data) {
       this.$router.push({
-        path: "/viewwork",
+        path: "/editconfig",
         query: {
-          wid: data.wid
+          key: data.sysKey
         }
       });
     }
