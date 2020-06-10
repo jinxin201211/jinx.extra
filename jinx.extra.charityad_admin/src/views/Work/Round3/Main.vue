@@ -53,11 +53,14 @@ export default {
   components: { JinxWorksViewer },
   data() {
     return {
-      GroupList: ["高校类", "专业类", "公众类"],
+      GroupList: ["高校类", "专业类", "公众类", "战疫类"],
       PrizeList: ["一等奖", "二等奖", "三等奖", "优秀奖"],
       tab_active: "0",
       Data: {
         group: [
+          {
+            prize: [{ list: [] }, { list: [] }, { list: [] }, { list: [] }]
+          },
           {
             prize: [{ list: [] }, { list: [] }, { list: [] }, { list: [] }]
           },
@@ -88,6 +91,9 @@ export default {
       let that = this;
       this.Data = {
         group: [
+          {
+            prize: [{ list: [] }, { list: [] }, { list: [] }, { list: [] }]
+          },
           {
             prize: [{ list: [] }, { list: [] }, { list: [] }, { list: [] }]
           },
@@ -316,6 +322,11 @@ export default {
             that.Data.group[2].prize[1].list = data.filter(p => p.gameType === "2" && p.prize === 2);
             that.Data.group[2].prize[2].list = data.filter(p => p.gameType === "2" && p.prize === 3);
             that.Data.group[2].prize[3].list = data.filter(p => p.gameType === "2" && p.prize === 4);
+
+            that.Data.group[3].prize[0].list = data.filter(p => p.gameType === "4" && p.prize === 1);
+            that.Data.group[3].prize[1].list = data.filter(p => p.gameType === "4" && p.prize === 2);
+            that.Data.group[3].prize[2].list = data.filter(p => p.gameType === "4" && p.prize === 3);
+            that.Data.group[3].prize[3].list = data.filter(p => p.gameType === "4" && p.prize === 4);
           } else {
             that.$message({
               showClose: true,
