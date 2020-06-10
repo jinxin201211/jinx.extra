@@ -76,7 +76,7 @@
           <el-radio label="1">通过</el-radio>
           <el-radio label="2">不通过</el-radio>
         </el-radio-group>
-        <el-button size="small" type="primary" @click="handleSubmit" :loading="submit_status.loading" :disabled="submit_status.disabled || appraisal === ''" style="margin: 15px;">确 定</el-button>
+        <el-button size="small" type="primary" @click="handleSubmit" :loading="submit_status.loading" :disabled="submit_status.disabled || appraisal === null || appraisal === ''" style="margin: 15px;">确 定</el-button>
       </div>
       <el-divider></el-divider>
       <div style="text-align: center;">
@@ -107,7 +107,7 @@ export default {
         loading: false,
         disabled: false
       },
-      appraisal: "",
+      appraisal: null,
       query: {
         limit: this.$route.query.limit * 1,
         page: this.$route.query.page * 1,
@@ -198,13 +198,15 @@ export default {
       if (this.query.index > this.List.length - 1) {
         this.query.index = this.List.length - 1;
       }
-      this.appraisal = "";
+      this.appraisal = null;
       this.axios
         .get("/api/gameWorks2/getOne", { params: { wid: this.List[this.query.index].wid } })
         .then(function(response) {
           if (response && response.data.code == "0") {
             that.WorksInfo = response.data.data;
-            that.appraisal = that.WorksInfo.works.state + "";
+            if (that.WorksInfo.works.state != null) {
+              that.appraisal = that.WorksInfo.works.state + "";
+            }
 
             that.game_type = that.WorksInfo.works.gameType;
             if (that.WorksInfo.works.gameType === "4") {
@@ -224,6 +226,8 @@ export default {
               type: "warning"
             });
           }
+          console.log("that.appraisal");
+          console.log(that.appraisal);
           loading.close();
           that.next_status.loading = false;
         })

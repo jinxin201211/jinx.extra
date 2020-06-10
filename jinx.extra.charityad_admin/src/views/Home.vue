@@ -60,11 +60,11 @@ export default {
     };
   },
   mounted() {
-    // if (this.$route.path === "/") {
-    //   this.$router.replace(this.RouteList[0]);
-    // }
     let role = this.User.role;
     this.RouteList = this.FullRouteList.filter(p => p.access.includes(role));
+    if (this.$route.path === "/") {
+      this.$router.replace(this.RouteList[0]);
+    }
 
     if (this.$route.path != "/") {
       this.active = this.$route.meta.menu || this.$route.path;
