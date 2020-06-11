@@ -81,7 +81,7 @@ export default {
       this.loading = true;
       let that = this;
       this.axios
-        .post("/api/sysConfig/edit", qs.stringify({ record: this.form }))
+        .post("/api/sysConfig/edit", qs.stringify(this.form))
         .then(function(response) {
           if (response && response.data.code == "0") {
             that.$message({
