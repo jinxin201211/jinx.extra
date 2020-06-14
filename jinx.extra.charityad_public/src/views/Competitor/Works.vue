@@ -4,13 +4,16 @@
       <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
       <el-breadcrumb-item>我的作品</el-breadcrumb-item>
     </el-breadcrumb>
+    <div>
+      <el-button type="primary" @click="handleNewWork">新增作品</el-button>
+    </div>
 
     <el-table :data="List" stripe style="width: 100%; margin: 30px auto;" @row-dblclick="handleRowDbclick">
       <el-table-column type="index" width="50"> </el-table-column>
       <!--<el-table-column prop="area" label="赛区"> </el-table-column>-->
       <el-table-column prop="wno" label="作品编号"> </el-table-column>
       <el-table-column prop="worksName" label="作品名称"> </el-table-column>
-      <el-table-column prop="gameType" label="参加对象"> </el-table-column>
+      <el-table-column prop="gameType" label="参赛组别"> </el-table-column>
       <el-table-column prop="worksSeries" label="作品主题"> </el-table-column>
       <el-table-column prop="worksType" label="作品类别"> </el-table-column>
       <el-table-column prop="author1" label="作者"> </el-table-column>
@@ -166,6 +169,9 @@ export default {
             type: "warning"
           });
         });
+    },
+    handleNewWork: function() {
+      this.$router.push("/work");
     }
   }
 };

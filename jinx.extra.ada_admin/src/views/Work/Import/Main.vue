@@ -29,9 +29,9 @@
         <template slot-scope="scope">
           <el-button @click="handleView(scope.row)" type="text" size="small">查看</el-button>
           <el-button @click="handleDelete(scope.row)" type="text" size="small">删除</el-button>
-          <el-button @click="handleUpload(scope.row)" type="text" size="small">上传作品附件</el-button>
-          <el-button @click="handleShow(scope.row)" type="text" size="small" v-show="scope.row.frontShow == 0">设为前台展示</el-button>
-          <el-button @click="handleUnshow(scope.row)" type="text" size="small" v-show="scope.row.frontShow == 1">取消前台展示</el-button>
+          <el-button @click="handleUpload(scope.row)" type="text" size="small" v-if="false">上传作品附件</el-button>
+          <el-button @click="handleShow(scope.row)" type="text" size="small" v-show="scope.row.frontShow == 0" v-if="false">设为前台展示</el-button>
+          <el-button @click="handleUnshow(scope.row)" type="text" size="small" v-show="scope.row.frontShow == 1" v-if="false">取消前台展示</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -55,14 +55,14 @@ export default {
   components: { JinxWorksViewer, JinxWorksFileUpload },
   data() {
     return {
-      action: this.$ImagePostServer + "/gameWorks2/excelImport",
+      action: this.$ImagePostServer + "/gameWorks3/excelImport",
       header: {
         "lw-token": this.$store.state.Token
       },
       List: [],
       query: {
         // role: "judge",
-        gameType: 4,
+        // gameType: 4,
         page: 1,
         limit: 10
       },
@@ -123,7 +123,7 @@ export default {
       this.loading = true;
       let that = this;
       this.axios
-        .post("/api/gameWorks2/getData", qs.stringify(this.query))
+        .post("/api/gameWorks3/getData", qs.stringify(this.query))
         .then(function(response) {
           if (response && response.data.code == "0") {
             that.List = response.data.data;
@@ -174,7 +174,7 @@ export default {
         .then(_ => {
           let that = this;
           this.axios
-            .post("/api/gameWorks2/delete", qs.stringify({ wid: data.wid }))
+            .post("/api/gameWorks3/delete", qs.stringify({ wid: data.wid }))
             .then(function(response) {
               if (response && response.data.code == "0") {
                 that.$message({
@@ -213,7 +213,7 @@ export default {
         frontShow: 1
       };
       this.axios
-        .post("/api/gameWorks2/setFrontShow", qs.stringify(model))
+        .post("/api/gameWorks3/setFrontShow", qs.stringify(model))
         .then(function(response) {
           if (response && response.data.code == "0") {
             that.$message({
@@ -246,7 +246,7 @@ export default {
         frontShow: 0
       };
       this.axios
-        .post("/api/gameWorks2/setFrontShow", qs.stringify(model))
+        .post("/api/gameWorks3/setFrontShow", qs.stringify(model))
         .then(function(response) {
           if (response && response.data.code == "0") {
             that.$message({

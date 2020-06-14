@@ -12,6 +12,14 @@
         <span>作品名称</span>
         <span v-text="WorksInfo.works.worksName"></span>
       </div>
+      <div class="jinx-works-info">
+        <span>作品素材来源</span>
+        <span v-text="WorksInfo.works.materialSurce"></span>
+      </div>
+      <div class="jinx-works-info">
+        <span>作品创意说明</span>
+        <span v-text="WorksInfo.works.creativeOverview"></span>
+      </div>
     </el-card>
     <el-card v-for="(item, index) in WorksInfo.works_file" :key="'works_file' + index" style="margin-top: 15px;">
       <div slot="header" class="clearfix">
@@ -57,10 +65,10 @@ export default {
       let loading = this.$loading({ target: "#page" });
       let that = this;
       this.axios
-        .get("/api/gameWorks2/getOne", { params: { wid: this.wid } })
+        .get("/api/gameWorks3/getOne", { params: { wid: this.wid } })
         .then(function(response) {
           if (response && response.data.code == "0") {
-            that.WorksInfo = response.data.data;
+            that.WorksInfo.works = response.data.data;
           } else {
             that.$message({
               showClose: true,

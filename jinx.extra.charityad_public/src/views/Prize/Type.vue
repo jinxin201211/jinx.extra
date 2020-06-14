@@ -27,9 +27,9 @@
       <el-table style="width: 100%" :data="FirstPrizeList" @row-dblclick="handleRowDbclick">
         <el-table-column type="index" width="50" label="序号"> </el-table-column>
         <el-table-column prop="wno" label="作品编号"> </el-table-column>
-        <el-table-column prop="gameType" label="参加对象"> </el-table-column>
+        <el-table-column prop="gameType" label="参赛组别"> </el-table-column>
         <el-table-column prop="worksName" label="作品名称"> </el-table-column>
-        <el-table-column prop="gameType" label="参加对象"> </el-table-column>
+        <el-table-column prop="worksType" label="作品类别"> </el-table-column>
         <el-table-column prop="worksSeries" label="作品主题"> </el-table-column>
         <el-table-column prop="tUname" label="指导老师"> </el-table-column>
         <el-table-column prop="orgName" label="所属单位"> </el-table-column>
@@ -47,9 +47,9 @@
       <el-table style="width: 100%" :data="SecondPrizeList" @row-dblclick="handleRowDbclick">
         <el-table-column type="index" width="50" label="序号"> </el-table-column>
         <el-table-column prop="wno" label="作品编号"> </el-table-column>
-        <el-table-column prop="gameType" label="参加对象"> </el-table-column>
+        <el-table-column prop="gameType" label="参赛组别"> </el-table-column>
         <el-table-column prop="worksName" label="作品名称"> </el-table-column>
-        <el-table-column prop="gameType" label="参加对象"> </el-table-column>
+        <el-table-column prop="worksType" label="作品类别"> </el-table-column>
         <el-table-column prop="worksSeries" label="作品主题"> </el-table-column>
         <el-table-column prop="tUname" label="指导老师"> </el-table-column>
         <el-table-column prop="orgName" label="所属单位"> </el-table-column>
@@ -67,9 +67,9 @@
       <el-table style="width: 100%" :data="ThirdPrizeList" @row-dblclick="handleRowDbclick">
         <el-table-column type="index" width="50" label="序号"> </el-table-column>
         <el-table-column prop="wno" label="作品编号"> </el-table-column>
-        <el-table-column prop="gameType" label="参加对象"> </el-table-column>
+        <el-table-column prop="gameType" label="参赛组别"> </el-table-column>
         <el-table-column prop="worksName" label="作品名称"> </el-table-column>
-        <el-table-column prop="gameType" label="参加对象"> </el-table-column>
+        <el-table-column prop="worksType" label="作品类别"> </el-table-column>
         <el-table-column prop="worksSeries" label="作品主题"> </el-table-column>
         <el-table-column prop="tUname" label="指导老师"> </el-table-column>
         <el-table-column prop="orgName" label="所属单位"> </el-table-column>
@@ -87,9 +87,9 @@
       <el-table style="width: 100%" :data="FourthPrizeList" @row-dblclick="handleRowDbclick">
         <el-table-column type="index" width="50" label="序号"> </el-table-column>
         <el-table-column prop="wno" label="作品编号"> </el-table-column>
-        <el-table-column prop="gameType" label="参加对象"> </el-table-column>
+        <el-table-column prop="gameType" label="参赛组别"> </el-table-column>
         <el-table-column prop="worksName" label="作品名称"> </el-table-column>
-        <el-table-column prop="gameType" label="参加对象"> </el-table-column>
+        <el-table-column prop="worksType" label="作品类别"> </el-table-column>
         <el-table-column prop="worksSeries" label="作品主题"> </el-table-column>
         <el-table-column prop="tUname" label="指导老师"> </el-table-column>
         <el-table-column prop="orgName" label="所属单位"> </el-table-column>

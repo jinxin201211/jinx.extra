@@ -127,7 +127,7 @@ export default {
       let loading = this.$loading({ target: "#page" });
       let that = this;
       this.axios
-        .post("/api/gameWorks2/getNoAppraisalList_Round2", qs.stringify(this.query))
+        .post("/api/gameWorks3/getNoAppraisalList_Round2", qs.stringify(this.query))
         .then(function(response) {
           if (response && response.data.code == "0") {
             if (response.data.data.length == 0) {
@@ -138,6 +138,7 @@ export default {
                 empty: true
               };
               that.submit_status.disabled = true;
+              that.next_status.disabled = true;
               that.query.index = 0;
               // that.query.page--;
               that.$message({
@@ -198,7 +199,7 @@ export default {
         this.query.index = this.List.length - 1;
       }
       this.axios
-        .get("/api/gameWorks2/getOne", { params: { wid: this.List[this.query.index].wid } })
+        .get("/api/gameWorks3/getOne", { params: { wid: this.List[this.query.index].wid } })
         .then(function(response) {
           if (response && response.data.code == "0") {
             that.WorksInfo = response.data.data;
@@ -258,7 +259,7 @@ export default {
         scoreTotal: this.Score
       };
       this.axios
-        .post("/api/gameWorks2/appraisal_round2", qs.stringify(data))
+        .post("/api/gameWorks3/appraisal_round2", qs.stringify(data))
         .then(function(response) {
           if (response && response.data.code == "0") {
             that.$message({

@@ -140,6 +140,7 @@ export default {
                 works_file: {}
               };
               that.submit_status.disabled = true;
+              that.next_status.disabled = true;
               that.query.index = 0;
               // that.query.page--;
               that.$message({
@@ -226,8 +227,6 @@ export default {
               type: "warning"
             });
           }
-          console.log("that.appraisal");
-          console.log(that.appraisal);
           loading.close();
           that.next_status.loading = false;
         })

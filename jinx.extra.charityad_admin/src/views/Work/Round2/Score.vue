@@ -138,6 +138,7 @@ export default {
                 empty: true
               };
               that.submit_status.disabled = true;
+              that.next_status.disabled = true;
               that.query.index = 0;
               // that.query.page--;
               that.$message({

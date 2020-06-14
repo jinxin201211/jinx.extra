@@ -19,7 +19,7 @@
         <span class="value" v-text="WorksInfo.works.worksName"></span>
       </div>
       <div class="jinx-works-info">
-        <span class="title">参加对象</span>
+        <span class="title">参赛组别</span>
         <span class="value" v-text="WorksInfo.works.gameType"></span>
       </div>
       <div class="jinx-works-info">

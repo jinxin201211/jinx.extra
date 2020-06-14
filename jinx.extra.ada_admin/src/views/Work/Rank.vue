@@ -54,7 +54,7 @@ export default {
       this.loading = true;
       let that = this;
       this.axios
-        .post("/api/gameWorks2/getWorksRanking")
+        .post("/api/gameWorks3/getWorksRanking")
         .then(function(response) {
           if (response && response.data.code == "0") {
             that.List = response.data.data;

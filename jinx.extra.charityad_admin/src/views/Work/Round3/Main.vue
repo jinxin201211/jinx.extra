@@ -112,221 +112,42 @@ export default {
           if (response && response.data.code == "0") {
             let data = response.data.data;
             // that.List = response.data.data.list;
-            // that.List.forEach(p => {
-            //   let game_type = that.$WorksGroupCode.find(x => x.code == p.gameType);
-            //   p.gameType = game_type == null ? "" : game_type.value;
-            //   let series = that.$WorksSeriesCode.find(x => x.code == p.worksSeries);
-            //   p.worksSeries = series == null ? "" : series.value;
-            //   let type = that.$WorksTypeCode.find(x => x.code == p.worksType);
-            //   p.worksType = type == null ? "" : type.value;
-            //   let source = that.$MaterialSurceCode.find(x => x.code == p.materialSurce);
-            //   p.materialSurce = source == null ? "" : source.value;
-            // });
-            // that.total = response.data.count;
-            // let data = [
-            //   {
-            //     worksName: "高校组一等奖1",
-            //     wid: 2972,
-            //     gameType: "0",
-            //     prize: 1
-            //   },
-            //   {
-            //     worksName: "高校组二等奖1",
-            //     wid: 2972,
-            //     gameType: "0",
-            //     prize: 2
-            //   },
-            //   {
-            //     worksName: "高校组二等奖2",
-            //     gameType: "0",
-            //     wid: 2972,
-            //     prize: 2
-            //   },
-            //   {
-            //     worksName: "高校组三等奖1",
-            //     gameType: "0",
-            //     wid: 2972,
-            //     prize: 3
-            //   },
-            //   {
-            //     worksName: "高校组三等奖2",
-            //     gameType: "0",
-            //     wid: 2972,
-            //     prize: 3
-            //   },
-            //   {
-            //     worksName: "高校组三等奖3",
-            //     gameType: "0",
-            //     wid: 2972,
-            //     prize: 3
-            //   },
-            //   {
-            //     worksName: "高校组优秀奖1",
-            //     gameType: "0",
-            //     wid: 2972,
-            //     prize: 4
-            //   },
-            //   {
-            //     worksName: "高校组优秀奖2",
-            //     gameType: "0",
-            //     wid: 2972,
-            //     prize: 4
-            //   },
-            //   {
-            //     worksName: "高校组优秀奖3",
-            //     gameType: "0",
-            //     wid: 2972,
-            //     prize: 4
-            //   },
-            //   {
-            //     worksName: "高校组优秀奖4",
-            //     gameType: "0",
-            //     wid: 2972,
-            //     prize: 4
-            //   },
+            data.forEach(p => {
+              let game_type = that.$WorksGroupCode.find(x => x.code == p.gameType);
+              p.gameType = game_type == null ? "" : game_type.value;
+              let series = that.$WorksSeriesCode.find(x => x.code == p.worksSeries);
+              p.worksSeries = series == null ? "" : series.value;
+              let type = that.$WorksTypeCode.find(x => x.code == p.worksType);
+              p.worksType = type == null ? "" : type.value;
+              let source = that.$MaterialSurceCode.find(x => x.code == p.materialSurce);
+              p.materialSurce = source == null ? "" : source.value;
+            });
 
-            //   {
-            //     worksName: "专业组一等奖1",
-            //     gameType: "1",
-            //     wid: 2972,
-            //     prize: 1
-            //   },
-            //   {
-            //     worksName: "专业组二等奖1",
-            //     gameType: "1",
-            //     wid: 2972,
-            //     prize: 2
-            //   },
-            //   {
-            //     worksName: "专业组二等奖2",
-            //     gameType: "1",
-            //     wid: 2972,
-            //     prize: 2
-            //   },
-            //   {
-            //     worksName: "专业组三等奖1",
-            //     gameType: "1",
-            //     wid: 2972,
-            //     prize: 3
-            //   },
-            //   {
-            //     worksName: "专业组三等奖2",
-            //     gameType: "1",
-            //     wid: 2972,
-            //     prize: 3
-            //   },
-            //   {
-            //     worksName: "专业组三等奖3",
-            //     gameType: "1",
-            //     wid: 2972,
-            //     prize: 3
-            //   },
-            //   {
-            //     worksName: "专业组优秀奖1",
-            //     gameType: "1",
-            //     wid: 2972,
-            //     prize: 4
-            //   },
-            //   {
-            //     worksName: "专业组优秀奖2",
-            //     gameType: "1",
-            //     wid: 2972,
-            //     prize: 4
-            //   },
-            //   {
-            //     worksName: "专业组优秀奖3",
-            //     gameType: "1",
-            //     wid: 2972,
-            //     prize: 4
-            //   },
-            //   {
-            //     worksName: "专业组优秀奖4",
-            //     gameType: "1",
-            //     wid: 2972,
-            //     prize: 4
-            //   },
+            let game_type0 = that.getGameTypeByCode("0");
+            that.Data.group[0].prize[0].list = data.filter(p => p.gameType === game_type0 && p.prize === 1);
+            that.Data.group[0].prize[1].list = data.filter(p => p.gameType === game_type0 && p.prize === 2);
+            that.Data.group[0].prize[2].list = data.filter(p => p.gameType === game_type0 && p.prize === 3);
+            that.Data.group[0].prize[3].list = data.filter(p => p.gameType === game_type0 && p.prize === 4);
 
-            //   {
-            //     worksName: "公众组一等奖1",
-            //     gameType: "2",
-            //     wid: 2972,
-            //     prize: 1
-            //   },
-            //   {
-            //     worksName: "公众组二等奖1",
-            //     gameType: "2",
-            //     wid: 2972,
-            //     prize: 2
-            //   },
-            //   {
-            //     worksName: "公众组二等奖2",
-            //     gameType: "2",
-            //     wid: 2972,
-            //     prize: 2
-            //   },
-            //   {
-            //     worksName: "公众组三等奖1",
-            //     gameType: "2",
-            //     wid: 2972,
-            //     prize: 3
-            //   },
-            //   {
-            //     worksName: "公众组三等奖2",
-            //     gameType: "2",
-            //     wid: 2972,
-            //     prize: 3
-            //   },
-            //   {
-            //     worksName: "公众组三等奖3",
-            //     gameType: "2",
-            //     wid: 2972,
-            //     prize: 3
-            //   },
-            //   {
-            //     worksName: "公众组优秀奖1",
-            //     gameType: "2",
-            //     wid: 2972,
-            //     prize: 4
-            //   },
-            //   {
-            //     worksName: "公众组优秀奖2",
-            //     gameType: "2",
-            //     wid: 2972,
-            //     prize: 4
-            //   },
-            //   {
-            //     worksName: "公众组优秀奖3",
-            //     gameType: "2",
-            //     wid: 2972,
-            //     prize: 4
-            //   },
-            //   {
-            //     worksName: "公众组优秀奖4",
-            //     gameType: "2",
-            //     wid: 2972,
-            //     prize: 4
-            //   }
-            // ];
+            let game_type1 = that.getGameTypeByCode("1");
+            that.Data.group[1].prize[0].list = data.filter(p => p.gameType === game_type1 && p.prize === 1);
+            that.Data.group[1].prize[1].list = data.filter(p => p.gameType === game_type1 && p.prize === 2);
+            that.Data.group[1].prize[2].list = data.filter(p => p.gameType === game_type1 && p.prize === 3);
+            that.Data.group[1].prize[3].list = data.filter(p => p.gameType === game_type1 && p.prize === 4);
 
-            that.Data.group[0].prize[0].list = data.filter(p => p.gameType === "0" && p.prize === 1);
-            that.Data.group[0].prize[1].list = data.filter(p => p.gameType === "0" && p.prize === 2);
-            that.Data.group[0].prize[2].list = data.filter(p => p.gameType === "0" && p.prize === 3);
-            that.Data.group[0].prize[3].list = data.filter(p => p.gameType === "0" && p.prize === 4);
+            let game_type2 = that.getGameTypeByCode("2");
+            that.Data.group[2].prize[0].list = data.filter(p => p.gameType === game_type2 && p.prize === 1);
+            that.Data.group[2].prize[1].list = data.filter(p => p.gameType === game_type2 && p.prize === 2);
+            that.Data.group[2].prize[2].list = data.filter(p => p.gameType === game_type2 && p.prize === 3);
+            that.Data.group[2].prize[3].list = data.filter(p => p.gameType === game_type2 && p.prize === 4);
 
-            that.Data.group[1].prize[0].list = data.filter(p => p.gameType === "1" && p.prize === 1);
-            that.Data.group[1].prize[1].list = data.filter(p => p.gameType === "1" && p.prize === 2);
-            that.Data.group[1].prize[2].list = data.filter(p => p.gameType === "1" && p.prize === 3);
-            that.Data.group[1].prize[3].list = data.filter(p => p.gameType === "1" && p.prize === 4);
-
-            that.Data.group[2].prize[0].list = data.filter(p => p.gameType === "2" && p.prize === 1);
-            that.Data.group[2].prize[1].list = data.filter(p => p.gameType === "2" && p.prize === 2);
-            that.Data.group[2].prize[2].list = data.filter(p => p.gameType === "2" && p.prize === 3);
-            that.Data.group[2].prize[3].list = data.filter(p => p.gameType === "2" && p.prize === 4);
-
-            that.Data.group[3].prize[0].list = data.filter(p => p.gameType === "4" && p.prize === 1);
-            that.Data.group[3].prize[1].list = data.filter(p => p.gameType === "4" && p.prize === 2);
-            that.Data.group[3].prize[2].list = data.filter(p => p.gameType === "4" && p.prize === 3);
-            that.Data.group[3].prize[3].list = data.filter(p => p.gameType === "4" && p.prize === 4);
+            let game_type4 = that.getGameTypeByCode("4");
+            that.Data.group[3].prize[0].list = data.filter(p => p.gameType === game_type4 && p.prize === 1);
+            that.Data.group[3].prize[1].list = data.filter(p => p.gameType === game_type4 && p.prize === 2);
+            that.Data.group[3].prize[2].list = data.filter(p => p.gameType === game_type4 && p.prize === 3);
+            that.Data.group[3].prize[3].list = data.filter(p => p.gameType === game_type4 && p.prize === 4);
+            console.log(game_type0, game_type1, game_type2, game_type4);
+            console.log(data.filter(p => p.game_type === game_type4));
           } else {
             that.$message({
               showClose: true,
@@ -345,6 +166,10 @@ export default {
             type: "warning"
           });
         });
+    },
+    getGameTypeByCode(code) {
+      let game_type = this.$WorksGroupCode.find(x => x.code == code);
+      return game_type == null ? code : game_type.value;
     },
     handleView: function(data) {
       this.view_wid = data.wid;

@@ -106,22 +106,22 @@ export default {
         ]
       };
       this.axios
-        .post("/api/gameWorks2/getNoAppraisalList_Round3")
+        .post("/api/gameWorks3/getNoAppraisalList_Round3")
         .then(function(response) {
           console.log(response);
           if (response && response.data.code == "0") {
             let data = response.data.data;
             // that.List = response.data.data.list;
-            // that.List.forEach(p => {
-            //   let game_type = that.$WorksGroupCode.find(x => x.code == p.gameType);
-            //   p.gameType = game_type == null ? "" : game_type.value;
-            //   let series = that.$WorksSeriesCode.find(x => x.code == p.worksSeries);
-            //   p.worksSeries = series == null ? "" : series.value;
-            //   let type = that.$WorksTypeCode.find(x => x.code == p.worksType);
-            //   p.worksType = type == null ? "" : type.value;
-            //   let source = that.$MaterialSurceCode.find(x => x.code == p.materialSurce);
-            //   p.materialSurce = source == null ? "" : source.value;
-            // });
+            data.forEach(p => {
+              let game_type = that.$WorksGroupCode.find(x => x.code == p.gameType);
+              p.gameType = game_type == null ? "" : game_type.value;
+              let series = that.$WorksSeriesCode.find(x => x.code == p.worksSeries);
+              p.worksSeries = series == null ? "" : series.value;
+              let type = that.$WorksTypeCode.find(x => x.code == p.worksType);
+              p.worksType = type == null ? "" : type.value;
+              let source = that.$MaterialSurceCode.find(x => x.code == p.materialSurce);
+              p.materialSurce = source == null ? "" : source.value;
+            });
             // that.total = response.data.count;
             // let data = [
             //   {
@@ -392,7 +392,7 @@ export default {
         }
       }
       this.axios
-        .post("/api/gameWorks2/appraisal_round3", qs.stringify({ jsonString: JSON.stringify(update) }))
+        .post("/api/gameWorks3/appraisal_round3", qs.stringify({ jsonString: JSON.stringify(update) }))
         .then(function(response) {
           if (response && response.data.code == "0") {
             that.$message({

@@ -80,7 +80,7 @@ export default {
       let loading = this.$loading({ target: "#page" });
       let that = this;
       this.axios
-        .get("/api/gameWorks2/getOne", { params: { wid: this.wid } })
+        .get("/api/gameWorks3/getOne", { params: { wid: this.wid } })
         .then(function(response) {
           if (response && response.data.code == "0") {
             that.WorksInfo = response.data.data;

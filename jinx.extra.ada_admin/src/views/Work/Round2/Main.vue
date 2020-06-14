@@ -91,7 +91,7 @@ export default {
       this.loading = true;
       let that = this;
       this.axios
-        .post("/api/gameWorks2/getNoAppraisalList_Round2", qs.stringify(this.query))
+        .post("/api/gameWorks3/getNoAppraisalList_Round2", qs.stringify(this.query))
         .then(function(response) {
           if (response && response.data.code == "0") {
             that.List = response.data.data;
@@ -149,7 +149,7 @@ export default {
       this.loading = true;
       let that = this;
       this.axios
-        .post("/api/gameWorks2/AppraisalProgress_Round2")
+        .post("/api/gameWorks3/AppraisalProgress_Round2")
         .then(function(response) {
           if (response && response.data.code == "0") {
             that.statistics.total_num = response.data.data.total_num;
