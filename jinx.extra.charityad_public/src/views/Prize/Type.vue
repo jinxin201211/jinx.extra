@@ -6,18 +6,11 @@
     </el-breadcrumb>
 
     <div class="jinx-types" v-if="false">
-      <div class="type"><div :class="{ active: group === 0 }" @click="group = 0">高校类</div></div>
-      <div class="type"><div :class="{ active: group === 1 }" @click="group = 1">专业类</div></div>
-      <div class="type"><div :class="{ active: group === 2 }" @click="group = 2">公众类</div></div>
+      <div class="type" v-for="(item, index) in $WorksGroupCode" :key="'WorksGroupCode' + index"><div :class="{ active: group === item.code * 1 }" @click="group = item.code * 1" v-text="item.value"></div></div>
     </div>
 
     <div class="jinx-types">
-      <div class="type"><div :class="{ active: type === 0 }" @click="handleTypeClick(0)">平面类</div></div>
-      <div class="type"><div :class="{ active: type === 1 }" @click="handleTypeClick(1)">文案类</div></div>
-      <div class="type"><div :class="{ active: type === 2 }" @click="handleTypeClick(2)">广播类</div></div>
-      <div class="type"><div :class="{ active: type === 3 }" @click="handleTypeClick(3)">视频类</div></div>
-      <div class="type"><div :class="{ active: type === 4 }" @click="handleTypeClick(4)">动画类</div></div>
-      <div class="type"><div :class="{ active: type === 5 }" @click="handleTypeClick(5)">互动类</div></div>
+      <div class="type" v-for="(item, index) in $WorksTypeCode" :key="'WorksTypeCode' + index"><div :class="{ active: type === item.code * 1 }" @click="handleTypeClick(item.code * 1)" v-text="item.value"></div></div>
     </div>
 
     <el-card style="margin-bottom: 20px;" shadow="never">

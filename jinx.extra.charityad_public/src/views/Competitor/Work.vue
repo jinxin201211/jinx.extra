@@ -18,18 +18,33 @@
         <span class="title">作品名称</span>
         <span class="value" v-text="WorksInfo.works.worksName"></span>
       </div>
-      <div class="jinx-works-info">
-        <span class="title">参赛组别</span>
-        <span class="value" v-text="WorksInfo.works.gameType"></span>
+      <div v-if="game_type === '4'">
+        <div class="jinx-works-info">
+          <span>参赛组别</span>
+          <span v-text="WorksInfo.works.gameType"></span>
+        </div>
+        <div class="jinx-works-info">
+          <span>作品类别</span>
+          <span v-text="WorksInfo.works.worksType == null ? '' : WorksInfo.works.worksType"></span>
+        </div>
       </div>
-      <div class="jinx-works-info">
-        <span class="title">作品类别</span>
-        <span class="value" v-text="WorksInfo.works.worksSeries == null ? '' : WorksInfo.works.worksSeries"></span>
-        <span class="value" v-text="WorksInfo.works.worksType == null ? '' : WorksInfo.works.worksType"></span>
-      </div>
-      <div class="jinx-works-info">
-        <span class="title">作品素材来源</span>
-        <span class="value" v-text="WorksInfo.works.materialSurce"></span>
+      <div v-else>
+        <div class="jinx-works-info">
+          <span>参赛组别</span>
+          <span v-text="WorksInfo.works.gameType"></span>
+        </div>
+        <div class="jinx-works-info">
+          <span>作品类别</span>
+          <span v-text="(WorksInfo.works.worksSeries == null ? '' : WorksInfo.works.worksSeries) + ' | ' + (WorksInfo.works.worksType == null ? '' : WorksInfo.works.worksType)"></span>
+        </div>
+        <div class="jinx-works-info">
+          <span>作品素材来源</span>
+          <span v-text="WorksInfo.works.materialSurce"></span>
+        </div>
+        <div class="jinx-works-info">
+          <span>作品创意说明</span>
+          <span v-text="WorksInfo.works.creativeOverview"></span>
+        </div>
       </div>
       <div class="jinx-works-info">
         <span class="title">作者姓名</span>
@@ -127,7 +142,8 @@ export default {
         works_file: {},
         works_author: {},
         empty: true
-      }
+      },
+      game_type: -1
       // loading: false
     };
   },
@@ -154,11 +170,16 @@ export default {
               that.Scored = true;
             }
 
-            that.WorksInfo.works.worksSeries = that.$WorksSeriesCode.find(p => p.code == that.WorksInfo.works.worksSeries).value;
-            that.WorksInfo.works.worksType = that.$WorksTypeCode.find(p => p.code == that.WorksInfo.works.worksType).value;
-            that.WorksInfo.works.materialSurce = that.$MaterialSurceCode.find(p => p.code == that.WorksInfo.works.materialSurce).value;
-            that.WorksInfo.works.gameType = that.$WorksGroupCode.find(p => p.code == that.WorksInfo.works.gameType).value;
-            console.log(that.WorksInfo);
+            that.game_type = that.WorksInfo.works.gameType;
+            if (that.WorksInfo.works.gameType === "4") {
+              that.WorksInfo.works.gameType = that.$WorksGroupCode.find(p => p.code == that.WorksInfo.works.gameType).value;
+              that.WorksInfo.works.worksType = that.$WorksTypeCode.find(p => p.code == that.WorksInfo.works.worksType).value;
+            } else {
+              that.WorksInfo.works.gameType = that.$WorksGroupCode.find(p => p.code == that.WorksInfo.works.gameType).value;
+              that.WorksInfo.works.worksSeries = that.$WorksSeriesCode.find(p => p.code == that.WorksInfo.works.worksSeries).value;
+              that.WorksInfo.works.worksType = that.$WorksTypeCode.find(p => p.code == that.WorksInfo.works.worksType).value;
+              that.WorksInfo.works.materialSurce = that.$MaterialSurceCode.find(p => p.code == that.WorksInfo.works.materialSurce).value;
+            }
           } else {
             that.$message({
               showClose: true,

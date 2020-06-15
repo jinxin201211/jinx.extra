@@ -12,33 +12,13 @@
         <span>作品名称</span>
         <span v-text="WorksInfo.works.worksName"></span>
       </div>
-      <div v-if="game_type === '4'">
-        <div class="jinx-works-info">
-          <span>参赛组别</span>
-          <span v-text="WorksInfo.works.gameType"></span>
-        </div>
-        <div class="jinx-works-info">
-          <span>作品类别</span>
-          <span v-text="WorksInfo.works.worksType == null ? '' : WorksInfo.works.worksType"></span>
-        </div>
+      <div class="jinx-works-info">
+        <span>作品素材来源</span>
+        <span v-text="WorksInfo.works.materialSurce"></span>
       </div>
-      <div v-else>
-        <div class="jinx-works-info">
-          <span>参赛组别</span>
-          <span v-text="WorksInfo.works.gameType"></span>
-        </div>
-        <div class="jinx-works-info">
-          <span>作品类别</span>
-          <span v-text="(WorksInfo.works.worksSeries == null ? '' : WorksInfo.works.worksSeries) + ' | ' + (WorksInfo.works.worksType == null ? '' : WorksInfo.works.worksType)"></span>
-        </div>
-        <div class="jinx-works-info">
-          <span>作品素材来源</span>
-          <span v-text="WorksInfo.works.materialSurce"></span>
-        </div>
-        <div class="jinx-works-info">
-          <span>作品创意说明</span>
-          <span v-text="WorksInfo.works.creativeOverview"></span>
-        </div>
+      <div class="jinx-works-info">
+        <span>作品创意说明</span>
+        <span v-text="WorksInfo.works.creativeOverview"></span>
       </div>
     </el-card>
     <el-card v-for="(item, index) in WorksInfo.works_file" :key="'works_file' + index" style="margin-top: 15px;">
@@ -74,8 +54,7 @@ export default {
       WorksInfo: {
         works: {},
         works_file: {}
-      },
-      game_type: -1
+      }
     };
   },
   mounted() {
@@ -91,17 +70,7 @@ export default {
         .get("/api/gameWorks3/getOne", { params: { wid: this.wid } })
         .then(function(response) {
           if (response && response.data.code == "0") {
-            that.WorksInfo = response.data.data;
-            that.game_type = that.WorksInfo.works.gameType;
-            if (that.WorksInfo.works.gameType === "4") {
-              that.WorksInfo.works.gameType = that.$WorksGroupCode.find(p => p.code == that.WorksInfo.works.gameType).value;
-              that.WorksInfo.works.worksType = that.$WorksTypeCode.find(p => p.code == that.WorksInfo.works.worksType).value;
-            } else {
-              that.WorksInfo.works.gameType = that.$WorksGroupCode.find(p => p.code == that.WorksInfo.works.gameType).value;
-              that.WorksInfo.works.worksSeries = that.$WorksSeriesCode.find(p => p.code == that.WorksInfo.works.worksSeries).value;
-              that.WorksInfo.works.worksType = that.$WorksTypeCode.find(p => p.code == that.WorksInfo.works.worksType).value;
-              that.WorksInfo.works.materialSurce = that.$MaterialSurceCode.find(p => p.code == that.WorksInfo.works.materialSurce).value;
-            }
+            that.WorksInfo.works = response.data.data;
           } else {
             that.$message({
               showClose: true,
