@@ -113,10 +113,10 @@ export default {
             let data = response.data.data;
             // that.List = response.data.data.list;
             data.forEach(p => {
-              let game_type = that.$WorksGroupCode.find(x => x.code == p.gameType);
-              p.gameType = game_type == null ? "" : game_type.value;
-              let series = that.$WorksSeriesCode.find(x => x.code == p.worksSeries);
-              p.worksSeries = series == null ? "" : series.value;
+              // let game_type = that.$WorksGroupCode.find(x => x.code == p.gameType);
+              // p.gameType = game_type == null ? "" : game_type.value;
+              // let series = that.$WorksSeriesCode.find(x => x.code == p.worksSeries);
+              // p.worksSeries = series == null ? "" : series.value;
               let type = that.$WorksTypeCode.find(x => x.code == p.worksType);
               p.worksType = type == null ? "" : type.value;
               let source = that.$MaterialSurceCode.find(x => x.code == p.materialSurce);
@@ -400,8 +400,6 @@ export default {
               message: "提交成功",
               type: "success"
             });
-            that.Scored = true;
-            that.submit_status.disabled = true;
           } else {
             that.$message({
               showClose: true,
@@ -409,11 +407,9 @@ export default {
               type: "warning"
             });
           }
-          that.submit_status.loading = false;
         })
         .catch(function(err) {
           console.log(err);
-          that.submit_status.loading = false;
           that.$message({
             showClose: true,
             message: "提交失败",

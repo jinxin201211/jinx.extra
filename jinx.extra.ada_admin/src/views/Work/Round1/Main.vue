@@ -98,11 +98,11 @@ export default {
           if (response && response.data.code == "0") {
             that.List = response.data.data;
             that.List.forEach(p => {
-              let game_type = that.$WorksGroupCode.find(x => x.code == p.gameType);
-              p.gameType = game_type == null ? "" : game_type.value;
-              let series = that.$WorksSeriesCode.find(x => x.code == p.worksSeries);
-              p.worksSeries = series == null ? "" : series.value;
-              let type = that.$WorksTypeCode.find(x => x.code == p.worksType);
+              // let game_type = that.$WorksGroupCode.find(x => x.code == p.gameType);
+              // p.gameType = game_type == null ? "" : game_type.value;
+              // let series = that.$WorksSeriesCode.find(x => x.code == p.worksSeries);
+              // p.worksSeries = series == null ? "" : series.value;
+              // let type = that.$WorksTypeCode.find(x => x.code == p.worksType);
               p.worksType = type == null ? "" : type.value;
               let source = that.$MaterialSurceCode.find(x => x.code == p.materialSurce);
               p.materialSurce = source == null ? "" : source.value;

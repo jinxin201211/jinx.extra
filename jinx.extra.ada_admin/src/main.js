@@ -50,31 +50,35 @@ Vue.prototype.$ImagePostServer = window.$Server + ":8083";
 Vue.prototype.$ImageGetServer = window.$Server + "/img/";
 Vue.prototype.$WebSiteName = "全国大学生广告艺术大赛（河北赛区）评审系统";
 
-Vue.prototype.$WorksGroupCode = [
-  { code: "0", value: "高校类" },
-  { code: "1", value: "专业类" },
-  { code: "2", value: "公众类" },
-  { code: "4", value: "战疫类" }
-];
-Vue.prototype.$WorksSeriesCode = [
-  { code: "A", value: "平面类" },
-  { code: "Ba", value: "视频类影视广告" },
-  { code: "Bb", value: "视频类微电影广告" },
-  { code: "Bc", value: "视频类短视频" },
-  { code: "C", value: "动画类" },
-  { code: "D", value: "互动类" },
-  { code: "E", value: "广播类" },
-  { code: "F", value: "策划案类" },
-  { code: "Ga", value: "文案类广告语" },
-  { code: "Gb", value: "文案类长文案" }
-];
+// Vue.prototype.$WorksGroupCode = [
+//   { code: "0", value: "高校类" },
+//   { code: "1", value: "专业类" },
+//   { code: "2", value: "公众类" },
+//   { code: "4", value: "战疫类" }
+// ];
+// Vue.prototype.$WorksSeriesCode = [
+//   { code: "A", value: "平面类" },
+//   { code: "Ba", value: "视频类影视广告" },
+//   { code: "Bb", value: "视频类微电影广告" },
+//   { code: "Bc", value: "视频类短视频" },
+//   { code: "C", value: "动画类" },
+//   { code: "D", value: "互动类" },
+//   { code: "E", value: "广播类" },
+//   { code: "F", value: "策划案类" },
+//   { code: "Ga", value: "文案类广告语" },
+//   { code: "Gb", value: "文案类长文案" }
+// ];
 Vue.prototype.$WorksTypeCode = [
-  { code: "1", value: "平面类" },
-  { code: "2", value: "文案类" },
-  { code: "3", value: "广播类" },
-  { code: "4", value: "视频类" },
-  { code: "5", value: "动画类" },
-  { code: "6", value: "互动类" }
+  { code: "A", value: "平面" },
+  { code: "Ba", value: "影视" },
+  { code: "Bb", value: "微电影" },
+  { code: "Bc", value: "短视频" },
+  { code: "C", value: "动画" },
+  { code: "D", value: "互动" },
+  { code: "E", value: "广播" },
+  { code: "F", value: "策划案" },
+  { code: "Ga", value: "广告语" },
+  { code: "Gb", value: "长文案" }
 ];
 Vue.prototype.$MaterialSurceCode = [
   { code: "1", value: "我保重此作品是我的原创" },
