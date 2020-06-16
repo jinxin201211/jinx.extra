@@ -209,6 +209,15 @@ const routes = [
         }
       },
       {
+        path: "/score/rank",
+        name: "scorerank",
+        component: () => import("../views/Work/Round3/Rank.vue"),
+        meta: {
+          title: "作品打分(第三轮)",
+          access: ["judge"]
+        }
+      },
+      {
         path: "/workrank",
         name: "WorkRank",
         component: () => import("../views/Work/Rank.vue"),
