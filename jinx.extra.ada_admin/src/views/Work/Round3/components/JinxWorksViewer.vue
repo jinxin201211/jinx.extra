@@ -13,6 +13,14 @@
         <span v-text="WorksInfo.works.worksName"></span>
       </div>
       <div class="jinx-works-info">
+        <span>作品类别</span>
+        <span v-text="WorksInfo.works.worksType"></span>
+      </div>
+      <div class="jinx-works-info">
+        <span>作品主题</span>
+        <span v-text="WorksInfo.works.worksSeriesName"></span>
+      </div>
+      <div class="jinx-works-info">
         <span>作品素材来源</span>
         <span v-text="WorksInfo.works.materialSurce"></span>
       </div>
@@ -71,6 +79,8 @@ export default {
         .then(function(response) {
           if (response && response.data.code == "0") {
             that.WorksInfo.works = response.data.data;
+            let type = that.$WorksTypeCode.find(x => x.code == that.WorksInfo.works.worksType);
+            that.WorksInfo.works.worksType = type == null ? "" : type.value;
           } else {
             that.$message({
               showClose: true,

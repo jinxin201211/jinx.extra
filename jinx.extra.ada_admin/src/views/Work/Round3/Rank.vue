@@ -105,16 +105,9 @@ export default {
           console.log(response);
           if (response && response.data.code == "0") {
             let data = response.data.data;
-            // that.List = response.data.data.list;
             data.forEach(p => {
-              // let game_type = that.$WorksGroupCode.find(x => x.code == p.gameType);
-              // p.gameType = game_type == null ? "" : game_type.value;
-              // let series = that.$WorksSeriesCode.find(x => x.code == p.worksSeries);
-              // p.worksSeries = series == null ? "" : series.value;
               let type = that.$WorksTypeCode.find(x => x.code == p.worksType);
               p.worksType = type == null ? "" : type.value;
-              let source = that.$MaterialSurceCode.find(x => x.code == p.materialSurce);
-              p.materialSurce = source == null ? "" : source.value;
             });
 
             that.Data.group[0].prize[0].list = data.filter(p => p.gameType === "0" && p.prize === 1);

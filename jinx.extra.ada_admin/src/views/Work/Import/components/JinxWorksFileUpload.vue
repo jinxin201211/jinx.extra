@@ -21,6 +21,22 @@
         <span>作品名称</span>
         <span v-text="WorksInfo.works.worksName"></span>
       </div>
+      <div class="jinx-works-info">
+        <span>作品类别</span>
+        <span v-text="WorksInfo.works.worksType"></span>
+      </div>
+      <div class="jinx-works-info">
+        <span>作品主题</span>
+        <span v-text="WorksInfo.works.worksSeriesName"></span>
+      </div>
+      <div class="jinx-works-info">
+        <span>作品素材来源</span>
+        <span v-text="WorksInfo.works.materialSurce"></span>
+      </div>
+      <div class="jinx-works-info">
+        <span>作品创意说明</span>
+        <span v-text="WorksInfo.works.creativeOverview"></span>
+      </div>
     </el-card>
 
     <el-card v-for="(item, index) in WorksInfo.works_file" :key="'works_file' + index" style="margin-top: 15px;">
@@ -83,7 +99,9 @@ export default {
         .get("/api/gameWorks3/getOne", { params: { wid: this.wid } })
         .then(function(response) {
           if (response && response.data.code == "0") {
-            that.WorksInfo = response.data.data;
+            that.WorksInfo.works = response.data.data;
+            let type = that.$WorksTypeCode.find(x => x.code == that.WorksInfo.works.worksType);
+            that.WorksInfo.works.worksType = type == null ? "" : type.value;
           } else {
             that.$message({
               showClose: true,
