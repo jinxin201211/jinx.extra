@@ -20,11 +20,10 @@
       <!--<el-table-column prop="area" label="赛区"> </el-table-column>-->
       <el-table-column prop="wno" label="作品编号"> </el-table-column>
       <el-table-column prop="worksName" label="作品名称"> </el-table-column>
-      <!--<el-table-column prop="gameType" label="参赛组别"> </el-table-column>
-      <el-table-column prop="worksSeries" label="作品主题"> </el-table-column>
-      <el-table-column prop="worksType" label="作品类别"> </el-table-column>
-      <el-table-column prop="scoreTotal" label="评审结果"> </el-table-column>
-      <el-table-column prop="scoreTotal" label="得分"> </el-table-column>-->
+      <el-table-column prop="worksType" label="作品类别" width="120"> </el-table-column>
+      <el-table-column prop="worksSeriesName" label="作品主题"> </el-table-column>
+      <el-table-column prop="author1" label="作者"> </el-table-column>
+      <el-table-column prop="orgName" label="所属部门"> </el-table-column>
       <el-table-column fixed="right" label="操作" width="280">
         <template slot-scope="scope">
           <el-button @click="handleView(scope.row)" type="text" size="small">查看</el-button>
@@ -128,14 +127,8 @@ export default {
           if (response && response.data.code == "0") {
             that.List = response.data.data;
             that.List.forEach(p => {
-              // let game_type = that.$WorksGroupCode.find(x => x.code == p.gameType);
-              // p.gameType = game_type == null ? "" : game_type.value;
-              // let series = that.$WorksSeriesCode.find(x => x.code == p.worksSeries);
-              // p.worksSeries = series == null ? "" : series.value;
               let type = that.$WorksTypeCode.find(x => x.code == p.worksType);
               p.worksType = type == null ? "" : type.value;
-              let source = that.$MaterialSurceCode.find(x => x.code == p.materialSurce);
-              p.materialSurce = source == null ? "" : source.value;
             });
             that.total = response.data.count;
           } else {

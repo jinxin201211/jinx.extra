@@ -53,7 +53,8 @@
 
 
   <div id="bd">
-    <div class="m-ban"><a href="javascript:;" style='background-image:url(data/img/2003/5e7b1d2cdd216.jpg); background-size: cover;'></a></div>
+    <div class="m-ban"><a href="javascript:;"
+        style='background-image:url(data/img/2003/5e7b1d2cdd216.jpg); background-size: cover;'></a></div>
 
     <div class="wrap">
       <div class="m-cur">
@@ -97,63 +98,16 @@
                   <span class="value data-auto-bind" data-key="worksName"></span>
                 </div>
                 <div class="jinx-works-info">
-                  <span class="title">参赛组别</span>
-                  <span class="value data-auto-bind" data-key="gameType"></span>
+                  <span class="title">作品类别</span>
+                  <span class="value data-auto-bind" data-key="worksType"></span>
                 </div>
                 <div class="jinx-works-info">
-                  <span class="title">作品类别</span>
-                  <span class="value data-auto-bind" data-key="worksSeries"></span>
-                  <span class="value data-auto-bind" data-key="worksType"></span>
+                  <span class="title">作品主题</span>
+                  <span class="value data-auto-bind" data-key="worksSeriesName"></span>
                 </div>
                 <div class="jinx-works-info">
                   <span class="title">作品素材来源</span>
                   <span class="value data-auto-bind" data-key="materialSurce"></span>
-                </div>
-                <div class="jinx-works-info">
-                  <span class="title">作者姓名</span>
-                  <span class="value data-auto-bind" data-key="author1"></span>
-                  <span class="value data-auto-bind" data-key="author2"></span>
-                  <span class="value data-auto-bind" data-key="author3"></span>
-                  <span class="value data-auto-bind" data-key="author4"></span>
-                  <span class="value data-auto-bind" data-key="author5"></span>
-                </div>
-                <div class="jinx-works-group">
-                  <span>第一作者联系方式</span>
-                  <div class="jinx-works-info">
-                    <span class="title">身份证号</span>
-                    <span class="value data-auto-bind" data-key="idcardNo"></span>
-                    <span class="title">联系电话</span>
-                    <span class="value data-auto-bind" data-key="tel"></span>
-                  </div>
-                  <div class="jinx-works-info">
-                    <span class="title">电子邮箱</span>
-                    <span class="value data-auto-bind" data-key="email"></span>
-                    <span class="title">QQ</span>
-                    <span class="value data-auto-bind" data-key="qq"></span>
-                  </div>
-                  <div class="jinx-works-info">
-                    <span class="title">所属单位</span>
-                    <span class="value data-auto-bind" data-key="orgName"></span>
-                    <span class="title">有效通讯地址</span>
-                    <span class="value data-auto-bind" data-key="addr"></span>
-                  </div>
-                </div>
-                <div id="teacherInfo">
-                  <div class="jinx-works-group">
-                    <span>指导老师信息</span>
-                    <div class="jinx-works-info">
-                      <span class="title">姓名</span>
-                      <span class="value data-auto-bind" data-key="tuname"></span>
-                      <span class="title">联系电话</span>
-                      <span class="value data-auto-bind" data-key="tTel"></span>
-                    </div>
-                    <div class="jinx-works-info">
-                      <span class="title">电子邮箱</span>
-                      <span class="value data-auto-bind" data-key="tEmail"></span>
-                      <span class="title">所属单位</span>
-                      <span class="value data-auto-bind" data-key="tOrgName"></span>
-                    </div>
-                  </div>
                 </div>
                 <div class="jinx-works-info">
                   <span class="title" style="display: inline-block;">作品创意说明</span>
@@ -178,7 +132,8 @@
       <div class="wrap">
         <ul>
           <li>
-            <a href="http://xwcbxy.hebtu.edu.cn/a/2019/04/19/AE56753B9B30477D8B23405AA82DCF18.html" class='a1'><span>河北省广告研究院</span></a>
+            <a href="http://xwcbxy.hebtu.edu.cn/a/2019/04/19/AE56753B9B30477D8B23405AA82DCF18.html"
+              class='a1'><span>河北省广告研究院</span></a>
           </li>
           <li>
             <a href="http://www.sun-ada.net/" class='a1'><span>大广赛全国赛区</span></a>
@@ -223,33 +178,18 @@
 <script src="Public/home/js/request.config.js" type="text/javascript" charset="utf-8"></script>
 
 <script>
-
-  var WorksGroupCode = [
-    { code: "0", value: "高校类" },
-    { code: "1", value: "专业类" },
-    { code: "2", value: "公众类" }
-  ];
-  var WorksSeriesCode = [
-    { code: "A", value: "中国梦系列" },
-    { code: "B", value: "营商环境系列" },
-    { code: "C", value: "生态保护系列" },
-    { code: "D", value: "传统文化系列" },
-    { code: "E", value: "社会热点系列" },
-    { code: "F", value: "其他主题" }
-  ];
   var WorksTypeCode = [
-    { code: "1", value: "平面类" },
-    { code: "2", value: "文案类" },
-    { code: "3", value: "广播类" },
-    { code: "4", value: "视频类" },
-    { code: "5", value: "动画类" },
-    { code: "6", value: "互动类" }
+    { code: "A", value: "平面" },
+    { code: "Ba", value: "影视" },
+    { code: "Bb", value: "微电影" },
+    { code: "Bc", value: "短视频" },
+    { code: "C", value: "动画" },
+    { code: "D", value: "互动" },
+    { code: "E", value: "广播" },
+    { code: "F", value: "策划案" },
+    { code: "Ga", value: "广告语" },
+    { code: "Gb", value: "长文案" }
   ];
-  var MaterialSurceCode = [
-    { code: "1", value: "我保重此作品是我的原创" },
-    { code: "2", value: "我使用了素材" }
-  ];
-  // var FileGetServer = "http://47.108.88.211/img/";
   var FileGetServer = $base_file_url;
 
   var WID = -1;
@@ -270,7 +210,6 @@
   }
 
   function getWorksInfo() {
-    $('teacherInfo').hide();
     $.ajax({
       url: 'http://211.82.246.251:8082/gameWorksRank/getWorksByWid', //todo
       // url: 'http://47.108.88.211:8082/gameWorksRank/getWorksByWid', //todo
@@ -290,31 +229,13 @@
               }
             }
           }
-
-          var game_type = WorksGroupCode.find(x => x.code === data.works.gameType);
-          if (game_type != null) {
-            data.works.gameType = game_type.value;
-          }
-          var works_series = WorksSeriesCode.find(x => x.code === data.works.worksSeries);
-          if (works_series != null) {
-            data.works.worksSeries = works_series.value;
-          }
           var works_type = WorksTypeCode.find(x => x.code === data.works.worksType);
           if (works_type != null) {
             data.works.worksType = works_type.value;
           }
-          var material_surce = MaterialSurceCode.find(x => x.code === data.works.materialSurce);
-          if (material_surce != null) {
-            data.works.materialSurce = material_surce.value;
-          }
-
           var data_auto_bind = $('.data-auto-bind');
           for (var i = 0; i < data_auto_bind.length; i++) {
             $(data_auto_bind[i]).text(data.works[$(data_auto_bind[i]).data('key')]);
-          }
-
-          if (data.works.tUname != null && data.works.tUname != '') {
-            $('teacherInfo').show();
           }
 
           $('#worksFiles').html('');
@@ -339,12 +260,6 @@
             works_files += '</div></div>';
           }
           $('#worksFiles').html(works_files);
-
-          // that.WorksInfo = data.data;
-          // that.worksSeries = that.$WorksSeriesCode.find(p => p.code == that.worksSeries).value;
-          // that.worksType = that.$WorksTypeCode.find(p => p.code == that.worksType).value;
-          // that.materialSurce = that.$MaterialSurceCode.find(p => p.code == that.materialSurce).value;
-          // that.gameType = that.$WorksGroupCode.find(p => p.code == that.gameType).value;
         }
         else {
           alert('获取作品失败');
