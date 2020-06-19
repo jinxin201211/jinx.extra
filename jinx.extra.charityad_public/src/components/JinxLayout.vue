@@ -29,6 +29,7 @@ export default {
         { title: "大赛介绍", path: "anchor_contest_intro" },
         { title: "新闻动态", path: "anchor_news" },
         { title: "作品展示", path: "anchor_works" },
+        { title: "文件下载", path: "anchor_downloads" },
         { title: "联系我们", path: "anchor_contact_us" }
       ]
     };

@@ -109,6 +109,15 @@ const routes = [
     }
   },
   {
+    name: "Downloads",
+    path: "/downloads",
+    component: () => import("../views/Home/Downloads.vue"),
+    meta: {
+      title: "文件下载",
+      access: false
+    }
+  },
+  {
     name: "Prize",
     path: "/prize",
     component: () => import("../views/Prize/Main.vue"),

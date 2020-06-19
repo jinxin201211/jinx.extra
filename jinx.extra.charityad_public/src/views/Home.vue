@@ -262,6 +262,7 @@ export default {
         { title: "大赛介绍", path: "anchor_contest_intro" },
         { title: "新闻动态", path: "anchor_news" },
         { title: "作品展示", path: "anchor_works" },
+        { title: "文件下载", path: "anchor_downloads" },
         { title: "联系我们", path: "anchor_contact_us" }
       ],
       newsList: [],
@@ -365,6 +366,8 @@ export default {
     handleScrollToView(path) {
       if (path == "anchor_home") {
         window.location.href = "http://hbsggyjy.hebtu.edu.cn";
+      } else if (path == "anchor_downloads") {
+        this.$router.push("/downloads");
       } else {
         let section = document.getElementById(path);
         if (section) {
@@ -375,6 +378,8 @@ export default {
     scrollToSection(path) {
       if (path == "anchor_home") {
         window.location.href = "http://hbsggyjy.hebtu.edu.cn";
+      } else if (path == "anchor_downloads") {
+        this.$router.push("/downloads");
       } else {
         let section = document.getElementById(path);
         if (section) {
@@ -388,56 +393,6 @@ export default {
       that.work.list = [];
       that.work.index = 0;
       that.work.file = 0;
-      // that.work.list.push({
-      //   title: "",
-      //   author: "作者名字1",
-      //   files: ["202005111736510487_C%E3%80%81%E8%A1%8C%E9%A9%B6%E8%AF%81%E7%85%A7%E7%89%87.jpg", "202005141017290497_视频%20免费下载%20-%20爱给网.mp4", "202005111736510487_C%E3%80%81%E8%A1%8C%E9%A9%B6%E8%AF%81%E7%85%A7%E7%89%87.jpg"]
-      // });
-      // that.work.list.push({
-      //   title: "",
-      //   author: "作者名字2",
-      //   files: ["202005141017290497_视频%20免费下载%20-%20爱给网.mp4", "202005111736510487_C%E3%80%81%E8%A1%8C%E9%A9%B6%E8%AF%81%E7%85%A7%E7%89%87.jpg", "202005111736510487_C%E3%80%81%E8%A1%8C%E9%A9%B6%E8%AF%81%E7%85%A7%E7%89%87.jpg"]
-      // });
-      // that.work.list.push({
-      //   title: "",
-      //   author: "作者名字3",
-      //   files: ["202005141017290497_视频%20免费下载%20-%20爱给网.mp4", "202005141017290497_视频%20免费下载%20-%20爱给网.mp4", "202005141017290497_视频%20免费下载%20-%20爱给网.mp4"]
-      // });
-      // that.work.list.push({
-      //   title: "",
-      //   author: "作者名字4",
-      //   files: ["202005111736510487_C%E3%80%81%E8%A1%8C%E9%A9%B6%E8%AF%81%E7%85%A7%E7%89%87.jpg", "202005111736510487_C%E3%80%81%E8%A1%8C%E9%A9%B6%E8%AF%81%E7%85%A7%E7%89%87.jpg", "202005111736510487_C%E3%80%81%E8%A1%8C%E9%A9%B6%E8%AF%81%E7%85%A7%E7%89%87.jpg"]
-      // });
-      // that.work.list.push({
-      //   title: "",
-      //   author: "作者名字5",
-      //   files: ["202005111736510487_C%E3%80%81%E8%A1%8C%E9%A9%B6%E8%AF%81%E7%85%A7%E7%89%87.jpg", "202005111736510487_C%E3%80%81%E8%A1%8C%E9%A9%B6%E8%AF%81%E7%85%A7%E7%89%87.jpg", "202005111736510487_C%E3%80%81%E8%A1%8C%E9%A9%B6%E8%AF%81%E7%85%A7%E7%89%87.jpg"]
-      // });
-      // that.work.list.push({
-      //   title: "",
-      //   author: "作者名字6",
-      //   files: ["202005111736510487_C%E3%80%81%E8%A1%8C%E9%A9%B6%E8%AF%81%E7%85%A7%E7%89%87.jpg", "202005111736510487_C%E3%80%81%E8%A1%8C%E9%A9%B6%E8%AF%81%E7%85%A7%E7%89%87.jpg", "202005111736510487_C%E3%80%81%E8%A1%8C%E9%A9%B6%E8%AF%81%E7%85%A7%E7%89%87.jpg"]
-      // });
-      // that.work.list.push({
-      //   title: "",
-      //   author: "作者名字7",
-      //   files: ["202005111736510487_C%E3%80%81%E8%A1%8C%E9%A9%B6%E8%AF%81%E7%85%A7%E7%89%87.jpg", "202005111736510487_C%E3%80%81%E8%A1%8C%E9%A9%B6%E8%AF%81%E7%85%A7%E7%89%87.jpg", "202005111736510487_C%E3%80%81%E8%A1%8C%E9%A9%B6%E8%AF%81%E7%85%A7%E7%89%87.jpg"]
-      // });
-      // that.work.list.push({
-      //   title: "",
-      //   author: "作者名字8",
-      //   files: ["202005111736510487_C%E3%80%81%E8%A1%8C%E9%A9%B6%E8%AF%81%E7%85%A7%E7%89%87.jpg", "202005111736510487_C%E3%80%81%E8%A1%8C%E9%A9%B6%E8%AF%81%E7%85%A7%E7%89%87.jpg", "202005111736510487_C%E3%80%81%E8%A1%8C%E9%A9%B6%E8%AF%81%E7%85%A7%E7%89%87.jpg"]
-      // });
-      // that.work.list.push({
-      //   title: "",
-      //   author: "作者名字9",
-      //   files: ["202005111736510487_C%E3%80%81%E8%A1%8C%E9%A9%B6%E8%AF%81%E7%85%A7%E7%89%87.jpg"]
-      // });
-      // that.work.list.push({
-      //   title: "",
-      //   author: "作者名字10",
-      //   files: ["202005111736510487_C%E3%80%81%E8%A1%8C%E9%A9%B6%E8%AF%81%E7%85%A7%E7%89%87.jpg", "202005111736510487_C%E3%80%81%E8%A1%8C%E9%A9%B6%E8%AF%81%E7%85%A7%E7%89%87.jpg"]
-      // });
 
       this.axios
         .post("/api/gameWorks2/getExcellentWorks")
