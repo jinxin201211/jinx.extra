@@ -109,7 +109,7 @@
       </h3>
       <div>
         <div class="jinx-pdf-item"
-          onclick="handleBlueBookClick('PDF/广告业发展蓝皮书（2012-2016）/河北广告业发展蓝皮书（2012-2016）（封面）.pdf')">
+          onclick="handleBlueBookClick('/PDF/广告业发展蓝皮书（2012-2016）/河北广告业发展蓝皮书（2012-2016）（封面）.pdf')">
           <div class="icon">
             <div class="back1"></div>
             <div class="back2">河北广告业发展蓝皮书（2012-2016）（封面）</div>
@@ -117,7 +117,7 @@
           </div>
           <div class="title">河北广告业发展蓝皮书（2012-2016）（封面）.pdf</div>
         </div>
-        <div class="jinx-pdf-item" onclick="handleBlueBookClick('PDF/广告业发展蓝皮书（2012-2016）/河北广告业发展蓝皮书（前言）.pdf')">
+        <div class="jinx-pdf-item" onclick="handleBlueBookClick('/PDF/广告业发展蓝皮书（2012-2016）/河北广告业发展蓝皮书（前言）.pdf')">
           <div class="icon">
             <div class="back1"></div>
             <div class="back2">河北广告业发展蓝皮书（前言）</div>
@@ -126,7 +126,7 @@
           <div class="title">河北广告业发展蓝皮书（前言）.pdf</div>
         </div>
         <div class="jinx-pdf-item"
-          onclick="handleBlueBookClick('PDF/广告业发展蓝皮书（2012-2016）/河北广告业发展蓝皮书（2012-2016）（正文）.pdf')">
+          onclick="handleBlueBookClick('/PDF/广告业发展蓝皮书（2012-2016）/河北广告业发展蓝皮书（2012-2016）（正文）.pdf')">
           <div class="icon">
             <div class="back1"></div>
             <div class="back2">河北广告业发展蓝皮书（2012-2016）（正文）</div>
@@ -141,7 +141,7 @@
         广告业发展蓝皮书（2017-2019）
       </h3>
       <div>
-        <div class="jinx-pdf-item" onclick="handleBlueBookClick('PDF/广告业发展蓝皮书（2017-2019）/河北广告业发展蓝皮书(2017-2019).pdf')">
+        <div class="jinx-pdf-item" onclick="handleBlueBookClick('/PDF/广告业发展蓝皮书（2017-2019）/河北广告业发展蓝皮书(2017-2019).pdf')">
           <div class="icon">
             <div class="back1"></div>
             <div class="back2">河北广告业发展蓝皮书(2017-2019)</div>
@@ -165,7 +165,8 @@
 
   <script>
     function handleBlueBookClick(src) {
-      window.location.href = src;
+      // "../static/pdfjs/web/viewer.html?file="+url+"#page=1"
+      window.location.href = 'pdfjs-2.4.456-es5-dist/web/viewer.html?file=' + src;
     }
   </script>
 </body>
