@@ -2,35 +2,31 @@
   <div style="padding: 20px;">
     <el-breadcrumb separator="/" style="margin-bottom: 20px;">
       <el-breadcrumb-item>首页</el-breadcrumb-item>
-      <el-breadcrumb-item>作品打分(第三轮)</el-breadcrumb-item>
+      <el-breadcrumb-item>获奖查询</el-breadcrumb-item>
     </el-breadcrumb>
 
     <el-tabs v-model="tab_active">
-      <el-tab-pane :label="gitem" :name="gindex + ''" v-for="(gitem, gindex) in GroupList" :key="'group' + gindex">
-        <el-button @click="handleRefreshList" :loading="loading">刷新列表</el-button>
-        <span style="margin-left: 20px; color: #666666;" v-text="`一等奖${Data.group[gindex].prize[0].list.length}名， 二等奖${Data.group[gindex].prize[1].list.length}名， 三等奖${Data.group[gindex].prize[2].list.length}名， 优秀奖${Data.group[gindex].prize[3].list.length}名`"></span>
+      <el-button @click="handleRefreshList" :loading="loading">刷新列表</el-button>
+      <span style="margin-left: 20px; color: #666666;" v-text="`一等奖${Data.group[0].prize[0].list.length}名， 二等奖${Data.group[0].prize[1].list.length}名， 三等奖${Data.group[0].prize[2].list.length}名， 优秀奖${Data.group[0].prize[3].list.length}名`"></span>
 
-        <el-card shadow="never" v-for="(pitem, pindex) in PrizeList" :key="'prize' + pindex">
-          <div slot="header">
-            <span v-text="pitem"></span>
-          </div>
-          <el-table :data="Data.group[gindex].prize[pindex].list" stripe style="width: 100%" @row-dblclick="handleRowDbclick">
-            <el-table-column type="index" width="50"> </el-table-column>
-            <!--<el-table-column prop="area" label="赛区"> </el-table-column>-->
-            <el-table-column prop="wno" label="作品编号" width="120"> </el-table-column>
-            <el-table-column prop="worksName" label="作品名称"> </el-table-column>
-            <el-table-column prop="gameType" label="参赛组别" width="120"> </el-table-column>
-            <el-table-column prop="worksSeries" label="作品主题"> </el-table-column>
-            <el-table-column prop="worksType" label="作品类别" width="120"> </el-table-column>
-            <el-table-column prop="scoreTotal" label="得分" width="120"> </el-table-column>
-            <el-table-column label="操作" width="180">
-              <template slot-scope="scope">
-                <el-button @click="handleView(scope.row)" type="text" size="small">查看</el-button>
-              </template>
-            </el-table-column>
-          </el-table>
-        </el-card>
-      </el-tab-pane>
+      <el-card shadow="never" v-for="(pitem, pindex) in PrizeList" :key="'prize' + pindex">
+        <div slot="header">
+          <span v-text="pitem"></span>
+        </div>
+        <el-table :data="Data.group[0].prize[pindex].list" stripe style="width: 100%" @row-dblclick="handleRowDbclick">
+          <el-table-column type="index" width="50"> </el-table-column>
+          <!--<el-table-column prop="area" label="赛区"> </el-table-column>-->
+          <el-table-column prop="wno" label="作品编号" width="120"> </el-table-column>
+          <el-table-column prop="worksName" label="作品名称"> </el-table-column>
+          <el-table-column prop="worksType" label="作品类别" width="120"> </el-table-column>
+          <el-table-column prop="worksSeriesName" label="作品主题"> </el-table-column>
+          <el-table-column label="操作" width="180">
+            <template slot-scope="scope">
+              <el-button @click="handleView(scope.row)" type="text" size="small">查看</el-button>
+            </template>
+          </el-table-column>
+        </el-table>
+      </el-card>
     </el-tabs>
 
     <el-drawer title="查看作品" :visible.sync="drawer" direction="rtl" size="50%" :destroy-on-close="true">
@@ -52,15 +48,6 @@ export default {
       tab_active: "0",
       Data: {
         group: [
-          {
-            prize: [{ list: [] }, { list: [] }, { list: [] }, { list: [] }]
-          },
-          {
-            prize: [{ list: [] }, { list: [] }, { list: [] }, { list: [] }]
-          },
-          {
-            prize: [{ list: [] }, { list: [] }, { list: [] }, { list: [] }]
-          },
           {
             prize: [{ list: [] }, { list: [] }, { list: [] }, { list: [] }]
           }
@@ -87,15 +74,6 @@ export default {
         group: [
           {
             prize: [{ list: [] }, { list: [] }, { list: [] }, { list: [] }]
-          },
-          {
-            prize: [{ list: [] }, { list: [] }, { list: [] }, { list: [] }]
-          },
-          {
-            prize: [{ list: [] }, { list: [] }, { list: [] }, { list: [] }]
-          },
-          {
-            prize: [{ list: [] }, { list: [] }, { list: [] }, { list: [] }]
           }
         ]
       };
@@ -110,25 +88,10 @@ export default {
               p.worksType = type == null ? "" : type.value;
             });
 
-            that.Data.group[0].prize[0].list = data.filter(p => p.gameType === "0" && p.prize === 1);
-            that.Data.group[0].prize[1].list = data.filter(p => p.gameType === "0" && p.prize === 2);
-            that.Data.group[0].prize[2].list = data.filter(p => p.gameType === "0" && p.prize === 3);
-            that.Data.group[0].prize[3].list = data.filter(p => p.gameType === "0" && p.prize === 4);
-
-            that.Data.group[1].prize[0].list = data.filter(p => p.gameType === "1" && p.prize === 1);
-            that.Data.group[1].prize[1].list = data.filter(p => p.gameType === "1" && p.prize === 2);
-            that.Data.group[1].prize[2].list = data.filter(p => p.gameType === "1" && p.prize === 3);
-            that.Data.group[1].prize[3].list = data.filter(p => p.gameType === "1" && p.prize === 4);
-
-            that.Data.group[2].prize[0].list = data.filter(p => p.gameType === "2" && p.prize === 1);
-            that.Data.group[2].prize[1].list = data.filter(p => p.gameType === "2" && p.prize === 2);
-            that.Data.group[2].prize[2].list = data.filter(p => p.gameType === "2" && p.prize === 3);
-            that.Data.group[2].prize[3].list = data.filter(p => p.gameType === "2" && p.prize === 4);
-
-            that.Data.group[3].prize[0].list = data.filter(p => p.gameType === "4" && p.prize === 1);
-            that.Data.group[3].prize[1].list = data.filter(p => p.gameType === "4" && p.prize === 2);
-            that.Data.group[3].prize[2].list = data.filter(p => p.gameType === "4" && p.prize === 3);
-            that.Data.group[3].prize[3].list = data.filter(p => p.gameType === "4" && p.prize === 4);
+            that.Data.group[0].prize[0].list = data.filter(p => p.prize === 1);
+            that.Data.group[0].prize[1].list = data.filter(p => p.prize === 2);
+            that.Data.group[0].prize[2].list = data.filter(p => p.prize === 3);
+            that.Data.group[0].prize[3].list = data.filter(p => p.prize === 4);
           } else {
             that.$message({
               showClose: true,

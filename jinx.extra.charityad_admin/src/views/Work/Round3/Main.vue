@@ -8,34 +8,33 @@
     <el-tabs v-model="tab_active">
       <el-tab-pane :label="gitem" :name="gindex + ''" v-for="(gitem, gindex) in GroupList" :key="'group' + gindex">
         <el-button @click="handleRefreshList" :loading="loading">刷新列表</el-button>
-        <span style="margin-left: 20px; color: #666666;" v-text="`一等奖${Data.group[gindex].prize[0].list.length}名， 二等奖${Data.group[gindex].prize[1].list.length}名， 三等奖${Data.group[gindex].prize[2].list.length}名， 优秀奖${Data.group[gindex].prize[3].list.length}名`"></span>
+        <el-button @click="handleSubmit" :loading="submit_status" type="primary">确认修改</el-button>
 
-        <el-card shadow="never" v-for="(pitem, pindex) in PrizeList" :key="'prize' + pindex">
-          <div slot="header">
-            <span v-text="pitem"></span>
-          </div>
-          <el-table :data="Data.group[gindex].prize[pindex].list" stripe style="width: 100%" @row-dblclick="handleRowDbclick">
-            <el-table-column type="index" width="50"> </el-table-column>
-            <!--<el-table-column prop="area" label="赛区"> </el-table-column>-->
-            <el-table-column prop="wno" label="作品编号" width="120"> </el-table-column>
-            <el-table-column prop="worksName" label="作品名称"> </el-table-column>
-            <el-table-column prop="gameType" label="参赛组别" width="120"> </el-table-column>
-            <el-table-column prop="worksSeries" label="作品主题"> </el-table-column>
-            <el-table-column prop="worksType" label="作品类别" width="120"> </el-table-column>
-            <el-table-column prop="scoreTotal" label="得分" width="120"> </el-table-column>
-            <el-table-column label="操作" width="180">
-              <template slot-scope="scope">
-                <el-tooltip content="提升等级" placement="top" :open-delay="1000">
-                  <el-button @click="handleMoveUp(gindex, pindex, scope.$index, scope.row)" type="text"><i class="el-icon-top"></i></el-button>
-                </el-tooltip>
-                <el-tooltip content="降低等级" placement="top" :open-delay="1000">
-                  <el-button @click="handleMoveDown(gindex, pindex, scope.$index, scope.row)" type="text"><i class="el-icon-bottom"></i></el-button>
-                </el-tooltip>
-                <el-button @click="handleView(scope.row)" type="text" size="small">查看</el-button>
-              </template>
-            </el-table-column>
-          </el-table>
-        </el-card>
+        <el-table :data="Data.group[gindex].list" stripe style="width: 100%" @row-dblclick="handleRowDbclick">
+          <el-table-column type="index" width="50"> </el-table-column>
+          <!--<el-table-column prop="area" label="赛区"> </el-table-column>-->
+          <el-table-column prop="wno" label="作品编号" width="120"> </el-table-column>
+          <el-table-column prop="worksName" label="作品名称"> </el-table-column>
+          <el-table-column prop="gameType" label="参赛组别" width="120"> </el-table-column>
+          <el-table-column prop="worksSeries" label="作品主题"> </el-table-column>
+          <el-table-column prop="worksType" label="作品类别" width="120"> </el-table-column>
+          <el-table-column label="设置奖项" width="150">
+            <template slot-scope="scope">
+              <el-select v-model="scope.row.prize" placeholder="设置作品奖项" size="small">
+                <el-option label="设置作品奖项" :value="null"></el-option>
+                <el-option label="一等奖" :value="1"></el-option>
+                <el-option label="二等奖" :value="2"></el-option>
+                <el-option label="三等奖" :value="3"></el-option>
+                <el-option label="优秀奖" :value="4"></el-option>
+              </el-select>
+            </template>
+          </el-table-column>
+          <el-table-column label="操作" width="180">
+            <template slot-scope="scope">
+              <el-button @click="handleView(scope.row)" type="text" size="small">查看</el-button>
+            </template>
+          </el-table-column>
+        </el-table>
       </el-tab-pane>
     </el-tabs>
 
@@ -54,21 +53,20 @@ export default {
   data() {
     return {
       GroupList: ["高校类", "专业类", "公众类", "战疫类"],
-      PrizeList: ["一等奖", "二等奖", "三等奖", "优秀奖"],
       tab_active: "0",
       Data: {
         group: [
           {
-            prize: [{ list: [] }, { list: [] }, { list: [] }, { list: [] }]
+            list: []
           },
           {
-            prize: [{ list: [] }, { list: [] }, { list: [] }, { list: [] }]
+            list: []
           },
           {
-            prize: [{ list: [] }, { list: [] }, { list: [] }, { list: [] }]
+            list: []
           },
           {
-            prize: [{ list: [] }, { list: [] }, { list: [] }, { list: [] }]
+            list: []
           }
         ]
       },
@@ -76,7 +74,8 @@ export default {
       // total: 0,
       loading: false,
       drawer: false,
-      view_wid: -1
+      view_wid: -1,
+      submit_status: false
     };
   },
   mounted() {
@@ -92,16 +91,16 @@ export default {
       this.Data = {
         group: [
           {
-            prize: [{ list: [] }, { list: [] }, { list: [] }, { list: [] }]
+            list: []
           },
           {
-            prize: [{ list: [] }, { list: [] }, { list: [] }, { list: [] }]
+            list: []
           },
           {
-            prize: [{ list: [] }, { list: [] }, { list: [] }, { list: [] }]
+            list: []
           },
           {
-            prize: [{ list: [] }, { list: [] }, { list: [] }, { list: [] }]
+            list: []
           }
         ]
       };
@@ -124,28 +123,32 @@ export default {
             });
 
             let game_type0 = that.getGameTypeByCode("0");
-            that.Data.group[0].prize[0].list = data.filter(p => p.gameType === game_type0 && p.prize === 1);
-            that.Data.group[0].prize[1].list = data.filter(p => p.gameType === game_type0 && p.prize === 2);
-            that.Data.group[0].prize[2].list = data.filter(p => p.gameType === game_type0 && p.prize === 3);
-            that.Data.group[0].prize[3].list = data.filter(p => p.gameType === game_type0 && p.prize === 4);
+            that.Data.group[0].list = data
+              .filter(p => p.gameType === game_type0)
+              .sort((a, b) => {
+                return a.prize == null && b.prize == null ? 1 : a.prize == null ? 1 : b.prize == null ? -1 : a.prize - b.prize;
+              });
 
             let game_type1 = that.getGameTypeByCode("1");
-            that.Data.group[1].prize[0].list = data.filter(p => p.gameType === game_type1 && p.prize === 1);
-            that.Data.group[1].prize[1].list = data.filter(p => p.gameType === game_type1 && p.prize === 2);
-            that.Data.group[1].prize[2].list = data.filter(p => p.gameType === game_type1 && p.prize === 3);
-            that.Data.group[1].prize[3].list = data.filter(p => p.gameType === game_type1 && p.prize === 4);
+            that.Data.group[1].list = data
+              .filter(p => p.gameType === game_type1)
+              .sort((a, b) => {
+                return a.prize == null && b.prize == null ? 1 : a.prize == null ? 1 : b.prize == null ? -1 : a.prize - b.prize;
+              });
 
             let game_type2 = that.getGameTypeByCode("2");
-            that.Data.group[2].prize[0].list = data.filter(p => p.gameType === game_type2 && p.prize === 1);
-            that.Data.group[2].prize[1].list = data.filter(p => p.gameType === game_type2 && p.prize === 2);
-            that.Data.group[2].prize[2].list = data.filter(p => p.gameType === game_type2 && p.prize === 3);
-            that.Data.group[2].prize[3].list = data.filter(p => p.gameType === game_type2 && p.prize === 4);
+            that.Data.group[2].list = data
+              .filter(p => p.gameType === game_type2)
+              .sort((a, b) => {
+                return a.prize == null && b.prize == null ? 1 : a.prize == null ? 1 : b.prize == null ? -1 : a.prize - b.prize;
+              });
 
             let game_type4 = that.getGameTypeByCode("4");
-            that.Data.group[3].prize[0].list = data.filter(p => p.gameType === game_type4 && p.prize === 1);
-            that.Data.group[3].prize[1].list = data.filter(p => p.gameType === game_type4 && p.prize === 2);
-            that.Data.group[3].prize[2].list = data.filter(p => p.gameType === game_type4 && p.prize === 3);
-            that.Data.group[3].prize[3].list = data.filter(p => p.gameType === game_type4 && p.prize === 4);
+            that.Data.group[3].list = data
+              .filter(p => p.gameType === game_type4)
+              .sort((a, b) => {
+                return a.prize == null && b.prize == null ? 1 : a.prize == null ? 1 : b.prize == null ? -1 : a.prize - b.prize;
+              });
           } else {
             that.$message({
               showClose: true,
@@ -177,43 +180,20 @@ export default {
       this.view_wid = row.wid;
       this.drawer = true;
     },
-    handleMoveUp: function(group, prize, index, data) {
-      if (prize === 0) {
-        return;
-      }
-
-      let up = this.Data.group[group].prize[prize].list.splice(index, 1)[0];
-      let down = this.Data.group[group].prize[prize - 1].list.splice(this.Data.group[group].prize[prize - 1].list.length - 1, 1)[0];
-      this.Data.group[group].prize[prize].list = [down].concat(this.Data.group[group].prize[prize].list);
-      this.Data.group[group].prize[prize - 1].list.push(up);
-      this.submit();
-    },
-    handleMoveDown: function(group, prize, index, data) {
-      if (prize === 3) {
-        return;
-      }
-
-      let down = this.Data.group[group].prize[prize].list.splice(index, 1)[0];
-      if (this.Data.group[group].prize[prize + 1].list.length > 0) {
-        let up = this.Data.group[group].prize[prize + 1].list.splice(0, 1)[0];
-        this.Data.group[group].prize[prize].list.push(up);
-      }
-      this.Data.group[group].prize[prize + 1].list = [down].concat(this.Data.group[group].prize[prize + 1].list);
-      this.submit();
-    },
-    submit: function() {
+    handleSubmit: function() {
       let that = this;
       let update = [];
       for (let i = 0; i < this.Data.group.length; i++) {
-        for (let j = 0; j < this.Data.group[i].prize.length; j++) {
-          for (let k = 0; k < this.Data.group[i].prize[j].list.length; k++) {
+        for (let k = 0; k < this.Data.group[i].list.length; k++) {
+          if (this.Data.group[i].list[k].prize != null) {
             update.push({
-              wid: this.Data.group[i].prize[j].list[k].wid,
-              prize: j + 1
+              wid: this.Data.group[i].list[k].wid,
+              prize: this.Data.group[i].list[k].prize
             });
           }
         }
       }
+      that.submit_status = true;
       this.axios
         .post("/api/gameWorks2/appraisal_round3", qs.stringify({ jsonString: JSON.stringify(update) }))
         .then(function(response) {
@@ -223,8 +203,7 @@ export default {
               message: "提交成功",
               type: "success"
             });
-            that.Scored = true;
-            that.submit_status.disabled = true;
+            that.getList();
           } else {
             that.$message({
               showClose: true,
@@ -232,11 +211,11 @@ export default {
               type: "warning"
             });
           }
-          that.submit_status.loading = false;
+          that.submit_status = false;
         })
         .catch(function(err) {
           console.log(err);
-          that.submit_status.loading = false;
+          that.submit_status = false;
           that.$message({
             showClose: true,
             message: "提交失败",

@@ -1,30 +1,36 @@
 <template>
-  <div class="jinx-panel">
-    <el-breadcrumb separator="/">
-      <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-      <el-breadcrumb-item>获奖查询</el-breadcrumb-item>
+  <div style="padding: 20px;">
+    <el-breadcrumb separator="/" style="margin-bottom: 20px;">
+      <el-breadcrumb-item>首页</el-breadcrumb-item>
+      <el-breadcrumb-item>作品打分(第三轮)</el-breadcrumb-item>
     </el-breadcrumb>
 
-    <div class="jinx-types">
-      <div class="type" v-for="(item, index) in $WorksTypeCode" :key="'WorksTypeCode' + index"><div :class="{ active: type === item.code * 1 }" @click="handleTypeClick(item.code * 1)" v-text="item.value"></div></div>
-    </div>
-
     <el-tabs v-model="tab_active">
-      <el-tab-pane :label="item.value" :name="item.code + ''" v-for="(item, index) in $WorksGroupCode" :key="'WorksGroupCode' + index">
+      <el-tab-pane :label="gitem" :name="gindex + ''" v-for="(gitem, gindex) in GroupList" :key="'group' + gindex">
+        <el-button @click="handleRefreshList" :loading="loading">刷新列表</el-button>
+        <span style="margin-left: 20px; color: #666666;" v-text="`一等奖${Data.group[gindex].prize[0].list.length}名， 二等奖${Data.group[gindex].prize[1].list.length}名， 三等奖${Data.group[gindex].prize[2].list.length}名， 优秀奖${Data.group[gindex].prize[3].list.length}名`"></span>
+
         <el-card shadow="never" v-for="(pitem, pindex) in PrizeList" :key="'prize' + pindex">
           <div slot="header">
             <span v-text="pitem"></span>
           </div>
-          <el-table :data="Data.group[index].prize[pindex].list" stripe style="width: 100%" @row-dblclick="handleRowDbclick">
+          <el-table :data="Data.group[gindex].prize[pindex].list" stripe style="width: 100%" @row-dblclick="handleRowDbclick">
             <el-table-column type="index" width="50"> </el-table-column>
+            <!--<el-table-column prop="area" label="赛区"> </el-table-column>-->
             <el-table-column prop="wno" label="作品编号" width="120"> </el-table-column>
             <el-table-column prop="worksName" label="作品名称"> </el-table-column>
             <el-table-column prop="gameType" label="参赛组别" width="120"> </el-table-column>
             <el-table-column prop="worksSeries" label="作品主题"> </el-table-column>
             <el-table-column prop="worksType" label="作品类别" width="120"> </el-table-column>
-            <!--<el-table-column prop="scoreTotal" label="得分" width="120"> </el-table-column>-->
+            <el-table-column prop="scoreTotal" label="得分" width="120"> </el-table-column>
             <el-table-column label="操作" width="180">
               <template slot-scope="scope">
+                <el-tooltip content="提升等级" placement="top" :open-delay="1000">
+                  <el-button @click="handleMoveUp(gindex, pindex, scope.$index, scope.row)" type="text"><i class="el-icon-top"></i></el-button>
+                </el-tooltip>
+                <el-tooltip content="降低等级" placement="top" :open-delay="1000">
+                  <el-button @click="handleMoveDown(gindex, pindex, scope.$index, scope.row)" type="text"><i class="el-icon-bottom"></i></el-button>
+                </el-tooltip>
                 <el-button @click="handleView(scope.row)" type="text" size="small">查看</el-button>
               </template>
             </el-table-column>
@@ -32,18 +38,24 @@
         </el-card>
       </el-tab-pane>
     </el-tabs>
+
+    <el-drawer title="查看作品" :visible.sync="drawer" direction="rtl" size="50%" :destroy-on-close="true">
+      <jinx-works-viewer :wid="view_wid" ref="WorksViewer"></jinx-works-viewer>
+    </el-drawer>
   </div>
 </template>
 
 <script>
 import qs from "qs";
+import JinxWorksViewer from "./components/JinxWorksViewer.vue";
 
 export default {
-  data: function() {
+  components: { JinxWorksViewer },
+  data() {
     return {
-      tab_active: "0",
-      type: 1,
+      GroupList: ["高校类", "专业类", "公众类", "战疫类"],
       PrizeList: ["一等奖", "二等奖", "三等奖", "优秀奖"],
+      tab_active: "0",
       Data: {
         group: [
           {
@@ -59,18 +71,23 @@ export default {
             prize: [{ list: [] }, { list: [] }, { list: [] }, { list: [] }]
           }
         ]
-      }
+      },
+      List: [],
+      // total: 0,
+      loading: false,
+      drawer: false,
+      view_wid: -1
     };
   },
-  mounted: function() {
-    this.getRankList();
+  mounted() {
+    this.getList();
   },
   methods: {
-    handleTypeClick(type) {
-      this.type = type;
-      this.getRankList();
+    handleRefreshList: function() {
+      this.getList();
     },
-    getRankList: function() {
+    getList() {
+      this.loading = true;
       let that = this;
       this.Data = {
         group: [
@@ -88,18 +105,13 @@ export default {
           }
         ]
       };
-      const loading = this.$loading({
-        lock: true,
-        text: "Loading",
-        spinner: "el-icon-loading",
-        background: "rgba(0, 0, 0, 0.7)"
-      });
       this.axios
-        .post("/api/gameWorksRank/getRankByMap", qs.stringify({ worksType: this.type }))
+        .post("/api/gameWorks2/getNoAppraisalList_Round3")
         .then(function(response) {
           console.log(response);
           if (response && response.data.code == "0") {
             let data = response.data.data;
+            // that.List = response.data.data.list;
             data.forEach(p => {
               let game_type = that.$WorksGroupCode.find(x => x.code == p.gameType);
               p.gameType = game_type == null ? "" : game_type.value;
@@ -141,14 +153,14 @@ export default {
               type: "warning"
             });
           }
-          loading.close();
+          that.loading = false;
         })
         .catch(function(err) {
           console.log(err);
-          loading.close();
+          that.loading = false;
           that.$message({
             showClose: true,
-            message: "获奖结果查询失败",
+            message: "查询失败",
             type: "warning"
           });
         });
@@ -158,59 +170,96 @@ export default {
       return game_type == null ? code : game_type.value;
     },
     handleView: function(data) {
-      this.$router.push({
-        path: "/prize/work",
-        query: {
-          wid: data.wid
-        }
-      });
+      this.view_wid = data.wid;
+      this.drawer = true;
     },
     handleRowDbclick: function(row, column, event) {
-      this.$router.push({
-        path: "/prize/work",
-        query: {
-          wid: row.wid
+      this.view_wid = row.wid;
+      this.drawer = true;
+    },
+    handleMoveUp: function(group, prize, index, data) {
+      if (prize === 0) {
+        return;
+      }
+
+      let up = this.Data.group[group].prize[prize].list.splice(index, 1)[0];
+      let down = this.Data.group[group].prize[prize - 1].list.splice(this.Data.group[group].prize[prize - 1].list.length - 1, 1)[0];
+      this.Data.group[group].prize[prize].list = [down].concat(this.Data.group[group].prize[prize].list);
+      this.Data.group[group].prize[prize - 1].list.push(up);
+      this.submit();
+    },
+    handleMoveDown: function(group, prize, index, data) {
+      if (prize === 3) {
+        return;
+      }
+
+      let down = this.Data.group[group].prize[prize].list.splice(index, 1)[0];
+      if (this.Data.group[group].prize[prize + 1].list.length > 0) {
+        let up = this.Data.group[group].prize[prize + 1].list.splice(0, 1)[0];
+        this.Data.group[group].prize[prize].list.push(up);
+      }
+      this.Data.group[group].prize[prize + 1].list = [down].concat(this.Data.group[group].prize[prize + 1].list);
+      this.submit();
+    },
+    submit: function() {
+      let that = this;
+      let update = [];
+      for (let i = 0; i < this.Data.group.length; i++) {
+        for (let j = 0; j < this.Data.group[i].prize.length; j++) {
+          for (let k = 0; k < this.Data.group[i].prize[j].list.length; k++) {
+            update.push({
+              wid: this.Data.group[i].prize[j].list[k].wid,
+              prize: j + 1
+            });
+          }
         }
-      });
+      }
+      this.axios
+        .post("/api/gameWorks2/appraisal_round3", qs.stringify({ jsonString: JSON.stringify(update) }))
+        .then(function(response) {
+          if (response && response.data.code == "0") {
+            that.$message({
+              showClose: true,
+              message: "提交成功",
+              type: "success"
+            });
+            that.Scored = true;
+            that.submit_status.disabled = true;
+          } else {
+            that.$message({
+              showClose: true,
+              message: response.data.msg,
+              type: "warning"
+            });
+          }
+          that.submit_status.loading = false;
+        })
+        .catch(function(err) {
+          console.log(err);
+          that.submit_status.loading = false;
+          that.$message({
+            showClose: true,
+            message: "提交失败",
+            type: "warning"
+          });
+        });
     }
   }
 };
 </script>
 
+<style>
+:focus {
+  outline: 0;
+}
+</style>
+
 <style lang="less" scoped>
-.jinx-panel {
-  width: @typical-width;
-  margin: 30px auto 0 auto;
-  box-sizing: border-box;
-}
-
-.jinx-types {
-  display: flex;
-  display: -webkit-flex;
-  justify-content: space-between;
-
-  .type {
-    flex: 1;
-    padding: 20px;
-
-    div {
-      border: 1px solid @primary-color;
-      padding: 20px;
-      text-align: center;
-      cursor: pointer;
-      transition: background 0.3s, color 0.3s, border-color 0.3s;
-      border-radius: 7px;
-    }
-
-    div.active {
-      background: @primary-color;
-      border-color: @primary-color;
-      color: #fefdfc;
-    }
-  }
-}
-
 /deep/ .el-card {
   margin-top: 20px;
+}
+
+/deep/ .el-drawer {
+  overflow-y: scroll;
 }
 </style>

@@ -218,15 +218,6 @@ const routes = [
         }
       },
       {
-        path: "/workrank",
-        name: "WorkRank",
-        component: () => import("../views/Work/Rank.vue"),
-        meta: {
-          title: "作品排行",
-          access: ["judge", "leader"]
-        }
-      },
-      {
         path: "/workregular",
         name: "WorkRegular",
         component: () => import("../views/Work/Regular.vue"),

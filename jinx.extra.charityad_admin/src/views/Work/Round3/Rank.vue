@@ -2,7 +2,7 @@
   <div style="padding: 20px;">
     <el-breadcrumb separator="/" style="margin-bottom: 20px;">
       <el-breadcrumb-item>首页</el-breadcrumb-item>
-      <el-breadcrumb-item>作品打分(第三轮)</el-breadcrumb-item>
+      <el-breadcrumb-item>获奖查询</el-breadcrumb-item>
     </el-breadcrumb>
 
     <el-tabs v-model="tab_active">
@@ -16,13 +16,12 @@
           </div>
           <el-table :data="Data.group[gindex].prize[pindex].list" stripe style="width: 100%" @row-dblclick="handleRowDbclick">
             <el-table-column type="index" width="50"> </el-table-column>
-            <!--<el-table-column prop="area" label="赛区"> </el-table-column>-->
             <el-table-column prop="wno" label="作品编号" width="120"> </el-table-column>
             <el-table-column prop="worksName" label="作品名称"> </el-table-column>
             <el-table-column prop="gameType" label="参赛组别" width="120"> </el-table-column>
             <el-table-column prop="worksSeries" label="作品主题"> </el-table-column>
             <el-table-column prop="worksType" label="作品类别" width="120"> </el-table-column>
-            <el-table-column prop="scoreTotal" label="得分" width="120"> </el-table-column>
+            <!--<el-table-column prop="scoreTotal" label="得分" width="120"> </el-table-column>-->
             <el-table-column label="操作" width="180">
               <template slot-scope="scope">
                 <el-button @click="handleView(scope.row)" type="text" size="small">查看</el-button>
@@ -140,8 +139,6 @@ export default {
             that.Data.group[3].prize[1].list = data.filter(p => p.gameType === game_type4 && p.prize === 2);
             that.Data.group[3].prize[2].list = data.filter(p => p.gameType === game_type4 && p.prize === 3);
             that.Data.group[3].prize[3].list = data.filter(p => p.gameType === game_type4 && p.prize === 4);
-            console.log(game_type0, game_type1, game_type2, game_type4);
-            console.log(data.filter(p => p.game_type === game_type4));
           } else {
             that.$message({
               showClose: true,
