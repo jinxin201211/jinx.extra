@@ -40,6 +40,7 @@ export default {
     };
   },
   mounted() {
+    // console.log(this.$route);
     // console.log("--------------JinxTopNav----------------");
     // console.log(this.$store.state.Account);
     // console.log("JinxTopNav");
@@ -63,7 +64,11 @@ export default {
     handleSignOut: function() {
       this.$store.commit("resetAccount");
       this.$store.commit("removeCookie");
-      this.$router.replace("/");
+      if (this.$route.name === "Home") {
+        this.reload();
+      } else {
+        this.$router.replace("/");
+      }
     },
     scrollToSection(path) {
       this.$emit("scrolltoview", path);

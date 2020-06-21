@@ -78,7 +78,7 @@
             <label style="margin-left: 20px;">请输入验证码</label>
           </el-form-item>
           <el-form-item prop="agree" :rules="[{ required: true, message: '请先同意注册协议', trigger: 'blur' }]">
-            <el-checkbox name="agree" v-model="form.agree">勾选同意<el-link @click.stop.prevent="">《注册协议》</el-link></el-checkbox>
+            <el-checkbox name="agree" v-model="form.agree">勾选同意<el-link @click.stop.prevent="$router.push('/account/agreement')">《注册协议》</el-link></el-checkbox>
           </el-form-item>
           <el-form-item>
             <el-button type="primary" @click="handleSubmit" :loading="loading" :disabled="!form.agree">提交注册</el-button>

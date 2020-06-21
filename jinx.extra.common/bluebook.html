@@ -58,27 +58,40 @@
       vertical-align: top;
       position: relative;
       cursor: pointer;
+      position: relative;
+      padding-top: 378px;
+      -webkit-perspective: 150rem;
+      perspective: 150rem;
     }
 
-    .jinx-pdf-item>.icon {
+    .jinx-pdf-item>.front {
+      position: absolute;
+      top: 0;
+      left: 0;
       width: 250px;
-      height: 350px;
+      height: 378px;
       font-size: 18px;
       font-weight: bold;
       background: #019feb;
       padding-top: 50px;
       box-sizing: border-box;
       box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+      -webkit-box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+      transition: transform .8s linear;
+      -webkit-transition: transform .8s linear;
+      transform: rotateY(0);
+      -webkit-transform: rotateY(0);
+      backface-visibility: hidden;
     }
 
-    .jinx-pdf-item>.icon>.back1 {
+    .jinx-pdf-item>.front>.back1 {
       margin-top: 0;
       height: 4px;
       background: #efefef;
       width: 100%;
     }
 
-    .jinx-pdf-item>.icon>.back2 {
+    .jinx-pdf-item>.front>.back2 {
       margin-top: 10px;
       background: #efefef;
       width: 100%;
@@ -87,7 +100,7 @@
       box-sizing: border-box;
     }
 
-    .jinx-pdf-item>.icon>.back3 {
+    .jinx-pdf-item>.front>.back3 {
       margin-top: 10px;
       height: 4px;
       background: #efefef;
@@ -97,6 +110,36 @@
     .jinx-pdf-item>.title {
       margin-top: 20px;
       width: 250px;
+    }
+
+    .jinx-pdf-item>.back {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 250px;
+      height: 378px;
+      font-size: 12px;
+      color: #000000;
+      background: #fff;
+      transition: transform .8s linear;
+      -webkit-transition: transform .8s linear;
+      transform: rotateY(180deg);
+      -webkit-transform: rotateY(180deg);
+      padding: 20px;
+      box-sizing: border-box;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+      -webkit-box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+      backface-visibility: hidden;
+    }
+
+    .jinx-pdf-item:hover>.front {
+      transform: rotateY(-180deg);
+      -webkit-transform: rotateY(-180deg);
+    }
+
+    .jinx-pdf-item:hover>.back {
+      transform: rotateY(0);
+      -webkit-transform: rotateY(0);
     }
   </style>
 </head>
@@ -110,27 +153,51 @@
       <div>
         <div class="jinx-pdf-item"
           onclick="handleBlueBookClick('/PDF/广告业发展蓝皮书（2012-2016）/河北广告业发展蓝皮书（2012-2016）（封面）.pdf')">
-          <div class="icon">
+          <div class="front">
             <div class="back1"></div>
             <div class="back2">河北广告业发展蓝皮书（2012-2016）（封面）</div>
             <div class="back3"></div>
           </div>
+          <div class="back">
+            <p>1.《河北广告发展蓝皮书（2012-2016）》</p>
+            <p>ISBN：9787202125540</p>
+            <p>文献出版物获取请联系：</p>
+            <p>河北省广告研究院</p>
+            <p>韩老师 15632194562</p>
+            <p>张老师 15032637229</p>
+          </div>
           <div class="title">河北广告业发展蓝皮书（2012-2016）（封面）.pdf</div>
         </div>
         <div class="jinx-pdf-item" onclick="handleBlueBookClick('/PDF/广告业发展蓝皮书（2012-2016）/河北广告业发展蓝皮书（前言）.pdf')">
-          <div class="icon">
+          <div class="front">
             <div class="back1"></div>
             <div class="back2">河北广告业发展蓝皮书（前言）</div>
             <div class="back3"></div>
+          </div>
+          <div class="back">
+            <p>1.《河北广告发展蓝皮书（2012-2016）》</p>
+            <p>ISBN：9787202125540</p>
+            <p>文献出版物获取请联系：</p>
+            <p>河北省广告研究院</p>
+            <p>韩老师 15632194562</p>
+            <p>张老师 15032637229</p>
           </div>
           <div class="title">河北广告业发展蓝皮书（前言）.pdf</div>
         </div>
         <div class="jinx-pdf-item"
           onclick="handleBlueBookClick('/PDF/广告业发展蓝皮书（2012-2016）/河北广告业发展蓝皮书（2012-2016）（正文）.pdf')">
-          <div class="icon">
+          <div class="front">
             <div class="back1"></div>
             <div class="back2">河北广告业发展蓝皮书（2012-2016）（正文）</div>
             <div class="back3"></div>
+          </div>
+          <div class="back">
+            <p>1.《河北广告发展蓝皮书（2012-2016）》</p>
+            <p>ISBN：9787202125540</p>
+            <p>文献出版物获取请联系：</p>
+            <p>河北省广告研究院</p>
+            <p>韩老师 15632194562</p>
+            <p>张老师 15032637229</p>
           </div>
           <div class="title">河北广告业发展蓝皮书（2012-2016）（正文）.pdf</div>
         </div>
@@ -142,10 +209,18 @@
       </h3>
       <div>
         <div class="jinx-pdf-item" onclick="handleBlueBookClick('/PDF/广告业发展蓝皮书（2017-2019）/河北广告业发展蓝皮书(2017-2019).pdf')">
-          <div class="icon">
+          <div class="front">
             <div class="back1"></div>
             <div class="back2">河北广告业发展蓝皮书(2017-2019)</div>
             <div class="back3"></div>
+          </div>
+          <div class="back">
+            <p>1.《河北广告发展蓝皮书（2017-2019）》</p>
+            <p>ISBN：9787202118150</p>
+            <p>文献出版物获取请联系：</p>
+            <p>河北省广告研究院</p>
+            <p>韩老师 15632194562</p>
+            <p>张老师 15032637229</p>
           </div>
           <div class="title">河北广告业发展蓝皮书(2017-2019).pdf</div>
         </div>
@@ -160,7 +235,7 @@
       <span style="display: inline-block; vertical-align: bottom; margin-right: 20px;">© 2020&nbsp;</span>
       <a href="http://hbsggyjy.hebtu.edu.cn">hbsggyjy.hebtu.edu.cn</a>
     </div>
-    <div>京ICP备06010242号-2 工业和信息化部备案管理系统（http://beian.miit.gov.cn）网站统计</div>
+    <div>冀ICP备18011017号-3 冀公网安备 13010802000630号</div>
   </div>
 
   <script>

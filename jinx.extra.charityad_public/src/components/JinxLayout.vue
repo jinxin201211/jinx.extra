@@ -7,9 +7,12 @@
     <slot></slot>
 
     <div class="jinx-footer">
-      <div>版权所有&nbsp;2005-2020&nbsp;河北省公益广告大赛&nbsp;（www.sun-ada.net）</div>
-      <div>Copyright ＠ 2005-2020&nbsp;www.sun-ada.net All rights reserved.</div>
-      <div>京ICP备06010242号-2 工业和信息化部备案管理系统（http://beian.miit.gov.cn）网站统计</div>
+      <div>版权所有&nbsp;2020&nbsp;河北省广告研究院&nbsp;（hbsggyjy.hebtu.edu.cn）</div>
+      <div>
+        <span style="display: inline-block; vertical-align: bottom; margin-right: 20px;">© 2020&nbsp;</span>
+        <a href="http://hbsggyjy.hebtu.edu.cn">hbsggyjy.hebtu.edu.cn</a>
+      </div>
+      <div>冀ICP备18011017号-3 冀公网安备 13010802000630号</div>
     </div>
   </div>
 </template>

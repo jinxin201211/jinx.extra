@@ -146,8 +146,6 @@ export default {
             that.Data.group[3].prize[1].list = data.filter(p => p.gameType === game_type4 && p.prize === 2);
             that.Data.group[3].prize[2].list = data.filter(p => p.gameType === game_type4 && p.prize === 3);
             that.Data.group[3].prize[3].list = data.filter(p => p.gameType === game_type4 && p.prize === 4);
-            console.log(game_type0, game_type1, game_type2, game_type4);
-            console.log(data.filter(p => p.game_type === game_type4));
           } else {
             that.$message({
               showClose: true,

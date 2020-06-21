@@ -51,8 +51,8 @@ export default {
         { path: "/workregular", access: ["judge", "leader"], title: "评审办法" },
         { path: "/score/round1", access: ["judge", "leader"], title: "作品打分(第一轮)" },
         { path: "/score/round2", access: ["judge", "leader"], title: "作品打分(第二轮)" },
-        { path: "/score/round3", access: ["leader"], title: "作品打分(第三轮)" },
-        { path: "/score/rank", access: ["judge"], title: "作品打分(第三轮)" }
+        { path: "/score/round3", access: ["leader"], title: "作品打分(第三轮)" }
+        // { path: "/score/rank", access: ["judge", "leader"], title: "获奖查询" }
         // { path: "/workrank", access: ["judge"], title: "作品排行" }
       ],
       RouteList: [],

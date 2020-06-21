@@ -390,8 +390,15 @@ export default {
         { type: "5", count: 5 },
         { type: "6", count: 4 }
       ],
-      ValidateErrorMessage: []
+      ValidateErrorMessage: [],
+      ErrorNotify: null
     };
+  },
+  beforeRouteLeave(to, from, next) {
+    if (this.ErrorNotify) {
+      this.ErrorNotify.close();
+    }
+    next();
   },
   mounted: function() {
     let wid = this.$route.query.wid;
@@ -518,7 +525,7 @@ export default {
     handleNextStep: function() {
       this.ValidateErrorMessage = [];
       this.$refs["form"].validate(valid => {
-        console.log(this.ValidateErrorMessage);
+        // console.log(this.ValidateErrorMessage);
         if (valid) {
           this.submit();
         } else {
@@ -526,7 +533,7 @@ export default {
           for (let i = 0; i < this.ValidateErrorMessage.length; i++) {
             msg += "<p>" + this.ValidateErrorMessage[i] + "</p>";
           }
-          this.$notify({
+          this.ErrorNotify = this.$notify({
             title: "警告",
             message: msg,
             dangerouslyUseHTMLString: true,

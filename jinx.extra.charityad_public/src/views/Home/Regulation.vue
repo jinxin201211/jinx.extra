@@ -98,16 +98,11 @@
 
 <script>
 import JinxLayout from "@/components/JinxLayout.vue";
-import qs from "qs";
 
 export default {
   components: { JinxLayout },
   data: function() {
-    return {
-      title: "",
-      subTitle: "",
-      time: ""
-    };
+    return {};
   },
   mounted: function() {}
 };

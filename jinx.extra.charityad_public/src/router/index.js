@@ -35,6 +35,15 @@ const routes = [
           title: "注册",
           access: false
         }
+      },
+      {
+        name: "agreement",
+        path: "agreement",
+        component: () => import("../views/Account/Agreement.vue"),
+        meta: {
+          title: "注册协议",
+          access: false
+        }
       }
     ]
   },

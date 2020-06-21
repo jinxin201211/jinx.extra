@@ -159,7 +159,7 @@ export default {
           } else {
             that.$message({
               showClose: true,
-              message: "获奖结果查询失败",
+              message: response.data.msg,
               type: "warning"
             });
           }

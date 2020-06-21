@@ -4,9 +4,7 @@
     <jinx-nav-menu :menu="menuList" style="position: absolute; top: 42px; z-index: 1;" @scrolltoview="handleScrollToView"></jinx-nav-menu>
     <!--<div id="anchor_home" class="jinx-banner" :style="{ backgroundImage: 'url(' + require('@/assets/images/banner.jpg') + ')' }">-->
     <div id="anchor_home" class="jinx-banner">
-      <div class="banner banner-1" :class="{ active: bannerShow === 0, hide: bannerShow !== 0 }"></div>
-      <div class="banner banner-2" :class="{ active: bannerShow === 1, hide: bannerShow !== 1 }"></div>
-      <div class="banner banner-3" :class="{ active: bannerShow === 2, hide: bannerShow !== 2 }"></div>
+      <div class="banner banner-1 active"></div>
     </div>
 
     <div class="jinx-banner-navbar">
@@ -47,7 +45,7 @@
       <div class="title">大赛介绍</div>
       <div class="intro">
         <p>河北省公益广告大赛于2020年首次举办，以“河北省市场监督管理局”为主办单位，以“河北省广告研究院、河北省广告协会、河北广播电视台”为承办单位，在河北省委省政府深入开展“三创四建”活动的大背景下，为创建全国文明城市、弘扬社会主义核心价值观，在全社会积极倡导“讲文明树新风”的良好社会风尚，凝聚新时代全面建设经济强省、美丽河北的磅礴力量，共同组织开展2020河北省公益广告大赛。</p>
-        <p>本次大赛以“文明河北我创益”为主题，征稿作品主题细分为“中国梦”系列、“自然+环境”系列、“消费者权益保护+知识产权”系列、“社会+安全”系列、“传承+关爱”系列、“成长+校园”系列、“美丽河北”系列及其他主题。</p>
+        <p>本次大赛以“文明河北我创益”为主题，面向全社会征集优秀的公益广告作品。创作内容包括但不限于弘扬社会主义核心价值观、自然环境保护、消费者权益保护、知识产权保护、社会安全、传承关爱、美丽河北等方面</p>
         <p>参赛作品分为平面类、文案类、广播类、视频类、动画类、互动类六大类。</p>
         <p>大赛落地“三创四建”，推进文明城市建设。对于深入推进我省全国文明城市创建工作具有重要作用。同时集合专业与社会力量，发挥公益广告导向作用。倡导公益风尚，呼唤社会关注。通过遴选并在众多媒体展播相关优秀作品资源，发挥各大媒体传播优势，将公益广告蕴含的社会正能量向社会大众广泛传播。此外，公益广告大赛将作为河北公益广告业发展的重要吸引核，推进人才、资源交流，以赛促学，以赛促交流，以赛促大发展，在业内进一步完善人才和资源交流，促进河北公益事业发展。</p>
         <p>大赛秉持公平公正的办赛原则，聘请学界、业界资深专家、学者和企业高管组成专业评审团，评选参赛作品，并将评审后的作品进行网络公示，杜绝抄袭，不断提升赛事的公信力。</p>
@@ -217,6 +215,9 @@
           <div class="item-pos">
             <div class="link-item"><el-link href="http://www.heb315.org.cn/" target="_blank">河北省消费者权益保护委员会</el-link></div>
           </div>
+          <div class="item-pos">
+            <div class="link-item"><el-link href="http://scjg.sjz.gov.cn/" target="_blank">石家庄市场监管局</el-link></div>
+          </div>
         </div>
       </div>
     </div>
@@ -239,9 +240,12 @@
     </div>
 
     <div class="jinx-footer">
-      <div>版权所有&nbsp;2020&nbsp;河北省公益广告大赛&nbsp;（hbsggyjy.hebtu.edu.cn）</div>
-      <div><span style="display: inline-block; vertical-align: bottom; margin-right: 20px;">© 2020&nbsp;</span><el-link :href="'http://hbsggyjy.hebtu.edu.cn'">hbsggyjy.hebtu.edu.cn</el-link></div>
-      <div>京ICP备06010242号-2 工业和信息化部备案管理系统（http://beian.miit.gov.cn）网站统计</div>
+      <div>版权所有&nbsp;2020&nbsp;河北省广告研究院&nbsp;（hbsggyjy.hebtu.edu.cn）</div>
+      <div>
+        <span style="display: inline-block; vertical-align: bottom; margin-right: 20px;">© 2020&nbsp;</span>
+        <a href="http://hbsggyjy.hebtu.edu.cn">hbsggyjy.hebtu.edu.cn</a>
+      </div>
+      <div>冀ICP备18011017号-3 冀公网安备 13010802000630号</div>
     </div>
   </div>
 </template>
@@ -266,7 +270,6 @@ export default {
         { title: "联系我们", path: "anchor_contact_us" }
       ],
       newsList: [],
-      bannerShow: 0,
       work: {
         list: [],
         index: 0,
@@ -290,11 +293,6 @@ export default {
     turnBannerCarousel: function() {
       let that = this;
       let time = 0;
-      setTimeout(function f() {
-        that.bannerShow = time % 3;
-        time++;
-        setTimeout(f, 10000);
-      }, 0);
     },
     getNewsList() {
       // this.loading = true;
@@ -410,7 +408,6 @@ export default {
               }
               that.work.list.push(work);
             }
-            console.log(that.work.list);
           } else {
             that.$message({
               showClose: true,
@@ -1023,7 +1020,7 @@ export default {
           display: flex;
           justify-content: center;
           align-items: center;
-          padding: 0 15px;
+          padding: 0 12px;
           box-sizing: border-box;
         }
       }

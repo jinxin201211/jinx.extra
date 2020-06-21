@@ -20,30 +20,30 @@
       </div>
       <div v-if="game_type === '4'">
         <div class="jinx-works-info">
-          <span>参赛组别</span>
-          <span v-text="WorksInfo.works.gameType"></span>
+          <span class="title">参赛组别</span>
+          <span class="value" v-text="WorksInfo.works.gameType"></span>
         </div>
         <div class="jinx-works-info">
-          <span>作品类别</span>
-          <span v-text="WorksInfo.works.worksType == null ? '' : WorksInfo.works.worksType"></span>
+          <span class="title">作品类别</span>
+          <span class="value" v-text="WorksInfo.works.worksType == null ? '' : WorksInfo.works.worksType"></span>
         </div>
       </div>
       <div v-else>
         <div class="jinx-works-info">
-          <span>参赛组别</span>
-          <span v-text="WorksInfo.works.gameType"></span>
+          <span class="title">参赛组别</span>
+          <span class="value" v-text="WorksInfo.works.gameType"></span>
         </div>
         <div class="jinx-works-info">
-          <span>作品类别</span>
-          <span v-text="(WorksInfo.works.worksSeries == null ? '' : WorksInfo.works.worksSeries) + ' | ' + (WorksInfo.works.worksType == null ? '' : WorksInfo.works.worksType)"></span>
+          <span class="title">作品类别</span>
+          <span class="value" v-text="(WorksInfo.works.worksSeries == null ? '' : WorksInfo.works.worksSeries) + ' | ' + (WorksInfo.works.worksType == null ? '' : WorksInfo.works.worksType)"></span>
         </div>
         <div class="jinx-works-info">
-          <span>作品素材来源</span>
-          <span v-text="WorksInfo.works.materialSurce"></span>
+          <span class="title">作品素材来源</span>
+          <span class="value" v-text="WorksInfo.works.materialSurce"></span>
         </div>
         <div class="jinx-works-info">
-          <span>作品创意说明</span>
-          <span v-text="WorksInfo.works.creativeOverview"></span>
+          <span class="title">作品创意说明</span>
+          <span class="value" v-text="WorksInfo.works.creativeOverview"></span>
         </div>
       </div>
       <div class="jinx-works-info">

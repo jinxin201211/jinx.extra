@@ -73,16 +73,16 @@
               <span>game result</span>
             </h3>
             <ul>
-              <li id="type0" class='li1'><a href="#" onclick="handleWorksTypeChange('A')"><em>平面</em></a></li>
-              <li id="type1" class="li2"><a href="#" onclick="handleWorksTypeChange('Ba')"><em>影视</em></a></li>
-              <li id="type2" class="li3"><a href="#" onclick="handleWorksTypeChange('Bb')"><em>微电影</em></a></li>
-              <li id="type3" class="li4"><a href="#" onclick="handleWorksTypeChange('Bc')"><em>短视频</em></a></li>
-              <li id="type4" class="li4"><a href="#" onclick="handleWorksTypeChange('C')"><em>动画</em></a></li>
-              <li id="type5" class="li4"><a href="#" onclick="handleWorksTypeChange('D')"><em>互动</em></a></li>
-              <li id="type6" class="li4"><a href="#" onclick="handleWorksTypeChange('E')"><em>广播</em></a></li>
-              <li id="type7" class="li4"><a href="#" onclick="handleWorksTypeChange('F')"><em>策划案</em></a></li>
-              <li id="type8" class="li4"><a href="#" onclick="handleWorksTypeChange('Ga')"><em>广告语</em></a></li>
-              <li id="type9" class="li4"><a href="#" onclick="handleWorksTypeChange('Gb')"><em>长文案</em></a></li>
+              <li id="typeA" class='li1'><a href="#" onclick="handleWorksTypeChange('A')"><em>平面</em></a></li>
+              <li id="typeBa" class="li2"><a href="#" onclick="handleWorksTypeChange('Ba')"><em>影视</em></a></li>
+              <li id="typeBb" class="li3"><a href="#" onclick="handleWorksTypeChange('Bb')"><em>微电影</em></a></li>
+              <li id="typeBc" class="li4"><a href="#" onclick="handleWorksTypeChange('Bc')"><em>短视频</em></a></li>
+              <li id="typeC" class="li4"><a href="#" onclick="handleWorksTypeChange('C')"><em>动画</em></a></li>
+              <li id="typeD" class="li4"><a href="#" onclick="handleWorksTypeChange('D')"><em>互动</em></a></li>
+              <li id="typeE" class="li4"><a href="#" onclick="handleWorksTypeChange('E')"><em>广播</em></a></li>
+              <li id="typeF" class="li4"><a href="#" onclick="handleWorksTypeChange('F')"><em>策划案</em></a></li>
+              <li id="typeGa" class="li4"><a href="#" onclick="handleWorksTypeChange('Ga')"><em>广告语</em></a></li>
+              <li id="typeGb" class="li4"><a href="#" onclick="handleWorksTypeChange('Gb')"><em>长文案</em></a></li>
               <li class="li4"><a href="prize_search.html"><em>作品获奖查询</em></a></li>
             </ul>
           </div>
@@ -106,7 +106,7 @@
                       <td>序号</td>
                       <td>作品编号</td>
                       <td>作品名称</td>
-                      <td>参赛组别</td>
+                      <td>作品类别</td>
                       <td>作品主题</td>
                       <td>指导老师</td>
                       <td>所属单位</td>
@@ -128,7 +128,7 @@
                       <td>序号</td>
                       <td>作品编号</td>
                       <td>作品名称</td>
-                      <td>参赛组别</td>
+                      <td>作品类别</td>
                       <td>作品主题</td>
                       <td>指导老师</td>
                       <td>所属单位</td>
@@ -150,7 +150,7 @@
                       <td>序号</td>
                       <td>作品编号</td>
                       <td>作品名称</td>
-                      <td>参赛组别</td>
+                      <td>作品类别</td>
                       <td>作品主题</td>
                       <td>指导老师</td>
                       <td>所属单位</td>
@@ -172,7 +172,7 @@
                       <td>序号</td>
                       <td>作品编号</td>
                       <td>作品名称</td>
-                      <td>参赛组别</td>
+                      <td>作品类别</td>
                       <td>作品主题</td>
                       <td>指导老师</td>
                       <td>所属单位</td>
@@ -244,40 +244,36 @@
 <script src="Public/home/js/request.config.js" type="text/javascript" charset="utf-8"></script>
 
 <script>
-
-  var WorksGroupCode = [
-    { code: "0", value: "高校类" },
-    { code: "1", value: "专业类" },
-    { code: "2", value: "公众类" }
-  ];
-  var WorksSeriesCode = [
-    { code: "A", value: "平面类" },
-    { code: "Ba", value: "视频类影视广告" },
-    { code: "Bb", value: "视频类微电影广告" },
-    { code: "Bc", value: "视频类短视频" },
-    { code: "C", value: "动画类" },
-    { code: "D", value: "互动类" },
-    { code: "E", value: "广播类" },
-    { code: "F", value: "策划案类" },
-    { code: "Ga", value: "文案类广告语" },
-    { code: "Gb", value: "文案类长文案" }
-  ];
   var WorksTypeCode = [
-    { code: "1", value: "平面类" },
-    { code: "2", value: "文案类" },
-    { code: "3", value: "广播类" },
-    { code: "4", value: "视频类" },
-    { code: "5", value: "动画类" },
-    { code: "6", value: "互动类" }
+    { code: "A", value: "平面" },
+    { code: "Ba", value: "影视" },
+    { code: "Bb", value: "微电影" },
+    { code: "Bc", value: "短视频" },
+    { code: "C", value: "动画" },
+    { code: "D", value: "互动" },
+    { code: "E", value: "广播" },
+    { code: "F", value: "策划案" },
+    { code: "Ga", value: "广告语" },
+    { code: "Gb", value: "长文案" }
   ];
-  var MaterialSurceCode = [
-    { code: "1", value: "我保重此作品是我的原创" },
-    { code: "2", value: "我使用了素材" }
-  ];
+
+  function getQueryVariable(variable) {
+    var query = window.location.search.substring(1);
+    var vars = query.split("&");
+    for (var i = 0; i < vars.length; i++) {
+      var pair = vars[i].split("=");
+      if (pair[0] == variable) { return pair[1]; }
+    }
+    return (false);
+  }
 
   var TYPE = 0;
 
   $(function () {
+    var type = getQueryVariable('type');
+    if (type) {
+      TYPE = type;
+    }
     $('li.on').removeClass('on');
     $('#type' + TYPE).addClass('on');
     getRankList();
@@ -312,39 +308,35 @@
           }
 
           data.forEach(p => {
-            var game_type = WorksGroupCode.find(x => x.code === p.gameType);
-            if (game_type != null) {
-              p.gameType = game_type.value;
-            }
-            var works_series = WorksSeriesCode.find(x => x.code === p.worksSeries);
-            if (works_series != null) {
-              p.worksSeries = works_series.value;
+            var works_type = WorksTypeCode.find(x => x.code === p.worksType);
+            if (works_type != null) {
+              p.worksType = works_type.value;
             }
           });
 
           var FirstPrizeList = data.filter(p => p.prize == 1);
           $('#tbLevel1').html('');
           for (var i = 0; i < FirstPrizeList.length; i++) {
-            $('#tbLevel1').append('<tr><td>' + (i + 1) + '</td><td>' + FirstPrizeList[i].wid + '</td><td> <a href="prize_detail.html?wid=' + FirstPrizeList[i].wid + '">' + FirstPrizeList[i].worksName + '</a></td><td>' + FirstPrizeList[i].gameType + '</td><td>' + FirstPrizeList[i].worksSeries + '</td><td>' + FirstPrizeList[i].tUname + '</td><td>' + FirstPrizeList[i].orgName + '</td></tr>');
+            $('#tbLevel1').append('<tr><td>' + (i + 1) + '</td><td>' + FirstPrizeList[i].wid + '</td><td> <a href="prize_detail.html?wid=' + FirstPrizeList[i].wid + '">' + FirstPrizeList[i].worksName + '</a></td><td>' + FirstPrizeList[i].worksType + '</td><td>' + FirstPrizeList[i].worksSeriesName + '</td><td>' + FirstPrizeList[i].tUname + '</td><td>' + FirstPrizeList[i].orgName + '</td></tr>');
           }
           var SecondPrizeList = data.filter(p => p.prize == 2);
           $('#tbLevel2').html('');
           for (var i = 0; i < SecondPrizeList.length; i++) {
-            $('#tbLevel2').append('<tr><td>' + (i + 1) + '</td><td>' + SecondPrizeList[i].wid + '</td><td> <a href="prize_detail.html?wid=' + SecondPrizeList[i].wid + '">' + SecondPrizeList[i].worksName + '</a></td><td>' + SecondPrizeList[i].gameType + '</td><td>' + SecondPrizeList[i].worksSeries + '</td><td>' + SecondPrizeList[i].tUname + '</td><td>' + SecondPrizeList[i].orgName + '</td></tr>');
+            $('#tbLevel2').append('<tr><td>' + (i + 1) + '</td><td>' + SecondPrizeList[i].wid + '</td><td> <a href="prize_detail.html?wid=' + SecondPrizeList[i].wid + '">' + SecondPrizeList[i].worksName + '</a></td><td>' + SecondPrizeList[i].worksType + '</td><td>' + SecondPrizeList[i].worksSeriesName + '</td><td>' + SecondPrizeList[i].tUname + '</td><td>' + SecondPrizeList[i].orgName + '</td></tr>');
           }
           var ThirdPrizeList = data.filter(p => p.prize == 3);
           $('#tbLevel3').html('');
           for (var i = 0; i < ThirdPrizeList.length; i++) {
-            $('#tbLevel3').append('<tr><td>' + (i + 1) + '</td><td>' + ThirdPrizeList[i].wid + '</td><td> <a href="prize_detail.html?wid=' + ThirdPrizeList[i].wid + '">' + ThirdPrizeList[i].worksName + '</a></td><td>' + ThirdPrizeList[i].gameType + '</td><td>' + ThirdPrizeList[i].worksSeries + '</td><td>' + ThirdPrizeList[i].tUname + '</td><td>' + ThirdPrizeList[i].orgName + '</td></tr>');
+            $('#tbLevel3').append('<tr><td>' + (i + 1) + '</td><td>' + ThirdPrizeList[i].wid + '</td><td> <a href="prize_detail.html?wid=' + ThirdPrizeList[i].wid + '">' + ThirdPrizeList[i].worksName + '</a></td><td>' + ThirdPrizeList[i].worksType + '</td><td>' + ThirdPrizeList[i].worksSeriesName + '</td><td>' + ThirdPrizeList[i].tUname + '</td><td>' + ThirdPrizeList[i].orgName + '</td></tr>');
           }
           var FourthPrizeList = data.filter(p => p.prize == 4);
           $('#tbLevel4').html('');
           for (var i = 0; i < FourthPrizeList.length; i++) {
-            $('#tbLevel4').append('<tr><td>' + (i + 1) + '</td><td>' + FourthPrizeList[i].wid + '</td><td> <a href="prize_detail.html?wid=' + FourthPrizeList[i].wid + '">' + FourthPrizeList[i].worksName + '</a></td><td>' + FourthPrizeList[i].gameType + '</td><td>' + FourthPrizeList[i].worksSeries + '</td><td>' + FourthPrizeList[i].tUname + '</td><td>' + FourthPrizeList[i].orgName + '</td></tr>');
+            $('#tbLevel4').append('<tr><td>' + (i + 1) + '</td><td>' + FourthPrizeList[i].wid + '</td><td> <a href="prize_detail.html?wid=' + FourthPrizeList[i].wid + '">' + FourthPrizeList[i].worksName + '</a></td><td>' + FourthPrizeList[i].worksType + '</td><td>' + FourthPrizeList[i].worksSeriesName + '</td><td>' + FourthPrizeList[i].tUname + '</td><td>' + FourthPrizeList[i].orgName + '</td></tr>');
           }
         }
         else {
-          alert('获奖查询失败');
+          alert(data.msg);
         }
       },
       error: function (err) {

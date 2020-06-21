@@ -21,7 +21,8 @@ export default {
   components: { JinxLayout },
   data: function() {
     return {
-      FileDownloads: ["2020.6.17公益广告大赛报名流程.docx", "20.6.17河北省公益广告大赛作品格式要求.docx", "20.6.17河北省广告大赛评审办法.pdf", "20.6.18河北省公益广告大赛征集启事（修改）.docx"]
+      // FileDownloads: ["河北省公益广告大赛报名流程.pdf", "河北省公益广告大赛评审办法.pdf", "河北省公益广告大赛章程.pdf", "河北省公益广告大赛征集启事.pdf", "河北省公益广告大赛作品格式要求.pdf", "公益广告大赛公开文件.zip", "2020年河北省公益广告大赛组合标识.zip"]
+      FileDownloads: ["公益广告大赛公开文件.zip", "2020年河北省公益广告大赛组合标识.zip"]
     };
   },
   mounted: function() {},
