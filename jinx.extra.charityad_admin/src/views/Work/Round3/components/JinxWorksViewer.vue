@@ -48,6 +48,9 @@
       <div v-if="isImage(item.fileName)" style="text-align: center;">
         <el-image :src="$ImageGetServer + item.fileName" style="max-width: 960px; margin: 0 auto;" :preview-src-list="[$ImageGetServer + item.fileName]">
           <div slot="placeholder" class="image-slot">加载中<span class="dot">...</span></div>
+          <div slot="error" class="image-slot">
+            <i class="el-icon-picture-outline"></i>
+          </div>
         </el-image>
       </div>
       <div v-else-if="isVideo(item.fileName)" style="text-align: center;">

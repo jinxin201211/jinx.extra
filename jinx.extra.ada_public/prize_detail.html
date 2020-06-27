@@ -211,7 +211,7 @@
 
   function getWorksInfo() {
     $.ajax({
-      url: 'http://211.82.246.251:8082/gameWorksRank/getWorksByWid', //todo
+      url: $base_request_url + '/gameWorksRank/getWorksByWid', //todo
       // url: 'http://47.108.88.211:8082/gameWorksRank/getWorksByWid', //todo
       // url: 'http://47.108.88.211:8080/gameWorksRank/getWorksByWid',
       type: 'POST',
@@ -219,7 +219,6 @@
         wid: WID
       },
       success: function (data) {
-        console.log(data);
         if (data.code == 0) {
           var data = data.data;
           for (prop in data) {
@@ -239,23 +238,39 @@
           }
 
           $('#worksFiles').html('');
+          var works_files_list = [];
+          if (data.works.file1) {
+            works_files_list.push(data.works.file1);
+          }
+          if (data.works.file2) {
+            works_files_list.push(data.works.file2);
+          }
+          if (data.works.file3) {
+            works_files_list.push(data.works.file3);
+          }
+          if (data.works.file4) {
+            works_files_list.push(data.works.file4);
+          }
+          if (data.works.file5) {
+            works_files_list.push(data.works.file5);
+          }
           var works_files = '';
-          for (var i = 0; i < data.works_file.length; i++) {
-            works_files += '<div class="jinx-card"><div class="title"><span>文件' + (i + 1) + '. ' + data.works_file[i].fileName + '</span></div><div class="content">';
-            if (isImage(data.works_file[i].fileName)) {
-              works_files += '<div style="text-align: center;"><img src="' + FileGetServer + data.works_file[i].fileName + '" style = "width: 100%; margin: 0 auto;" /></div>';
+          for (var i = 0; i < works_files_list.length; i++) {
+            works_files += '<div class="jinx-card"><div class="title"><span>文件' + (i + 1) + '. ' + works_files_list[i] + '</span></div><div class="content">';
+            if (isImage(works_files_list[i])) {
+              works_files += '<div style="text-align: center;"><img src="' + FileGetServer + works_files_list[i] + '" style = "width: 100%; margin: 0 auto;" /></div>';
             }
-            else if (isVideo(data.works_file[i].fileName)) {
-              works_files += '<div style="text-align: center;"><video src="' + FileGetServer + data.works_file[i].fileName + '" controls="controls" style="max-width: 100%; margin: 0 auto;">您的浏览器不支持 video 标签。</video></div></div>';
+            else if (isVideo(works_files_list[i])) {
+              works_files += '<div style="text-align: center;"><video src="' + FileGetServer + works_files_list[i] + '" controls="controls" style="max-width: 100%; margin: 0 auto;">您的浏览器不支持 video 标签。</video></div></div>';
             }
-            else if (isAudio(data.works_file[i].fileName)) {
-              works_files += '<div style="text-align: center;"><audio src="' + FileGetServer + data.works_file[i].fileName + '" controls="controls" style="max-width: 100%; margin: 0 auto;">您的浏览器不支持 audio 标签。</audio></div></div>';
+            else if (isAudio(works_files_list[i])) {
+              works_files += '<div style="text-align: center;"><audio src="' + FileGetServer + works_files_list[i] + '" controls="controls" style="max-width: 100%; margin: 0 auto;">您的浏览器不支持 audio 标签。</audio></div></div>';
             }
-            else if (isPDF(data.works_file[i].fileName)) {
-              works_files += '<div style="text-align: center;"><a href="' + FileGetServer + data.works_file[i].fileName + '" target="_blank">' + data.works_file[i].fileName + '</a></div>';
+            else if (isPDF(works_files_list[i])) {
+              works_files += '<div style="text-align: center;"><a href="' + FileGetServer + works_files_list[i] + '" target="_blank">' + works_files_list[i] + '</a></div>';
             }
             else {
-              works_files += '<div style="text-align: center;"><a href="' + FileGetServer + data.works_file[i].fileName + '">' + data.works_file[i].fileName + '</a></div>';
+              works_files += '<div style="text-align: center;"><a href="' + FileGetServer + works_files_list[i] + '">' + works_files_list[i] + '</a></div>';
             }
             works_files += '</div></div>';
           }

@@ -34,26 +34,28 @@
         </el-card>
         <el-card v-for="(item, index) in WorksInfo.works_file" :key="'works_file' + index" style="margin-top: 15px;">
           <div slot="header" class="clearfix">
-            <span v-text="'文件' + (index + 1) + '. ' + item.fileName"></span>
+            <span v-text="'文件' + (index + 1) + '. ' + item"></span>
           </div>
-          <div v-if="isImage(item.fileName)" style="text-align: center;">
-            <el-image :src="$ImageGetServer + item.fileName" style="max-width: 960px; margin: 0 auto;" :preview-src-list="[$ImageGetServer + item.fileName]"></el-image>
+          <div v-if="isImage(item)" style="text-align: center;">
+            <el-image :src="$ImageGetServer + item" style="max-width: 960px; margin: 0 auto;" :preview-src-list="[$ImageGetServer + item]">
+              <div slot="placeholder" class="image-slot">加载中<span class="dot">...</span></div>
+              <div slot="error" class="image-slot">
+                <i class="el-icon-picture-outline"></i>
+              </div>
+            </el-image>
           </div>
-          <div v-else-if="isVideo(item.fileName)" style="text-align: center;">
-            <video :src="$ImageGetServer + item.fileName" controls="controls" style="max-width: 960px; margin: 0 auto;">您的浏览器不支持 video 标签。</video>
+          <div v-else-if="isVideo(item)" style="text-align: center;">
+            <video :src="$ImageGetServer + item" controls="controls" style="max-width: 960px; margin: 0 auto;">您的浏览器不支持 video 标签。</video>
           </div>
-          <div v-else-if="isAudio(item.fileName)" style="text-align: center;">
-            <audio :src="$ImageGetServer + item.fileName" controls="controls" style="width: 960px; margin: 0 auto;">您的浏览器不支持 audio 标签。</audio>
+          <div v-else-if="isAudio(item)" style="text-align: center;">
+            <audio :src="$ImageGetServer + item" controls="controls" style="width: 960px; margin: 0 auto;">您的浏览器不支持 audio 标签。</audio>
           </div>
-          <div v-else-if="isPDF(item.fileName)" style="text-align: center;">
-            <a :href="$PdfViewerPath + $ImageGetServer + item.fileName" v-text="item.fileName" target="_blank"></a>
+          <div v-else-if="isPDF(item)" style="text-align: center;">
+            <a :href="$PdfViewerPath + $ImageGetServer + item" v-text="item" target="_blank"></a>
           </div>
           <div v-else style="text-align: center;">
-            <a :href="$ImageGetServer + item.fileName" v-text="item.fileName" target="_blank"></a>
+            <a :href="$ImageGetServer + item" v-text="item" target="_blank"></a>
           </div>
-          <!--<div>
-          <el-link @click="handleDownload($ImageGetServer + item.fileName)">下载文件</el-link>
-        </div>-->
         </el-card>
       </div>
     </div>
@@ -85,7 +87,7 @@ export default {
       List: [],
       WorksInfo: {
         works: {},
-        works_file: {}
+        works_file: []
       },
       submit_status: {
         loading: false,
@@ -196,6 +198,22 @@ export default {
             that.WorksInfo.works.worksType = type == null ? "" : type.value;
             if (that.WorksInfo.works.state != null) {
               that.appraisal = that.WorksInfo.works.state + "";
+            }
+            that.WorksInfo.works_file = [];
+            if (that.WorksInfo.works.file1) {
+              that.WorksInfo.works_file.push(that.WorksInfo.works.file1);
+            }
+            if (that.WorksInfo.works.file2) {
+              that.WorksInfo.works_file.push(that.WorksInfo.works.file2);
+            }
+            if (that.WorksInfo.works.file3) {
+              that.WorksInfo.works_file.push(that.WorksInfo.works.file3);
+            }
+            if (that.WorksInfo.works.file4) {
+              that.WorksInfo.works_file.push(that.WorksInfo.works.file4);
+            }
+            if (that.WorksInfo.works.file5) {
+              that.WorksInfo.works_file.push(that.WorksInfo.works.file5);
             }
           } else {
             that.submit_status.disabled = true;
