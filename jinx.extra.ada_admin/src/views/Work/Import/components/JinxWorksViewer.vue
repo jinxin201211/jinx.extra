@@ -42,7 +42,7 @@
         </el-image>
       </div>
       <div v-else-if="isVideo(item)" style="text-align: center;">
-        <video :src="$ImageGetServer + item" controls="controls" style="max-width: 960px; margin: 0 auto;">您的浏览器不支持 video 标签。</video>
+        <video :id="'flash_file_' + index" :src="$ImageGetServer + item" controls="controls" style="max-width: 960px; width: 100%; margin: 0 auto;">您的浏览器不支持 video 标签。</video>
       </div>
       <div v-else-if="isAudio(item)" style="text-align: center;">
         <audio :src="$ImageGetServer + item" controls="controls" style="width: 960px; margin: 0 auto;">您的浏览器不支持 audio 标签。</audio>
@@ -59,6 +59,7 @@
 
 <script>
 import qs from "qs";
+import flvjs from "flv.js/dist/flv.min.js";
 
 export default {
   props: ["wid"],
@@ -100,6 +101,28 @@ export default {
             if (that.WorksInfo.works.file5) {
               that.WorksInfo.works_file.push(that.WorksInfo.works.file5);
             }
+            that.$nextTick(function() {
+              if (flvjs.isSupported()) {
+                for (let i = 0; i < that.WorksInfo.works_file.length; i++) {
+                  if (that.isVideo(that.WorksInfo.works_file[i])) {
+                    console.log(that.WorksInfo.works_file[i]);
+                    console.log(that.getExtensionName(that.WorksInfo.works_file[i]));
+                    console.log(that.$ImageGetServer + that.WorksInfo.works_file[i]);
+                    var videoElement = document.getElementById("flash_file_" + i);
+                    var flvPlayer = flvjs.createPlayer({
+                      type: that.getExtensionName(that.WorksInfo.works_file[i]),
+                      url: that.$ImageGetServer + that.WorksInfo.works_file[i]
+                      // url: "Ba11-03-032-0005.flv"
+                    });
+                    console.log(videoElement);
+                    console.log(flvPlayer);
+                    flvPlayer.attachMediaElement(videoElement);
+                    flvPlayer.load();
+                    flvPlayer.play();
+                  }
+                }
+              }
+            });
           } else {
             that.$message({
               showClose: true,
@@ -150,6 +173,21 @@ export default {
       } else {
         return false;
       }
+    },
+    getExtensionName(filename) {
+      if (!filename || typeof filename != "string") {
+        return false;
+      }
+      let a = filename
+        .split("")
+        .reverse()
+        .join("");
+      let b = a
+        .substring(0, a.search(/\./))
+        .split("")
+        .reverse()
+        .join("");
+      return b;
     }
   }
 };

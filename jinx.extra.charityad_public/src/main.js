@@ -34,8 +34,8 @@ if (!!window.ActiveXObject || "ActiveXObject" in window) {
 
 window.$VuexPrefix = "charity.public.";
 window.$CookieStoreDays = 7;
-window.$Server = "http://47.108.88.211"; // todo
-// window.$Server = "http://211.82.246.251";
+// window.$Server = "http://47.108.88.211"; // todo
+window.$Server = "http://211.82.246.251";
 window.$FileUploadServer = window.$Server + ":8080";
 Vue.prototype.$FileGetServer = window.$Server + "/img/";
 Vue.prototype.$PdfViewerPath = window.$Server + "/pdfjs/web/viewer.html?file=";
