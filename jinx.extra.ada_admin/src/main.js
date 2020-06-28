@@ -45,7 +45,8 @@ if (!!window.ActiveXObject || "ActiveXObject" in window) {
 
 window.$VuexPrefix = "ada.admin.";
 // window.$Server = "http://47.108.88.211"; // todo
-window.$Server = "http://211.82.246.251";
+window.$Server = "http://hbsggyjy.hebtu.edu.cn";
+// window.$Server = "http://211.82.246.251";
 Vue.prototype.$ImagePostServer = window.$Server + ":8083";
 Vue.prototype.$ImageGetServer = "http://hbsggyjy.hebtu.edu.cn/dgsimg/";
 // Vue.prototype.$ImageGetServer = window.$Server + "/img/";

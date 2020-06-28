@@ -325,6 +325,7 @@ el-inputel-inputel-inputel-inputel-input<template>
         <el-card v-for="(item, index) in WorksInfo.works_file" :key="'works_file' + index" style="margin-top: 15px;">
           <div slot="header" class="clearfix">
             <span v-text="'文件' + (index + 1) + '. ' + item.fileName"></span>
+            <el-link v-if="isVideo(item.fileName)" :href="$FileGetServer + item.fileName" target="blank" type="primary" style="float: right;">下载</el-link>
             <el-button style="float: right; padding: 3px 0" type="text" @click="handleFileDelete(item.id, index)">删除</el-button>
           </div>
           <div v-if="isImage(item.fileName)" style="text-align: center;">
@@ -334,10 +335,9 @@ el-inputel-inputel-inputel-inputel-input<template>
                 <i class="el-icon-picture-outline"></i>
               </div>
             </el-image>
-            <!--<img :src="$FileGetServer + item.fileName" style="width: 960px; margin: 0 auto;" />-->
           </div>
           <div v-else-if="isVideo(item.fileName)" style="text-align: center;">
-            <video :src="$FileGetServer + item.fileName" controls="controls" style="max-width: 960px; margin: 0 auto;">您的浏览器不支持 video 标签。</video>
+            <jinx-video-player :src="item.fileName"></jinx-video-player>
           </div>
           <div v-else-if="isAudio(item.fileName)" style="text-align: center;">
             <audio :src="$FileGetServer + item.fileName" controls="controls" style="width: 960px; margin: 0 auto;">您的浏览器不支持 audio 标签。</audio>
@@ -348,9 +348,6 @@ el-inputel-inputel-inputel-inputel-input<template>
           <div v-else style="text-align: center;">
             <a :href="$FileGetServer + item.fileName" v-text="item.fileName" target="_blank"></a>
           </div>
-          <!--<div>
-          <el-link @click="handleDownload($FileGetServer + item.fileName)">下载文件</el-link>
-        </div>-->
         </el-card>
       </el-tab-pane>
     </el-tabs>
@@ -359,15 +356,17 @@ el-inputel-inputel-inputel-inputel-input<template>
 
 <script>
 import qs from "qs";
+import JinxVideoPlayer from "@/components/JinxVideoPlayer.vue";
 
 export default {
+  components: { JinxVideoPlayer },
   data() {
     return {
       TabActive: "first",
       Scored: false,
       WorksInfo: {
         works: {},
-        works_file: {}
+        works_file: []
       },
       loading: false,
       form: {
@@ -475,6 +474,7 @@ export default {
       }, 100);
     },
     isImage: function(file) {
+      file = file.toLowerCase();
       if (file.endsWith(".jpg") || file.endsWith(".jpeg") || file.endsWith(".png") || file.endsWith(".gif")) {
         return true;
       } else {

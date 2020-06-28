@@ -32,6 +32,7 @@
     <el-card v-for="(item, index) in WorksInfo.works_file" :key="'works_file' + index" style="margin-top: 15px;">
       <div slot="header" class="clearfix">
         <span v-text="'文件' + (index + 1) + '. ' + item"></span>
+        <el-link v-if="isVideo(item)" :href="$ImageGetServer + item" target="blank" type="primary" style="float: right;">下载</el-link>
       </div>
       <div v-if="isImage(item)" style="text-align: center;">
         <el-image :src="$ImageGetServer + item" style="max-width: 960px; margin: 0 auto;" :preview-src-list="[$ImageGetServer + item]">
@@ -42,7 +43,7 @@
         </el-image>
       </div>
       <div v-else-if="isVideo(item)" style="text-align: center;">
-        <video :id="'flash_file_' + index" :src="$ImageGetServer + item" controls="controls" style="max-width: 960px; width: 100%; margin: 0 auto;">您的浏览器不支持 video 标签。</video>
+        <jinx-video-player :src="item"></jinx-video-player>
       </div>
       <div v-else-if="isAudio(item)" style="text-align: center;">
         <audio :src="$ImageGetServer + item" controls="controls" style="width: 960px; margin: 0 auto;">您的浏览器不支持 audio 标签。</audio>
@@ -59,8 +60,10 @@
 
 <script>
 import qs from "qs";
+import JinxVideoPlayer from "@/components/JinxVideoPlayer.vue";
 
 export default {
+  components: { JinxVideoPlayer },
   props: ["wid"],
   data() {
     return {
@@ -102,22 +105,6 @@ export default {
             if (that.WorksInfo.works.file5) {
               that.WorksInfo.works_file.push(that.WorksInfo.works.file5);
             }
-            that.$nextTick(function() {
-              if (flvjs.isSupported()) {
-                for (let i = 0; i < that.WorksInfo.works_file.length; i++) {
-                  if (that.isVideo(that.WorksInfo.works_file[i])) {
-                    var videoElement = document.getElementById("flash_file_" + i);
-                    var flvPlayer = flvjs.createPlayer({
-                      type: that.getExtensionName(that.WorksInfo.works_file[i]),
-                      url: that.$ImageGetServer + that.WorksInfo.works_file[i]
-                    });
-                    flvPlayer.attachMediaElement(videoElement);
-                    flvPlayer.load();
-                    flvPlayer.play();
-                  }
-                }
-              }
-            });
           } else {
             that.$message({
               showClose: true,

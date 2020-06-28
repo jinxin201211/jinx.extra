@@ -26,6 +26,7 @@
     <el-card v-for="(item, index) in WorksInfo.works_file" :key="'works_file' + index" style="margin-top: 15px;">
       <div slot="header" class="clearfix">
         <span v-text="'文件' + (index + 1) + '. ' + item.fileName"></span>
+        <el-link v-if="isVideo(item.fileName)" :href="$ImageGetServer + item.fileName" target="blank" type="primary" style="float: right;">下载</el-link>
         <el-button style="float: right; padding: 3px 0" type="text" @click="handleFileDelete(item.id, index)">删除</el-button>
       </div>
       <div v-if="isImage(item.fileName)" style="text-align: center;">
@@ -37,7 +38,7 @@
         </el-image>
       </div>
       <div v-else-if="isVideo(item.fileName)" style="text-align: center;">
-        <video :src="$ImageGetServer + item.fileName" controls="controls" style="max-width: 960px; margin: 0 auto;">您的浏览器不支持 video 标签。</video>
+        <jinx-video-player :src="item.fileName"></jinx-video-player>
       </div>
       <div v-else-if="isAudio(item.fileName)" style="text-align: center;">
         <audio :src="$ImageGetServer + item.fileName" controls="controls" style="width: 960px; margin: 0 auto;">您的浏览器不支持 audio 标签。</audio>
@@ -54,8 +55,10 @@
 
 <script>
 import qs from "qs";
+import JinxVideoPlayer from "@/components/JinxVideoPlayer.vue";
 
 export default {
+  components: { JinxVideoPlayer },
   props: ["wid"],
   data() {
     return {

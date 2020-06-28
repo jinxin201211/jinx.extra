@@ -5,7 +5,7 @@ module.exports = {
   devServer: {
     proxy: {
       "/api": {
-        target: "http://47.108.88.211:8080", // 你自己的api接口地址
+        target: "http://47.108.88.211", // 你自己的api接口地址
         // target: "http://127.0.0.1:8098", // 你自己的api接口地址
         changeOrigin: true,
         ws: true,
