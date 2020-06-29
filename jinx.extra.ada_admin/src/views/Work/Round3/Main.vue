@@ -10,12 +10,10 @@
 
     <el-table :data="Data.group[0].list" stripe style="width: 100%" @row-dblclick="handleRowDbclick">
       <el-table-column type="index" width="50"> </el-table-column>
-      <!--<el-table-column prop="area" label="赛区"> </el-table-column>-->
       <el-table-column prop="wno" label="作品编号" width="120"> </el-table-column>
       <el-table-column prop="worksName" label="作品名称"> </el-table-column>
-      <!--<el-table-column prop="gameType" label="参赛组别" width="120"> </el-table-column>-->
       <el-table-column prop="worksType" label="作品类别" width="120"> </el-table-column>
-      <el-table-column prop="worksSeriesName" label="作品主题"> </el-table-column>
+      <el-table-column prop="worksSeriesName" label="命题名称"> </el-table-column>
       <el-table-column label="设置奖项" width="150">
         <template slot-scope="scope">
           <el-select v-model="scope.row.prize" placeholder="设置作品奖项" size="small">

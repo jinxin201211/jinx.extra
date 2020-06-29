@@ -154,6 +154,14 @@ export default {
         return false;
       }
     },
+    isOffice: function(file) {
+      file = file.toLowerCase();
+      if (file.endsWith(".doc") || file.endsWith(".docx") || file.endsWith(".xls") || file.endsWith(".xlsx") || file.endsWith(".ppt") || file.endsWith(".pptx")) {
+        return true;
+      } else {
+        return false;
+      }
+    },
     isPDF: function(file) {
       file = file.toLowerCase();
       if (file.endsWith(".pdf")) {

@@ -21,9 +21,10 @@
       <el-table-column prop="wno" label="作品编号"> </el-table-column>
       <el-table-column prop="worksName" label="作品名称"> </el-table-column>
       <el-table-column prop="worksType" label="作品类别" width="120"> </el-table-column>
-      <el-table-column prop="worksSeriesName" label="作品主题"> </el-table-column>
+      <el-table-column prop="worksSeriesName" label="命题名称"> </el-table-column>
       <el-table-column prop="author1" label="作者"> </el-table-column>
-      <el-table-column prop="orgName" label="所属部门"> </el-table-column>
+      <el-table-column prop="tuname" label="指导教师"> </el-table-column>
+      <el-table-column prop="school" label="学校"> </el-table-column>
       <el-table-column fixed="right" label="操作" width="280">
         <template slot-scope="scope">
           <el-button @click="handleView(scope.row)" type="text" size="small">查看</el-button>

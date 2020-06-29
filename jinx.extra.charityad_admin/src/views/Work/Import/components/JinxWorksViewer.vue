@@ -35,6 +35,9 @@
       <div v-else-if="isPDF(item.fileName)" style="text-align: center;">
         <a :href="$PdfViewerPath + $ImageGetServer + item.fileName" v-text="item.fileName" target="_blank"></a>
       </div>
+      <div v-else-if="isOffice(item)" style="text-align: center;">
+        <a :href="$OfficeViewerPath + $ImageGetServer + item.fileName" v-text="item.fileName" target="_blank"></a>
+      </div>
       <div v-else style="text-align: center;">
         <a :href="$ImageGetServer + item.fileName" v-text="item.fileName" target="_blank"></a>
       </div>
@@ -114,6 +117,14 @@ export default {
     isPDF: function(file) {
       file = file.toLowerCase();
       if (file.endsWith(".pdf")) {
+        return true;
+      } else {
+        return false;
+      }
+    },
+    isOffice: function(file) {
+      file = file.toLowerCase();
+      if (file.endsWith(".doc") || file.endsWith(".docx") || file.endsWith(".xls") || file.endsWith(".xlsx") || file.endsWith(".ppt") || file.endsWith(".pptx")) {
         return true;
       } else {
         return false;

@@ -23,11 +23,8 @@
       <!--<el-table-column prop="area" label="赛区"> </el-table-column>-->
       <el-table-column prop="wno" label="作品编号" width="120"> </el-table-column>
       <el-table-column prop="worksName" label="作品名称"> </el-table-column>
-      <!--<el-table-column prop="gameType" label="参赛组别" width="120"> </el-table-column>-->
       <el-table-column prop="worksType" label="作品类别" width="120"> </el-table-column>
-      <el-table-column prop="worksSeriesName" label="作品主题"> </el-table-column>
-      <el-table-column prop="author1" label="作者"> </el-table-column>
-      <el-table-column prop="orgName" label="所属部门"> </el-table-column>
+      <el-table-column prop="worksSeriesName" label="命题名称"> </el-table-column>
       <el-table-column prop="state" label="评审结果" width="120"> </el-table-column>
       <el-table-column label="操作" width="180">
         <template slot-scope="scope">

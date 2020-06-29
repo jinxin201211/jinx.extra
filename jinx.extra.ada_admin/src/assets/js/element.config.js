@@ -37,6 +37,7 @@ export default {
       .use(Rate)
       .use(Upload)
       .use(DatePicker);
+    V.use(Loading.directive);
     V.prototype.$loading = Loading.service;
     V.prototype.$msgbox = MessageBox;
     V.prototype.$alert = MessageBox.alert;

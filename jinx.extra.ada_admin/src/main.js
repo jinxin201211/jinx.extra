@@ -51,6 +51,7 @@ Vue.prototype.$ImagePostServer = window.$Server + ":8083";
 Vue.prototype.$ImageGetServer = "http://hbsggyjy.hebtu.edu.cn/dgsimg/";
 // Vue.prototype.$ImageGetServer = window.$Server + "/img/";
 Vue.prototype.$PdfViewerPath = window.$Server + "/pdfjs/web/viewer.html?file=";
+Vue.prototype.$OfficeViewerPath = "https://view.officeapps.live.com/op/view.aspx?src=";
 Vue.prototype.$WebSiteName = "全国大学生广告艺术大赛（河北赛区）评审系统";
 
 Vue.prototype.$WorksTypeCode = [

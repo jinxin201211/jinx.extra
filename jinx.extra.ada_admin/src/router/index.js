@@ -235,6 +235,15 @@ const routes = [
           title: "作品导入",
           access: ["admin"]
         }
+      },
+      {
+        path: "/workexport",
+        name: "workExport",
+        component: () => import("../views/Work/Export/Main.vue"),
+        meta: {
+          title: "评审结果",
+          access: ["admin"]
+        }
       }
     ]
   },

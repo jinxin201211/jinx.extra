@@ -1,5 +1,5 @@
 <template>
-  <div id="page" style="padding: 20px;">
+  <div id="page" style="padding: 0 20px;">
     <el-card>
       <div>
         <span style="font-size: 24px; font-weight: bold;" v-text="WorksInfo.works.worksName"></span>
@@ -17,7 +17,7 @@
         <span v-text="WorksInfo.works.worksType"></span>
       </div>
       <div class="jinx-works-info">
-        <span>作品主题</span>
+        <span>命题名称</span>
         <span v-text="WorksInfo.works.worksSeriesName"></span>
       </div>
       <div class="jinx-works-info">
@@ -50,6 +50,9 @@
       </div>
       <div v-else-if="isPDF(item)" style="text-align: center;">
         <a :href="$PdfViewerPath + $ImageGetServer + item" v-text="item" target="_blank"></a>
+      </div>
+      <div v-else-if="isOffice(item)" style="text-align: center;">
+        <a :href="$OfficeViewerPath + $ImageGetServer + item" v-text="item" target="_blank"></a>
       </div>
       <div v-else style="text-align: center;">
         <a :href="$ImageGetServer + item" v-text="item" target="_blank"></a>
@@ -152,6 +155,14 @@ export default {
     isPDF: function(file) {
       file = file.toLowerCase();
       if (file.endsWith(".pdf")) {
+        return true;
+      } else {
+        return false;
+      }
+    },
+    isOffice: function(file) {
+      file = file.toLowerCase();
+      if (file.endsWith(".doc") || file.endsWith(".docx") || file.endsWith(".xls") || file.endsWith(".xlsx") || file.endsWith(".ppt") || file.endsWith(".pptx")) {
         return true;
       } else {
         return false;

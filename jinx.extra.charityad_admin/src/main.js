@@ -49,6 +49,7 @@ window.$Server = "http://hbsggyjy.hebtu.edu.cn";
 Vue.prototype.$ImagePostServer = window.$Server + ":8081";
 Vue.prototype.$ImageGetServer = window.$Server + "/img/";
 Vue.prototype.$PdfViewerPath = window.$Server + "/pdfjs/web/viewer.html?file=";
+Vue.prototype.$OfficeViewerPath = "https://view.officeapps.live.com/op/view.aspx?src=";
 Vue.prototype.$WebSiteName = "河北省公益广告大赛评审系统";
 
 Vue.prototype.$WorksGroupCode = [

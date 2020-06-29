@@ -20,7 +20,7 @@
             <span v-text="WorksInfo.works.worksType"></span>
           </div>
           <div class="jinx-works-info">
-            <span>作品主题</span>
+            <span>命题名称</span>
             <span v-text="WorksInfo.works.worksSeriesName"></span>
           </div>
           <div class="jinx-works-info">
@@ -35,7 +35,7 @@
         <el-card v-for="(item, index) in WorksInfo.works_file" :key="'works_file' + index" style="margin-top: 15px;">
           <div slot="header" class="clearfix">
             <span v-text="'文件' + (index + 1) + '. ' + item"></span>
-            <el-link v-if="isVideo(item)" :href="$ImageGetServer + item" target="blank" type="primary" style="float: right;">下载</el-link>
+            <el-link :href="$ImageGetServer + item" target="blank" type="primary" style="float: right;">下载</el-link>
           </div>
           <div v-if="isImage(item)" style="text-align: center;">
             <el-image :src="$ImageGetServer + item" style="max-width: 960px; margin: 0 auto;" :preview-src-list="[$ImageGetServer + item]">
@@ -53,6 +53,9 @@
           </div>
           <div v-else-if="isPDF(item)" style="text-align: center;">
             <a :href="$PdfViewerPath + $ImageGetServer + item" v-text="item" target="_blank"></a>
+          </div>
+          <div v-else-if="isOffice(item)" style="text-align: center;">
+            <a :href="$OfficeViewerPath + $ImageGetServer + item" v-text="item" target="_blank"></a>
           </div>
           <div v-else style="text-align: center;">
             <a :href="$ImageGetServer + item" v-text="item" target="_blank"></a>
@@ -311,6 +314,14 @@ export default {
     isPDF: function(file) {
       file = file.toLowerCase();
       if (file.endsWith(".pdf")) {
+        return true;
+      } else {
+        return false;
+      }
+    },
+    isOffice: function(file) {
+      file = file.toLowerCase();
+      if (file.endsWith(".doc") || file.endsWith(".docx") || file.endsWith(".xls") || file.endsWith(".xlsx") || file.endsWith(".ppt") || file.endsWith(".pptx")) {
         return true;
       } else {
         return false;
