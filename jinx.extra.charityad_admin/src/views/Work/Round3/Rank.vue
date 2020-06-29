@@ -69,10 +69,16 @@ export default {
       // total: 0,
       loading: false,
       drawer: false,
-      view_wid: -1
+      view_wid: -1,
+      worksType: ""
     };
   },
   mounted() {
+    console.log(this.$store.state.User);
+    let user = this.$store.state.User;
+    if (user.worksType) {
+      this.worksType = user.worksType;
+    }
     this.getList();
   },
   methods: {
@@ -99,7 +105,7 @@ export default {
         ]
       };
       this.axios
-        .post("/api/gameWorks2/getNoAppraisalList_Round3")
+        .post("/api/gameWorks2/getRankByMap", qs.stringify({ worksType: this.worksType }))
         .then(function(response) {
           console.log(response);
           if (response && response.data.code == "0") {

@@ -13,11 +13,23 @@
       </el-upload>
     </el-card>
 
-    <el-button @click="handleRefreshList" :loading="loading">刷新列表</el-button>
+    <div>
+      <el-select
+        v-model="query.school"
+        placeholder="全部"
+        @change="
+          query.page = 1;
+          getList();
+        "
+        style="width: 200px; margin-right: 10px;"
+      >
+        <el-option v-for="(item, index) in SchoolOptionList" :key="item + index" :label="item.label" :value="item.value"> </el-option>
+      </el-select>
+      <el-button @click="handleRefreshList" :loading="loading">刷新列表</el-button>
+    </div>
 
     <el-table :data="List" stripe style="width: 100%">
       <el-table-column type="index" width="50"> </el-table-column>
-      <!--<el-table-column prop="area" label="赛区"> </el-table-column>-->
       <el-table-column prop="wno" label="作品编号"> </el-table-column>
       <el-table-column prop="worksName" label="作品名称"> </el-table-column>
       <el-table-column prop="worksType" label="作品类别" width="120"> </el-table-column>
@@ -60,9 +72,9 @@ export default {
         "lw-token": this.$store.state.Token
       },
       List: [],
+      SchoolOptionList: [],
       query: {
-        // role: "judge",
-        // gameType: 4,
+        school: "",
         page: 1,
         limit: 10
       },
@@ -75,6 +87,7 @@ export default {
     };
   },
   mounted() {
+    this.getSchool();
     this.getList();
   },
   methods: {
@@ -82,7 +95,6 @@ export default {
       this.$refs.upload.submit();
     },
     handleBeforeUpload(file) {
-      // console.log(file);
       if (!file.name.endsWith(".xls") && !file.name.endsWith(".xlsx")) {
         this.$message.error(`请选择Excel文件上传`);
         return false;
@@ -104,9 +116,6 @@ export default {
           type: "error"
         });
       }
-      // file.serverid = response.data;
-      // this.successList.push(file);
-      // this.successList.sort((a, b) => a.uid - b.uid);
     },
     handleError: function(err, file, fileList) {
       console.log(err);
@@ -115,6 +124,40 @@ export default {
         message: `${file.name} 上传失败`,
         type: "error"
       });
+    },
+    getSchool() {
+      let that = this;
+      this.SchoolOptionList = [{ label: "全部", value: "" }];
+      this.axios
+        .post("/api/gameWorks3/getSchool")
+        .then(function(response) {
+          if (response && response.data.code == "0") {
+            console.log(response.data.data);
+            let data = response.data.data;
+            for (let i = 0; i < data.length; i++) {
+              if (data[i].school) {
+                that.SchoolOptionList.push({
+                  label: data[i].school,
+                  value: data[i].school
+                });
+              }
+            }
+          } else {
+            that.$message({
+              showClose: true,
+              message: response.data.msg,
+              type: "warning"
+            });
+          }
+        })
+        .catch(function(err) {
+          console.log(err);
+          that.$message({
+            showClose: true,
+            message: "获取学校列表失败",
+            type: "warning"
+          });
+        });
     },
     handleRefreshList: function() {
       this.getList();

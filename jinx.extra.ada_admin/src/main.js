@@ -48,7 +48,7 @@ window.$VuexPrefix = "ada.admin.";
 window.$Server = "http://hbsggyjy.hebtu.edu.cn";
 // window.$Server = "http://211.82.246.251";
 Vue.prototype.$ImagePostServer = window.$Server + ":8083";
-Vue.prototype.$ImageGetServer = "http://hbsggyjy.hebtu.edu.cn/dgsimg/";
+Vue.prototype.$ImageGetServer = window.$Server + "/dgsimg/";
 // Vue.prototype.$ImageGetServer = window.$Server + "/img/";
 Vue.prototype.$PdfViewerPath = window.$Server + "/pdfjs/web/viewer.html?file=";
 Vue.prototype.$OfficeViewerPath = "https://view.officeapps.live.com/op/view.aspx?src=";

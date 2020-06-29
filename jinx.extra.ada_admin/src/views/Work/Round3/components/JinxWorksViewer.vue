@@ -32,7 +32,7 @@
     <el-card v-for="(item, index) in WorksInfo.works_file" :key="'works_file' + index" style="margin-top: 15px;">
       <div slot="header" class="clearfix">
         <span v-text="'文件' + (index + 1) + '. ' + item"></span>
-        <el-link v-if="isVideo(item)" :href="$ImageGetServer + item" target="blank" type="primary" style="float: right;">下载</el-link>
+        <el-link :href="$ImageGetServer + item" target="blank" type="primary" style="float: right;">下载</el-link>
       </div>
       <div v-if="isImage(item)" style="text-align: center;">
         <el-image :src="$ImageGetServer + item" style="max-width: 960px; margin: 0 auto;" :preview-src-list="[$ImageGetServer + item]">

@@ -46,7 +46,6 @@ export default {
   components: { JinxWorksViewer },
   data() {
     return {
-      GroupList: ["高校类", "专业类", "公众类", "战疫类"],
       PrizeList: ["一等奖", "二等奖", "三等奖", "优秀奖"],
       tab_active: "0",
       Data: {
@@ -60,10 +59,15 @@ export default {
       // total: 0,
       loading: false,
       drawer: false,
-      view_wid: -1
+      view_wid: -1,
+      worksType: ""
     };
   },
   mounted() {
+    let user = this.$store.state.User;
+    if (user.worksType) {
+      this.worksType = user.worksType;
+    }
     this.getList();
   },
   methods: {
@@ -81,7 +85,7 @@ export default {
         ]
       };
       this.axios
-        .post("/api/gameWorks3/getNoAppraisalList_Round3")
+        .post("/api/gameWorks3/getRankByMap", qs.stringify({ worksType: this.worksType }))
         .then(function(response) {
           console.log(response);
           if (response && response.data.code == "0") {
