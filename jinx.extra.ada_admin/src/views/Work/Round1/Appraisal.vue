@@ -288,60 +288,6 @@ export default {
           });
         });
     },
-    isImage: function(file) {
-      if (file.endsWith(".jpg") || file.endsWith(".jpeg") || file.endsWith(".png") || file.endsWith(".gif")) {
-        return true;
-      } else {
-        return false;
-      }
-    },
-    isAudio: function(file) {
-      file = file.toLowerCase();
-      if (file.endsWith(".mp3") || file.endsWith(".wav") || file.endsWith(".wma") || file.endsWith(".ogg")) {
-        return true;
-      } else {
-        return false;
-      }
-    },
-    isVideo: function(file) {
-      file = file.toLowerCase();
-      if (file.endsWith(".mp4") || file.endsWith(".avi") || file.endsWith(".flv") || file.endsWith(".mov") || file.endsWith(".mkv")) {
-        return true;
-      } else {
-        return false;
-      }
-    },
-    isPDF: function(file) {
-      file = file.toLowerCase();
-      if (file.endsWith(".pdf")) {
-        return true;
-      } else {
-        return false;
-      }
-    },
-    isOffice: function(file) {
-      file = file.toLowerCase();
-      if (file.endsWith(".doc") || file.endsWith(".docx") || file.endsWith(".xls") || file.endsWith(".xlsx") || file.endsWith(".ppt") || file.endsWith(".pptx")) {
-        return true;
-      } else {
-        return false;
-      }
-    },
-    getExtensionName(filename) {
-      if (!filename || typeof filename != "string") {
-        return false;
-      }
-      let a = filename
-        .split("")
-        .reverse()
-        .join("");
-      let b = a
-        .substring(0, a.search(/\./))
-        .split("")
-        .reverse()
-        .join("");
-      return b;
-    },
     handleDownload: function(file) {
       window.location.href = file;
     }

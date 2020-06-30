@@ -33,7 +33,7 @@ export default {
         .split("")
         .reverse()
         .join("");
-      return b;
+      return b.toLowerCase();
     }
   }
 };

@@ -102,7 +102,6 @@ export default {
       return true;
     },
     handleSuccess: function(response, file, fileList) {
-      console.log(response);
       if (response.code == 0) {
         this.$message({
           showClose: true,
@@ -132,7 +131,6 @@ export default {
         .post("/api/gameWorks3/getSchool")
         .then(function(response) {
           if (response && response.data.code == "0") {
-            console.log(response.data.data);
             let data = response.data.data;
             for (let i = 0; i < data.length; i++) {
               if (data[i].school) {

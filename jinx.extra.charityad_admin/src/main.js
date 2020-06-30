@@ -43,6 +43,8 @@ if (!!window.ActiveXObject || "ActiveXObject" in window) {
   );
 }
 
+import "@/assets/js/file.type.js";
+
 window.$VuexPrefix = "charity.admin.";
 window.$Server = "http://47.108.88.211"; // todo
 // window.$Server = "http://hbsggyjy.hebtu.edu.cn";
