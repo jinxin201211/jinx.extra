@@ -183,7 +183,6 @@ export default {
           .post("/api/gameWorksFile/delete", qs.stringify({ id: delete_file.serverid }))
           .then(function(response) {
             if (response && response.data.code == "0") {
-              //删除页面列表上的数据
               that.$message({
                 showClose: true,
                 message: `文件删除成功`,
@@ -215,7 +214,6 @@ export default {
         .post("/api/gameWorksFile/delete", qs.stringify({ id: id }))
         .then(function(response) {
           if (response && response.data.code == "0") {
-            //删除页面列表上的数据
             that.$message({
               showClose: true,
               message: "删除成功",

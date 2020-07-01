@@ -1,5 +1,5 @@
 <template>
-  <div id="page" style="padding: 20px 0; padding-bottom: 300px; position: relative; height: 100%; overflow: hidden; box-sizing: border-box;">
+  <div id="page" style="padding: 20px 0; padding-bottom: 160px; position: relative; height: 100%; overflow: hidden; box-sizing: border-box;">
     <div style="height: 100%; overflow-y: auto; padding: 0 20px; padding-bottom: 20px;">
       <el-page-header @back="handleBack" content="作品打分" style="margin-bottom: 20px;"> </el-page-header>
       <div style="margin-top: 20px;">
@@ -78,8 +78,8 @@
 
     <div style="position: absolute; bottom: 0; left: 0; width: 100%; padding: 20px; box-shadow: rgba(0, 0, 0, 0.5) 0px 1px 5px 0px; background: #ffffff; box-sizing: border-box;">
       <div style="text-align: center;">
-        <el-rate v-model="Score" :max="10" :disabled="WorksInfo.empty" show-score score-template="{value}" style="display: inline-block; margin-right: 20px;"></el-rate>
-        <el-button size="small" type="primary" @click="handleSubmit" :loading="submit_status.loading" :disabled="submit_status.disabled || Score === null || Score === 0" style="margin: 15px;">确 定</el-button>
+        <el-rate v-model="Score" :max="10" :disabled="WorksInfo.empty" show-score score-template="{value}" style="display: inline-block; margin-right: 20px;" @change="handleScoreChange"></el-rate>
+        <!--<el-button size="small" type="primary" @click="handleSubmit" :loading="submit_status.loading" :disabled="submit_status.disabled || Score === null || Score === 0" style="margin: 15px;">确 定</el-button>-->
       </div>
       <el-divider></el-divider>
       <div style="text-align: center;">
@@ -134,6 +134,7 @@ export default {
     getList: function() {
       let loading = this.$loading({ target: "#page" });
       let that = this;
+      that.next_status.disabled = false;
       this.axios
         .post("/api/gameWorks2/getNoAppraisalList_Round2", qs.stringify(this.query))
         .then(function(response) {
@@ -239,6 +240,7 @@ export default {
           console.log(err);
           loading.close();
           that.next_status.loading = false;
+          that.submit_status.disabled = true;
           that.$message({
             showClose: true,
             message: "获取作品信息失败",
@@ -254,6 +256,9 @@ export default {
         });
         return;
       }
+      this.submit();
+    },
+    handleScoreChange() {
       this.submit();
     },
     submit: function() {
@@ -295,18 +300,6 @@ export default {
             type: "warning"
           });
         });
-    },
-    handleDownload: function(file) {
-      window.location.href = file;
-    },
-    handleScoreClick(score, index) {
-      this.ScoreResult.Rank[index] = score;
-
-      let sum = 0;
-      for (let i = 0; i < this.ScoreRule.Rank.length; i++) {
-        sum += this.ScoreResult.Rank[i] * this.ScoreRule.Rank[i].Percentage;
-      }
-      this.ScoreResult.Sum = sum.toFixed(3);
     }
   }
 };

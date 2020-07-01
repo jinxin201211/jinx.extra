@@ -13,7 +13,6 @@
       <el-table-column prop="uname" label="用户名"> </el-table-column>
       <el-table-column prop="tel" label="手机号码"> </el-table-column>
       <el-table-column prop="email" label="邮箱"> </el-table-column>
-      <!--<el-table-column prop="series" label="作品主题"> </el-table-column>-->
       <el-table-column prop="worksType" label="作品类别"> </el-table-column>
       <el-table-column prop="groupLeader" label="是否小组长"> </el-table-column>
       <el-table-column prop="ctime" label="创建时间"> </el-table-column>
@@ -42,14 +41,6 @@ export default {
       },
       total: 0,
       loading: false
-      // SeriesCode: [
-      //   { code: "A", name: "中国梦系列" },
-      //   { code: "B", name: "营商环境系列" },
-      //   { code: "C", name: "生态保护系列" },
-      //   { code: "D", name: "传统文化系列" },
-      //   { code: "E", name: "社会热点系列" },
-      //   { code: "F", name: "其他主题" }
-      // ]
     };
   },
   mounted() {
@@ -71,12 +62,6 @@ export default {
           if (response && response.data.code == "0") {
             that.List = response.data.data;
             that.List.forEach((e, i) => {
-              // let series = that.$WorksSeriesCode.find(p => p.code == e.series);
-              // if (series != null) {
-              //   e.series = series.value;
-              // } else {
-              //   e.series = "/";
-              // }
               let works_type = that.$WorksTypeCode.find(p => p.code == e.worksType);
               if (works_type != null) {
                 e.worksType = works_type.value;

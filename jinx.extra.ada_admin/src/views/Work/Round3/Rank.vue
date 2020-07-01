@@ -5,32 +5,29 @@
       <el-breadcrumb-item>获奖查询</el-breadcrumb-item>
     </el-breadcrumb>
 
-    <el-tabs v-model="tab_active">
-      <el-button @click="handleRefreshList" :loading="loading">刷新列表</el-button>
-      <span style="margin-left: 20px; color: #666666;" v-text="`一等奖${Data.group[0].prize[0].list.length}名， 二等奖${Data.group[0].prize[1].list.length}名， 三等奖${Data.group[0].prize[2].list.length}名， 优秀奖${Data.group[0].prize[3].list.length}名`"></span>
+    <el-button @click="handleRefreshList" :loading="loading">刷新列表</el-button>
+    <span style="margin-left: 20px; color: #666666;" v-text="`一等奖${Data.group[0].prize[0].list.length}名， 二等奖${Data.group[0].prize[1].list.length}名， 三等奖${Data.group[0].prize[2].list.length}名， 优秀奖${Data.group[0].prize[3].list.length}名`"></span>
 
-      <el-card shadow="never" v-for="(pitem, pindex) in PrizeList" :key="'prize' + pindex">
-        <div slot="header">
-          <span v-text="pitem"></span>
-        </div>
-        <el-table :data="Data.group[0].prize[pindex].list" stripe style="width: 100%" @row-dblclick="handleRowDbclick">
-          <el-table-column type="index" width="50"> </el-table-column>
-          <!--<el-table-column prop="area" label="赛区"> </el-table-column>-->
-          <el-table-column prop="wno" label="作品编号" width="120"> </el-table-column>
-          <el-table-column prop="worksName" label="作品名称"> </el-table-column>
-          <el-table-column prop="worksType" label="作品类别" width="120"> </el-table-column>
-          <el-table-column prop="worksSeriesName" label="命题名称"> </el-table-column>
-          <el-table-column prop="author1" label="作者"> </el-table-column>
-          <el-table-column prop="tuname" label="指导教师"> </el-table-column>
-          <el-table-column prop="school" label="学校"> </el-table-column>
-          <el-table-column label="操作" width="180">
-            <template slot-scope="scope">
-              <el-button @click="handleView(scope.row)" type="text" size="small">查看</el-button>
-            </template>
-          </el-table-column>
-        </el-table>
-      </el-card>
-    </el-tabs>
+    <el-card shadow="never" v-for="(pitem, pindex) in PrizeList" :key="'prize' + pindex">
+      <div slot="header">
+        <span v-text="pitem"></span>
+      </div>
+      <el-table :data="Data.group[0].prize[pindex].list" stripe style="width: 100%" @row-dblclick="handleRowDbclick">
+        <el-table-column type="index" width="50"> </el-table-column>
+        <el-table-column prop="wno" label="作品编号" width="180"> </el-table-column>
+        <el-table-column prop="worksName" label="作品名称"> </el-table-column>
+        <el-table-column prop="worksType" label="作品类别" width="120"> </el-table-column>
+        <el-table-column prop="worksSeriesName" label="命题名称"> </el-table-column>
+        <el-table-column prop="author1" label="作者"> </el-table-column>
+        <el-table-column prop="tuname" label="指导教师"> </el-table-column>
+        <el-table-column prop="school" label="学校"> </el-table-column>
+        <el-table-column label="操作" width="180">
+          <template slot-scope="scope">
+            <el-button @click="handleView(scope.row)" type="text" size="small">查看</el-button>
+          </template>
+        </el-table-column>
+      </el-table>
+    </el-card>
 
     <el-drawer title="查看作品" :visible.sync="drawer" direction="rtl" size="50%" :destroy-on-close="true">
       <jinx-works-viewer :wid="view_wid" ref="WorksViewer"></jinx-works-viewer>
@@ -47,7 +44,6 @@ export default {
   data() {
     return {
       PrizeList: ["一等奖", "二等奖", "三等奖", "优秀奖"],
-      tab_active: "0",
       Data: {
         group: [
           {
@@ -87,7 +83,6 @@ export default {
       this.axios
         .post("/api/gameWorks3/getRankByMap", qs.stringify({ worksType: this.worksType }))
         .then(function(response) {
-          console.log(response);
           if (response && response.data.code == "0") {
             let data = response.data.data;
             data.forEach(p => {

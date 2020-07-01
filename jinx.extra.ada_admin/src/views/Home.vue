@@ -54,7 +54,6 @@ export default {
         { path: "/score/round2", access: ["judge", "leader"], title: "作品打分(第二轮)" },
         { path: "/score/round3", access: ["leader"], title: "作品打分(第三轮)" },
         { path: "/score/rank", access: ["judge", "leader"], title: "获奖查询" }
-        // { path: "/workrank", access: ["judge"], title: "作品排行" }
       ],
       RouteList: [],
       User: this.$store.state.User,
@@ -195,7 +194,6 @@ export default {
 @theme-green-color-active: #ffffff;
 .el-menu.jinx-custom-menu.green {
   height: 100%;
-  // border: none;
   background: @theme-green-bg-color;
 
   .el-menu-item {

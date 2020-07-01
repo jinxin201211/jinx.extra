@@ -91,7 +91,6 @@ export default {
           } else {
             this.submit();
           }
-          // this.submit();
         } else {
           this.$message("验证失败");
           return false;

@@ -10,7 +10,7 @@
 
     <el-table :data="Data.group[0].list" stripe style="width: 100%" @row-dblclick="handleRowDbclick">
       <el-table-column type="index" width="50"> </el-table-column>
-      <el-table-column prop="wno" label="作品编号" width="120"> </el-table-column>
+      <el-table-column prop="wno" label="作品编号" width="180"> </el-table-column>
       <el-table-column prop="worksName" label="作品名称"> </el-table-column>
       <el-table-column prop="worksType" label="作品类别" width="120"> </el-table-column>
       <el-table-column prop="worksSeriesName" label="命题名称"> </el-table-column>
@@ -73,7 +73,6 @@ export default {
       this.axios
         .post("/api/gameWorks3/getNoAppraisalList_Round3")
         .then(function(response) {
-          console.log(response);
           if (response && response.data.code == "0") {
             let data = response.data.data;
             data.forEach(p => {

@@ -49,8 +49,6 @@ export default {
           that.form.content = response.data.data.content;
           that.form.type = response.data.data.type;
           that.form.state = response.data.data.state;
-          // this.form =
-          // document.getElementById("announcement").innerHTML = response.data.data.content;
         } else {
           that.$message({
             showClose: true,

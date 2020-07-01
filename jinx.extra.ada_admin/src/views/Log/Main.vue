@@ -14,11 +14,6 @@
       <el-table-column prop="opType" label="操作类型"> </el-table-column>
       <el-table-column prop="url" label="接口"> </el-table-column>
       <el-table-column prop="ctime" label="时间"> </el-table-column>
-      <!--<el-table-column fixed="right" label="操作" width="180">
-        <template slot-scope="scope">
-          <el-button @click="handleClick(scope.row)" type="text" size="small">查看</el-button>
-        </template>
-      </el-table-column>-->
     </el-table>
 
     <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="query.page" :page-sizes="[10, 20, 50]" :page-size="query.limit" layout="total, sizes, prev, pager, next, jumper" :total="total" hide-on-single-page> </el-pagination>

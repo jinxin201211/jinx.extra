@@ -44,13 +44,6 @@ export default {
       this.form.content = val;
     },
     handleSubmit: function() {
-      // this.$message({
-      //   showClose: true,
-      //   message: "发布成功",
-      //   type: "success"
-      // });
-      // this.$router.go(-1);
-      // return;
       this.$refs["form"].validate(valid => {
         if (valid) {
           if (this.form.content === null || this.form.content === "") {
@@ -74,7 +67,6 @@ export default {
       });
     },
     submit: function() {
-      console.log(this.form);
       let that = this;
       this.axios
         .post("/api/gameNews/add", qs.stringify(this.form))

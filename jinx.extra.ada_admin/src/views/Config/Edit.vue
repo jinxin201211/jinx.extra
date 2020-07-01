@@ -28,8 +28,6 @@ export default {
         sysKey: "",
         remark: "",
         sysValue: ""
-        // ctime: null,
-        // utime: null
       },
       loading: false
     };
@@ -43,8 +41,6 @@ export default {
           that.form.sysKey = response.data.data.sysKey;
           that.form.remark = response.data.data.remark;
           that.form.sysValue = response.data.data.sysValue;
-          // that.form.ctime = response.data.data.ctime;
-          // that.form.utime = response.data.data.utime;
         } else {
           that.$message({
             showClose: true,

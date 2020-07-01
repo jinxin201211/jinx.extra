@@ -78,11 +78,11 @@
 
     <div style="position: absolute; bottom: 0; left: 0; width: 100%; padding: 20px; box-shadow: rgba(0, 0, 0, 0.5) 0px 1px 5px 0px; background: #ffffff; box-sizing: border-box;">
       <div style="position: relative; text-align: center;" v-show="!WorksInfo.empty">
-        <el-radio-group v-model="appraisal" :disabled="submit_status.disabled">
+        <el-radio-group v-model="appraisal" :disabled="submit_status.disabled || submit_status.loading" @change="handleAppraisalChange" :loading="submit_status.loading">
           <el-radio label="1">通过</el-radio>
           <el-radio label="2">不通过</el-radio>
         </el-radio-group>
-        <el-button size="small" type="primary" @click="handleSubmit" :loading="submit_status.loading" :disabled="submit_status.disabled || appraisal === null || appraisal === ''" style="margin: 15px;">确 定</el-button>
+        <!--<el-button size="small" type="primary" @click="handleSubmit" :loading="submit_status.loading" :disabled="submit_status.disabled || appraisal === null || appraisal === ''" style="margin: 15px;">确 定</el-button>-->
       </div>
       <el-divider></el-divider>
       <div style="text-align: center;">
@@ -138,6 +138,7 @@ export default {
     getList: function() {
       let loading = this.$loading({ target: "#page" });
       let that = this;
+      that.next_status.disabled = false;
       this.axios
         .post("/api/gameWorks2/getNoAppraisalList_Round1", qs.stringify(this.query))
         .then(function(response) {
@@ -260,12 +261,16 @@ export default {
 
       this.submit();
     },
+    handleAppraisalChange() {
+      this.submit();
+    },
     submit: function() {
       let that = this;
       let data = {
         wid: this.WorksInfo.works.wid,
         state: this.appraisal
       };
+      that.submit_status.loading = true;
       this.axios
         .post("/api/gameWorks2/appraisal_round1", qs.stringify(data))
         .then(function(response) {
@@ -293,9 +298,6 @@ export default {
             type: "warning"
           });
         });
-    },
-    handleDownload: function(file) {
-      window.location.href = file;
     }
   }
 };

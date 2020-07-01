@@ -60,11 +60,6 @@ export default {
           if (response && response.data.code == "0") {
             that.NewsList = response.data.data;
             that.total = response.data.count;
-            // that.$message({
-            //   showClose: true,
-            //   message: "发布成功",
-            //   type: "success"
-            // });
           } else {
             that.$message({
               showClose: true,
@@ -102,7 +97,6 @@ export default {
           id: data.id
         }
       });
-      // this.$router.push("addAnnouncement");
     },
     handleEdit: function(data) {
       this.$router.push({
@@ -111,7 +105,6 @@ export default {
           id: data.id
         }
       });
-      // this.$router.push("addAnnouncement");
     },
     handleDelete: function(data) {
       this.$confirm("此操作将删除该新闻, 是否继续?", "提示", {

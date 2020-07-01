@@ -6,10 +6,10 @@
     </el-breadcrumb>
 
     <div>
-      <el-input v-model="query.author1" placeholder="请输入作者姓名" size="" style="width: 150px; margin-right: 10px;" @keyup.enter.native="handleRefreshList"></el-input>
+      <!--<el-input v-model="query.author1" placeholder="请输入作者姓名" size="" style="width: 150px; margin-right: 10px;" @keyup.enter.native="handleRefreshList"></el-input>
       <el-input v-model="query.orgName" placeholder="请输入所属单位" size="" style="width: 150px; margin-right: 10px;" @keyup.enter.native="handleRefreshList"></el-input>
-      <el-input v-model="query.worksName" placeholder="请输入作品名称" size="" style="width: 150px; margin-right: 10px;" @keyup.enter.native="handleRefreshList"></el-input>
-      <el-button @click="handleRefreshList" :loading="loading" type="primary">查 询</el-button>
+      <el-input v-model="query.worksName" placeholder="请输入作品名称" size="" style="width: 150px; margin-right: 10px;" @keyup.enter.native="handleRefreshList"></el-input>-->
+      <el-button @click="handleRefreshList" :loading="loading">刷新列表</el-button>
       <el-button @click="handleBeginScore" type="primary">开始评审</el-button>
     </div>
     <div style="line-height: 40px; color: #787878;">
@@ -19,7 +19,7 @@
 
     <el-table :data="List" stripe style="width: 100%" @row-dblclick="handleRowDbclick">
       <el-table-column type="index" width="50"> </el-table-column>
-      <el-table-column prop="wno" label="作品编号" width="120"> </el-table-column>
+      <el-table-column prop="wno" label="作品编号" width="180"> </el-table-column>
       <el-table-column prop="worksName" label="作品名称"> </el-table-column>
       <el-table-column prop="worksType" label="作品类别" width="120"> </el-table-column>
       <el-table-column prop="worksSeriesName" label="命题名称"> </el-table-column>
@@ -43,7 +43,6 @@ export default {
     return {
       List: [],
       query: {
-        // role: "judge",
         page: 1,
         limit: 10,
         gameType: "",

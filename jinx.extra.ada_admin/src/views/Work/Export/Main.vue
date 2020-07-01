@@ -158,9 +158,6 @@ export default {
         });
     },
     handleExportSchoolStat() {
-      // window.location.href = this.$ImagePostServer + "/gameWorks3/GetWorksSummaryNumBySchool_ExcelDownload";
-      // let url = this.$ImagePostServer + "/gameWorks3/GetWorksSummaryNumBySchool_ExcelDownload";
-      // jinx_download(url, {});
       let head = ["学校", "赛区院校编号"];
       let filter = ["school", "school_no"];
       for (let i = 0; i < this.$WorksTypeCode.length; i++) {
@@ -172,9 +169,6 @@ export default {
       this.getExcel(head, filter, this.TableDataSchoolStat, "各校报送赛区评选作品数量汇总统计表");
     },
     handleExportPrizeStat() {
-      // window.location.href = this.$ImagePostServer + "/gameWorks3/GetWorksSummaryNumByPrize_ExcelDownload";
-      // let url = this.$ImagePostServer + "/gameWorks3/GetWorksSummaryNumByPrize_ExcelDownload";
-      // jinx_download(url, {});
       let head = ["奖项"];
       let filter = ["prize_name"];
       for (let i = 0; i < this.$WorksTypeCode.length; i++) {
@@ -186,28 +180,16 @@ export default {
       this.getExcel(head, filter, this.TableDataPrizeStat, "赛区报送全国总评审作品数量统计表");
     },
     handleExportPrize() {
-      // window.location.href = this.$ImagePostServer + "/gameWorks3/GetWorksPrizeList_ExcelDownload";
-      // let url = this.$ImagePostServer + "/gameWorks3/GetWorksPrizeList_ExcelDownload";
-      // jinx_download(url, {});
       let head = ["序号", "作品类别", "命题名称", "参赛编号", "作品名称", "作者电话", "指导教师", "教师电话", "学校", "院系", "其他", "获奖等级"];
       let filter = ["seq", "works_type", "works_series_name", "wno", "works_name", "author1", "tel", "t_uname", "t_tel", "school", "department", "other", "major", "prize"];
       this.getExcel(head, filter, this.TableDataPrize, "赛区获奖名单");
     },
     handleExportPrizeAttachment() {
       window.location.href = this.$ImagePostServer + "/gameWorks3/GetWorksPrizeList_AttachmentDownload";
-      // let url = this.$ImagePostServer + "/gameWorks3/GetWorksPrizeList_AttachmentDownload";
-      // jinx_download(url, {});
-      // this.getExcel();
     },
     getExcel(head, filter, list, title) {
       require.ensure([], () => {
         const { export_json_to_excel } = require("@/assets/js/excel/Export2Excel.js");
-        // const tHeader = ["姓名", "年龄"];
-        // const filterVal = ["name", "age"];
-        // const list = [
-        //   { name: "jinxin", age: 25 },
-        //   { name: "jinxin2", age: 26 }
-        // ];
         const data = this.formatJson(filter, list);
         export_json_to_excel(head, data, title);
       });
