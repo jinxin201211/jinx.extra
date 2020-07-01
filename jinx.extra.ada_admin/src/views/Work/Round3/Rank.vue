@@ -19,7 +19,7 @@
         <el-table-column prop="worksType" label="作品类别" width="120"> </el-table-column>
         <el-table-column prop="worksSeriesName" label="命题名称"> </el-table-column>
         <el-table-column prop="author1" label="作者"> </el-table-column>
-        <el-table-column prop="tuname" label="指导教师"> </el-table-column>
+        <el-table-column prop="tUname" label="指导教师"> </el-table-column>
         <el-table-column prop="school" label="学校"> </el-table-column>
         <el-table-column label="操作" width="180">
           <template slot-scope="scope">
