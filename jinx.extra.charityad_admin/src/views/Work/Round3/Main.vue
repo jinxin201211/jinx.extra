@@ -18,6 +18,7 @@
           <el-table-column prop="gameType" label="参赛组别" width="120"> </el-table-column>
           <el-table-column prop="worksSeries" label="作品主题"> </el-table-column>
           <el-table-column prop="worksType" label="作品类别" width="120"> </el-table-column>
+          <el-table-column prop="scoreTotal" label="累计积分" width="120"> </el-table-column>
           <el-table-column label="设置奖项" width="150">
             <template slot-scope="scope">
               <el-select v-model="scope.row.prize" placeholder="设置作品奖项" size="small">

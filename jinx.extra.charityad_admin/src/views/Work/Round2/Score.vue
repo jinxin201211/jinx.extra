@@ -3,6 +3,8 @@
     <div style="height: 100%; overflow-y: auto; padding: 0 20px; padding-bottom: 20px;">
       <el-page-header @back="handleBack" content="作品打分" style="margin-bottom: 20px;"> </el-page-header>
       <div style="margin-top: 20px;">
+        <div style="margin-bottom: 20px;" v-if="false">评审进度：<span v-text="query.limit * (query.page - 1) + (query.index + 1)"></span>/<span v-text="count"></span></div>
+
         <el-card>
           <div>
             <span style="font-size: 24px; font-weight: bold;" v-text="WorksInfo.works.worksName"></span>
@@ -104,6 +106,7 @@ export default {
         page: this.$route.query.page * 1,
         index: this.$route.query.index * 1
       },
+      count: 0,
       ScoreIconClasses: ["icon-rate-face-1", "icon-rate-face-2", "icon-rate-face-3"],
       ScoreIconColors: ["#99A9BF", "#F7BA2A", "#FF9900"],
       Score: 0,
@@ -139,6 +142,7 @@ export default {
         .post("/api/gameWorks2/getNoAppraisalList_Round2", qs.stringify(this.query))
         .then(function(response) {
           if (response && response.data.code == "0") {
+            that.count = response.data.count * 1;
             if (response.data.data.length == 0) {
               that.List = [];
               that.WorksInfo = {

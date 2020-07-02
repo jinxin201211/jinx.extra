@@ -40,9 +40,9 @@
           <el-table-column prop="t_uname" label="指导教师"> </el-table-column>
           <el-table-column prop="t_tel" label="教师电话"> </el-table-column>
           <el-table-column prop="school" label="学校"> </el-table-column>
-          <el-table-column prop="department" label="院系"> </el-table-column>
+          <!--<el-table-column prop="department" label="院系"> </el-table-column>
           <el-table-column prop="other" label="其他"> </el-table-column>
-          <el-table-column prop="major" label="专业"> </el-table-column>
+          <el-table-column prop="major" label="专业"> </el-table-column>-->
           <el-table-column prop="prize" label="获奖等级"> </el-table-column>
         </el-table>
       </el-tab-pane>
@@ -180,8 +180,8 @@ export default {
       this.getExcel(head, filter, this.TableDataPrizeStat, "赛区报送全国总评审作品数量统计表");
     },
     handleExportPrize() {
-      let head = ["序号", "作品类别", "命题名称", "参赛编号", "作品名称", "作者电话", "指导教师", "教师电话", "学校", "院系", "其他", "获奖等级"];
-      let filter = ["seq", "works_type", "works_series_name", "wno", "works_name", "author1", "tel", "t_uname", "t_tel", "school", "department", "other", "major", "prize"];
+      let head = ["序号", "作品类别", "命题名称", "参赛编号", "作品名称", "作者", "作者电话", "指导教师", "教师电话", "获奖等级"];
+      let filter = ["seq", "works_type", "works_series_name", "wno", "works_name", "author1", "tel", "t_uname", "t_tel", "prize"];
       this.getExcel(head, filter, this.TableDataPrize, "赛区获奖名单");
     },
     handleExportPrizeAttachment() {

@@ -3,6 +3,7 @@
     <div style="height: 100%; overflow-y: auto; padding: 0 20px; padding-bottom: 20px;">
       <el-page-header @back="handleBack" content="作品打分" style="margin-bottom: 20px;"> </el-page-header>
       <div style="margin-top: 20px;">
+        <div style="margin-bottom: 20px;" v-if="false">评审进度：<span v-text="query.limit * (query.page - 1) + (query.index + 1)"></span>/<span v-text="count"></span></div>
         <el-card>
           <div>
             <span style="font-size: 24px; font-weight: bold;" v-text="WorksInfo.works.worksName"></span>
@@ -112,7 +113,8 @@ export default {
         orgName: this.$route.query.orgName,
         worksName: this.$route.query.worksName,
         index: this.$route.query.index * 1
-      }
+      },
+      count: 0
     };
   },
   mounted() {
@@ -130,6 +132,7 @@ export default {
         .post("/api/gameWorks3/getNoAppraisalList_Round1", qs.stringify(this.query))
         .then(function(response) {
           if (response && response.data.code == "0") {
+            that.count = response.data.count * 1;
             if (response.data.data.length == 0) {
               that.WorksInfo = {
                 works: {},

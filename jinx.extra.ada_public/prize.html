@@ -107,7 +107,7 @@
                       <td>作品编号</td>
                       <td>作品名称</td>
                       <td>作品类别</td>
-                      <td>作品主题</td>
+                      <td>命题名称</td>
                       <td>指导老师</td>
                       <td>所属单位</td>
                     </tr>
@@ -129,7 +129,7 @@
                       <td>作品编号</td>
                       <td>作品名称</td>
                       <td>作品类别</td>
-                      <td>作品主题</td>
+                      <td>命题名称</td>
                       <td>指导老师</td>
                       <td>所属单位</td>
                     </tr>
@@ -151,7 +151,7 @@
                       <td>作品编号</td>
                       <td>作品名称</td>
                       <td>作品类别</td>
-                      <td>作品主题</td>
+                      <td>命题名称</td>
                       <td>指导老师</td>
                       <td>所属单位</td>
                     </tr>
@@ -173,7 +173,7 @@
                       <td>作品编号</td>
                       <td>作品名称</td>
                       <td>作品类别</td>
-                      <td>作品主题</td>
+                      <td>命题名称</td>
                       <td>指导老师</td>
                       <td>所属单位</td>
                     </tr>
@@ -317,22 +317,22 @@
           var FirstPrizeList = data.filter(p => p.prize == 1);
           $('#tbLevel1').html('');
           for (var i = 0; i < FirstPrizeList.length; i++) {
-            $('#tbLevel1').append('<tr><td>' + (i + 1) + '</td><td>' + FirstPrizeList[i].wid + '</td><td> <a href="prize_detail.html?wid=' + FirstPrizeList[i].wid + '">' + FirstPrizeList[i].worksName + '</a></td><td>' + FirstPrizeList[i].worksType + '</td><td>' + FirstPrizeList[i].worksSeriesName + '</td><td>' + FirstPrizeList[i].tUname + '</td><td>' + FirstPrizeList[i].orgName + '</td></tr>');
+            $('#tbLevel1').append('<tr><td>' + (i + 1) + '</td><td><a href="prize_detail.html?wid=' + FirstPrizeList[i].wid + '">' + FirstPrizeList[i].wno + '</a></td><td> <a href="prize_detail.html?wid=' + FirstPrizeList[i].wid + '">' + FirstPrizeList[i].worksName + '</a></td><td>' + FirstPrizeList[i].worksType + '</td><td>' + FirstPrizeList[i].worksSeriesName + '</td><td>' + FirstPrizeList[i].tUname + '</td><td>' + FirstPrizeList[i].orgName + '</td></tr>');
           }
           var SecondPrizeList = data.filter(p => p.prize == 2);
           $('#tbLevel2').html('');
           for (var i = 0; i < SecondPrizeList.length; i++) {
-            $('#tbLevel2').append('<tr><td>' + (i + 1) + '</td><td>' + SecondPrizeList[i].wid + '</td><td> <a href="prize_detail.html?wid=' + SecondPrizeList[i].wid + '">' + SecondPrizeList[i].worksName + '</a></td><td>' + SecondPrizeList[i].worksType + '</td><td>' + SecondPrizeList[i].worksSeriesName + '</td><td>' + SecondPrizeList[i].tUname + '</td><td>' + SecondPrizeList[i].orgName + '</td></tr>');
+            $('#tbLevel2').append('<tr><td>' + (i + 1) + '</td><td><a href="prize_detail.html?wid=' + FirstPrizeList[i].wid + '">' + SecondPrizeList[i].wno + '</a></td><td> <a href="prize_detail.html?wid=' + SecondPrizeList[i].wid + '">' + SecondPrizeList[i].worksName + '</a></td><td>' + SecondPrizeList[i].worksType + '</td><td>' + SecondPrizeList[i].worksSeriesName + '</td><td>' + SecondPrizeList[i].tUname + '</td><td>' + SecondPrizeList[i].orgName + '</td></tr>');
           }
           var ThirdPrizeList = data.filter(p => p.prize == 3);
           $('#tbLevel3').html('');
           for (var i = 0; i < ThirdPrizeList.length; i++) {
-            $('#tbLevel3').append('<tr><td>' + (i + 1) + '</td><td>' + ThirdPrizeList[i].wid + '</td><td> <a href="prize_detail.html?wid=' + ThirdPrizeList[i].wid + '">' + ThirdPrizeList[i].worksName + '</a></td><td>' + ThirdPrizeList[i].worksType + '</td><td>' + ThirdPrizeList[i].worksSeriesName + '</td><td>' + ThirdPrizeList[i].tUname + '</td><td>' + ThirdPrizeList[i].orgName + '</td></tr>');
+            $('#tbLevel3').append('<tr><td>' + (i + 1) + '</td><td><a href="prize_detail.html?wid=' + FirstPrizeList[i].wid + '">' + ThirdPrizeList[i].wno + '</a></td><td> <a href="prize_detail.html?wid=' + ThirdPrizeList[i].wid + '">' + ThirdPrizeList[i].worksName + '</a></td><td>' + ThirdPrizeList[i].worksType + '</td><td>' + ThirdPrizeList[i].worksSeriesName + '</td><td>' + ThirdPrizeList[i].tUname + '</td><td>' + ThirdPrizeList[i].orgName + '</td></tr>');
           }
           var FourthPrizeList = data.filter(p => p.prize == 4);
           $('#tbLevel4').html('');
           for (var i = 0; i < FourthPrizeList.length; i++) {
-            $('#tbLevel4').append('<tr><td>' + (i + 1) + '</td><td>' + FourthPrizeList[i].wid + '</td><td> <a href="prize_detail.html?wid=' + FourthPrizeList[i].wid + '">' + FourthPrizeList[i].worksName + '</a></td><td>' + FourthPrizeList[i].worksType + '</td><td>' + FourthPrizeList[i].worksSeriesName + '</td><td>' + FourthPrizeList[i].tUname + '</td><td>' + FourthPrizeList[i].orgName + '</td></tr>');
+            $('#tbLevel4').append('<tr><td>' + (i + 1) + '</td><td><a href="prize_detail.html?wid=' + FirstPrizeList[i].wid + '">' + FourthPrizeList[i].wno + '</a></td><td> <a href="prize_detail.html?wid=' + FourthPrizeList[i].wid + '">' + FourthPrizeList[i].worksName + '</a></td><td>' + FourthPrizeList[i].worksType + '</td><td>' + FourthPrizeList[i].worksSeriesName + '</td><td>' + FourthPrizeList[i].tUname + '</td><td>' + FourthPrizeList[i].orgName + '</td></tr>');
           }
         }
         else {
