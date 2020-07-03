@@ -1,9 +1,9 @@
 <template>
   <div id="app">
-    <!--<navigation>
+    <navigation>
       <router-view v-if="isRouterAlive" :key="$route.fullPath" />
-    </navigation>-->
-    <router-view v-if="isRouterAlive" :key="$route.fullPath" />
+    </navigation>
+    <!--<router-view v-if="isRouterAlive" :key="$route.fullPath" />-->
   </div>
 </template>
 <script>

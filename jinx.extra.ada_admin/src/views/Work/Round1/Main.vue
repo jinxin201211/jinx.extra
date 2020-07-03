@@ -6,14 +6,12 @@
     </el-breadcrumb>
 
     <div>
-      <!--<el-input v-model="query.author1" placeholder="请输入作者姓名" size="" style="width: 150px; margin-right: 10px;" @keyup.enter.native="handleRefreshList"></el-input>
-      <el-input v-model="query.orgName" placeholder="请输入所属单位" size="" style="width: 150px; margin-right: 10px;" @keyup.enter.native="handleRefreshList"></el-input>
-      <el-input v-model="query.worksName" placeholder="请输入作品名称" size="" style="width: 150px; margin-right: 10px;" @keyup.enter.native="handleRefreshList"></el-input>-->
-      <!--<el-select v-model="value" placeholder="全部" style="width: 120px; margin-right: 10px;">
+      <el-select v-model="query.state" placeholder="全部" style="width: 120px; margin-right: 10px;" @change="handleRefreshList">
         <el-option label="全部" value=""></el-option>
+        <el-option label="未评审" value="0"></el-option>
         <el-option label="通过" value="1"></el-option>
-        <el-option label="不通过" value="0"></el-option>
-      </el-select>-->
+        <el-option label="不通过" value="2"></el-option>
+      </el-select>
       <el-button @click="handleRefreshList" :loading="loading">刷新列表</el-button>
       <el-button @click="handleBeginScore" type="primary">开始评审</el-button>
     </div>
@@ -51,12 +49,8 @@ export default {
       query: {
         page: 1,
         limit: 10,
-        gameType: "",
-        author1: "",
-        orgName: "",
-        worksName: ""
+        state: ""
       },
-      passed: "",
       total: 0,
       loading: false,
       statistics: {
@@ -181,11 +175,8 @@ export default {
         query: {
           limit: this.query.limit,
           page: this.query.page,
-          gameType: this.query.gameType,
-          author1: this.query.author1,
-          orgName: this.query.orgName,
-          worksName: this.query.worksName,
-          index: index
+          index: index,
+          state: this.query.state
         }
       });
     }

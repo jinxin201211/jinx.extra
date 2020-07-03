@@ -3,8 +3,6 @@
     <div style="height: 100%; overflow-y: auto; padding: 0 20px; padding-bottom: 20px;">
       <el-page-header @back="handleBack" content="作品打分" style="margin-bottom: 20px;"> </el-page-header>
       <div style="margin-top: 20px;">
-        <div style="margin-bottom: 20px;" v-if="false">评审进度：<span v-text="query.limit * (query.page - 1) + (query.index + 1)"></span>/<span v-text="count"></span></div>
-
         <el-card>
           <div>
             <span style="font-size: 24px; font-weight: bold;" v-text="WorksInfo.works.worksName"></span>
@@ -73,6 +71,7 @@
       </div>
       <el-divider></el-divider>
       <div style="text-align: center;">
+        <div style="display: inline-block; margin-right: 10px;"><span v-text="totalIndex"></span><span style="margin: 0 5px;">/</span><span v-text="count"></span></div>
         <el-button size="small" type="primary" @click="handlePrevWorks" :disabled="query.index === 0 && query.page === 1">上一个</el-button>
         <el-button size="small" type="primary" @click="handleNextWorks" :loading="next_status.loading" :disabled="next_status.disabled">下一个</el-button>
         <el-button size="small" type="primary" @click="handleBack">返 回</el-button>
@@ -92,7 +91,8 @@ export default {
       query: {
         limit: this.$route.query.limit * 1,
         page: this.$route.query.page * 1,
-        index: this.$route.query.index * 1
+        index: this.$route.query.index * 1,
+        state: this.$route.query.state
       },
       count: 0,
       ScoreIconClasses: ["icon-rate-face-1", "icon-rate-face-2", "icon-rate-face-3"],
@@ -113,6 +113,12 @@ export default {
         disabled: false
       }
     };
+  },
+  computed: {
+    totalIndex() {
+      let tindex = this.query.limit * (this.query.page - 1) + (this.query.index + 1);
+      return tindex > this.count ? this.count : tindex;
+    }
   },
   mounted() {
     this.getList();

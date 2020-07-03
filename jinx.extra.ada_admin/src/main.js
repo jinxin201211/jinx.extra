@@ -19,15 +19,15 @@ import "@/assets/css/common.css";
 
 Vue.use(ElementUI);
 
-// //路由前进刷新后退不刷新
-// import Navigation from "vue-navigation";
-// Vue.use(Navigation, { router, store });
+//路由前进刷新后退不刷新
+import Navigation from "vue-navigation";
+Vue.use(Navigation, { router, store });
 
-import Router from "vue-router";
-const routerReplace = Router.prototype.replace;
-Router.prototype.replace = function replace(location) {
-  return routerReplace.call(this, location).catch(error => error);
-};
+// import Router from "vue-router";
+// const routerReplace = Router.prototype.replace;
+// Router.prototype.replace = function replace(location) {
+//   return routerReplace.call(this, location).catch(error => error);
+// };
 
 //ie对router的支持
 if (!!window.ActiveXObject || "ActiveXObject" in window) {
@@ -46,12 +46,12 @@ if (!!window.ActiveXObject || "ActiveXObject" in window) {
 import "@/assets/js/file.type.js";
 
 window.$VuexPrefix = "ada.admin.";
-window.$Server = "http://47.108.88.211"; // todo
-// window.$Server = "http://hbsggyjy.hebtu.edu.cn";
+// window.$Server = "http://47.108.88.211"; // todo
+window.$Server = "http://hbsggyjy.hebtu.edu.cn";
 // window.$Server = "http://211.82.246.251";
 Vue.prototype.$ImagePostServer = window.$Server + ":8083";
-// Vue.prototype.$ImageGetServer = window.$Server + "/dgsimg/";
-Vue.prototype.$ImageGetServer = "http://hbsggyjy.hebtu.edu.cn/dgsimg/";
+Vue.prototype.$ImageGetServer = window.$Server + "/dgsimg/";
+// Vue.prototype.$ImageGetServer = "http://hbsggyjy.hebtu.edu.cn/dgsimg/";
 // Vue.prototype.$ImageGetServer = window.$Server + "/img/";
 // Vue.prototype.$PdfViewerPath = window.$Server + "/pdfjs/web/viewer.html?file=";
 Vue.prototype.$PdfViewerPath = "http://hbsggyjy.hebtu.edu.cn/pdfjs/web/viewer.html?file=";

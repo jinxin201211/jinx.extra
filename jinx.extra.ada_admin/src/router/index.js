@@ -299,4 +299,15 @@ router.beforeEach((to, from, next) => {
   }
 });
 
+const routerMethods = ["push", "replace"];
+routerMethods.forEach(method => {
+  const originalCall = VueRouter.prototype[method];
+  VueRouter.prototype[method] = function(location, onResolve, onReject) {
+    if (onResolve || onReject) {
+      return originalCall.call(this, location, onResolve, onReject);
+    }
+    return originalCall.call(this, location).catch(err => err);
+  };
+});
+
 export default router;
