@@ -10,7 +10,7 @@ Vue.prototype.isImage = function(file) {
 };
 Vue.prototype.isAudio = function(file) {
   file = file.toLowerCase();
-  if (file.endsWith(".mp3") || file.endsWith(".wav") || file.endsWith(".wma")) {
+  if (file.endsWith(".mp3") || file.endsWith(".wav") || file.endsWith(".wma") || file.endsWith(".m4a")) {
     return true;
   } else {
     return false;

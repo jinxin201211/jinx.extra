@@ -38,7 +38,7 @@
             <el-link :href="$ImageGetServer + item" target="blank" type="primary" style="float: right;">下载</el-link>
           </div>
           <div v-if="isImage(item)" style="text-align: center;">
-            <el-image :src="$ImageGetServer + item" style="max-width: 960px; margin: 0 auto;" :preview-src-list="[$ImageGetServer + item]">
+            <el-image :src="$ImageGetServer + item" style="max-width: 960px; margin: 0 auto;" :preview-src-list="PreviewSrcList">
               <div slot="placeholder" class="image-slot">加载中<span class="dot">...</span></div>
               <div slot="error" class="image-slot">
                 <i class="el-icon-picture-outline"></i>
@@ -65,7 +65,7 @@
     </div>
 
     <div style="position: absolute; bottom: 0; left: 0; width: 100%; padding: 20px; box-shadow: rgba(0, 0, 0, 0.5) 0px 1px 5px 0px; background: #ffffff; box-sizing: border-box;">
-      <div style="position: relative; text-align: center;" v-show="!WorksInfo.empty">
+      <div style="position: relative; text-align: center;">
         <el-radio-group v-model="appraisal" :disabled="submit_status.disabled || submit_status.loading" @change="handleAppraisalChange" :loading="submit_status.loading">
           <el-radio label="1" border>通过</el-radio>
           <el-radio label="2" border>不通过</el-radio>
@@ -96,6 +96,7 @@ export default {
         works: {},
         works_file: []
       },
+      PreviewSrcList: [],
       submit_status: {
         loading: false,
         disabled: false
@@ -202,6 +203,7 @@ export default {
         this.query.index = this.List.length - 1;
       }
       this.appraisal = null;
+      this.PreviewSrcList = [];
       this.axios
         .get("/api/gameWorks3/getOne", { params: { wid: this.List[this.query.index].wid } })
         .then(function(response) {
@@ -228,6 +230,11 @@ export default {
             if (that.WorksInfo.works.file5) {
               that.WorksInfo.works_file.push(that.WorksInfo.works.file5);
             }
+            for (let i = 0; i < that.WorksInfo.works_file.length; i++) {
+              if (that.isImage(that.WorksInfo.works_file[i])) {
+                that.PreviewSrcList.push(that.$ImageGetServer + that.WorksInfo.works_file[i]);
+              }
+            }
           } else {
             that.submit_status.disabled = true;
             that.$message({
@@ -242,6 +249,7 @@ export default {
         .catch(function(err) {
           console.log(err);
           loading.close();
+          that.submit_status.disabled = true;
           that.next_status.loading = false;
           that.$message({
             showClose: true,
@@ -280,6 +288,7 @@ export default {
               message: "提交成功",
               type: "success"
             });
+            that.handleNextWorks();
           } else {
             that.$message({
               showClose: true,
@@ -298,9 +307,6 @@ export default {
             type: "warning"
           });
         });
-    },
-    handleDownload: function(file) {
-      window.location.href = file;
     }
   }
 };

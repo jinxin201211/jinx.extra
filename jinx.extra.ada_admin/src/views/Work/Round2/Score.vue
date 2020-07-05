@@ -38,7 +38,7 @@
             <el-link :href="$ImageGetServer + item" target="blank" type="primary" style="float: right;">下载</el-link>
           </div>
           <div v-if="isImage(item)" style="text-align: center;">
-            <el-image :src="$ImageGetServer + item" style="max-width: 960px; margin: 0 auto;" :preview-src-list="[$ImageGetServer + item]">
+            <el-image :src="$ImageGetServer + item" style="max-width: 960px; margin: 0 auto;" :preview-src-list="PreviewSrcList">
               <div slot="placeholder" class="image-slot">加载中<span class="dot">...</span></div>
               <div slot="error" class="image-slot">
                 <i class="el-icon-picture-outline"></i>
@@ -66,7 +66,7 @@
 
     <div style="position: absolute; bottom: 0; left: 0; width: 100%; padding: 20px; box-shadow: rgba(0, 0, 0, 0.5) 0px 1px 5px 0px; background: #ffffff; box-sizing: border-box;">
       <div style="text-align: center;">
-        <el-rate v-model="Score" :max="10" :disabled="WorksInfo.empty" show-score score-template="{value}" style="display: inline-block; margin-right: 20px;" @change="handleScoreChange"></el-rate>
+        <el-rate v-model="Score" :max="10" :disabled="submit_status.disabled || submit_status.loading" show-score score-template="{value}" style="display: inline-block; margin-right: 20px;" @change="handleScoreChange"></el-rate>
         <!--<el-button size="small" type="primary" @click="handleSubmit" :loading="submit_status.loading" :disabled="submit_status.disabled || Score === null || Score === 0" style="margin: 15px;">确 定</el-button>-->
       </div>
       <el-divider></el-divider>
@@ -95,15 +95,13 @@ export default {
         state: this.$route.query.state
       },
       count: 0,
-      ScoreIconClasses: ["icon-rate-face-1", "icon-rate-face-2", "icon-rate-face-3"],
-      ScoreIconColors: ["#99A9BF", "#F7BA2A", "#FF9900"],
       Score: 0,
       List: [],
       WorksInfo: {
         works: {},
-        works_file: [],
-        empty: true
+        works_file: []
       },
+      PreviewSrcList: [],
       submit_status: {
         loading: false,
         disabled: false
@@ -140,8 +138,7 @@ export default {
               that.List = [];
               that.WorksInfo = {
                 works: {},
-                works_file: {},
-                empty: true
+                works_file: []
               };
               that.submit_status.disabled = true;
               that.next_status.disabled = true;
@@ -200,16 +197,15 @@ export default {
       let that = this;
       this.next_status.loading = true;
       that.submit_status.disabled = false;
-      that.WorksInfo.empty = true;
       if (this.query.index > this.List.length - 1) {
         this.query.index = this.List.length - 1;
       }
+      that.PreviewSrcList = [];
       this.axios
         .get("/api/gameWorks3/getOne", { params: { wid: this.List[this.query.index].wid } })
         .then(function(response) {
           if (response && response.data.code == "0") {
             that.WorksInfo.works = response.data.data;
-            that.WorksInfo.empty = false;
             let type = that.$WorksTypeCode.find(x => x.code == that.WorksInfo.works.worksType);
             that.WorksInfo.works.worksType = type == null ? "" : type.value;
             that.Score = that.WorksInfo.works.scoreTotal * 1;
@@ -228,6 +224,11 @@ export default {
             }
             if (that.WorksInfo.works.file5) {
               that.WorksInfo.works_file.push(that.WorksInfo.works.file5);
+            }
+            for (let i = 0; i < that.WorksInfo.works_file.length; i++) {
+              if (that.isImage(that.WorksInfo.works_file[i])) {
+                that.PreviewSrcList.push(that.$ImageGetServer + that.WorksInfo.works_file[i]);
+              }
             }
           } else {
             that.submit_status.disabled = true;
@@ -285,8 +286,7 @@ export default {
               message: "提交成功",
               type: "success"
             });
-            that.Scored = true;
-            that.submit_status.disabled = true;
+            that.handleNextWorks();
           } else {
             that.$message({
               showClose: true,

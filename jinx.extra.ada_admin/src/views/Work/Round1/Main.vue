@@ -122,7 +122,6 @@ export default {
         });
     },
     getProgress() {
-      this.loading = true;
       let that = this;
       this.axios
         .post("/api/gameWorks3/AppraisalProgress_Round1")
@@ -138,7 +137,6 @@ export default {
               type: "warning"
             });
           }
-          that.loading = false;
         })
         .catch(function(err) {
           console.log(err);

@@ -210,6 +210,15 @@ const routes = [
         }
       },
       {
+        path: "/score/round32",
+        name: "scoreround32",
+        component: () => import("../views/Work/Round3/Main2.vue"),
+        meta: {
+          title: "作品打分(第三轮)",
+          access: ["judge"]
+        }
+      },
+      {
         path: "/score/rank",
         name: "scorerank",
         component: () => import("../views/Work/Round3/Rank.vue"),

@@ -5,8 +5,6 @@
       <el-breadcrumb-item>作品打分(第三轮)</el-breadcrumb-item>
     </el-breadcrumb>
 
-    <el-button @click="handleSubmit" :loading="submit_status" type="primary">确认修改</el-button>
-
     <el-table :data="Data.group[0].list" stripe style="width: 100%" @row-dblclick="handleRowDbclick">
       <el-table-column type="index" width="50"> </el-table-column>
       <el-table-column prop="wno" label="作品编号" width="180"> </el-table-column>
@@ -14,17 +12,6 @@
       <el-table-column prop="worksType" label="作品类别" width="120"> </el-table-column>
       <el-table-column prop="worksSeriesName" label="命题名称"> </el-table-column>
       <el-table-column prop="scoreTotal" label="累计积分" width="120"> </el-table-column>
-      <el-table-column label="设置奖项" width="150">
-        <template slot-scope="scope">
-          <el-select v-model="scope.row.prize" placeholder="设置作品奖项" size="small">
-            <el-option label="设置作品奖项" :value="null"></el-option>
-            <el-option label="一等奖" :value="1"></el-option>
-            <el-option label="二等奖" :value="2"></el-option>
-            <el-option label="三等奖" :value="3"></el-option>
-            <el-option label="优秀奖" :value="4"></el-option>
-          </el-select>
-        </template>
-      </el-table-column>
       <el-table-column label="操作" width="180">
         <template slot-scope="scope">
           <el-button @click="handleView(scope.row)" type="text" size="small">查看</el-button>
