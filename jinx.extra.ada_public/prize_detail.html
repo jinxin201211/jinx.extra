@@ -68,7 +68,7 @@
       <!-- m-cur end !-->
 
       <div class="m-row">
-        <div class="col_l">
+        <div class="col_l" style="display: none;">
           <div class="m-subnav">
             <h3>
               <strong>河北赛区获奖查询</strong>
@@ -81,7 +81,7 @@
         </div>
         <!-- col_l end ! -->
 
-        <div class="col_r">
+        <div class="col_r" style="width: 100%;">
 
           <div class="ins_xq">
             <div class="jinx-card">
@@ -93,10 +93,10 @@
                   <span class="title">作品编号</span>
                   <span class="value data-auto-bind" data-key="wno"></span>
                 </div>
-                <div class="jinx-works-info">
+                <!-- <div class="jinx-works-info">
                   <span class="title">作品名称</span>
                   <span class="value data-auto-bind" data-key="worksName"></span>
-                </div>
+                </div> -->
                 <div class="jinx-works-info">
                   <span class="title">作品类别</span>
                   <span class="value data-auto-bind" data-key="worksType"></span>
@@ -117,7 +117,7 @@
                   <span class="title">学校</span>
                   <span class="value data-auto-bind" data-key="school"></span>
                 </div>
-                <div class="jinx-works-info">
+                <!-- <div class="jinx-works-info">
                   <span class="title">作品素材来源</span>
                   <span class="value data-auto-bind" data-key="materialSurce"></span>
                 </div>
@@ -125,7 +125,7 @@
                   <span class="title" style="display: inline-block;">作品创意说明</span>
                   <span class="value" style="display: inline-block;" class="data-auto-bind"
                     data-key="creativeOverview"></span>
-                </div>
+                </div> -->
               </div>
             </div>
             <div id="worksFiles">
@@ -188,6 +188,7 @@
 <script src='Public/home/js/wow.min.js'></script>
 <script src="Public/home/js/home.js" type="text/javascript" charset="utf-8"></script>
 <script src="Public/home/js/request.config.js" type="text/javascript" charset="utf-8"></script>
+<script src="Public/home/js/flv.min.js" type="text/javascript" charset="utf-8"></script>
 
 <script>
   var WorksTypeCode = [
@@ -267,13 +268,16 @@
             works_files_list.push(data.file5);
           }
           var works_files = '';
+          // works_files_list.push('Bc04-03-005-0003.flv');
+          // works_files_list.push('Bc09-03-022-0001.mp4');
           for (var i = 0; i < works_files_list.length; i++) {
             works_files += '<div class="jinx-card"><div class="title"><span>文件' + (i + 1) + '. ' + works_files_list[i] + '</span></div><div class="content">';
             if (isImage(works_files_list[i])) {
-              works_files += '<div style="text-align: center;"><img src="' + FileGetServer + works_files_list[i] + '" style = "width: 100%; margin: 0 auto;" /></div>';
+              works_files += '<div style="text-align: center;"><img src="' + FileGetServer + works_files_list[i] + '" style = "margin: 0 auto;" /></div>';
             }
             else if (isVideo(works_files_list[i])) {
-              works_files += '<div style="text-align: center;"><video src="' + FileGetServer + works_files_list[i] + '" controls="controls" style="max-width: 100%; margin: 0 auto;">您的浏览器不支持 video 标签。</video></div></div>';
+              works_files += '<div style="text-align: center;"><video src="' + FileGetServer + works_files_list[i] + '" controls="controls" style="margin: 0 auto;">您的浏览器不支持 video 标签。</video></div></div>';
+              // works_files += '<div style="text-align: center;"><a href="prize_video.html?src=' + works_files_list[i] + '" target="_blank">' + works_files_list[i] + '</a></div>';
             }
             else if (isAudio(works_files_list[i])) {
               works_files += '<div style="text-align: center;"><audio src="' + FileGetServer + works_files_list[i] + '" controls="controls" style="max-width: 100%; margin: 0 auto;">您的浏览器不支持 audio 标签。</audio></div></div>';
@@ -287,6 +291,7 @@
             works_files += '</div></div>';
           }
           $('#worksFiles').html(works_files);
+          playVideo();
         }
         else {
           alert('获取作品失败');
@@ -298,8 +303,39 @@
     });
   }
 
+  function playVideo() {
+    if (flvjs.isSupported()) {
+      var player = document.getElementsByTagName('video');
+      for (var i = 0; i < player.length; i++) {
+        var src = player[i].attributes['src'].value;
+        var flvPlayer = flvjs.createPlayer({
+          type: getExtensionName(src),
+          url: src
+        });
+        flvPlayer.attachMediaElement(player[i]);
+        flvPlayer.load(); //加载
+      }
+    }
+  }
+
+  function getExtensionName(filename) {
+    if (!filename || typeof filename != "string") {
+      return false;
+    }
+    let a = filename
+      .split("")
+      .reverse()
+      .join("");
+    let b = a
+      .substring(0, a.search(/\./))
+      .split("")
+      .reverse()
+      .join("");
+    return b.toLowerCase();
+  }
 
   var isImage = function (file) {
+    file = file.toLowerCase();
     if (file.endsWith(".jpg") || file.endsWith(".jpeg") || file.endsWith(".png") || file.endsWith(".gif")) {
       return true;
     } else {
@@ -308,7 +344,7 @@
   }
   var isAudio = function (file) {
     file = file.toLowerCase();
-    if (file.endsWith(".mp3") || file.endsWith(".wav") || file.endsWith(".wma") || file.endsWith(".ogg")) {
+    if (file.endsWith(".mp3") || file.endsWith(".wav") || file.endsWith(".wma") || file.endsWith(".m4a")) {
       return true;
     } else {
       return false;
@@ -316,7 +352,7 @@
   }
   var isVideo = function (file) {
     file = file.toLowerCase();
-    if (file.endsWith(".mp4") || file.endsWith(".avi") || file.endsWith(".flv") || file.endsWith(".mov") || file.endsWith(".mkv")) {
+    if (file.endsWith(".mp4") || file.endsWith(".avi") || file.endsWith(".flv") || file.endsWith(".ogg")) {
       return true;
     } else {
       return false;
@@ -376,6 +412,16 @@
   .jinx-works-info .value {
     margin-left: 20px;
     margin-right: 20px;
+  }
+
+  #worksFiles video {
+    max-width: 960px;
+    max-height: 960px;
+  }
+
+  #worksFiles img {
+    max-width: 960px;
+    max-height: 960px;
   }
 </style>
 
