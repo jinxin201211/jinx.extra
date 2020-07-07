@@ -22,6 +22,7 @@
     <el-table :data="Table.Data" style="width: 100%" :default-sort="{ prop: 'date', order: 'descending' }">
       <el-table-column prop="date" label="日期" sortable> </el-table-column>
       <el-table-column v-for="(item, index) in Table.Column" :prop="item.prop" :label="item.label" :key="'col' + index" sortable width="120"> </el-table-column>
+      <el-table-column prop="total" label="合计" sortable width="120"> </el-table-column>
     </el-table>
   </div>
 </template>
@@ -188,9 +189,12 @@ export default {
       for (let i = 0; i < this.DateList.length; i++) {
         let data = {};
         data["date"] = moment(this.DateList[i]).format("YYYY年MM月DD日");
+        let total = 0;
         for (let j = 0; j < this.UserGroupCode.length; j++) {
           data["column" + this.UserGroupCode[j]] = this.StatData[i][j];
+          total += this.StatData[i][j];
         }
+        data["total"] = total;
         this.Table.Data.push(data);
       }
     },
@@ -201,6 +205,8 @@ export default {
         head.push(this.UserGroup[i].value);
         filter.push("column" + this.UserGroup[i].code);
       }
+      head.push("合计");
+      filter.push("total");
       this.getExcel(head, filter, this.Table.Data, `注册量统计 ${moment(this.date_range[0]).format("YYYY-MM-DD")} ~ ${moment(this.date_range[1]).format("YYYY-MM-DD")}`);
     },
     getExcel(head, filter, list, title) {

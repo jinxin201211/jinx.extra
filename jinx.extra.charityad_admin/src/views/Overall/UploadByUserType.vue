@@ -26,6 +26,11 @@
           <el-link type="primary" @click="handleCellClick(scope, index, scope.row[item.prop])">{{ scope.row[item.prop] }}</el-link>
         </template>
       </el-table-column>
+      <el-table-column prop="total" label="合计" sortable width="120">
+        <template slot-scope="scope">
+          <el-link type="primary" @click="handleTotalClick(scope)">{{ scope.row.total }}</el-link>
+        </template>
+      </el-table-column>
     </el-table>
 
     <el-drawer title="查看作品列表" :visible.sync="drawer.show" direction="rtl" size="75%" :destroy-on-close="true">
@@ -203,9 +208,12 @@ export default {
       for (let i = 0; i < this.DateList.length; i++) {
         let data = {};
         data["date"] = moment(this.DateList[i]).format("YYYY年MM月DD日");
+        let total = 0;
         for (let j = 0; j < this.UserGroupCode.length; j++) {
           data["column" + this.UserGroupCode[j]] = this.StatData[i][j];
+          total += this.StatData[i][j];
         }
+        data["total"] = total;
         this.Table.Data.push(data);
       }
     },
@@ -216,6 +224,8 @@ export default {
         head.push(this.UserGroup[i].value);
         filter.push("column" + this.UserGroup[i].code);
       }
+      head.push("合计");
+      filter.push("total");
       this.getExcel(head, filter, this.Table.Data, `作品量统计(根据参赛组别) ${moment(this.date_range[0]).format("YYYY-MM-DD")} ~ ${moment(this.date_range[1]).format("YYYY-MM-DD")}`);
     },
     getExcel(head, filter, list, title) {
@@ -229,15 +239,18 @@ export default {
       return jsonData.map(v => filterVal.map(j => v[j]));
     },
     handleCellClick(scope, index, data) {
-      console.log(scope);
-      console.log(moment(scope.row.date));
-      console.log(moment(scope.row.date, "YYYY年MM月DD日").format("YYYY-MM-DD"));
       let date = moment(scope.row.date, "YYYY年MM月DD日").format("YYYY-MM-DD");
       let game_type = this.UserGroupCode[index];
       this.drawer.date = date;
       this.drawer.gameType = game_type;
       this.drawer.show = true;
       this.drawer.size = data;
+    },
+    handleTotalClick(scope, index) {
+      let date = moment(scope.row.date, "YYYY年MM月DD日").format("YYYY-MM-DD");
+      this.drawer.date = date;
+      this.drawer.show = true;
+      this.drawer.size = scope.row.total;
     }
   }
 };
