@@ -229,13 +229,13 @@ export default {
   .el-menu-item:hover {
     background: darken(@theme-red-bg-color-active, 10%);
     color: @theme-red-color-active;
-    box-shadow: 0 0 2px rgba(0, 0, 0, 0.9) inset;
+    // box-shadow: 0 0 2px rgba(0, 0, 0, 0.9) inset;
   }
 
   .el-menu-item.is-active {
     background: @theme-red-bg-color-active;
     color: @theme-red-color-active;
-    box-shadow: 0 0 2px rgba(0, 0, 0, 0.9) inset;
+    // box-shadow: 0 0 2px rgba(0, 0, 0, 0.9) inset;
   }
 }
 </style>

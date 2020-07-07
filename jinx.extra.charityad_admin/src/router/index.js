@@ -36,7 +36,8 @@ const routes = [
             component: () => import("../views/Overall/Registration.vue"),
             meta: {
               title: "注册量统计",
-              access: ["admin"]
+              access: ["admin"],
+              menu: "/overall"
             }
           },
           {
@@ -45,7 +46,8 @@ const routes = [
             component: () => import("../views/Overall/UploadByWorkType.vue"),
             meta: {
               title: "作品量统计(根据作品类别)",
-              access: ["admin"]
+              access: ["admin"],
+              menu: "/overall"
             }
           },
           {
@@ -54,7 +56,8 @@ const routes = [
             component: () => import("../views/Overall/UploadByUserType.vue"),
             meta: {
               title: "作品量统计(根据参赛组别)",
-              access: ["admin"]
+              access: ["admin"],
+              menu: "/overall"
             }
           }
         ]

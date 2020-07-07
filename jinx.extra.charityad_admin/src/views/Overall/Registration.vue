@@ -5,7 +5,6 @@
       <el-date-picker id="pickerDateRange" v-model="date_range" type="daterange" range-separator="至" start-placeholder="开始日期" end-placeholder="结束日期" clearable size="small" @change="handleDateRangeChange"> </el-date-picker>
     </div>
 
-    <!--<div class="chart" id="barPenalize"></div>-->
     <highcharts :options="chartOptions"></highcharts>
 
     <div class="data-table-box">
@@ -29,7 +28,6 @@
 
 <script>
 import { Chart } from "highcharts-vue";
-// import HighCharts from "highcharts";
 import moment from "moment";
 import qs from "qs";
 
@@ -56,7 +54,7 @@ export default {
           enabled: false
         },
         title: {
-          text: "注册量"
+          text: "注册量统计"
         },
         xAxis: {
           categories: ["2020-01-01", "2020-01-02", "2020-01-03", "2020-01-04", "2020-01-05", "2020-01-06", "2020-01-07"],
@@ -69,7 +67,6 @@ export default {
           }
         },
         tooltip: {
-          // head + 每个 point + footer 拼接成完整的 table
           headerFormat: '<span style="font-size:10px">{point.key}</span><table>',
           pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' + '<td style="padding:0"><b>{point.y}</b></td></tr>',
           footerFormat: "</table>",
@@ -110,7 +107,6 @@ export default {
       this.chartOptions.xAxis.categories.push(moment(i).format("YYYY-MM-DD"));
       this.DateList.push(moment(i).format("YYYY-MM-DD"));
     }
-    // console.log(this.chartOptions.xAxis.categories);
   },
   mounted() {
     this.getData();
@@ -138,7 +134,6 @@ export default {
         .post("/api/gameWorks2/GetRegInfo", qs.stringify({ sDate: kssj, eDate: jssj }))
         .then(function(response) {
           if (response && response.data.code == "0") {
-            // console.log(response.data.data);
             let data = response.data.data;
             that.StatData = [];
             for (let i = 0; i < that.DateList.length; i++) {
@@ -176,16 +171,6 @@ export default {
         });
     },
     refreshChart() {
-      // console.log(this.StatData);
-      // this.StatData = [
-      //   [1, 2, 3],
-      //   [4, 5, 6],
-      //   [7, 8, 9],
-      //   [1, 2, 3],
-      //   [4, 5, 6],
-      //   [7, 8, 9],
-      //   [1, 2, 3]
-      // ];
       this.chartOptions.xAxis.categories = [];
       for (let i = this.date_range[0]; i <= this.date_range[1]; i = moment(i).add(1, "days")._d) {
         this.chartOptions.xAxis.categories.push(moment(i).format("YYYY-MM-DD"));
@@ -204,13 +189,10 @@ export default {
         let data = {};
         data["date"] = moment(this.DateList[i]).format("YYYY年MM月DD日");
         for (let j = 0; j < this.UserGroupCode.length; j++) {
-          // console.log(this.StatData[i][j]);
           data["column" + this.UserGroupCode[j]] = this.StatData[i][j];
         }
         this.Table.Data.push(data);
-        // this.Table.Data.push(...this.StatData[i]);
       }
-      // console.log(this.Table.Data);
     },
     handleExportStat() {
       let head = ["日期"];
@@ -219,7 +201,7 @@ export default {
         head.push(this.UserGroup[i].value);
         filter.push("column" + this.UserGroup[i].code);
       }
-      this.getExcel(head, filter, this.Table.Data, "注册量统计");
+      this.getExcel(head, filter, this.Table.Data, `注册量统计 ${moment(this.date_range[0]).format("YYYY-MM-DD")} ~ ${moment(this.date_range[1]).format("YYYY-MM-DD")}`);
     },
     getExcel(head, filter, list, title) {
       require.ensure([], () => {
