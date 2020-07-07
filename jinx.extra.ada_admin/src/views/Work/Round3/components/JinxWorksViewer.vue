@@ -8,10 +8,10 @@
         <span>作品编号</span>
         <span v-text="WorksInfo.works.wno"></span>
       </div>
-      <div class="jinx-works-info">
+      <!--<div class="jinx-works-info">
         <span>作品名称</span>
         <span v-text="WorksInfo.works.worksName"></span>
-      </div>
+      </div>-->
       <div class="jinx-works-info">
         <span>作品类别</span>
         <span v-text="WorksInfo.works.worksType"></span>
@@ -20,14 +20,26 @@
         <span>命题名称</span>
         <span v-text="WorksInfo.works.worksSeriesName"></span>
       </div>
-      <div class="jinx-works-info">
+      <div class="jinx-works-info" v-if="showAuthor">
+        <span>作者</span>
+        <span v-text="WorksInfo.works.author1"></span>
+      </div>
+      <div class="jinx-works-info" v-if="showAuthor">
+        <span>指导教师</span>
+        <span v-text="WorksInfo.works.tuname"></span>
+      </div>
+      <div class="jinx-works-info" v-if="showAuthor">
+        <span>学校</span>
+        <span v-text="WorksInfo.works.school"></span>
+      </div>
+      <!--<div class="jinx-works-info">
         <span>作品素材来源</span>
         <span v-text="WorksInfo.works.materialSurce"></span>
       </div>
       <div class="jinx-works-info">
         <span>作品创意说明</span>
         <span v-text="WorksInfo.works.creativeOverview"></span>
-      </div>
+      </div>-->
     </el-card>
     <el-card v-for="(item, index) in WorksInfo.works_file" :key="'works_file' + index" style="margin-top: 15px;">
       <div slot="header" class="clearfix">
@@ -67,7 +79,13 @@ import JinxVideoPlayer from "@/components/JinxVideoPlayer.vue";
 
 export default {
   components: { JinxVideoPlayer },
-  props: ["wid"],
+  props: {
+    wid: String,
+    showAuthor: {
+      type: Boolean,
+      default: false
+    }
+  },
   data() {
     return {
       WorksInfo: {

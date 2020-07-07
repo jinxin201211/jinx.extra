@@ -137,7 +137,7 @@ export default {
   width: 100%;
   height: @header-height;
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2);
-  background: #fefefe;
+  background: #ffffff;
   box-sizing: border-box;
   color: #000000;
   z-index: 999;

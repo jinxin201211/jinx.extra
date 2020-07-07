@@ -15,7 +15,7 @@
       <el-table :data="Data.group[0].prize[pindex].list" stripe style="width: 100%" @row-dblclick="handleRowDbclick">
         <el-table-column type="index" width="50"> </el-table-column>
         <el-table-column prop="wno" label="作品编号" width="180"> </el-table-column>
-        <el-table-column prop="worksName" label="作品名称"> </el-table-column>
+        <!--<el-table-column prop="worksName" label="作品名称"> </el-table-column>-->
         <el-table-column prop="worksType" label="作品类别" width="120"> </el-table-column>
         <el-table-column prop="worksSeriesName" label="命题名称"> </el-table-column>
         <el-table-column prop="author1" label="作者"> </el-table-column>
@@ -30,7 +30,7 @@
     </el-card>
 
     <el-drawer title="查看作品" :visible.sync="drawer" direction="rtl" size="50%" :destroy-on-close="true">
-      <jinx-works-viewer :wid="view_wid" ref="WorksViewer"></jinx-works-viewer>
+      <jinx-works-viewer :wid="view_wid" :show-author="true" ref="WorksViewer"></jinx-works-viewer>
     </el-drawer>
   </div>
 </template>

@@ -42,6 +42,7 @@ export default {
     return {
       active: "",
       FullRouteList: [
+        { path: "/overall", access: ["admin"], title: "数据统计" },
         { path: "/judge", access: ["admin"], title: "评委管理" },
         { path: "/config", access: ["admin"], title: "系统配置" },
         { path: "/log", access: ["admin"], title: "日志管理" },
@@ -136,7 +137,7 @@ export default {
   width: 100%;
   height: @header-height;
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.2);
-  background: #fefefe;
+  background: #ffffff;
   box-sizing: border-box;
   color: #000000;
   z-index: 999;

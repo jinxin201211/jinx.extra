@@ -22,7 +22,45 @@ const routes = [
       //   }
       // },
       {
-        path: "judge",
+        path: "/overall",
+        name: "Overall",
+        component: () => import("../views/Overall/Main.vue"),
+        meta: {
+          title: "数据统计",
+          access: ["admin"]
+        },
+        children: [
+          {
+            path: "registration",
+            name: "Registration",
+            component: () => import("../views/Overall/Registration.vue"),
+            meta: {
+              title: "注册量统计",
+              access: ["admin"]
+            }
+          },
+          {
+            path: "uploadbyworktype",
+            name: "UploadByWorkType",
+            component: () => import("../views/Overall/UploadByWorkType.vue"),
+            meta: {
+              title: "作品量统计(根据作品类别)",
+              access: ["admin"]
+            }
+          },
+          {
+            path: "uploadbyusertype",
+            name: "UploadByUserType",
+            component: () => import("../views/Overall/UploadByUserType.vue"),
+            meta: {
+              title: "作品量统计(根据参赛组别)",
+              access: ["admin"]
+            }
+          }
+        ]
+      },
+      {
+        path: "/judge",
         name: "Judge",
         component: () => import("../views/Judge/Main.vue"),
         meta: {
@@ -52,7 +90,7 @@ const routes = [
       },
 
       {
-        path: "config",
+        path: "/config",
         name: "Config",
         component: () => import("../views/Config/Main.vue"),
         meta: {

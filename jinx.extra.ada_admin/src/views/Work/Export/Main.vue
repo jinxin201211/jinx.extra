@@ -30,11 +30,11 @@
         <el-button @click="handleExportPrize">导出表格</el-button>
         <el-button @click="handleExportPrizeAttachment">导出附件</el-button>
         <el-table :data="TableDataPrize" style="width: 100%" v-loading="loading_prize">
-          <el-table-column prop="seq" label="序号"> </el-table-column>
+          <el-table-column prop="seq" label="序号" width="50px"> </el-table-column>
           <el-table-column prop="works_type" label="作品类别"> </el-table-column>
           <el-table-column prop="works_series_name" label="命题名称"> </el-table-column>
           <el-table-column prop="wno" label="参赛编号"> </el-table-column>
-          <el-table-column prop="works_name" label="作品名称"> </el-table-column>
+          <!--<el-table-column prop="works_name" label="作品名称"> </el-table-column>-->
           <el-table-column prop="author1" label="作者"> </el-table-column>
           <el-table-column prop="tel" label="作者电话"> </el-table-column>
           <el-table-column prop="t_uname" label="指导教师"> </el-table-column>
@@ -180,12 +180,9 @@ export default {
       this.getExcel(head, filter, this.TableDataPrizeStat, "赛区报送全国总评审作品数量统计表");
     },
     handleExportPrize() {
-      let head = ["序号", "作品类别", "命题名称", "参赛编号", "作品名称", "作者", "作者电话", "指导教师", "教师电话", "获奖等级"];
-      let filter = ["seq", "works_type", "works_series_name", "wno", "works_name", "author1", "tel", "t_uname", "t_tel", "prize"];
+      let head = ["序号", "作品类别", "命题名称", "参赛编号", "作者", "作者电话", "指导教师", "教师电话", "学校", "获奖等级"];
+      let filter = ["seq", "works_type", "works_series_name", "wno", "author1", "tel", "t_uname", "t_tel", "school", "prize"];
       this.getExcel(head, filter, this.TableDataPrize, "赛区获奖名单");
-    },
-    handleExportPrizeAttachment() {
-      window.location.href = this.$ImagePostServer + "/gameWorks3/GetWorksPrizeList_AttachmentDownload";
     },
     getExcel(head, filter, list, title) {
       require.ensure([], () => {
