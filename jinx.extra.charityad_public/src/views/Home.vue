@@ -310,7 +310,12 @@ export default {
                 newsRow.col1 = {
                   id: response.data.data[i].id,
                   title: response.data.data[i].title,
-                  content: response.data.data[i].content.replace(/<[^>]*>|/g, ""),
+                  content: response.data.data[i].content
+                    .replace(/<xml>[\s\S]*?<\/xml>/gi, "")
+                    .replace(/<style>[\s\S]*?<\/style>/gi, "")
+                    .replace(/<\/?[^>]*>/g, "")
+                    .replace(/[ | ]*\n/g, "\n")
+                    .replace(/&nbsp;/gi, ""),
                   time: response.data.data[i].utime,
                   date: moment(response.data.data[i].utime).get("date"),
                   month: moment(response.data.data[i].utime).get("year") + "-" + month_dict[moment(response.data.data[i].utime).get("month")]
@@ -320,7 +325,12 @@ export default {
                 newsRow.col2 = {
                   id: response.data.data[i + 1].id,
                   title: response.data.data[i + 1].title,
-                  content: response.data.data[i + 1].content.replace(/<[^>]*>|/g, ""),
+                  content: response.data.data[i].content
+                    .replace(/<xml>[\s\S]*?<\/xml>/gi, "")
+                    .replace(/<style>[\s\S]*?<\/style>/gi, "")
+                    .replace(/<\/?[^>]*>/g, "")
+                    .replace(/[ | ]*\n/g, "\n")
+                    .replace(/&nbsp;/gi, ""),
                   time: response.data.data[i + 1].utime,
                   date: moment(response.data.data[i + 1].utime).get("date"),
                   month: moment(response.data.data[i + 1].utime).get("year") + "-" + month_dict[moment(response.data.data[i + 1].utime).get("month")]
