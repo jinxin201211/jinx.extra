@@ -28,7 +28,7 @@ export default {
       isClear: false,
       form: {
         id: -1,
-        title: "#迪士尼确认花木兰档期#",
+        title: "",
         subTitle: "",
         content: "",
         type: "1",
