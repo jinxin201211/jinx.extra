@@ -1,0 +1,764 @@
+[33mcommit 05a4539b84d3467d5b0a2aa3de8c32f880fdaefe[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Merge: 76dbfb0 d2313a1
+Author: 金鑫 <jinxin19950105@outlook.com>
+Date:   Tue Sep 22 13:48:32 2020 +0800
+
+    Merge branch 'master' of https://github.com/jinxin201211/jinx.extra into master
+
+[33mcommit d2313a193cd85330ff9ee3a9149a5e299472dde0[m[33m ([m[1;31mold/master[m[33m)[m
+Merge: 6c90440 d2c3409
+Author: jinxin201211 <jinxin19950105@outlook.com>
+Date:   Tue Sep 22 13:47:13 2020 +0800
+
+    Merge pull request #7 from jinxin201211/dependabot/npm_and_yarn/jinx.extra.charityad_admin/http-proxy-1.18.1
+    
+    Bump http-proxy from 1.18.0 to 1.18.1 in /jinx.extra.charityad_admin
+
+[33mcommit 6c90440ed1abbfd013123fa12bbba74e168ba1c0[m
+Merge: aeb6a64 f149456
+Author: jinxin201211 <jinxin19950105@outlook.com>
+Date:   Tue Sep 22 13:47:00 2020 +0800
+
+    Merge pull request #6 from jinxin201211/dependabot/npm_and_yarn/jinx.extra.ada_admin/elliptic-6.5.3
+    
+    Bump elliptic from 6.5.2 to 6.5.3 in /jinx.extra.ada_admin
+
+[33mcommit aeb6a64d7a3da14fe0f4e92988e5f7193ec901d0[m
+Merge: ddd5be3 80d7c62
+Author: jinxin201211 <jinxin19950105@outlook.com>
+Date:   Tue Sep 22 13:46:47 2020 +0800
+
+    Merge pull request #5 from jinxin201211/dependabot/npm_and_yarn/jinx.extra.charityad_admin/elliptic-6.5.3
+    
+    Bump elliptic from 6.5.2 to 6.5.3 in /jinx.extra.charityad_admin
+
+[33mcommit ddd5be359a273ec85a6b63ac5136bcd88f9af3d5[m
+Merge: 149d3be 6ec091d
+Author: jinxin201211 <jinxin19950105@outlook.com>
+Date:   Tue Sep 22 13:46:34 2020 +0800
+
+    Merge pull request #4 from jinxin201211/dependabot/npm_and_yarn/jinx.extra.ada_admin/lodash-4.17.19
+    
+    Bump lodash from 4.17.15 to 4.17.19 in /jinx.extra.ada_admin
+
+[33mcommit 149d3beaf65eb66185b5246c813c2bb19378612d[m
+Merge: 3fb125c cda65bb
+Author: jinxin201211 <jinxin19950105@outlook.com>
+Date:   Tue Sep 22 13:46:23 2020 +0800
+
+    Merge pull request #3 from jinxin201211/dependabot/npm_and_yarn/jinx.extra.charityad_admin/lodash-4.17.19
+    
+    Bump lodash from 4.17.15 to 4.17.19 in /jinx.extra.charityad_admin
+
+[33mcommit 3fb125c7b09be6ee5d69a6b9dbf7b25e91bc5af1[m
+Merge: 8ec0631 d148a16
+Author: jinxin201211 <jinxin19950105@outlook.com>
+Date:   Tue Sep 22 13:46:12 2020 +0800
+
+    Merge pull request #2 from jinxin201211/dependabot/npm_and_yarn/jinx.extra.ada_admin/websocket-extensions-0.1.4
+    
+    Bump websocket-extensions from 0.1.3 to 0.1.4 in /jinx.extra.ada_admin
+
+[33mcommit 8ec0631329a76e87f04adbae75044f024430d03f[m
+Merge: 3acbdd1 ae39123
+Author: jinxin201211 <jinxin19950105@outlook.com>
+Date:   Tue Sep 22 13:45:55 2020 +0800
+
+    Merge pull request #1 from jinxin201211/dependabot/npm_and_yarn/jinx.extra.charityad_admin/websocket-extensions-0.1.4
+    
+    Bump websocket-extensions from 0.1.3 to 0.1.4 in /jinx.extra.charityad_admin
+
+[33mcommit 3acbdd1695ad1e792429759c9efeb797e6bb0175[m
+Merge: f5f7813 0a32e5e
+Author: jinxin201211 <jinxin19950105@outlook.com>
+Date:   Tue Sep 22 13:45:31 2020 +0800
+
+    Merge pull request #8 from jinxin201211/dependabot/npm_and_yarn/jinx.extra.ada_admin/http-proxy-1.18.1
+    
+    Bump http-proxy from 1.18.0 to 1.18.1 in /jinx.extra.ada_admin
+
+[33mcommit 76dbfb07976bf4fd22b213031697f632b68edff8[m
+Merge: ee04705 f5f7813
+Author: 金鑫 <jinxin19950105@outlook.com>
+Date:   Tue Sep 22 13:39:50 2020 +0800
+
+    Merge branch 'master' of https://github.com/jinxin201211/jinx.extra
+
+[33mcommit ee04705d5b678591cce834c9d4e1571afc1843c6[m
+Author: 金鑫 <jinxin19950105@outlook.com>
+Date:   Tue Sep 22 13:33:36 2020 +0800
+
+    文字修改
+
+[33mcommit 0a32e5ea2f55935bfd317b9b2c5dbdd089cc5b10[m[33m ([m[1;31morigin/dependabot/npm_and_yarn/jinx.extra.ada_admin/http-proxy-1.18.1[m[33m)[m
+Author: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>
+Date:   Fri Sep 11 23:56:26 2020 +0000
+
+    Bump http-proxy from 1.18.0 to 1.18.1 in /jinx.extra.ada_admin
+    
+    Bumps [http-proxy](https://github.com/http-party/node-http-proxy) from 1.18.0 to 1.18.1.
+    - [Release notes](https://github.com/http-party/node-http-proxy/releases)
+    - [Changelog](https://github.com/http-party/node-http-proxy/blob/master/CHANGELOG.md)
+    - [Commits](https://github.com/http-party/node-http-proxy/compare/1.18.0...1.18.1)
+    
+    Signed-off-by: dependabot[bot] <support@github.com>
+
+[33mcommit d2c3409da546171042ddba4447f308ed5dcb9b85[m[33m ([m[1;31morigin/dependabot/npm_and_yarn/jinx.extra.charityad_admin/http-proxy-1.18.1[m[33m)[m
+Author: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>
+Date:   Fri Sep 11 22:46:30 2020 +0000
+
+    Bump http-proxy from 1.18.0 to 1.18.1 in /jinx.extra.charityad_admin
+    
+    Bumps [http-proxy](https://github.com/http-party/node-http-proxy) from 1.18.0 to 1.18.1.
+    - [Release notes](https://github.com/http-party/node-http-proxy/releases)
+    - [Changelog](https://github.com/http-party/node-http-proxy/blob/master/CHANGELOG.md)
+    - [Commits](https://github.com/http-party/node-http-proxy/compare/1.18.0...1.18.1)
+    
+    Signed-off-by: dependabot[bot] <support@github.com>
+
+[33mcommit f5f7813b541f1cc1ff9e706ccc17c5b2044fe69a[m
+Author: jinxin201211 <jinxin19950105@outlook.com>
+Date:   Thu Aug 20 22:24:11 2020 +0800
+
+    增加类别
+
+[33mcommit f149456d66fb8acef5f910f7acdf0f28d3d8f2d9[m[33m ([m[1;31morigin/dependabot/npm_and_yarn/jinx.extra.ada_admin/elliptic-6.5.3[m[33m)[m
+Author: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>
+Date:   Thu Aug 20 13:33:56 2020 +0000
+
+    Bump elliptic from 6.5.2 to 6.5.3 in /jinx.extra.ada_admin
+    
+    Bumps [elliptic](https://github.com/indutny/elliptic) from 6.5.2 to 6.5.3.
+    - [Release notes](https://github.com/indutny/elliptic/releases)
+    - [Commits](https://github.com/indutny/elliptic/compare/v6.5.2...v6.5.3)
+    
+    Signed-off-by: dependabot[bot] <support@github.com>
+
+[33mcommit 9e7ad96810e8ddd6a5a144018c684e042931b4c3[m
+Author: jinxin201211 <jinxin19950105@outlook.com>
+Date:   Thu Aug 20 21:32:40 2020 +0800
+
+    增加类别
+
+[33mcommit e43eaec223c6184fa21b61465ff31408ce37bc0d[m
+Author: jinxin201211 <jinxin19950105@outlook.com>
+Date:   Mon Aug 3 19:28:38 2020 +0800
+
+    gitignore更新
+
+[33mcommit fa9e3a1abfdf6bb7d959a8fc7064ac477e993c4f[m
+Author: jinxin201211 <jinxin19950105@outlook.com>
+Date:   Mon Aug 3 19:27:34 2020 +0800
+
+    Delete 2017-2019广告业发展蓝皮书（封面）.pdf
+
+[33mcommit 47ff05008e22e2ad69dc59ed01eb09ff49bc542e[m
+Author: jinxin201211 <jinxin19950105@outlook.com>
+Date:   Mon Aug 3 19:27:20 2020 +0800
+
+    Delete 2017-2019广告业发展蓝皮书（内文）15万.pdf
+
+[33mcommit f6aeb26a1aeb1ddf7888963b83be3728b1c1575f[m
+Merge: 0bec34b d52f44a
+Author: jinxin201211 <jinxin19950105@outlook.com>
+Date:   Mon Aug 3 19:23:49 2020 +0800
+
+    Merge branch 'master' of https://github.com/jinxin201211/jinx.extra
+
+[33mcommit d52f44a5c4d60b3a113757fea3e8292cad1b456b[m
+Author: 金鑫 <jinxin19950105@outlook.com>
+Date:   Mon Aug 3 11:48:33 2020 +0800
+
+    首页新闻列表显示问题
+
+[33mcommit 80d7c62d94ccb9eac36e7b303bddd64f4a8920d3[m[33m ([m[1;31morigin/dependabot/npm_and_yarn/jinx.extra.charityad_admin/elliptic-6.5.3[m[33m)[m
+Author: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>
+Date:   Sun Aug 2 00:32:34 2020 +0000
+
+    Bump elliptic from 6.5.2 to 6.5.3 in /jinx.extra.charityad_admin
+    
+    Bumps [elliptic](https://github.com/indutny/elliptic) from 6.5.2 to 6.5.3.
+    - [Release notes](https://github.com/indutny/elliptic/releases)
+    - [Commits](https://github.com/indutny/elliptic/compare/v6.5.2...v6.5.3)
+    
+    Signed-off-by: dependabot[bot] <support@github.com>
+
+[33mcommit 0bec34ba76b60a7e51deb4fcaae2007b915288eb[m
+Author: jinxin201211 <jinxin19950105@outlook.com>
+Date:   Mon Jul 27 22:39:29 2020 +0800
+
+    蓝皮书更新
+
+[33mcommit 6ec091d8470a9fae9d6ce4c79757af87e85d3dc7[m[33m ([m[1;31morigin/dependabot/npm_and_yarn/jinx.extra.ada_admin/lodash-4.17.19[m[33m)[m
+Author: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>
+Date:   Mon Jul 20 19:33:58 2020 +0000
+
+    Bump lodash from 4.17.15 to 4.17.19 in /jinx.extra.ada_admin
+    
+    Bumps [lodash](https://github.com/lodash/lodash) from 4.17.15 to 4.17.19.
+    - [Release notes](https://github.com/lodash/lodash/releases)
+    - [Commits](https://github.com/lodash/lodash/compare/4.17.15...4.17.19)
+    
+    Signed-off-by: dependabot[bot] <support@github.com>
+
+[33mcommit cda65bbf38c3d94823238cf4046d77d436d9db12[m[33m ([m[1;31morigin/dependabot/npm_and_yarn/jinx.extra.charityad_admin/lodash-4.17.19[m[33m)[m
+Author: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>
+Date:   Mon Jul 20 16:43:13 2020 +0000
+
+    Bump lodash from 4.17.15 to 4.17.19 in /jinx.extra.charityad_admin
+    
+    Bumps [lodash](https://github.com/lodash/lodash) from 4.17.15 to 4.17.19.
+    - [Release notes](https://github.com/lodash/lodash/releases)
+    - [Commits](https://github.com/lodash/lodash/compare/4.17.15...4.17.19)
+    
+    Signed-off-by: dependabot[bot] <support@github.com>
+
+[33mcommit 7559c8a8d478ce7ce3ab48eaf88c44484c84385e[m
+Author: jinxin201211 <jinxin19950105@outlook.com>
+Date:   Tue Jul 7 21:27:35 2020 +0800
+
+    调整20200707212726
+
+[33mcommit bcb4334d31527e793e5bc6deee3be2232b0abe0b[m
+Author: jinxin201211 <jinxin19950105@outlook.com>
+Date:   Tue Jul 7 20:54:10 2020 +0800
+
+    20200707205402
+
+[33mcommit 17ba72182b934c1b825830e312d62d2c94f35f69[m
+Author: 金鑫 <jinxin19950105@outlook.com>
+Date:   Tue Jul 7 17:31:28 2020 +0800
+
+    调整20200707173116
+
+[33mcommit 9f8c9fca86ff91ae0f5998f1392132acaffeb53f[m
+Author: jinxin201211 <jinxin19950105@outlook.com>
+Date:   Mon Jul 6 22:44:52 2020 +0800
+
+    ECharts
+
+[33mcommit 5ae68e1114f757e63518be4ef0f2621484fa75be[m
+Author: 金鑫 <jinxin19950105@outlook.com>
+Date:   Mon Jul 6 14:37:13 2020 +0800
+
+    调整
+
+[33mcommit 79dfff8ea73c708693b33d2b7c46ae16a4bc19fe[m
+Author: jinxin201211 <jinxin19950105@outlook.com>
+Date:   Sun Jul 5 22:14:32 2020 +0800
+
+    调整20200705221419
+
+[33mcommit c0bddbdb28854834720abf9711a9da7e774bc9e7[m
+Author: 金鑫 <jinxin19950105@outlook.com>
+Date:   Fri Jul 3 15:14:58 2020 +0800
+
+    调整20200703151449
+
+[33mcommit 0973b3ed53240dedd752db3984c230516f748540[m
+Author: jinxin201211 <jinxin19950105@outlook.com>
+Date:   Thu Jul 2 23:10:09 2020 +0800
+
+    调整20200702231001
+
+[33mcommit 8247104220e9ea3ade450ae1c50583732826db0b[m
+Author: jinxin201211 <jinxin19950105@outlook.com>
+Date:   Thu Jul 2 07:32:46 2020 +0800
+
+    调整20200702073238
+
+[33mcommit 5b529afb9ec0b6368e99baca1eebe64420076f59[m
+Author: jinxin201211 <jinxin19950105@outlook.com>
+Date:   Wed Jul 1 23:12:56 2020 +0800
+
+    调整20200701231247
+
+[33mcommit 08c37ed6ab894524f24283fe2f8eb60e05e25f10[m
+Author: jinxin201211 <jinxin19950105@outlook.com>
+Date:   Tue Jun 30 22:12:01 2020 +0800
+
+    调整20200630221152
+
+[33mcommit 8a9433e3598064066dee98bd9a578e2eec2e49b4[m
+Author: 金鑫 <jinxin19950105@outlook.com>
+Date:   Tue Jun 30 17:25:10 2020 +0800
+
+    调整20200630172500
+
+[33mcommit 91ad50f07df05769917a0ce13c6762e844bd8224[m
+Author: jinxin201211 <jinxin19950105@outlook.com>
+Date:   Mon Jun 29 22:49:40 2020 +0800
+
+    表格导出，作品导入加上筛选条件
+
+[33mcommit cd83a379b963993a51f5501cbc5ee1b2c0f3f6ce[m
+Author: 金鑫 <jinxin19950105@outlook.com>
+Date:   Mon Jun 29 17:26:20 2020 +0800
+
+    word,ppt在线预览，评审结果查询导出
+
+[33mcommit c6a8e61130da69b2bb8bfcf180f4d0cf0f53224e[m
+Author: 金鑫 <jinxin19950105@outlook.com>
+Date:   Sun Jun 28 17:17:57 2020 +0800
+
+    视频播放组件
+
+[33mcommit 96dac2d5b95738b0eee370704ec26579c92daf4e[m
+Author: 金鑫 <jinxin19950105@outlook.com>
+Date:   Sun Jun 28 17:13:43 2020 +0800
+
+    视频播放组件
+
+[33mcommit 285c328c0c3403a0f00e5cd09aa31bf192d5d632[m
+Author: jinxin201211 <jinxin19950105@outlook.com>
+Date:   Sat Jun 27 23:47:21 2020 +0800
+
+    flv播放
+
+[33mcommit c8d11facf3275405b1edeb41e4d7c2cf2a53b9a7[m
+Author: jinxin201211 <jinxin19950105@outlook.com>
+Date:   Sat Jun 27 22:00:29 2020 +0800
+
+    调整20200627220020
+
+[33mcommit 45738cd4cbc78ffe87ee4055844b643075262953[m
+Author: jinxin201211 <jinxin19950105@outlook.com>
+Date:   Thu Jun 25 12:09:19 2020 +0800
+
+    调整pdf预览方式
+
+[33mcommit 44bb2f11cc1997beb4db67cef1323efaafc63196[m
+Author: jinxin201211 <jinxin19950105@outlook.com>
+Date:   Thu Jun 25 12:08:42 2020 +0800
+
+    调整pdf预览方式
+
+[33mcommit 793f69597478b6c7f5d33d2d5be00b34bbe4104d[m
+Author: 金鑫 <jinxin19950105@outlook.com>
+Date:   Wed Jun 24 17:03:59 2020 +0800
+
+    调整20200624170351
+
+[33mcommit 7da811128a38561cef4fa186260ed553211f33e2[m
+Author: 金鑫 <jinxin19950105@outlook.com>
+Date:   Mon Jun 22 17:17:50 2020 +0800
+
+    调整20200622171743
+
+[33mcommit 2bc0fcbe7b63719770d2fbc15902e5dc81de10fc[m
+Author: 金鑫 <jinxin19950105@outlook.com>
+Date:   Mon Jun 22 17:09:16 2020 +0800
+
+    调整20200622170908
+
+[33mcommit 7c36a8d18b36ea0a5fb108a9d13b23581b729f6b[m
+Author: 金鑫 <jinxin19950105@outlook.com>
+Date:   Mon Jun 22 15:48:29 2020 +0800
+
+    调整20200622154820
+
+[33mcommit 5e376dc7319acb12936129855749e197e08f383a[m
+Author: jinxin201211 <jinxin19950105@outlook.com>
+Date:   Sun Jun 21 21:44:17 2020 +0800
+
+    调整20200621214409
+
+[33mcommit 741178da9055c99fa2f3b80c1c35ceb262ce077e[m
+Author: jinxin201211 <jinxin19950105@outlook.com>
+Date:   Sun Jun 21 18:35:42 2020 +0800
+
+    调整20200621183535
+
+[33mcommit 75a6416120d733dd1fe528ceaffbe6ac5ae9010b[m
+Author: jinxin201211 <jinxin19950105@outlook.com>
+Date:   Sun Jun 21 18:35:20 2020 +0800
+
+    调整20200621183512
+
+[33mcommit ddb409ffee89385af3c41569450fbeece7e30af7[m
+Author: 金鑫 <jinxin19950105@outlook.com>
+Date:   Fri Jun 19 16:58:51 2020 +0800
+
+    文件下载
+
+[33mcommit cbbc52782b67467c589442028168faf88e89ae16[m
+Author: 金鑫 <jinxin19950105@outlook.com>
+Date:   Fri Jun 19 10:15:32 2020 +0800
+
+    蓝皮书pdf预览不能下载打印
+
+[33mcommit da86ac2dc5f35d2e265b764535c11584c6424485[m
+Merge: c5eb9be 3cf50b6
+Author: jinxin201211 <jinxin19950105@outlook.com>
+Date:   Thu Jun 18 22:59:48 2020 +0800
+
+    Merge branch 'master' of https://github.com/jinxin201211/jinx.extra
+
+[33mcommit c5eb9be1ca384931205cf4ea0ffa051a29dd7122[m
+Author: jinxin201211 <jinxin19950105@outlook.com>
+Date:   Thu Jun 18 22:59:19 2020 +0800
+
+    蓝皮书
+
+[33mcommit 3cf50b64daec825fc7c7e155680fa5ef80f13f8e[m
+Author: 金鑫 <jinxin19950105@outlook.com>
+Date:   Wed Jun 17 16:47:50 2020 +0800
+
+    调整20200617164743
+
+[33mcommit 1453bbe285bd98a2779641ec2fe9775877381f73[m
+Author: jinxin201211 <jinxin19950105@outlook.com>
+Date:   Tue Jun 16 23:27:17 2020 +0800
+
+    调整20200616232712
+
+[33mcommit e717f9bf82d0f3d4a57a51459c81795c0f4877a1[m
+Author: 金鑫 <jinxin19950105@outlook.com>
+Date:   Tue Jun 16 16:32:18 2020 +0800
+
+    一般评委查看排名
+
+[33mcommit feafbfac315987c1414908d4b3f96857bc723387[m
+Author: jinxin201211 <jinxin19950105@outlook.com>
+Date:   Mon Jun 15 23:12:57 2020 +0800
+
+    调整20200615231251
+
+[33mcommit 4b9c582a590b200fd976aa99e7390bc44d641f24[m
+Author: jinxin201211 <jinxin19950105@outlook.com>
+Date:   Sun Jun 14 23:37:46 2020 +0800
+
+    调整20200614233738
+
+[33mcommit 183dfe885e93f6e87d86804debd766fd6bfa246e[m
+Author: 金鑫 <jinxin19950105@outlook.com>
+Date:   Thu Jun 11 15:49:38 2020 +0800
+
+    配置修改
+
+[33mcommit 74d0131626dd88a2b2eeac4aa2733b09ab37fde6[m
+Author: jinxin201211 <jinxin19950105@outlook.com>
+Date:   Wed Jun 10 22:36:30 2020 +0800
+
+    系统配置调整
+
+[33mcommit a5634eec966f7fa0bc9ccdb6e808ec41d3d8a93d[m
+Merge: 5a3fa84 f628a5d
+Author: jinxin201211 <jinxin19950105@outlook.com>
+Date:   Wed Jun 10 19:32:53 2020 +0800
+
+    Merge branch 'master' of https://github.com/jinxin201211/jinx.extra
+
+[33mcommit f628a5d1babea8991aa956b11249533bdf165edd[m
+Author: 金鑫 <jinxin19950105@outlook.com>
+Date:   Wed Jun 10 09:31:20 2020 +0800
+
+    问题修改20200610093108
+
+[33mcommit 5a3fa84f1b81c1ce7640d51f12494fde19ff3362[m
+Author: jinxin201211 <jinxin19950105@outlook.com>
+Date:   Tue Jun 9 20:11:01 2020 +0800
+
+    同步更新大广赛
+
+[33mcommit 64ca8f1f2a5668d94a245ba61fe7f8bba6a4c476[m
+Author: 金鑫 <jinxin19950105@outlook.com>
+Date:   Tue Jun 9 15:43:35 2020 +0800
+
+    问题修改
+
+[33mcommit 73355ed67ef1f1d31a67079895c264435ac7f1c3[m
+Author: jinxin201211 <jinxin19950105@outlook.com>
+Date:   Mon Jun 8 22:15:17 2020 +0800
+
+    评分更改
+
+[33mcommit e4e711ddeeb2432aa2c827d31bb1291c0bd7a22d[m
+Author: jinxin201211 <jinxin19950105@outlook.com>
+Date:   Mon Jun 8 21:34:19 2020 +0800
+
+    问题修改
+
+[33mcommit d148a16a6bb3bfcc099d3ad59d90093434f53edc[m[33m ([m[1;31morigin/dependabot/npm_and_yarn/jinx.extra.ada_admin/websocket-extensions-0.1.4[m[33m)[m
+Author: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>
+Date:   Mon Jun 8 07:52:58 2020 +0000
+
+    Bump websocket-extensions from 0.1.3 to 0.1.4 in /jinx.extra.ada_admin
+    
+    Bumps [websocket-extensions](https://github.com/faye/websocket-extensions-node) from 0.1.3 to 0.1.4.
+    - [Release notes](https://github.com/faye/websocket-extensions-node/releases)
+    - [Changelog](https://github.com/faye/websocket-extensions-node/blob/master/CHANGELOG.md)
+    - [Commits](https://github.com/faye/websocket-extensions-node/compare/0.1.3...0.1.4)
+    
+    Signed-off-by: dependabot[bot] <support@github.com>
+
+[33mcommit ae391235c9793a148e70ef50894e138f916b1b53[m[33m ([m[1;31morigin/dependabot/npm_and_yarn/jinx.extra.charityad_admin/websocket-extensions-0.1.4[m[33m)[m
+Author: dependabot[bot] <49699333+dependabot[bot]@users.noreply.github.com>
+Date:   Mon Jun 8 06:59:01 2020 +0000
+
+    Bump websocket-extensions in /jinx.extra.charityad_admin
+    
+    Bumps [websocket-extensions](https://github.com/faye/websocket-extensions-node) from 0.1.3 to 0.1.4.
+    - [Release notes](https://github.com/faye/websocket-extensions-node/releases)
+    - [Changelog](https://github.com/faye/websocket-extensions-node/blob/master/CHANGELOG.md)
+    - [Commits](https://github.com/faye/websocket-extensions-node/compare/0.1.3...0.1.4)
+    
+    Signed-off-by: dependabot[bot] <support@github.com>
+
+[33mcommit 740ac2faab571a49372af0718f52863f191be80d[m
+Author: jinxin201211 <jinxin19950105@outlook.com>
+Date:   Sun Jun 7 22:36:14 2020 +0800
+
+    查询条件，双击打开，作品获奖查询
+
+[33mcommit c3ab9934ab6b06ecf9b27c5ff566e0dd43f9bcd8[m
+Author: jinxin201211 <jinxin19950105@outlook.com>
+Date:   Wed Jun 3 21:00:40 2020 +0800
+
+    评审办法更新
+
+[33mcommit de94e69073835a819ad117111c04981563f9c067[m
+Author: jinxin201211 <jinxin19950105@outlook.com>
+Date:   Tue Jun 2 20:34:09 2020 +0800
+
+    去掉多余的压缩文件
+
+[33mcommit db355e04b61767ba313c967204bff92f31d6caf7[m
+Author: jinxin201211 <jinxin19950105@outlook.com>
+Date:   Tue Jun 2 18:48:48 2020 +0800
+
+    连接
+
+[33mcommit 05a5ff067d7a76c1d0b22a3be097e3345fb3e383[m
+Author: 金鑫 <jinxin19950105@outlook.com>
+Date:   Tue Jun 2 16:58:10 2020 +0800
+
+    作品提交，修改，删除
+
+[33mcommit 34ec2c09a34527e3db818b80ef53555c27fd3c0f[m
+Author: jinxin201211 <jinxin19950105@outlook.com>
+Date:   Sun May 31 23:31:10 2020 +0800
+
+    作品导入
+
+[33mcommit 777eee59cc0c7fd1ba2e9b7547d322b77d67c653[m
+Author: jinxin201211 <jinxin19950105@outlook.com>
+Date:   Fri May 29 20:44:04 2020 +0800
+
+    接口ip更改
+
+[33mcommit 0080782eb052c951048bbe964ea1e5e92b156fbb[m
+Author: 金鑫 <jinxin19950105@outlook.com>
+Date:   Fri May 29 17:29:43 2020 +0800
+
+    问题修改
+
+[33mcommit 54cf945c2ed4e8b404490421f9da71b258ca9d2f[m
+Author: 金鑫 <jinxin19950105@outlook.com>
+Date:   Thu May 28 17:37:25 2020 +0800
+
+    update
+
+[33mcommit ab41992feb557af8f14fe8746d5711f261cfec32[m
+Author: jinxin201211 <jinxin19950105@outlook.com>
+Date:   Wed May 27 23:39:18 2020 +0800
+
+    第三轮评审，入口页背景图替换
+
+[33mcommit 613dc5ed80d5ffaee42d427de02139f4cbd5c6da[m
+Author: 金鑫 <jinxin19950105@outlook.com>
+Date:   Wed May 27 17:35:05 2020 +0800
+
+    小改动，评委小组长，第三轮作品打分
+
+[33mcommit 17b144034aa87b97d6d621d060ed4130c0d3fd9a[m
+Author: jinxin201211 <jinxin19950105@outlook.com>
+Date:   Wed May 27 07:51:02 2020 +0800
+
+    去掉测试数据
+
+[33mcommit 840c6927b1bacfb37482b23dfeb670b5bac50b06[m
+Author: 金鑫 <jinxin19950105@outlook.com>
+Date:   Tue May 26 16:47:44 2020 +0800
+
+    大赛章程，评审办法修改，新闻删除后列表不刷新的问题，作品主题修改
+
+[33mcommit 6f13ce15dafd48fe71fcc2abc85639bdc0c6483a[m
+Author: jinxin201211 <jinxin19950105@outlook.com>
+Date:   Mon May 25 23:06:19 2020 +0800
+
+    banner替换，作品编号
+
+[33mcommit c865f266b8a45f14b56177344c2ba23efbbe4575[m
+Author: 金鑫 <jinxin19950105@outlook.com>
+Date:   Mon May 25 17:32:12 2020 +0800
+
+    banner图片修改
+
+[33mcommit 198b054e59b56f208fabf8efdeea0b1b40db518b[m
+Author: jinxin201211 <jinxin19950105@outlook.com>
+Date:   Sun May 24 22:55:12 2020 +0800
+
+    footer文字修改
+
+[33mcommit 557814449afd87efebad4ec6376337a49e361bb4[m
+Author: 金鑫 <jinxin19950105@outlook.com>
+Date:   Sun May 24 11:36:35 2020 +0800
+
+    获奖查询
+
+[33mcommit c3abc7eca4c41ee04ce970547daab5228726afdc[m
+Author: jinxin201211 <jinxin19950105@outlook.com>
+Date:   Sat May 23 22:37:02 2020 +0800
+
+    一些文字描述修改，增加获奖查询接口
+
+[33mcommit 589ca3adc092ea406b2e83a40cc62537ed0ce2a6[m
+Author: jinxin201211 <jinxin19950105@outlook.com>
+Date:   Sat May 23 16:34:28 2020 +0800
+
+    作品提交，打分的细节优化，大广赛去掉赛区列表，大广赛公益广告大赛统一入口
+
+[33mcommit c2e7f7ca07ea3532d237e3bccf421b895b60f8c9[m
+Author: 金鑫 <jinxin19950105@outlook.com>
+Date:   Fri May 22 19:34:13 2020 +0800
+
+    文件提交页回到上一步，页面上文件删除同时调接口删除数据
+
+[33mcommit a9404fafcaf320746ca7e8cf1d0866cd7af5af46[m
+Author: jinxin201211 <jinxin19950105@outlook.com>
+Date:   Thu May 21 23:08:05 2020 +0800
+
+    参赛者查看已上传作品
+
+[33mcommit 630fd1f938d7bd2572e9bbe5eaf02972c50e7ae1[m
+Author: jinxin201211 <jinxin19950105@outlook.com>
+Date:   Wed May 20 22:34:40 2020 +0800
+
+    获奖查询
+
+[33mcommit 980f058b5c0149361857b362a2e0b738155afc26[m
+Author: jinxin201211 <jinxin19950105@outlook.com>
+Date:   Wed May 20 21:33:00 2020 +0800
+
+    后台管理的登录页面，大广赛获取新闻接口
+
+[33mcommit 24576ce2f035d4daf73b0a36fbed3af7c544dcfd[m
+Author: 金鑫 <jinxin19950105@outlook.com>
+Date:   Wed May 20 18:07:10 2020 +0800
+
+    大广赛前台
+
+[33mcommit ef7f6fe58cfe246a8f19f150e6fc1a2afa211cbd[m
+Author: 金鑫 <jinxin19950105@outlook.com>
+Date:   Wed May 20 18:04:56 2020 +0800
+
+    大广赛后台，公益广告大赛文件上传
+
+[33mcommit 28df32d6ad6ea7081fb3b99a07c923eacf162e28[m
+Author: jinxin201211 <jinxin19950105@outlook.com>
+Date:   Wed May 20 07:44:43 2020 +0800
+
+    作品主题
+
+[33mcommit deae15300c1bfa038148b70686663ac102099b9f[m
+Author: jinxin201211 <jinxin19950105@outlook.com>
+Date:   Tue May 19 23:34:47 2020 +0800
+
+    提交作品表单修改，注册用户增加高校专业公众组，评委按作品主题分类
+
+[33mcommit ee436f7c2d7acb8131a689f066005873bca917a1[m
+Author: 金鑫 <jinxin19950105@outlook.com>
+Date:   Tue May 19 18:12:34 2020 +0800
+
+    作品提交修改
+
+[33mcommit 317867afdb95ac83053f00e73867a2eb861474a2[m
+Author: 金鑫 <jinxin19950105@outlook.com>
+Date:   Tue May 19 17:37:12 2020 +0800
+
+    大赛章程，大赛新闻
+
+[33mcommit 3a482ff493191b96e1e641c563283a06091d7c7f[m
+Author: jinxin201211 <jinxin19950105@outlook.com>
+Date:   Tue May 19 07:48:54 2020 +0800
+
+    大广赛bug，公益广告大赛新闻查看
+
+[33mcommit 45b7c1d2ac907a9ea7effbef22ffbbed0083a59a[m
+Author: 金鑫 <jinxin19950105@outlook.com>
+Date:   Mon May 18 17:26:12 2020 +0800
+
+    广告大赛网站图
+
+[33mcommit db73c103e6b0fcdd651f81470d079b4986612ceb[m
+Author: jinxin201211 <jinxin19950105@outlook.com>
+Date:   Sun May 17 23:09:42 2020 +0800
+
+    nginx访问不到图片资源的问题
+
+[33mcommit fa3a481ac423824fdc07ea05eb21b75621200d08[m
+Author: 金鑫 <jinxin19950105@outlook.com>
+Date:   Fri May 15 17:16:28 2020 +0800
+
+    公益广告大赛首页
+
+[33mcommit 7fa447cdf7dcf6b494a339bb35da9609713c3d25[m
+Author: 金鑫 <jinxin19950105@outlook.com>
+Date:   Fri May 15 16:01:22 2020 +0800
+
+    公益广告大赛首页
+
+[33mcommit 370d6ba36f3f61b341a8646a5b0fe47d73aa4685[m
+Author: 金鑫 <jinxin19950105@outlook.com>
+Date:   Thu May 14 16:44:25 2020 +0800
+
+    打分
+
+[33mcommit 79ecac19b41ba4949839582c7dcecabe64930dd8[m
+Author: 金鑫 <jinxin19950105@outlook.com>
+Date:   Wed May 13 17:29:43 2020 +0800
+
+    登录状态保存，权限验证，公益广告大赛首页
+
+[33mcommit 72e03e912922957f42747b7607d5a6702d960ebf[m
+Author: jinxin201211 <jinxin19950105@outlook.com>
+Date:   Tue May 12 21:25:09 2020 +0800
+
+    Vuex保存登录状态的效果优化
+
+[33mcommit a176a41db4e68e8f77d784a16a34b2f7259cded7[m
+Author: 金鑫 <jinxin19950105@outlook.com>
+Date:   Tue May 12 17:35:26 2020 +0800
+
+    公益广告大赛后台
+
+[33mcommit a9d7733e9ddfe0c94e7e41b2ad8e7797f22c0078[m
+Author: jinxin201211 <jinxin19950105@outlook.com>
+Date:   Mon May 11 23:12:02 2020 +0800
+
+    大广赛介绍页面，公益广告大赛后台管理
+
+[33mcommit 52c66e6162ee5001b900ec2613a95994a3825448[m
+Author: 金鑫 <jinxin19950105@outlook.com>
+Date:   Mon May 11 17:39:41 2020 +0800
+
+    作品提交
+
+[33mcommit 97950a282f297bbfff19622588f0d0044ae5efe6[m
+Author: jinxin201211 <jinxin19950105@outlook.com>
+Date:   Mon May 11 07:36:09 2020 +0800
+
+    bug
+
+[33mcommit 1a52c639afc85342b87bf70d22240cdf909146de[m
+Author: jinxin201211 <jinxin19950105@outlook.com>
+Date:   Sun May 10 22:52:00 2020 +0800
+
+    注册登录，作品上传
+
+[33mcommit 616e99b3b9960febc24c8bc2940610614fc960f5[m
+Author: jinxin201211 <jinxin19950105@outlook.com>
+Date:   Sun May 10 10:01:13 2020 +0800
+
+    初始化
