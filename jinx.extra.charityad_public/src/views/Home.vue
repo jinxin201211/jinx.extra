@@ -48,7 +48,7 @@
         <p>本届大赛以“文明河北我创益”为主题，创作内容包括但不限于弘扬社会主义核心价值观、自然环境保护、消费者权益保护、知识产权保护、社会安全、传承关爱、美丽河北等创意方面，面向全社会征集思想性、文化性、艺术性俱佳的公益广告作品。</p>
         <p>此次赛事主要分为专业组、高校组和公众组，广告公司、媒体单位、新媒体机构、自媒体组织、广告主单位、高等院校在校学生、学生社团、热心公益传播的组织及个人均可参加。参赛作品形式主要分为平面类、文案类、广播类、视频类、动画类、互动类6大类。</p>
         <p>本届大赛采用在线报名和线上评审的形式，将按照参赛组别的不同作品类别设置等级奖、优秀作品奖、优秀组织奖、优秀指导奖等奖项。</p>
-        <p>大赛自6月20日至9月30日，面向全社会广泛征集公益广告作品；10月份将邀请专家对参赛作品进行权威评审，11月将组织召开大赛颁奖盛典暨河北省公益广告学术论坛；11月至12月将在省内主要大众媒体及新媒体平台进行优秀获奖作品展播。</p>
+        <p>大赛自6月20日至10月31日，面向全社会广泛征集公益广告作品；11月份将邀请专家对参赛作品进行权威评审，12月将组织召开大赛颁奖盛典暨河北省公益广告学术论坛；12月至次年1月将在省内主要大众媒体及新媒体平台进行优秀获奖作品展播。</p>
         <p>大赛落地“三创四建”，推进文明城市建设。对于深入推进我省全国文明城市创建工作具有重要作用。同时集合专业与社会力量，发挥公益广告导向作用。倡导公益风尚，呼唤社会关注。通过遴选并在众多媒体展播相关优秀作品资源，发挥各大媒体传播优势，将公益广告蕴含的社会正能量向社会大众广泛传播。此外，公益广告大赛将作为河北公益广告业发展的重要吸引核，推进人才、资源交流，以赛促学，以赛促交流，以赛促大发展，在业内进一步完善人才和资源交流，促进河北公益事业发展。</p>
       </div>
       <div class="avatar" :style="{ backgroundImage: 'url(' + require('@/assets/images/home/醉美河北.png') + ')' }"></div>
@@ -199,25 +199,39 @@
         <div class="title">友情链接</div>
         <div class="links-panel">
           <div class="item-pos">
-            <div class="link-item"><el-link href="http://scjg.hebei.gov.cn/" target="_blank">河北省市场监督管理局</el-link></div>
+            <div class="link-item">
+              <el-link href="http://scjg.hebei.gov.cn/" target="_blank">河北省市场监督管理局</el-link>
+            </div>
           </div>
           <div class="item-pos">
-            <div class="link-item"><el-link href="http://www.hebtu.edu.cn/" target="'_blank'">河北师范大学</el-link></div>
+            <div class="link-item">
+              <el-link href="http://www.hebtu.edu.cn/" target="'_blank'">河北师范大学</el-link>
+            </div>
           </div>
           <div class="item-pos">
-            <div class="link-item"><el-link href="http://xwcbxy.hebtu.edu.cn/a/2019/04/19/AE56753B9B30477D8B23405AA82DCF18.html" target="_blank">河北省广告研究院</el-link></div>
+            <div class="link-item">
+              <el-link href="http://xwcbxy.hebtu.edu.cn/a/2019/04/19/AE56753B9B30477D8B23405AA82DCF18.html" target="_blank">河北省广告研究院</el-link>
+            </div>
           </div>
           <div class="item-pos">
-            <div class="link-item"><el-link href="http://www.hbggw.com.cn/" target="_blank">河北省广告协会</el-link></div>
+            <div class="link-item">
+              <el-link href="http://www.hbggw.com.cn/" target="_blank">河北省广告协会</el-link>
+            </div>
           </div>
           <div class="item-pos">
-            <div class="link-item"><el-link href="http://www.hebtv.com/" target="_blank">河北广播电视台</el-link></div>
+            <div class="link-item">
+              <el-link href="http://www.hebtv.com/" target="_blank">河北广播电视台</el-link>
+            </div>
           </div>
           <div class="item-pos">
-            <div class="link-item"><el-link href="http://www.heb315.org.cn/" target="_blank">河北省消费者权益保护委员会</el-link></div>
+            <div class="link-item">
+              <el-link href="http://www.heb315.org.cn/" target="_blank">河北省消费者权益保护委员会</el-link>
+            </div>
           </div>
           <div class="item-pos">
-            <div class="link-item"><el-link href="http://scjg.sjz.gov.cn/" target="_blank">石家庄市场监管局</el-link></div>
+            <div class="link-item">
+              <el-link href="http://scjg.sjz.gov.cn/" target="_blank">石家庄市场监管局</el-link>
+            </div>
           </div>
         </div>
       </div>
@@ -259,16 +273,37 @@ import moment from "moment";
 
 export default {
   name: "Home",
-  components: { JinxNavMenu, JinxTopNav },
+  components: {
+    JinxNavMenu,
+    JinxTopNav
+  },
   data: function() {
     return {
       menuList: [
-        { title: "首页", path: "anchor_home" },
-        { title: "大赛介绍", path: "anchor_contest_intro" },
-        { title: "新闻动态", path: "anchor_news" },
-        { title: "作品展示", path: "anchor_works" },
-        { title: "文件下载", path: "anchor_downloads" },
-        { title: "联系我们", path: "anchor_contact_us" }
+        {
+          title: "首页",
+          path: "anchor_home"
+        },
+        {
+          title: "大赛介绍",
+          path: "anchor_contest_intro"
+        },
+        {
+          title: "新闻动态",
+          path: "anchor_news"
+        },
+        {
+          title: "作品展示",
+          path: "anchor_works"
+        },
+        {
+          title: "文件下载",
+          path: "anchor_downloads"
+        },
+        {
+          title: "联系我们",
+          path: "anchor_contact_us"
+        }
       ],
       newsList: [],
       work: {
@@ -305,7 +340,10 @@ export default {
         .then(function(response) {
           if (response && response.data.code == "0") {
             for (let i = 0; i < response.data.data.length; i += 2) {
-              let newsRow = { col1: null, col2: null };
+              let newsRow = {
+                col1: null,
+                col2: null
+              };
               if (i < response.data.data.length) {
                 newsRow.col1 = {
                   id: response.data.data[i].id,
@@ -380,7 +418,9 @@ export default {
       } else {
         let section = document.getElementById(path);
         if (section) {
-          section.scrollIntoView({ behavior: "smooth" });
+          section.scrollIntoView({
+            behavior: "smooth"
+          });
         }
       }
     },
@@ -392,7 +432,9 @@ export default {
       } else {
         let section = document.getElementById(path);
         if (section) {
-          section.scrollIntoView({ behavior: "smooth" });
+          section.scrollIntoView({
+            behavior: "smooth"
+          });
         }
       }
     },
