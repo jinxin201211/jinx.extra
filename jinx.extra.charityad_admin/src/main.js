@@ -68,6 +68,7 @@ Vue.prototype.$WorksSeriesCode = [
   { code: "E", value: "“传承+关爱”系列" },
   { code: "F", value: "“成长+校园”系列" },
   { code: "G", value: "“美丽河北”系列" },
+  { code: "I", value: "“践行节约  拒绝浪费”系列" },
   { code: "H", value: "其他" }
 ];
 Vue.prototype.$WorksTypeCode = [
