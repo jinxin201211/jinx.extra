@@ -108,7 +108,7 @@ const routes = [
         meta: {
           title: "修改配置",
           access: ["admin"],
-          menu: "/judge"
+          menu: "/config"
         }
       },
 
@@ -284,6 +284,15 @@ const routes = [
     component: () => import("../views/Login.vue"),
     meta: {
       title: "登录"
+    }
+  },
+  {
+    path: "/test",
+    name: "Test",
+    component: () => import("../views/Test.vue"),
+    meta: {
+      title: "测试",
+      access: ["admin"]
     }
   }
 ];

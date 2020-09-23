@@ -68,7 +68,7 @@ const routes = [
         meta: {
           title: "修改配置",
           access: ["admin"],
-          menu: "/judge"
+          menu: "/config"
         }
       },
 
