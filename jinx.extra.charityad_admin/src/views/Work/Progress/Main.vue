@@ -2,24 +2,18 @@
   <div style="padding: 20px;">
     <el-breadcrumb separator="/" style="margin-bottom: 20px;">
       <el-breadcrumb-item>首页</el-breadcrumb-item>
-      <el-breadcrumb-item>作品打分(第一轮)</el-breadcrumb-item>
+      <el-breadcrumb-item>评审进度</el-breadcrumb-item>
     </el-breadcrumb>
 
     <div>
-      <el-select v-model="query.gameType" placeholder="请选择参赛组别" style="width: 150px; margin-right: 10px;" size="">
-        <el-option v-for="item in SelectGameType" :key="item.value" :label="item.label" :value="item.value"> </el-option>
+      <el-input v-model="query.teacher" placeholder="请输入评审老师" style="width: 150px; margin-right: 10px;" @keyup.enter.native="handleRefreshList"></el-input>
+      <el-select v-model="query.worktype" placeholder="请选择作品类别" style="width: 150px; margin-right: 10px;" @change="handleRefreshList">
+        <el-option v-for="item in ListSelectWorkType" :key="item.value" :label="item.label" :value="item.value"></el-option>
       </el-select>
-      <el-input v-model="query.author1" placeholder="请输入作者姓名" size="" style="width: 150px; margin-right: 10px;" @keyup.enter.native="handleRefreshList"></el-input>
-      <el-input v-model="query.orgName" placeholder="请输入所属单位" size="" style="width: 150px; margin-right: 10px;" @keyup.enter.native="handleRefreshList"></el-input>
-      <el-input v-model="query.worksName" placeholder="请输入作品名称" size="" style="width: 150px; margin-right: 10px;" @keyup.enter.native="handleRefreshList"></el-input>
-      <el-button @click="handleRefreshList" :loading="loading" type="primary">刷 新</el-button>
-      <el-button @click="handleBeginScore" type="primary">开始评审</el-button>
-    </div>
-    <div style="line-height: 40px; color: #787878;">
-      <span style="margin: 0 20px;">作品总数：<span v-text="statistics.total_num"></span></span>
-      <span style="margin: 0 20px;">需评审数：<span v-text="statistics.appraisal_total_num"></span></span>
-      <span style="margin: 0 20px;">已评审数：<span v-text="statistics.appraisal_num"></span></span>
-      <span style="margin: 0 20px;">通过数：<span v-text="statistics.pass_num"></span></span>
+      <el-select v-model="query.round" placeholder="请选择轮次" style="width: 150px; margin-right: 10px;" @change="handleRefreshList">
+        <el-option v-for="item in ListSelectRound" :key="item.value" :label="item.label" :value="item.value"></el-option>
+      </el-select>
+      <el-button @click="handleRefreshList" :loading="loading" type="primary">查 询</el-button>
     </div>
 
     <el-table :data="List" stripe style="width: 100%" @row-dblclick="handleRowDbclick">
@@ -49,52 +43,66 @@ import qs from "qs";
 export default {
   data() {
     return {
-      SelectGameType: [],
+      ListSelectWorkType: [],
+      ListSelectRound: [],
       List: [],
       query: {
         // role: "judge",
         page: 1,
         limit: 10,
-        gameType: "",
-        author1: "",
-        orgName: "",
-        worksName: ""
+        teacher: "",
+        worktype: "",
+        round: ""
       },
       total: 0,
-      loading: false,
-      statistics: {
-        total_num: 0,
-        appraisal_total_num: 0,
-        appraisal_num: 0,
-        pass_num: 0
-      }
+      loading: false
     };
+  },
+  created() {
+    this.ListSelectWorkType.push({
+      value: "",
+      label: "请选择作品类别"
+    });
+    for (let i = 0; i < this.$WorksTypeCode.length; i++) {
+      this.ListSelectWorkType.push({
+        value: this.$WorksTypeCode[i].code,
+        label: this.$WorksTypeCode[i].value
+      });
+    }
+    this.ListSelectRound = [
+      {
+        value: "",
+        label: "请选择轮次"
+      },
+      {
+        value: "1",
+        label: "第一轮"
+      },
+      {
+        value: "2",
+        label: "第二轮"
+      },
+      {
+        value: "3",
+        label: "第三轮"
+      }
+    ];
   },
   mounted() {
     this.getList();
-    this.getProgress();
-    this.SelectGameType.push({
-      value: "",
-      label: "请选择参赛组别"
-    });
-    for (let i = 0; i < this.$WorksGroupCode.length; i++) {
-      this.SelectGameType.push({
-        value: this.$WorksGroupCode[i].code,
-        label: this.$WorksGroupCode[i].value
-      });
-    }
+    // this.getProgress();
   },
   methods: {
     handleRefreshList: function() {
       this.query.page = 1;
       this.getList();
-      this.getProgress();
+      // this.getProgress();
     },
     getList() {
       this.loading = true;
       let that = this;
       this.axios
-        .post("/api/gameWorks2/getNoAppraisalList_Round1", qs.stringify(this.query))
+        .post("/api/gameProgress/getData", qs.stringify(this.query))
         .then(function(response) {
           if (response && response.data.code == "0") {
             that.List = response.data.data;
@@ -155,7 +163,6 @@ export default {
         .then(function(response) {
           if (response && response.data.code == "0") {
             that.statistics.total_num = response.data.data.total_num;
-            that.statistics.appraisal_total_num = response.data.data.appraisal_total_num;
             that.statistics.appraisal_num = response.data.data.appraisal_num;
             that.statistics.pass_num = response.data.data.pass_num;
           } else {
