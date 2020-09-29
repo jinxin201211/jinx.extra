@@ -324,7 +324,7 @@ export default {
     if (view) {
       this.scrollToSection(view);
     }
-    this.$alert('2020年（首届）公益广告大赛截止报名时间：<strong style="font-size: 20px;">10月31日 </strong>', "", {
+    this.$alert("紧急通知：公益广告大赛因系统维护暂时无法登录和查看相关信息，我们将尽快恢复。大赛征集正在进行中，报名截止时间：10月31日", "", {
       dangerouslyUseHTMLString: true
     });
   },
