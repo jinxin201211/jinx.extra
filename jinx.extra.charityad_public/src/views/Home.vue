@@ -324,6 +324,9 @@ export default {
     if (view) {
       this.scrollToSection(view);
     }
+    this.$alert('2020年（首届）公益广告大赛截止报名时间：<strong style="font-size: 20px;">10月31日 </strong>', "", {
+      dangerouslyUseHTMLString: true
+    });
   },
   methods: {
     turnBannerCarousel: function() {
