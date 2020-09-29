@@ -13,92 +13,92 @@ const routes = [
       title: "首页"
     }
   },
-  {
-    path: "/account",
-    name: "Account",
-    component: () => import("../views/Account/Main.vue"),
-    children: [
-      {
-        name: "signin",
-        path: "signin",
-        component: () => import("../views/Account/Signin.vue"),
-        meta: {
-          title: "登录",
-          access: false
-        }
-      },
-      {
-        name: "signup",
-        path: "signup",
-        component: () => import("../views/Account/Signup.vue"),
-        meta: {
-          title: "注册",
-          access: false
-        }
-      },
-      {
-        name: "agreement",
-        path: "agreement",
-        component: () => import("../views/Account/Agreement.vue"),
-        meta: {
-          title: "注册协议",
-          access: false
-        }
-      }
-    ]
-  },
-  {
-    path: "/work",
-    name: "Work",
-    component: () => import("../views/Work/Main.vue"),
-    children: [
-      {
-        name: "getconvenant",
-        path: "getconvenant",
-        component: () => import("../views/Work/EnterStepConvenant.vue"),
-        meta: {
-          title: "勾选承诺书",
-          access: true
-        }
-      },
-      {
-        name: "grouppublic",
-        path: "grouppublic",
-        component: () => import("../views/Work/EnterStepPublicForm.vue"),
-        meta: {
-          title: "专业类、公众类报名表",
-          access: true
-        }
-      },
-      {
-        name: "groupschool",
-        path: "groupschool",
-        component: () => import("../views/Work/EnterStepSchoolForm.vue"),
-        meta: {
-          title: "高校类报名表",
-          access: true
-        }
-      },
-      {
-        name: "file",
-        path: "file",
-        component: () => import("../views/Work/EnterStepFile.vue"),
-        meta: {
-          title: "作品上传",
-          access: true
-        }
-      },
-      {
-        name: "finish",
-        path: "finish",
-        component: () => import("../views/Work/EnterStepFinish.vue"),
-        meta: {
-          title: "结束提交",
-          access: true
-        }
-      }
-    ]
-  },
+  // {
+  //   path: "/account",
+  //   name: "Account",
+  //   component: () => import("../views/Account/Main.vue"),
+  //   children: [
+  //     {
+  //       name: "signin",
+  //       path: "signin",
+  //       component: () => import("../views/Account/Signin.vue"),
+  //       meta: {
+  //         title: "登录",
+  //         access: false
+  //       }
+  //     },
+  //     {
+  //       name: "signup",
+  //       path: "signup",
+  //       component: () => import("../views/Account/Signup.vue"),
+  //       meta: {
+  //         title: "注册",
+  //         access: false
+  //       }
+  //     },
+  //     {
+  //       name: "agreement",
+  //       path: "agreement",
+  //       component: () => import("../views/Account/Agreement.vue"),
+  //       meta: {
+  //         title: "注册协议",
+  //         access: false
+  //       }
+  //     }
+  //   ]
+  // },
+  // {
+  //   path: "/work",
+  //   name: "Work",
+  //   component: () => import("../views/Work/Main.vue"),
+  //   children: [
+  //     {
+  //       name: "getconvenant",
+  //       path: "getconvenant",
+  //       component: () => import("../views/Work/EnterStepConvenant.vue"),
+  //       meta: {
+  //         title: "勾选承诺书",
+  //         access: true
+  //       }
+  //     },
+  //     {
+  //       name: "grouppublic",
+  //       path: "grouppublic",
+  //       component: () => import("../views/Work/EnterStepPublicForm.vue"),
+  //       meta: {
+  //         title: "专业类、公众类报名表",
+  //         access: true
+  //       }
+  //     },
+  //     {
+  //       name: "groupschool",
+  //       path: "groupschool",
+  //       component: () => import("../views/Work/EnterStepSchoolForm.vue"),
+  //       meta: {
+  //         title: "高校类报名表",
+  //         access: true
+  //       }
+  //     },
+  //     {
+  //       name: "file",
+  //       path: "file",
+  //       component: () => import("../views/Work/EnterStepFile.vue"),
+  //       meta: {
+  //         title: "作品上传",
+  //         access: true
+  //       }
+  //     },
+  //     {
+  //       name: "finish",
+  //       path: "finish",
+  //       component: () => import("../views/Work/EnterStepFinish.vue"),
+  //       meta: {
+  //         title: "结束提交",
+  //         access: true
+  //       }
+  //     }
+  //   ]
+  // },
   {
     name: "news",
     path: "/news",
@@ -154,45 +154,45 @@ const routes = [
         }
       }
     ]
-  },
-  {
-    name: "Competitor",
-    path: "/competitor",
-    component: () => import("../views/Competitor/Main.vue"),
-    meta: {
-      title: "我的作品",
-      access: false
-    },
-    children: [
-      {
-        name: "works",
-        path: "works",
-        component: () => import("../views/Competitor/Works.vue"),
-        meta: {
-          title: "我的作品",
-          access: true
-        }
-      },
-      {
-        name: "work",
-        path: "work",
-        component: () => import("../views/Competitor/Work.vue"),
-        meta: {
-          title: "我的作品",
-          access: true
-        }
-      },
-      {
-        name: "modify",
-        path: "modify",
-        component: () => import("../views/Competitor/Modify.vue"),
-        meta: {
-          title: "作品更改",
-          access: true
-        }
-      }
-    ]
   }
+  // {
+  //   name: "Competitor",
+  //   path: "/competitor",
+  //   component: () => import("../views/Competitor/Main.vue"),
+  //   meta: {
+  //     title: "我的作品",
+  //     access: false
+  //   },
+  //   children: [
+  //     {
+  //       name: "works",
+  //       path: "works",
+  //       component: () => import("../views/Competitor/Works.vue"),
+  //       meta: {
+  //         title: "我的作品",
+  //         access: true
+  //       }
+  //     },
+  //     {
+  //       name: "work",
+  //       path: "work",
+  //       component: () => import("../views/Competitor/Work.vue"),
+  //       meta: {
+  //         title: "我的作品",
+  //         access: true
+  //       }
+  //     },
+  //     {
+  //       name: "modify",
+  //       path: "modify",
+  //       component: () => import("../views/Competitor/Modify.vue"),
+  //       meta: {
+  //         title: "作品更改",
+  //         access: true
+  //       }
+  //     }
+  //   ]
+  // }
 ];
 
 const router = new VueRouter({
