@@ -203,6 +203,26 @@ const routes = [
       },
 
       {
+        path: "/score/round0",
+        name: "scoreround0",
+        component: () => import("../views/Work/Round0/Main.vue"),
+        meta: {
+          title: "作品初选",
+          access: ["admin"]
+        }
+      },
+      {
+        path: "/score/round0/score",
+        name: "scoreround0score",
+        component: () => import("../views/Work/Round0/Appraisal.vue"),
+        meta: {
+          title: "作品初选",
+          access: ["admin"],
+          menu: "/score/round0"
+        }
+      },
+
+      {
         path: "/score/round1",
         name: "scoreround1",
         component: () => import("../views/Work/Round1/Main.vue"),

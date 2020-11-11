@@ -47,7 +47,9 @@ import "@/assets/js/file.type.js";
 
 window.$VuexPrefix = "charity.admin.";
 window.$Server = "http://47.108.88.211"; // todo
+// window.$Server = "http://47.0.0.101"; // todo
 // window.$Server = "http://hbsggyjy.hebtu.edu.cn";
+// window.$Server = "http://49.233.122.67";
 Vue.prototype.$ImagePostServer = window.$Server + ":8081";
 Vue.prototype.$ImageGetServer = window.$Server + "/img/";
 Vue.prototype.$PdfViewerPath = window.$Server + "/pdfjs/web/viewer.html?file=";
@@ -59,6 +61,11 @@ Vue.prototype.$WorksGroupCode = [
   { code: "1", value: "专业类" },
   { code: "2", value: "公众类" },
   { code: "4", value: "战疫类" }
+];
+Vue.prototype.$UserType = [
+  { code: "0", value: "高校组" },
+  { code: "1", value: "专业组" },
+  { code: "2", value: "公众组" }
 ];
 Vue.prototype.$WorksSeriesCode = [
   { code: "A", value: "“社会主义核心价值观”系列" },

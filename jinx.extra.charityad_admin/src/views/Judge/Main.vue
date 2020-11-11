@@ -5,8 +5,22 @@
       <el-breadcrumb-item>评委管理</el-breadcrumb-item>
     </el-breadcrumb>
 
-    <el-button @click="handleRefreshList" :loading="loading">刷新列表</el-button>
-    <el-button @click="handleAdd">添加评委</el-button>
+    <div>
+      <el-select v-model="query.role" placeholder="角色" style="width: 150px; margin-right: 10px;" size="">
+        <el-option v-for="item in SelectRole" :key="item.code" :label="item.value" :value="item.code"> </el-option>
+      </el-select>
+      <el-select v-model="query.worksType" placeholder="作品类别" style="width: 150px; margin-right: 10px;" size="">
+        <el-option v-for="item in SelectWorksType" :key="item.code" :label="item.value" :value="item.code"> </el-option>
+      </el-select>
+      <el-select v-model="query.type" placeholder="用户组" style="width: 150px; margin-right: 10px;" size="">
+        <el-option v-for="item in SelectType" :key="item.code" :label="item.value" :value="item.code"> </el-option>
+      </el-select>
+      <el-select v-model="query.groupLeader" placeholder="是否小组长" style="width: 150px; margin-right: 10px;" size="">
+        <el-option v-for="item in SelectGroupLeader" :key="item.code" :label="item.value" :value="item.code"> </el-option>
+      </el-select>
+      <el-button @click="handleRefreshList" :loading="loading">刷新列表</el-button>
+      <el-button @click="handleAdd">添加评委</el-button>
+    </div>
 
     <el-table :data="List" stripe style="width: 100%">
       <el-table-column type="index" width="50"> </el-table-column>
@@ -15,6 +29,7 @@
       <el-table-column prop="email" label="邮箱"> </el-table-column>
       <!--<el-table-column prop="series" label="作品主题"> </el-table-column>-->
       <el-table-column prop="worksType" label="作品类别"> </el-table-column>
+      <el-table-column prop="type" label="用户组"> </el-table-column>
       <el-table-column prop="groupLeader" label="是否小组长"> </el-table-column>
       <el-table-column prop="ctime" label="创建时间"> </el-table-column>
       <el-table-column fixed="right" label="操作" width="180">
@@ -34,9 +49,24 @@ import qs from "qs";
 export default {
   data() {
     return {
+      SelectRole: [
+        { code: "", value: "全部角色" },
+        { code: "judge", value: "裁判" },
+        { code: "admin", value: "管理员" }
+      ],
+      SelectWorksType: [{ code: "", value: "全部作品类别" }, ...this.$WorksTypeCode],
+      SelectType: [{ code: "", value: "全部用户组" }, ...this.$UserType],
+      SelectGroupLeader: [
+        { code: "", value: "是否小组长" },
+        { code: "1", value: "是" },
+        { code: "0", value: "否" }
+      ],
       List: [],
       query: {
         role: "judge",
+        worksType: "",
+        type: "",
+        groupLeader: "",
         page: 1,
         limit: 10
       },
@@ -82,6 +112,12 @@ export default {
                 e.worksType = works_type.value;
               } else {
                 e.worksType = "/";
+              }
+              let type = that.$UserType.find(p => p.code == e.type);
+              if (type != null) {
+                e.type = type.value;
+              } else {
+                e.type = "/";
               }
               e.groupLeader = e.groupLeader === "1" ? "是" : "否";
             });
