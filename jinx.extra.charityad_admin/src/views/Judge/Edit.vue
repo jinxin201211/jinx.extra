@@ -42,11 +42,11 @@
           <el-radio :label="item.code" v-for="(item, index) in $WorksTypeCode" :key="'series' + index"> {{ item.code + ":" + item.value }}</el-radio>
         </el-radio-group>
       </el-form-item>
-      <el-form-item label="用户组" prop="type" :rules="[{ required: true, message: '请选择用户组', trigger: 'blur' }]">
+      <!--<el-form-item label="用户组" prop="type" :rules="[{ required: true, message: '请选择用户组', trigger: 'blur' }]">
         <el-radio-group v-model="form.type" disabled>
           <el-radio :label="item.code" v-for="(item, index) in $UserType" :key="'type' + index"> {{ item.code + ":" + item.value }}</el-radio>
         </el-radio-group>
-      </el-form-item>
+      </el-form-item>-->
       <el-form-item label="是否小组长" prop="groupLeader" :rules="[{ required: true, message: '请选择是否小组长', trigger: 'blur' }]">
         <el-radio-group v-model="form.groupLeader">
           <el-radio label="1">是</el-radio>
@@ -79,7 +79,7 @@ export default {
         role: "judge",
         // series: "",
         worksType: "",
-        type: "",
+        // type: "",
         groupLeader: "0"
       },
       loading: false
@@ -100,7 +100,7 @@ export default {
           that.form.role = response.data.data.role;
           // that.form.series = response.data.data.series;
           that.form.worksType = response.data.data.worksType;
-          that.form.type = response.data.data.type;
+          // that.form.type = response.data.data.type;
           that.form.groupLeader = response.data.data.groupLeader;
         } else {
           that.$message({

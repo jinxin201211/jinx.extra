@@ -42,11 +42,11 @@
           <el-radio :label="item.code" v-for="(item, index) in $WorksTypeCode" :key="'worksType' + index"> {{ item.code + ":" + item.value }}</el-radio>
         </el-radio-group>
       </el-form-item>
-      <el-form-item label="用户组" prop="type" :rules="[{ required: true, message: '请选择用户组', trigger: 'blur' }]">
+      <!--<el-form-item label="用户组" prop="type" :rules="[{ required: true, message: '请选择用户组', trigger: 'blur' }]">
         <el-radio-group v-model="form.type">
           <el-radio :label="item.code" v-for="(item, index) in $UserType" :key="'type' + index"> {{ item.code + ":" + item.value }}</el-radio>
         </el-radio-group>
-      </el-form-item>
+      </el-form-item>-->
       <el-form-item label="是否小组长" prop="groupLeader" :rules="[{ required: true, message: '请选择是否小组长', trigger: 'blur' }]">
         <el-radio-group v-model="form.groupLeader">
           <el-radio label="1">是</el-radio>
@@ -78,7 +78,7 @@ export default {
         role: "judge",
         // series: "",
         worksType: "",
-        type: "",
+        // type: "",
         groupLeader: "0"
       },
       loading: false
@@ -103,7 +103,7 @@ export default {
       this.loading = true;
       let that = this;
       this.axios
-        .post("/api/sysUser/add", qs.stringify({ email: this.form.email, tel: this.form.tel, uname: this.form.uname, pwd: this.hex_md5("888888"), series: this.form.series, worksType: this.form.worksType, type: this.form.type, groupLeader: this.form.groupLeader }))
+        .post("/api/sysUser/add", qs.stringify({ email: this.form.email, tel: this.form.tel, uname: this.form.uname, pwd: this.hex_md5("888888"), series: this.form.series, worksType: this.form.worksType, /*type: this.form.type,*/ groupLeader: this.form.groupLeader }))
         .then(function(response) {
           if (response && response.data.code == "0") {
             that.$message({

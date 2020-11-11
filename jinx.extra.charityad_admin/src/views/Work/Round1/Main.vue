@@ -73,16 +73,17 @@ export default {
   mounted() {
     this.getList();
     this.getProgress();
-    this.SelectGameType.push({
-      value: "",
-      label: "请选择参赛组别"
-    });
+    // this.SelectGameType.push({
+    //   value: "",
+    //   label: "请选择参赛组别"
+    // });
     for (let i = 0; i < this.$WorksGroupCode.length; i++) {
       this.SelectGameType.push({
         value: this.$WorksGroupCode[i].code,
         label: this.$WorksGroupCode[i].value
       });
     }
+    this.query.gameType = this.SelectGameType[0].value;
   },
   methods: {
     handleRefreshList: function() {
