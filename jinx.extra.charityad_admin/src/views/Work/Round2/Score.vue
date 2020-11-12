@@ -230,8 +230,8 @@ export default {
               that.WorksInfo.works.materialSurce = that.$MaterialSurceCode.find(p => p.code == that.WorksInfo.works.materialSurce).value;
             }
             for (let i = 0; i < that.WorksInfo.works_file.length; i++) {
-              if (that.isImage(that.WorksInfo.works_file[i])) {
-                that.PreviewSrcList.push(that.$ImageGetServer + that.WorksInfo.works_file[i]);
+              if (that.isImage(that.WorksInfo.works_file[i].fileName)) {
+                that.PreviewSrcList.push(that.$ImageGetServer + that.WorksInfo.works_file[i].fileName);
               }
             }
           } else {

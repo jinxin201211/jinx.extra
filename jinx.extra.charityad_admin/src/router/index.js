@@ -212,11 +212,11 @@ const routes = [
         }
       },
       {
-        path: "/score/round0/score",
-        name: "scoreround0score",
-        component: () => import("../views/Work/Round0/Appraisal.vue"),
+        path: "/score/round0/check",
+        name: "scoreround0check",
+        component: () => import("../views/Work/Round0/Check.vue"),
         meta: {
-          title: "作品初选",
+          title: "作品合规检查",
           access: ["admin"],
           menu: "/score/round0"
         }

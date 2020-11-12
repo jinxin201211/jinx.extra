@@ -3,6 +3,10 @@ const path = require("path");
 module.exports = {
   // 配置跨域代理
   devServer: {
+    hot: true, //自动保存
+    open: true, //自动启动
+    port: 8080, //默认端口号
+    host: "0.0.0.0",
     proxy: {
       "/api": {
         target: "http://47.108.88.211", // 你自己的api接口地址

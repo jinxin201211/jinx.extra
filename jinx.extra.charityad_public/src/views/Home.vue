@@ -258,7 +258,7 @@
       <div>版权所有&nbsp;2020&nbsp;河北省广告研究院&nbsp;（hbsggyjy.hebtu.edu.cn）</div>
       <div>
         <span style="display: inline-block; vertical-align: bottom; margin-right: 20px;">© 2020&nbsp;</span>
-        <a href="http://hbsggyjy.hebtu.edu.cn">hbsggyjy.hebtu.edu.cn</a>
+        <a :href="$Host">hbsggyjy.hebtu.edu.cn</a>
       </div>
       <div>冀ICP备18011017号-3 冀公网安备 13010802000630号</div>
     </div>
@@ -324,9 +324,9 @@ export default {
     if (view) {
       this.scrollToSection(view);
     }
-    this.$alert("紧急通知：公益广告大赛因系统维护暂时无法登录和查看相关信息，我们将尽快恢复。大赛征集正在进行中，报名截止时间：10月31日", "", {
-      dangerouslyUseHTMLString: true
-    });
+    // this.$alert("紧急通知：因大赛系统服务器故障，导致10月1日之前已注册的竞争信息损坏，无法恢复，已上传作品与用户信息无法进行正常匹配。<br>在此，烦请10月1日前的参赛者重新注册信息并重新提交作品，以保障顺利参赛。自10月2日起，参赛者可正常通过大赛官网进行注册报名和提交作品。大赛组委会对所有参赛者给予公益事业的支持和本次大赛的参与深表感谢，对给所有参赛者带来的不便深表歉意！<br>根据实际情况，河北省公益广告大赛将继续征集，截止时间为2020年10月31日，欢迎社会各界踊跃报名参赛！", "", {
+    //   dangerouslyUseHTMLString: true
+    // });
   },
   methods: {
     turnBannerCarousel: function() {
@@ -415,7 +415,7 @@ export default {
     },
     handleScrollToView(path) {
       if (path == "anchor_home") {
-        window.location.href = "http://hbsggyjy.hebtu.edu.cn";
+        window.location.href = this.$Host;
       } else if (path == "anchor_downloads") {
         this.$router.push("/downloads");
       } else {
@@ -429,7 +429,7 @@ export default {
     },
     scrollToSection(path) {
       if (path == "anchor_home") {
-        window.location.href = "http://hbsggyjy.hebtu.edu.cn";
+        window.location.href = this.$Host;
       } else if (path == "anchor_downloads") {
         this.$router.push("/downloads");
       } else {

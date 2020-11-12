@@ -192,7 +192,7 @@ export default {
       }
     },
     validatePhone: function(rule, value, callback) {
-      const phoneReg = /^1[3|4|5|6|7|8][0-9]{9}$/;
+      const phoneReg = /^1[0-9]{10}$/;
       if (!value) {
         return callback(new Error("请输入手机号码"));
       }

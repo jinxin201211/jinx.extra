@@ -57,7 +57,7 @@ export default {
         wid: this.$route.query.wid
       },
       action: window.$FileUploadServer + "/gameWorksFile/upload",
-      maxSize: 80,
+      maxSize: 300,
       file_count_limit: 100,
       rules: [
         {

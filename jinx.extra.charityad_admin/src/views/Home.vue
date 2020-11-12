@@ -50,7 +50,7 @@ export default {
         { path: "/announcement", access: ["admin"], title: "发布公告" },
         { path: "/workimport", access: ["admin"], title: "作品导入" },
         { path: "/workregular", access: ["judge", "leader"], title: "评审办法" },
-        { path: "/score/round0", access: ["admin"], title: "作品初选" },
+        { path: "/score/round0", access: ["admin"], title: "作品合规检查" },
         { path: "/score/round1", access: ["judge", "leader"], title: "作品打分(第一轮)" },
         { path: "/score/round2", access: ["judge", "leader"], title: "作品打分(第二轮)" },
         { path: "/score/round3", access: ["leader"], title: "作品打分(第三轮)" },

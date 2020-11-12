@@ -37,6 +37,7 @@ window.$CookieStoreDays = 7;
 // window.$Server = "http://47.108.88.211"; // todo
 window.$Server = "http://49.233.122.67";
 window.$FileUploadServer = window.$Server + ":8080";
+Vue.prototype.$Host = window.$Server;
 Vue.prototype.$FileGetServer = window.$Server + "/img/";
 Vue.prototype.$PdfViewerPath = window.$Server + "/pdfjs/web/viewer.html?file=";
 Vue.prototype.$WebSiteName = "河北省公益广告大赛";

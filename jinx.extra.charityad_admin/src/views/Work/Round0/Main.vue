@@ -2,16 +2,16 @@
   <div style="padding: 20px;">
     <el-breadcrumb separator="/" style="margin-bottom: 20px;">
       <el-breadcrumb-item>首页</el-breadcrumb-item>
-      <el-breadcrumb-item>作品初选</el-breadcrumb-item>
+      <el-breadcrumb-item>作品合规检查</el-breadcrumb-item>
     </el-breadcrumb>
 
     <div>
-      <el-select v-model="query.gameType" placeholder="请选择参赛组别" style="width: 150px; margin-right: 10px;" size="">
+      <!--el-select v-model="query.gameType" placeholder="请选择参赛组别" style="width: 150px; margin-right: 10px;" size="">
         <el-option v-for="item in SelectGameType" :key="item.value" :label="item.label" :value="item.value"> </el-option>
-      </el-select>
+      </!--el-select>
       <el-input v-model="query.author1" placeholder="请输入作者姓名" size="" style="width: 150px; margin-right: 10px;" @keyup.enter.native="handleRefreshList"></el-input>
       <el-input v-model="query.orgName" placeholder="请输入所属单位" size="" style="width: 150px; margin-right: 10px;" @keyup.enter.native="handleRefreshList"></el-input>
-      <el-input v-model="query.worksName" placeholder="请输入作品名称" size="" style="width: 150px; margin-right: 10px;" @keyup.enter.native="handleRefreshList"></el-input>
+      <el-input v-model="query.worksName" placeholder="请输入作品名称" size="" style="width: 150px; margin-right: 10px;" @keyup.enter.native="handleRefreshList"></el-input>-->
       <el-button @click="handleRefreshList" :loading="loading" type="primary">刷 新</el-button>
       <el-button @click="handleBeginScore" type="primary">开始检查</el-button>
     </div>
@@ -31,11 +31,11 @@
       <el-table-column prop="worksType" label="作品类别" width="120"> </el-table-column>
       <el-table-column prop="author1" label="作者"> </el-table-column>
       <el-table-column prop="orgName" label="所属部门"> </el-table-column>
-      <el-table-column prop="state" label="评审结果" width="120"> </el-table-column>
+      <el-table-column prop="standard" label="检查结果" width="120"> </el-table-column>
       <el-table-column label="操作" width="180">
         <template slot-scope="scope">
-          <el-button @click="handleWorksScore(scope)" type="text" size="small" v-if="scope.row.state === '-'">评审</el-button>
-          <el-button @click="handleWorksScore(scope)" type="text" size="small" v-else>已评审</el-button>
+          <el-button @click="handleWorksScore(scope)" type="text" size="small" v-if="scope.row.standard === '-'">检查</el-button>
+          <el-button @click="handleWorksScore(scope)" type="text" size="small" v-else>已检查</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -108,7 +108,7 @@ export default {
               let source = that.$MaterialSurceCode.find(x => x.code == p.materialSurce);
               p.materialSurce = source == null ? "" : source.value;
 
-              p.state = p.state == null || p.state * 1 === 0 ? "-" : p.state * 1 === 1 ? "通过" : "不通过";
+              p.standard = p.standard == null || p.standard * 1 === 0 ? "-" : p.standard * 1 === 1 ? "通过" : "不通过";
               let authors = [];
               if (p.author1 != null && p.author1 != "") {
                 authors.push(p.author1);
@@ -127,6 +127,7 @@ export default {
               }
               p.author1 = authors.join("，");
             });
+            console.log(that.List);
             that.total = response.data.count;
           } else {
             that.$message({
@@ -198,7 +199,7 @@ export default {
     },
     score: function(index) {
       this.$router.push({
-        path: "/score/round0/score",
+        path: "/score/round0/check",
         query: {
           limit: this.query.limit,
           page: this.query.page,

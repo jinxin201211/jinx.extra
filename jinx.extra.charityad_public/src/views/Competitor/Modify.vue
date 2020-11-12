@@ -411,7 +411,7 @@ export default {
       fileList: [],
       successList: [],
       action: window.$FileUploadServer + "/gameWorksFile/upload",
-      maxSize: 80
+      maxSize: 300
     };
   },
   mounted() {
@@ -441,7 +441,7 @@ export default {
       }, 100);
     },
     validatePhone: function(rule, value, callback) {
-      const phoneReg = /^1[3|4|5|6|7|8][0-9]{9}$/;
+      const phoneReg = /^1[0-9]{10}$/;
       if (!value) {
         callback();
       }

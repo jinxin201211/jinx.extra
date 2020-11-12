@@ -1,7 +1,7 @@
 <template>
   <div id="page" style="padding: 20px 0; padding-bottom: 200px; position: relative; height: 100%; overflow: hidden; box-sizing: border-box;">
     <div style="height: 100%; overflow-y: auto; padding: 0 20px; padding-bottom: 20px;">
-      <el-page-header @back="handleBack" content="作品打分" style="margin-bottom: 20px;"> </el-page-header>
+      <el-page-header @back="handleBack" content="作品合规检查" style="margin-bottom: 20px;"> </el-page-header>
       <div style="margin-top: 20px;">
         <div style="margin-bottom: 20px;" v-if="false">评审进度：<span v-text="query.limit * (query.page - 1) + (query.index + 1)"></span>/<span v-text="count"></span></div>
 
@@ -84,7 +84,7 @@
 
     <div style="position: absolute; bottom: 0; left: 0; width: 100%; padding: 20px; box-shadow: rgba(0, 0, 0, 0.5) 0px 1px 5px 0px; background: #ffffff; box-sizing: border-box;">
       <div style="position: relative; text-align: center;">
-        <el-radio-group v-model="appraisal" :disabled="submit_status.disabled || submit_status.loading" @change="handleAppraisalChange" :loading="submit_status.loading">
+        <el-radio-group v-model="standard" :disabled="submit_status.disabled || submit_status.loading" @change="handleStandardChange" :loading="submit_status.loading">
           <el-radio label="1">通过</el-radio>
           <el-radio label="2">不通过</el-radio>
         </el-radio-group>
@@ -105,7 +105,9 @@ import qs from "qs";
 import JinxVideoPlayer from "@/components/JinxVideoPlayer.vue";
 
 export default {
-  components: { JinxVideoPlayer },
+  components: {
+    JinxVideoPlayer
+  },
   data() {
     return {
       List: [],
@@ -122,7 +124,7 @@ export default {
         loading: false,
         disabled: false
       },
-      appraisal: null,
+      standard: null,
       query: {
         limit: this.$route.query.limit * 1,
         page: this.$route.query.page * 1,
@@ -144,7 +146,9 @@ export default {
       this.$router.go(-1);
     },
     getList: function() {
-      let loading = this.$loading({ target: "#page" });
+      let loading = this.$loading({
+        target: "#page"
+      });
       let that = this;
       that.next_status.disabled = false;
       this.axios
@@ -210,22 +214,29 @@ export default {
       }
     },
     getNextWork: function() {
-      let loading = this.$loading({ target: "#page" });
+      let loading = this.$loading({
+        target: "#page"
+      });
       let that = this;
       this.next_status.loading = true;
       that.submit_status.disabled = false;
       if (this.query.index > this.List.length - 1) {
         this.query.index = this.List.length - 1;
       }
-      this.appraisal = null;
+      this.standard = null;
       this.PreviewSrcList = [];
       this.axios
-        .get("/api/gameWorks2/getOne", { params: { wid: this.List[this.query.index].wid } })
+        .get("/api/gameWorks2/getOne", {
+          params: {
+            wid: this.List[this.query.index].wid
+          }
+        })
         .then(function(response) {
+          // debugger;
           if (response && response.data.code == "0") {
             that.WorksInfo = response.data.data;
             if (that.WorksInfo.works.state != null) {
-              that.appraisal = that.WorksInfo.works.state + "";
+              that.standard = that.WorksInfo.works.standard + "";
             }
 
             that.game_type = that.WorksInfo.works.gameType;
@@ -239,8 +250,9 @@ export default {
               that.WorksInfo.works.materialSurce = that.$MaterialSurceCode.find(p => p.code == that.WorksInfo.works.materialSurce).value;
             }
             for (let i = 0; i < that.WorksInfo.works_file.length; i++) {
-              if (that.isImage(that.WorksInfo.works_file[i])) {
-                that.PreviewSrcList.push(that.$ImageGetServer + that.WorksInfo.works_file[i]);
+              console.log(that.WorksInfo.works_file[i]);
+              if (that.isImage(that.WorksInfo.works_file[i].fileName)) {
+                that.PreviewSrcList.push(that.$ImageGetServer + that.WorksInfo.works_file[i].fileName);
               }
             }
           } else {
@@ -267,7 +279,7 @@ export default {
         });
     },
     handleSubmit: function() {
-      if (this.appraisal == "") {
+      if (this.standard == "") {
         this.$message({
           type: "warning",
           message: "请选择是否通过"
@@ -277,14 +289,14 @@ export default {
 
       this.submit();
     },
-    handleAppraisalChange() {
+    handleStandardChange() {
       this.submit();
     },
     submit: function() {
       let that = this;
       let data = {
         wid: this.WorksInfo.works.wid,
-        state: this.appraisal
+        standard: this.standard
       };
       that.submit_status.loading = true;
       this.axios
@@ -336,6 +348,7 @@ export default {
     text-align: right;
     padding: 0 20px;
   }
+
   span:last-child {
     display: inline-block;
     padding: 0 20px;
