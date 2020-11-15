@@ -32,6 +32,8 @@ if (!!window.ActiveXObject || "ActiveXObject" in window) {
   );
 }
 
+import "@/assets/js/file.type.js";
+
 window.$VuexPrefix = "charity.public.";
 window.$CookieStoreDays = 7;
 // window.$Server = "http://47.108.88.211"; // todo

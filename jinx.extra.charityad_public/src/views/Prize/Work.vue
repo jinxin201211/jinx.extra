@@ -105,7 +105,7 @@
     <el-card v-for="(item, index) in WorksInfo.works_file" :key="'works_file' + index" style="margin-top: 15px;">
       <div slot="header" class="clearfix">
         <span v-text="'文件' + (index + 1) + '. ' + item.fileName"></span>
-        <el-link v-if="isVideo(item.fileName)" :href="$FileGetServer + item.fileName" target="blank" type="primary" style="float: right;">下载</el-link>
+        <el-link v-if="isVideo(item.fileName) || isFlash(item.fileName)" :href="$FileGetServer + item.fileName" target="blank" type="primary" style="float: right;">下载</el-link>
       </div>
       <div v-if="isImage(item.fileName)" style="text-align: center;">
         <el-image :src="$FileGetServer + item.fileName" style="max-width: 960px; margin: 0 auto;" :preview-src-list="[$FileGetServer + item.fileName]">
@@ -118,11 +118,17 @@
       <div v-else-if="isVideo(item.fileName)" style="text-align: center;">
         <jinx-video-player :src="item.fileName"></jinx-video-player>
       </div>
+      <div v-else-if="isFlash(item.fileName)" style="text-align: center;">
+        <jinx-flash-player :src="item.fileName"></jinx-flash-player>
+      </div>
       <div v-else-if="isAudio(item.fileName)" style="text-align: center;">
         <audio :src="$FileGetServer + item.fileName" controls="controls" style="width: 960px; margin: 0 auto;">您的浏览器不支持 audio 标签。</audio>
       </div>
       <div v-else-if="isPDF(item.fileName)" style="text-align: center;">
         <a :href="$PdfViewerPath + $FileGetServer + item.fileName" v-text="item.fileName" target="_blank"></a>
+      </div>
+      <div v-else-if="isOffice(item.fileName)" style="text-align: center;">
+        <a :href="$OfficeViewerPath + $ImageGetServer + item.fileName" v-text="item.fileName" target="_blank"></a>
       </div>
       <div v-else style="text-align: center;">
         <a :href="$FileGetServer + item.fileName" v-text="item.fileName" target="_blank"></a>
@@ -202,38 +208,6 @@ export default {
             type: "warning"
           });
         });
-    },
-    isImage: function(file) {
-      file = file.toLowerCase();
-      if (file.endsWith(".jpg") || file.endsWith(".jpeg") || file.endsWith(".png") || file.endsWith(".gif")) {
-        return true;
-      } else {
-        return false;
-      }
-    },
-    isAudio: function(file) {
-      file = file.toLowerCase();
-      if (file.endsWith(".mp3") || file.endsWith(".wav") || file.endsWith(".wma") || file.endsWith(".ogg")) {
-        return true;
-      } else {
-        return false;
-      }
-    },
-    isVideo: function(file) {
-      file = file.toLowerCase();
-      if (file.endsWith(".mp4") || file.endsWith(".avi") || file.endsWith(".flv") || file.endsWith(".mov") || file.endsWith(".mkv")) {
-        return true;
-      } else {
-        return false;
-      }
-    },
-    isPDF: function(file) {
-      file = file.toLowerCase();
-      if (file.endsWith(".pdf")) {
-        return true;
-      } else {
-        return false;
-      }
     },
     handleDownload: function(file) {
       window.location.href = file;

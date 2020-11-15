@@ -5,21 +5,25 @@
       <el-breadcrumb-item>作品打分(第一轮)</el-breadcrumb-item>
     </el-breadcrumb>
 
+    <div style="line-height: 40px; color: #787878;">
+      <span style="margin-right: 20px;">作品总数：<span v-text="statistics.total_num"></span></span>
+      <span style="margin: 0 20px;">需评审数：<span v-text="statistics.appraisal_total_num"></span></span>
+      <span style="margin: 0 20px;">已评审数：<span v-text="statistics.appraisal_num"></span></span>
+      <span style="margin: 0 20px;">通过数：<span v-text="statistics.pass_num"></span></span>
+    </div>
+
     <div>
-      <el-select v-model="query.gameType" placeholder="请选择参赛组别" style="width: 150px; margin-right: 10px;" size="">
+      <el-tabs v-model="query.gameType" @tab-click="handleRefreshList">
+        <el-tab-pane :label="item.label" :name="item.value" v-for="item in SelectGameType" :key="item.value"></el-tab-pane>
+      </el-tabs>
+      <!--<el-select v-model="query.gameType" placeholder="请选择参赛组别" style="width: 150px; margin-right: 10px;" size="">
         <el-option v-for="item in SelectGameType" :key="item.value" :label="item.label" :value="item.value"> </el-option>
-      </el-select>
+      </el-select>-->
       <el-input v-model="query.author1" placeholder="请输入作者姓名" size="" style="width: 150px; margin-right: 10px;" @keyup.enter.native="handleRefreshList"></el-input>
       <el-input v-model="query.orgName" placeholder="请输入所属单位" size="" style="width: 150px; margin-right: 10px;" @keyup.enter.native="handleRefreshList"></el-input>
       <el-input v-model="query.worksName" placeholder="请输入作品名称" size="" style="width: 150px; margin-right: 10px;" @keyup.enter.native="handleRefreshList"></el-input>
       <el-button @click="handleRefreshList" :loading="loading" type="primary">刷 新</el-button>
       <el-button @click="handleBeginScore" type="primary">开始评审</el-button>
-    </div>
-    <div style="line-height: 40px; color: #787878;">
-      <span style="margin: 0 20px;">作品总数：<span v-text="statistics.total_num"></span></span>
-      <span style="margin: 0 20px;">需评审数：<span v-text="statistics.appraisal_total_num"></span></span>
-      <span style="margin: 0 20px;">已评审数：<span v-text="statistics.appraisal_num"></span></span>
-      <span style="margin: 0 20px;">通过数：<span v-text="statistics.pass_num"></span></span>
     </div>
 
     <el-table :data="List" stripe style="width: 100%" @row-dblclick="handleRowDbclick">
@@ -71,8 +75,6 @@ export default {
     };
   },
   mounted() {
-    this.getList();
-    this.getProgress();
     // this.SelectGameType.push({
     //   value: "",
     //   label: "请选择参赛组别"
@@ -84,6 +86,8 @@ export default {
       });
     }
     this.query.gameType = this.SelectGameType[0].value;
+    this.getList();
+    this.getProgress();
   },
   methods: {
     handleRefreshList: function() {

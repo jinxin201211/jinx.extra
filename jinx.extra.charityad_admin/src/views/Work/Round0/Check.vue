@@ -53,7 +53,7 @@
         <el-card v-for="(item, index) in WorksInfo.works_file" :key="'works_file' + index" style="margin-top: 15px;">
           <div slot="header" class="clearfix">
             <span v-text="'文件' + (index + 1) + '. ' + item.fileName"></span>
-            <el-link v-if="isVideo(item.fileName)" :href="$ImageGetServer + item.fileName" target="blank" type="primary" style="float: right;">下载</el-link>
+            <el-link v-if="isVideo(item.fileName) || isFlash(item.fileName)" :href="$ImageGetServer + item.fileName" target="blank" type="primary" style="float: right;">下载</el-link>
           </div>
           <div v-if="isImage(item.fileName)" style="text-align: center;">
             <el-image :src="$ImageGetServer + item.fileName" style="max-width: 960px; margin: 0 auto;" :preview-src-list="PreviewSrcList">
@@ -66,13 +66,16 @@
           <div v-else-if="isVideo(item.fileName)" style="text-align: center;">
             <jinx-video-player :src="item.fileName"></jinx-video-player>
           </div>
+          <div v-else-if="isFlash(item.fileName)" style="text-align: center;">
+            <jinx-flash-player :src="item.fileName"></jinx-flash-player>
+          </div>
           <div v-else-if="isAudio(item.fileName)" style="text-align: center;">
             <audio :src="$ImageGetServer + item.fileName" controls="controls" style="width: 960px; margin: 0 auto;">您的浏览器不支持 audio 标签。</audio>
           </div>
           <div v-else-if="isPDF(item.fileName)" style="text-align: center;">
             <a :href="$PdfViewerPath + $ImageGetServer + item.fileName" v-text="item.fileName" target="_blank"></a>
           </div>
-          <div v-else-if="isOffice(item)" style="text-align: center;">
+          <div v-else-if="isOffice(item.fileName)" style="text-align: center;">
             <a :href="$OfficeViewerPath + $ImageGetServer + item.fileName" v-text="item.fileName" target="_blank"></a>
           </div>
           <div v-else style="text-align: center;">
@@ -85,8 +88,8 @@
     <div style="position: absolute; bottom: 0; left: 0; width: 100%; padding: 20px; box-shadow: rgba(0, 0, 0, 0.5) 0px 1px 5px 0px; background: #ffffff; box-sizing: border-box;">
       <div style="position: relative; text-align: center;">
         <el-radio-group v-model="standard" :disabled="submit_status.disabled || submit_status.loading" @change="handleStandardChange" :loading="submit_status.loading">
-          <el-radio label="1">通过</el-radio>
-          <el-radio label="2">不通过</el-radio>
+          <el-radio label="1" border size="medium">通过</el-radio>
+          <el-radio label="2" border size="medium">不通过</el-radio>
         </el-radio-group>
         <!--<el-button size="small" type="primary" @click="handleSubmit" :loading="submit_status.loading" :disabled="submit_status.disabled || appraisal === null || appraisal === ''" style="margin: 15px;">确 定</el-button>-->
       </div>

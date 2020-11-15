@@ -16,12 +16,11 @@ Vue.use(VueCookies);
 import ElementUI from "@/assets/js/element.config";
 import "@/assets/css/element-variables.scss";
 import "@/assets/css/common.css";
-
 Vue.use(ElementUI);
 
-// //路由前进刷新后退不刷新
-// import Navigation from "vue-navigation";
-// Vue.use(Navigation, { router, store });
+//路由前进刷新后退不刷新
+import Navigation from "vue-navigation";
+Vue.use(Navigation, { router, store });
 
 import Router from "vue-router";
 const routerReplace = Router.prototype.replace;
@@ -86,7 +85,7 @@ Vue.prototype.$WorksTypeCode = [
   { code: "6", value: "互动类" }
 ];
 Vue.prototype.$MaterialSurceCode = [
-  { code: "1", value: "我保重此作品是我的原创" },
+  { code: "1", value: "我保证此作品是我的原创" },
   { code: "2", value: "我使用了素材" }
 ];
 

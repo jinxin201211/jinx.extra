@@ -119,13 +119,7 @@
           <div class="works-list">
             <div class="works-list-scroll" :style="{ left: 261.33 * -1 * work.scroll + 'px' }">
               <div class="works-item-pos" v-for="(item, index) in work.list" :key="'excellent_work' + index">
-                <div
-                  class="works"
-                  @click="
-                    work.index = index;
-                    work.file = 0;
-                  "
-                >
+                <div class="works" @click="handleCarouselClick(index)">
                   <div class="image" v-if="item.files.length > 0 && isImage(item.files[0])" :style="{ backgroundImage: 'url(' + $FileGetServer + item.files[0] + ')' }"></div>
                   <div class="video" v-if="item.files.length > 0 && isVideo(item.files[0])">
                     <svg t="1589870741966" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1140" width="48" height="48">
@@ -311,7 +305,9 @@ export default {
         index: 0,
         scroll: 0,
         select: {},
-        file: 0
+        file: 0,
+        carousel: -1,
+        interval: 10000
       }
     };
   },
@@ -327,6 +323,10 @@ export default {
     // this.$alert("紧急通知：因大赛系统服务器故障，导致10月1日之前已注册的竞争信息损坏，无法恢复，已上传作品与用户信息无法进行正常匹配。<br>在此，烦请10月1日前的参赛者重新注册信息并重新提交作品，以保障顺利参赛。自10月2日起，参赛者可正常通过大赛官网进行注册报名和提交作品。大赛组委会对所有参赛者给予公益事业的支持和本次大赛的参与深表感谢，对给所有参赛者带来的不便深表歉意！<br>根据实际情况，河北省公益广告大赛将继续征集，截止时间为2020年10月31日，欢迎社会各界踊跃报名参赛！", "", {
     //   dangerouslyUseHTMLString: true
     // });
+  },
+  beforeRouteLeave(to, from, next) {
+    window.clearTimeout(this.work.carousel);
+    next();
   },
   methods: {
     turnBannerCarousel: function() {
@@ -464,6 +464,12 @@ export default {
               }
               that.work.list.push(work);
             }
+            that.work.carousel = setTimeout(function f() {
+              that.work.index = (that.work.index + 1) % that.work.list.length;
+              that.work.file = 0;
+              that.work.scroll = that.work.index - 2 >= 0 ? that.work.index - 2 : 0;
+              that.work.carousel = setTimeout(f, that.work.interval);
+            }, that.work.interval);
           } else {
             that.$message({
               showClose: true,
@@ -480,6 +486,18 @@ export default {
             type: "warning"
           });
         });
+    },
+    handleCarouselClick(index) {
+      this.work.index = index;
+      this.work.file = 0;
+      const that = this;
+      window.clearTimeout(this.work.carousel);
+      this.work.carousel = setTimeout(function f() {
+        that.work.index = (that.work.index + 1) % that.work.list.length;
+        that.work.file = 0;
+        that.work.scroll = that.work.index - 2 >= 0 ? that.work.index - 2 : 0;
+        that.work.carousel = setTimeout(f, that.work.interval);
+      }, that.work.interval);
     },
     isImage: function(file) {
       file = file.toLowerCase();
@@ -799,25 +817,25 @@ export default {
 
     .works-display {
       width: 760px;
-      height: 460px;
+      height: 760px;
       background: rgba(0, 0, 0, 1);
       border-radius: 16px;
       margin: 0 auto;
-      padding: 30px 14px;
+      padding: 15px 14px;
       box-sizing: border-box;
 
       .works-body {
         width: 732px;
-        height: 350px;
+        height: calc(100% - 60px);
         border-radius: 16px;
-        background: #ffffff;
+        // background: #ffffff;
         position: relative;
 
         .left {
           position: absolute;
           height: 30px;
           width: 16px;
-          top: 160px;
+          top: calc(50% - 15px);
           left: -50px;
           background-position: center;
           background-size: contain;
@@ -830,7 +848,7 @@ export default {
           position: absolute;
           height: 30px;
           width: 16px;
-          top: 160px;
+          top: calc(50% - 15px);
           right: -50px;
           background-position: center;
           background-size: contain;
