@@ -210,10 +210,8 @@ export default {
         query: {
           limit: this.query.limit,
           page: this.query.page,
-          gameType: this.query.gameType,
-          author1: this.query.author1,
-          orgName: this.query.orgName,
-          worksName: this.query.worksName,
+          worksType: this.query.worksType,
+          wno: this.query.wno,
           index: index
         }
       });

@@ -75,7 +75,7 @@ export default {
       fileList: [],
       successList: [],
       action: this.$ImagePostServer + "/gameWorksFile/upload",
-      maxSize: 80
+      maxSize: 500
     };
   },
   mounted() {

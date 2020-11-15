@@ -131,10 +131,8 @@ export default {
       query: {
         limit: this.$route.query.limit * 1,
         page: this.$route.query.page * 1,
-        gameType: this.$route.query.gameType,
-        author1: this.$route.query.author1,
-        orgName: this.$route.query.orgName,
-        worksName: this.$route.query.worksName,
+        worksType: this.$route.query.worksType,
+        wno: this.$route.query.wno,
         index: this.$route.query.index * 1
       },
       count: 0,
