@@ -52,7 +52,7 @@
         </el-card>
         <el-card v-for="(item, index) in WorksInfo.works_file" :key="'works_file' + index" style="margin-top: 15px;">
           <div slot="header" class="clearfix">
-            <span v-text="'文件' + (index + 1) + '. ' + item.fileName"></span>
+            <span v-text="'文件' + (index + 1) + '. ' + encryptFileName(item.fileName)"></span>
             <el-link v-if="isVideo(item.fileName) || isFlash(item.fileName)" :href="$ImageGetServer + item.fileName" target="blank" type="primary" style="float: right;">下载</el-link>
           </div>
           <div v-if="isImage(item.fileName)" style="text-align: center;">
@@ -73,13 +73,13 @@
             <audio :src="$ImageGetServer + item.fileName" controls="controls" style="width: 960px; margin: 0 auto;">您的浏览器不支持 audio 标签。</audio>
           </div>
           <div v-else-if="isPDF(item.fileName)" style="text-align: center;">
-            <a :href="$PdfViewerPath + $ImageGetServer + item.fileName" v-text="item.fileName" target="_blank"></a>
+            <a :href="$PdfViewerPath + $ImageGetServer + item.fileName" v-text="encryptFileName(item.fileName)" target="_blank"></a>
           </div>
           <div v-else-if="isOffice(item.fileName)" style="text-align: center;">
-            <a :href="$OfficeViewerPath + $ImageGetServer + item.fileName" v-text="item.fileName" target="_blank"></a>
+            <a :href="$OfficeViewerPath + $ImageGetServer + item.fileName" v-text="encryptFileName(item.fileName)" target="_blank"></a>
           </div>
           <div v-else style="text-align: center;">
-            <a :href="$ImageGetServer + item.fileName" v-text="item.fileName" target="_blank"></a>
+            <a :href="$ImageGetServer + item.fileName" v-text="encryptFileName(item.fileName)" target="_blank"></a>
           </div>
         </el-card>
       </div>
