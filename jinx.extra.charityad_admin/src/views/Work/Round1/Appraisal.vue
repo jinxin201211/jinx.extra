@@ -87,10 +87,11 @@
 
     <div style="position: absolute; bottom: 0; left: 0; width: 100%; padding: 20px; box-shadow: rgba(0, 0, 0, 0.5) 0px 1px 5px 0px; background: #ffffff; box-sizing: border-box;">
       <div style="position: relative; text-align: center;">
-        <el-radio-group v-model="appraisal" :disabled="submit_status.disabled || submit_status.loading" @change="handleAppraisalChange" :loading="submit_status.loading">
+        <el-rate v-model="Score" :max="10" :disabled="submit_status.disabled || submit_status.loading" show-score score-template="{value}" style="display: inline-block; margin-right: 20px;" @change="handleScoreChange"></el-rate>
+        <!--<el-radio-group v-model="appraisal" :disabled="submit_status.disabled || submit_status.loading" @change="handleAppraisalChange" :loading="submit_status.loading">
           <el-radio label="1" border size="medium">通过</el-radio>
           <el-radio label="2" border size="medium">不通过</el-radio>
-        </el-radio-group>
+        </el-radio-group>-->
         <!--<el-button size="small" type="primary" @click="handleSubmit" :loading="submit_status.loading" :disabled="submit_status.disabled || appraisal === null || appraisal === ''" style="margin: 15px;">确 定</el-button>-->
       </div>
       <el-divider></el-divider>
@@ -125,7 +126,7 @@ export default {
         loading: false,
         disabled: false
       },
-      appraisal: null,
+      Score: 0,
       query: {
         limit: this.$route.query.limit * 1,
         page: this.$route.query.page * 1,
@@ -220,7 +221,7 @@ export default {
       if (this.query.index > this.List.length - 1) {
         this.query.index = this.List.length - 1;
       }
-      this.appraisal = null;
+      this.Score = 0;
       this.PreviewSrcList = [];
       this.axios
         .get("/api/gameWorks2/getOne", { params: { wid: this.List[this.query.index].wid } })
@@ -228,7 +229,7 @@ export default {
           if (response && response.data.code == "0") {
             that.WorksInfo = response.data.data;
             if (that.WorksInfo.works.state != null) {
-              that.appraisal = that.WorksInfo.works.state + "";
+              that.Score = that.WorksInfo.works.state * 1;
             }
 
             that.game_type = that.WorksInfo.works.gameType;
@@ -270,24 +271,31 @@ export default {
         });
     },
     handleSubmit: function() {
-      if (this.appraisal == "") {
+      // if (this.appraisal == "") {
+      //   this.$message({
+      //     type: "warning",
+      //     message: "请选择是否通过"
+      //   });
+      //   return;
+      // }
+      if (this.Score === 0) {
         this.$message({
           type: "warning",
-          message: "请选择是否通过"
+          message: "没有打分，不能提交"
         });
         return;
       }
 
       this.submit();
     },
-    handleAppraisalChange() {
+    handleScoreChange() {
       this.submit();
     },
     submit: function() {
       let that = this;
       let data = {
         wid: this.WorksInfo.works.wid,
-        state: this.appraisal
+        state: this.Score
       };
       that.submit_status.loading = true;
       this.axios

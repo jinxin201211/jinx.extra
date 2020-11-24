@@ -24,8 +24,8 @@
       <el-table-column prop="gameTotalNum" label="总作品数"> </el-table-column>
       <el-table-column prop="appraisalTotalNum" label="需要评审作品数" width="120"> </el-table-column>
       <el-table-column prop="appraisalFinishNum" label="已评审作品数"> </el-table-column>
-      <el-table-column prop="ctime" label="更新时间"> </el-table-column>
-      <el-table-column prop="utime" label="创建时间"> </el-table-column>
+      <el-table-column prop="utime" label="更新时间"> </el-table-column>
+      <el-table-column prop="ctime" label="创建时间"> </el-table-column>
     </el-table>
     <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="query.page" :page-sizes="[10, 20, 50]" :page-size="query.limit" layout="total, sizes, prev, pager, next, jumper" :total="total" hide-on-single-page> </el-pagination>
   </div>

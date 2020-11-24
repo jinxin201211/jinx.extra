@@ -113,7 +113,8 @@ export default {
               let source = that.$MaterialSurceCode.find(x => x.code == p.materialSurce);
               p.materialSurce = source == null ? "" : source.value;
 
-              p.state = p.state == null || p.state * 1 === 0 ? "-" : p.state * 1 === 1 ? "通过" : "不通过";
+              // p.state = p.state == null || p.state * 1 === 0 ? "-" : p.state * 1 === 1 ? "通过" : "不通过";
+              p.state = p.state == null || p.state * 1 === 0 ? "-" : p.state;
               let authors = [];
               if (p.author1 != null && p.author1 != "") {
                 authors.push(p.author1);
