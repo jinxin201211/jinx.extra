@@ -7,8 +7,12 @@
 
     <div>
       <el-input v-model="query.wno" placeholder="请输入作品编号" style="width: 150px; margin-right: 10px;" @keyup.enter.native="handleRefreshList"></el-input>
+      <el-input v-model="query.worksName" placeholder="请输入作品名称" style="width: 150px; margin-right: 10px;" @keyup.enter.native="handleRefreshList"></el-input>
       <el-select v-model="query.worksType" placeholder="请选择作品类别" style="width: 150px; margin-right: 10px;" @change="handleRefreshList">
         <el-option v-for="item in ListSelectWorkType" :key="item.value" :label="item.label" :value="item.value"></el-option>
+      </el-select>
+      <el-select v-model="query.standard" placeholder="请选择合规性" style="width: 150px; margin-right: 10px;" @change="handleRefreshList">
+        <el-option v-for="item in ListSelectStandard" :key="item.value" :label="item.label" :value="item.value"></el-option>
       </el-select>
       <el-button @click="handleRefreshList" :loading="loading" type="primary">刷 新</el-button>
       <el-button @click="handleBeginScore" type="primary">开始检查</el-button>
@@ -49,13 +53,20 @@ export default {
     return {
       // SelectGameType: [],
       ListSelectWorkType: [],
+      ListSelectStandard: [
+        { value: "0", label: "未检查" },
+        { value: "1", label: "合规" },
+        { value: "2", label: "不合规" }
+      ],
       List: [],
       query: {
         // role: "judge",
         page: 1,
         limit: 10,
         worksType: "",
-        wno: ""
+        wno: "",
+        standard: "",
+        worksName: ""
       },
       total: 0,
       loading: false
@@ -115,7 +126,7 @@ export default {
               let source = that.$MaterialSurceCode.find(x => x.code == p.materialSurce);
               p.materialSurce = source == null ? "" : source.value;
 
-              p.standard = p.standard == null || p.standard * 1 === 0 ? "-" : p.standard * 1 === 1 ? "通过" : "不通过";
+              p.standard = p.standard == 0 ? "未检查" : p.standard === 1 ? "合规" : p.standard === 2 ? "不合规" : "-";
               let authors = [];
               if (p.author1 != null && p.author1 != "") {
                 authors.push(p.author1);
@@ -134,7 +145,6 @@ export default {
               }
               p.author1 = authors.join("，");
             });
-            console.log(that.List);
             that.total = response.data.count;
           } else {
             that.$message({
@@ -212,6 +222,8 @@ export default {
           page: this.query.page,
           worksType: this.query.worksType,
           wno: this.query.wno,
+          standard: this.query.standard,
+          worksName: this.query.worksName,
           index: index
         }
       });

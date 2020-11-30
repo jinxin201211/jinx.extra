@@ -133,7 +133,9 @@ export default {
         page: this.$route.query.page * 1,
         worksType: this.$route.query.worksType,
         wno: this.$route.query.wno,
-        index: this.$route.query.index * 1
+        index: this.$route.query.index * 1,
+        standard: this.$route.query.standard,
+        worksName: this.$route.query.worksName
       },
       count: 0,
       game_type: -1
@@ -251,7 +253,6 @@ export default {
               that.WorksInfo.works.materialSurce = that.$MaterialSurceCode.find(p => p.code == that.WorksInfo.works.materialSurce).value;
             }
             for (let i = 0; i < that.WorksInfo.works_file.length; i++) {
-              console.log(that.WorksInfo.works_file[i]);
               if (that.isImage(that.WorksInfo.works_file[i].fileName)) {
                 that.PreviewSrcList.push(that.$ImageGetServer + that.WorksInfo.works_file[i].fileName);
               }

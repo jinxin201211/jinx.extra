@@ -82,7 +82,6 @@ export default {
       this.$refs.upload.submit();
     },
     handleBeforeUpload(file) {
-      console.log(file);
       if (!file.name.endsWith(".xls") && !file.name.endsWith(".xlsx")) {
         this.$message.error(`请选择Excel文件上传`);
         return false;
@@ -90,7 +89,6 @@ export default {
       return true;
     },
     handleSuccess: function(response, file, fileList) {
-      console.log(response);
       if (response.code == 0) {
         this.$message({
           showClose: true,

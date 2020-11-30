@@ -108,7 +108,6 @@ export default {
       this.axios
         .post("/api/gameWorks2/getNoAppraisalList_Round3")
         .then(function(response) {
-          console.log(response);
           if (response && response.data.code == "0") {
             let data = response.data.data;
             // that.List = response.data.data.list;

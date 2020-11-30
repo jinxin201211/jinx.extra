@@ -74,7 +74,6 @@ export default {
     };
   },
   mounted() {
-    console.log(this.$store.state.User);
     let user = this.$store.state.User;
     if (user.worksType) {
       this.worksType = user.worksType;
@@ -107,7 +106,6 @@ export default {
       this.axios
         .post("/api/gameWorks2/getRankByMap", qs.stringify({ worksType: this.worksType }))
         .then(function(response) {
-          console.log(response);
           if (response && response.data.code == "0") {
             let data = response.data.data;
             // that.List = response.data.data.list;
