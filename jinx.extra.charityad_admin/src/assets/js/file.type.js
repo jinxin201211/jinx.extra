@@ -43,7 +43,7 @@ Vue.prototype.isPDF = function(file) {
 };
 Vue.prototype.isOffice = function(file) {
   file = file.toLowerCase();
-  if (file.endsWith(".doc") || file.endsWith(".docx") || file.endsWith(".xls") || file.endsWith(".xlsx") || file.endsWith(".ppt") || file.endsWith(".pptx")) {
+  if (file.endsWith(".doc") || file.endsWith(".docx") || file.endsWith(".xls") || file.endsWith(".xlsx") || file.endsWith(".ppt") || file.endsWith(".pptx") || file.endsWith(".txt")) {
     return true;
   } else {
     return false;

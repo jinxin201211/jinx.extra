@@ -132,6 +132,8 @@ export default {
                 authors.push(p.author5);
               }
               p.author1 = authors.join("，");
+              p.author1 = "******";
+              p.orgName = "******";
             });
             that.total = response.data.count;
           } else {

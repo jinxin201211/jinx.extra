@@ -53,7 +53,7 @@
         <el-card v-for="(item, index) in WorksInfo.works_file" :key="'works_file' + index" style="margin-top: 15px;">
           <div slot="header" class="clearfix">
             <span v-text="'文件' + (index + 1) + '. ' + encryptFileName(item.fileName)"></span>
-            <el-link v-if="isVideo(item.fileName) || isFlash(item.fileName)" :href="$ImageGetServer + item.fileName" target="blank" type="primary" style="float: right;">下载</el-link>
+            <el-link v-if="isVideo(item.fileName) || isFlash(item.fileName) || isOffice(item.fileName)" :href="$ImageGetServer + item.fileName" target="blank" type="primary" style="float: right;" download="xxxxxxxxxx">下载</el-link>
           </div>
           <div v-if="isImage(item.fileName)" style="text-align: center;">
             <el-image :src="$ImageGetServer + item.fileName" style="max-width: 960px; margin: 0 auto;" :preview-src-list="PreviewSrcList">
