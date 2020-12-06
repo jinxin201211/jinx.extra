@@ -1,4 +1,5 @@
 import Vue from "vue";
+import md5ex from "@/assets/js/md5ex.js";
 
 Vue.prototype.isImage = function(file) {
   file = file.toLowerCase();
@@ -47,4 +48,10 @@ Vue.prototype.isOffice = function(file) {
   } else {
     return false;
   }
+};
+Vue.prototype.encryptFileName = function(fileName) {
+  let extension = fileName.substring(fileName.lastIndexOf("."), fileName.length);
+  let name = fileName.substring(0, fileName.lastIndexOf("."));
+  let name_encrypt = md5ex.b64_md5(name);
+  return name_encrypt + extension;
 };

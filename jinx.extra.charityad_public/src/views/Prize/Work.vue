@@ -41,10 +41,10 @@
           <span>作品类别</span>
           <span class="value" v-text="WorksInfo.works.worksType"></span>
         </div>
-        <div class="jinx-works-info">
+        <!--<div class="jinx-works-info">
           <span class="title">作品素材来源</span>
           <span class="value" v-text="WorksInfo.works.materialSurce"></span>
-        </div>
+        </div>-->
         <div class="jinx-works-info">
           <span class="title">作品创意说明</span>
           <span class="value" v-text="WorksInfo.works.creativeOverview"></span>
@@ -58,53 +58,11 @@
         <span class="value" v-text="WorksInfo.works.author4"></span>
         <span class="value" v-text="WorksInfo.works.author5"></span>
       </div>
-      <div class="jinx-works-group">
-        <span>第一作者联系方式</span>
-        <div class="jinx-works-info">
-          <span class="title">身份证号</span>
-          <span class="value" v-text="WorksInfo.works.idcardNo"></span>
-          <span class="title">联系电话</span>
-          <span class="value" v-text="WorksInfo.works.tel"></span>
-        </div>
-        <div class="jinx-works-info">
-          <span class="title">电子邮箱</span>
-          <span class="value" v-text="WorksInfo.works.email"></span>
-          <span class="title">QQ</span>
-          <span class="value" v-text="WorksInfo.works.qq"></span>
-        </div>
-        <div class="jinx-works-info">
-          <span class="title">所属单位</span>
-          <span class="value" v-text="WorksInfo.works.orgName"></span>
-          <span class="title">有效通讯地址</span>
-          <span class="value" v-text="WorksInfo.works.addr"></span>
-        </div>
-      </div>
-      <div v-if="WorksInfo.works.tuname !== null && WorksInfo.works.tuname !== ''">
-        <div class="jinx-works-group">
-          <span>指导老师信息</span>
-          <div class="jinx-works-info">
-            <span class="title">姓名</span>
-            <span class="value" v-text="WorksInfo.works.tuname"></span>
-            <span class="title">联系电话</span>
-            <span class="value" v-text="WorksInfo.works.tTel"></span>
-          </div>
-          <div class="jinx-works-info">
-            <span class="title">电子邮箱</span>
-            <span class="value" v-text="WorksInfo.works.tEmail"></span>
-            <span class="title">所属单位</span>
-            <span class="value" v-text="WorksInfo.works.tOrgName"></span>
-          </div>
-        </div>
-      </div>
-      <div class="jinx-works-info">
-        <span class="title" style="display: inline-block;">作品创意说明</span>
-        <span class="value" style="display: inline-block;" v-text="WorksInfo.works.creativeOverview"></span>
-      </div>
     </el-card>
 
-    <el-card v-for="(item, index) in WorksInfo.works_file" :key="'works_file' + index" style="margin-top: 15px;">
+    <el-card v-for="(item, index) in WorksInfo.works_file" :key="'works_file' + index" style="margin-top: 15px; margin-bottom: 15px;">
       <div slot="header" class="clearfix">
-        <span v-text="'文件' + (index + 1) + '. ' + item.fileName"></span>
+        <span v-text="'文件' + (index + 1) + '. ' + encryptFileName(item.fileName)"></span>
         <el-link v-if="isVideo(item.fileName) || isFlash(item.fileName)" :href="$FileGetServer + item.fileName" target="blank" type="primary" style="float: right;">下载</el-link>
       </div>
       <div v-if="isImage(item.fileName)" style="text-align: center;">

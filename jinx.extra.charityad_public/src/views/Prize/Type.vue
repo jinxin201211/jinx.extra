@@ -12,12 +12,12 @@
       </div>
       <div style="flex-grow: 1">
         <el-tabs v-model="tab_active" v-if="type !== 'search'">
-          <el-tab-pane :label="item.value" :name="item.code + ''" v-for="(item, index) in $WorksGroupCode" :key="'WorksGroupCode' + index">
+          <el-tab-pane :label="item.value" v-for="(item, index) in $WorksGroupCode" :key="'WorksGroupCode' + index">
             <el-card shadow="never" v-for="(pitem, pindex) in PrizeList" :key="'prize' + pindex">
               <div slot="header">
                 <span v-text="pitem"></span>
               </div>
-              <el-table :data="Data.group[index].prize[pindex].list" stripe style="width: 100%" @row-dblclick="handleRowDbclick">
+              <el-table :data="Data.group[index].prize[pindex].list" stripe style="width: 100%" @row-dblclick="handleRowDbclick" :empty-text="EmptyText">
                 <el-table-column type="index" width="50"> </el-table-column>
                 <el-table-column prop="wno" label="作品编号" width="120"> </el-table-column>
                 <el-table-column prop="worksName" label="作品名称"> </el-table-column>
@@ -73,6 +73,7 @@ export default {
           }
         ]
       },
+      EmptyText: "奖项空缺",
       Search: "",
       loading: false,
       ResultPrize: ""
@@ -116,7 +117,6 @@ export default {
       this.axios
         .post("/api/gameWorksRank/getRankByMap", qs.stringify({ worksType: this.type }))
         .then(function(response) {
-          console.log(response);
           if (response && response.data.code == "0") {
             let data = response.data.data;
             data.forEach(p => {
@@ -153,6 +153,8 @@ export default {
             that.Data.group[3].prize[1].list = data.filter(p => p.gameType === game_type4 && p.prize === 2);
             that.Data.group[3].prize[2].list = data.filter(p => p.gameType === game_type4 && p.prize === 3);
             that.Data.group[3].prize[3].list = data.filter(p => p.gameType === game_type4 && p.prize === 4);
+
+            that.EmptyText = data.length > 0 ? "奖项空缺" : "评审中";
           } else {
             that.$message({
               showClose: true,

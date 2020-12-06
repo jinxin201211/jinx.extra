@@ -141,7 +141,8 @@ const routes = [
         component: () => import("../views/Prize/Type.vue"),
         meta: {
           title: "获奖查询",
-          access: false
+          access: false,
+          keepAlive: true
         }
       },
       {

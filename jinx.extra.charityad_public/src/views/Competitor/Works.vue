@@ -47,7 +47,6 @@ export default {
     this.axios
       .post("/api/gameWorks2/getWorksList", qs.stringify({ page: 1, limit: 999 }))
       .then(function(response) {
-        console.log(response);
         if (response && response.data.code == "0") {
           that.List = response.data.data;
           that.List.forEach(p => {
