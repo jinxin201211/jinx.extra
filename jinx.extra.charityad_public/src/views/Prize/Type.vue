@@ -5,33 +5,46 @@
       <el-breadcrumb-item>获奖查询</el-breadcrumb-item>
     </el-breadcrumb>
 
-    <div class="jinx-types">
-      <div class="type" v-for="(item, index) in $WorksTypeCode" :key="'WorksTypeCode' + index"><div :class="{ active: type === item.code * 1 }" @click="handleTypeClick(item.code * 1)" v-text="item.value"></div></div>
-    </div>
-
-    <el-tabs v-model="tab_active">
-      <el-tab-pane :label="item.value" :name="item.code + ''" v-for="(item, index) in $WorksGroupCode" :key="'WorksGroupCode' + index">
-        <el-card shadow="never" v-for="(pitem, pindex) in PrizeList" :key="'prize' + pindex">
-          <div slot="header">
-            <span v-text="pitem"></span>
+    <div style="display: flex; padding: 20px 0;">
+      <div class="jinx-types">
+        <div class="type" v-for="(item, index) in $WorksTypeCode" :key="'WorksTypeCode' + index"><div :class="{ active: type === item.code * 1 }" @click="handleTypeClick(item.code * 1)" v-text="item.value"></div></div>
+        <div class="type"><div :class="{ active: type === 'search' }" @click="handleTypeClick('search')" v-text="'作品获奖查询'"></div></div>
+      </div>
+      <div style="flex-grow: 1">
+        <el-tabs v-model="tab_active" v-if="type !== 'search'">
+          <el-tab-pane :label="item.value" :name="item.code + ''" v-for="(item, index) in $WorksGroupCode" :key="'WorksGroupCode' + index">
+            <el-card shadow="never" v-for="(pitem, pindex) in PrizeList" :key="'prize' + pindex">
+              <div slot="header">
+                <span v-text="pitem"></span>
+              </div>
+              <el-table :data="Data.group[index].prize[pindex].list" stripe style="width: 100%" @row-dblclick="handleRowDbclick">
+                <el-table-column type="index" width="50"> </el-table-column>
+                <el-table-column prop="wno" label="作品编号" width="120"> </el-table-column>
+                <el-table-column prop="worksName" label="作品名称"> </el-table-column>
+                <el-table-column prop="gameType" label="参赛组别" width="120"> </el-table-column>
+                <el-table-column prop="worksSeries" label="作品主题"> </el-table-column>
+                <el-table-column prop="worksType" label="作品类别" width="120"> </el-table-column>
+                <!--<el-table-column prop="scoreTotal" label="得分" width="120"> </el-table-column>-->
+                <el-table-column label="操作" width="180">
+                  <template slot-scope="scope">
+                    <el-button @click="handleView(scope.row)" type="text" size="small">查看</el-button>
+                  </template>
+                </el-table-column>
+              </el-table>
+            </el-card>
+          </el-tab-pane>
+        </el-tabs>
+        <div v-else>
+          <div style="text-align: center;">
+            <el-input v-model="Search" placeholder="请输入作品编号" style="width: 200px;"></el-input>
+            <el-button type="primary" style="margin-left: 15px;" :loading="loading" @click="handleSearchPrize">查询</el-button>
           </div>
-          <el-table :data="Data.group[index].prize[pindex].list" stripe style="width: 100%" @row-dblclick="handleRowDbclick">
-            <el-table-column type="index" width="50"> </el-table-column>
-            <el-table-column prop="wno" label="作品编号" width="120"> </el-table-column>
-            <el-table-column prop="worksName" label="作品名称"> </el-table-column>
-            <el-table-column prop="gameType" label="参赛组别" width="120"> </el-table-column>
-            <el-table-column prop="worksSeries" label="作品主题"> </el-table-column>
-            <el-table-column prop="worksType" label="作品类别" width="120"> </el-table-column>
-            <!--<el-table-column prop="scoreTotal" label="得分" width="120"> </el-table-column>-->
-            <el-table-column label="操作" width="180">
-              <template slot-scope="scope">
-                <el-button @click="handleView(scope.row)" type="text" size="small">查看</el-button>
-              </template>
-            </el-table-column>
-          </el-table>
-        </el-card>
-      </el-tab-pane>
-    </el-tabs>
+          <div style="text-align: center;">
+            <h3><span>查询结果：</span><span v-text="ResultPrize"></span></h3>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -59,7 +72,10 @@ export default {
             prize: [{ list: [] }, { list: [] }, { list: [] }, { list: [] }]
           }
         ]
-      }
+      },
+      Search: "",
+      loading: false,
+      ResultPrize: ""
     };
   },
   mounted: function() {
@@ -68,7 +84,10 @@ export default {
   methods: {
     handleTypeClick(type) {
       this.type = type;
-      this.getRankList();
+      if (type === "search") {
+      } else {
+        this.getRankList();
+      }
     },
     getRankList: function() {
       let that = this;
@@ -172,6 +191,36 @@ export default {
           wid: row.wid
         }
       });
+    },
+    handleSearchPrize() {
+      if (this.Search === "") {
+        return;
+      }
+      this.loading = true;
+      const _this = this;
+      _this.ResultPrize = "";
+      this.axios
+        .post("/api/gameWorks2/getPrizeInfo", qs.stringify({ wno: this.Search }))
+        .then(function(response) {
+          if (response.data.code == 0) {
+            _this.ResultPrize = response.data.data;
+          } else {
+            _this.$message({
+              showClose: true,
+              message: "查询失败",
+              type: "warning"
+            });
+          }
+          _this.loading = false;
+        })
+        .catch(function(err) {
+          _this.loading = false;
+          _this.$message({
+            showClose: true,
+            message: "查询失败",
+            type: "warning"
+          });
+        });
     }
   }
 };
@@ -183,25 +232,26 @@ export default {
   margin: 30px auto 0 auto;
   box-sizing: border-box;
 }
-
 .jinx-types {
+  // position: absolute;
   display: flex;
-  display: -webkit-flex;
-  justify-content: space-between;
-
+  flex-direction: column;
+  // padding: 20px 0;
+  justify-content: flex-start;
+  width: 180px;
+  padding-right: 20px;
   .type {
-    flex: 1;
-    padding: 20px;
-
+    width: 100%;
     div {
-      border: 1px solid @primary-color;
+      // border: 1px solid @primary-color;
+      background: #ececec;
+      margin-bottom: 5px;
       padding: 20px;
       text-align: center;
       cursor: pointer;
       transition: background 0.3s, color 0.3s, border-color 0.3s;
       border-radius: 7px;
     }
-
     div.active {
       background: @primary-color;
       border-color: @primary-color;
@@ -209,7 +259,6 @@ export default {
     }
   }
 }
-
 /deep/ .el-card {
   margin-top: 20px;
 }

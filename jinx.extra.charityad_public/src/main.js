@@ -42,6 +42,7 @@ window.$FileUploadServer = window.$Server + ":8080";
 Vue.prototype.$Host = window.$Server;
 Vue.prototype.$FileGetServer = window.$Server + "/img/";
 Vue.prototype.$PdfViewerPath = window.$Server + "/pdfjs/web/viewer.html?file=";
+Vue.prototype.$OfficeViewerPath = window.$Server + ":8012/onlinePreview?url=";
 Vue.prototype.$WebSiteName = "河北省公益广告大赛";
 
 Vue.prototype.$WorksGroupCode = [
