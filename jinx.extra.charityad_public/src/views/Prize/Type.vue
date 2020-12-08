@@ -36,12 +36,24 @@
         </el-tabs>
         <div v-else>
           <div style="text-align: center;">
-            <el-input v-model="Search" placeholder="请输入作品编号" style="width: 200px;"></el-input>
+            <el-input v-model="Search" placeholder="请输入作品编号/作品名称/作者" style="width: 250px;"></el-input>
             <el-button type="primary" style="margin-left: 15px;" :loading="loading" @click="handleSearchPrize">查询</el-button>
           </div>
-          <div style="text-align: center;">
-            <h3><span>查询结果：</span><span v-text="ResultPrize"></span></h3>
-          </div>
+          <el-divider></el-divider>
+          <el-table :data="SearchList" stripe style="width: 100%" @row-dblclick="handleRowDbclick" :empty-text="'空'">
+            <el-table-column type="index" width="50"> </el-table-column>
+            <el-table-column prop="wno" label="作品编号" width="120"> </el-table-column>
+            <el-table-column prop="worksName" label="作品名称"> </el-table-column>
+            <el-table-column prop="gameType" label="参赛组别" width="120"> </el-table-column>
+            <el-table-column prop="worksSeries" label="作品主题"> </el-table-column>
+            <el-table-column prop="worksType" label="作品类别" width="120"> </el-table-column>
+            <!--<el-table-column prop="scoreTotal" label="得分" width="120"> </el-table-column>-->
+            <el-table-column label="操作" width="180">
+              <template slot-scope="scope">
+                <el-button @click="handleView(scope.row)" type="text" size="small">查看</el-button>
+              </template>
+            </el-table-column>
+          </el-table>
         </div>
       </div>
     </div>
@@ -57,6 +69,7 @@ export default {
       tab_active: "0",
       type: 1,
       PrizeList: ["一等奖", "二等奖", "三等奖", "优秀奖"],
+      FullRankList: [],
       Data: {
         group: [
           {
@@ -75,12 +88,13 @@ export default {
       },
       EmptyText: "奖项空缺",
       Search: "",
+      SearchList: [],
       loading: false,
       ResultPrize: ""
     };
   },
   mounted: function() {
-    this.getRankList();
+    this.getAllRankList();
   },
   methods: {
     handleTypeClick(type) {
@@ -90,8 +104,8 @@ export default {
         this.getRankList();
       }
     },
-    getRankList: function() {
-      let that = this;
+    getAllRankList: function() {
+      let _this = this;
       this.Data = {
         group: [
           {
@@ -114,49 +128,15 @@ export default {
         spinner: "el-icon-loading",
         background: "rgba(0, 0, 0, 0.7)"
       });
+      _this.FullRankList = [];
       this.axios
-        .post("/api/gameWorksRank/getRankByMap", qs.stringify({ worksType: this.type }))
+        .post("/api/gameWorksRank/getAllRank")
         .then(function(response) {
           if (response && response.data.code == "0") {
-            let data = response.data.data;
-            data.forEach(p => {
-              let game_type = that.$WorksGroupCode.find(x => x.code == p.gameType);
-              p.gameType = game_type == null ? "" : game_type.value;
-              let series = that.$WorksSeriesCode.find(x => x.code == p.worksSeries);
-              p.worksSeries = series == null ? "" : series.value;
-              let type = that.$WorksTypeCode.find(x => x.code == p.worksType);
-              p.worksType = type == null ? "" : type.value;
-              let source = that.$MaterialSurceCode.find(x => x.code == p.materialSurce);
-              p.materialSurce = source == null ? "" : source.value;
-            });
-
-            let game_type0 = that.getGameTypeByCode("0");
-            that.Data.group[0].prize[0].list = data.filter(p => p.gameType === game_type0 && p.prize === 1);
-            that.Data.group[0].prize[1].list = data.filter(p => p.gameType === game_type0 && p.prize === 2);
-            that.Data.group[0].prize[2].list = data.filter(p => p.gameType === game_type0 && p.prize === 3);
-            that.Data.group[0].prize[3].list = data.filter(p => p.gameType === game_type0 && p.prize === 4);
-
-            let game_type1 = that.getGameTypeByCode("1");
-            that.Data.group[1].prize[0].list = data.filter(p => p.gameType === game_type1 && p.prize === 1);
-            that.Data.group[1].prize[1].list = data.filter(p => p.gameType === game_type1 && p.prize === 2);
-            that.Data.group[1].prize[2].list = data.filter(p => p.gameType === game_type1 && p.prize === 3);
-            that.Data.group[1].prize[3].list = data.filter(p => p.gameType === game_type1 && p.prize === 4);
-
-            let game_type2 = that.getGameTypeByCode("2");
-            that.Data.group[2].prize[0].list = data.filter(p => p.gameType === game_type2 && p.prize === 1);
-            that.Data.group[2].prize[1].list = data.filter(p => p.gameType === game_type2 && p.prize === 2);
-            that.Data.group[2].prize[2].list = data.filter(p => p.gameType === game_type2 && p.prize === 3);
-            that.Data.group[2].prize[3].list = data.filter(p => p.gameType === game_type2 && p.prize === 4);
-
-            let game_type4 = that.getGameTypeByCode("4");
-            that.Data.group[3].prize[0].list = data.filter(p => p.gameType === game_type4 && p.prize === 1);
-            that.Data.group[3].prize[1].list = data.filter(p => p.gameType === game_type4 && p.prize === 2);
-            that.Data.group[3].prize[2].list = data.filter(p => p.gameType === game_type4 && p.prize === 3);
-            that.Data.group[3].prize[3].list = data.filter(p => p.gameType === game_type4 && p.prize === 4);
-
-            that.EmptyText = data.length > 0 ? "奖项空缺" : "评审中";
+            _this.FullRankList = response.data.data;
+            _this.getRankList();
           } else {
-            that.$message({
+            _this.$message({
               showClose: true,
               message: response.data.msg,
               type: "warning"
@@ -167,12 +147,66 @@ export default {
         .catch(function(err) {
           console.log(err);
           loading.close();
-          that.$message({
+          _this.$message({
             showClose: true,
             message: "获奖结果查询失败",
             type: "warning"
           });
         });
+    },
+    getRankList: function() {
+      this.Data = {
+        group: [
+          {
+            prize: [{ list: [] }, { list: [] }, { list: [] }, { list: [] }]
+          },
+          {
+            prize: [{ list: [] }, { list: [] }, { list: [] }, { list: [] }]
+          },
+          {
+            prize: [{ list: [] }, { list: [] }, { list: [] }, { list: [] }]
+          },
+          {
+            prize: [{ list: [] }, { list: [] }, { list: [] }, { list: [] }]
+          }
+        ]
+      };
+      let data = JSON.parse(JSON.stringify(this.FullRankList.filter(p => p.worksType === this.type + "")));
+      data.forEach(p => {
+        let game_type = this.$WorksGroupCode.find(x => x.code == p.gameType);
+        p.gameType = game_type == null ? "" : game_type.value;
+        let series = this.$WorksSeriesCode.find(x => x.code == p.worksSeries);
+        p.worksSeries = series == null ? "" : series.value;
+        let type = this.$WorksTypeCode.find(x => x.code == p.worksType);
+        p.worksType = type == null ? "" : type.value;
+        let source = this.$MaterialSurceCode.find(x => x.code == p.materialSurce);
+        p.materialSurce = source == null ? "" : source.value;
+      });
+
+      let game_type0 = this.getGameTypeByCode("0");
+      this.Data.group[0].prize[0].list = data.filter(p => p.gameType === game_type0 && p.prize === 1);
+      this.Data.group[0].prize[1].list = data.filter(p => p.gameType === game_type0 && p.prize === 2);
+      this.Data.group[0].prize[2].list = data.filter(p => p.gameType === game_type0 && p.prize === 3);
+      this.Data.group[0].prize[3].list = data.filter(p => p.gameType === game_type0 && p.prize === 4);
+
+      let game_type1 = this.getGameTypeByCode("1");
+      this.Data.group[1].prize[0].list = data.filter(p => p.gameType === game_type1 && p.prize === 1);
+      this.Data.group[1].prize[1].list = data.filter(p => p.gameType === game_type1 && p.prize === 2);
+      this.Data.group[1].prize[2].list = data.filter(p => p.gameType === game_type1 && p.prize === 3);
+      this.Data.group[1].prize[3].list = data.filter(p => p.gameType === game_type1 && p.prize === 4);
+
+      let game_type2 = this.getGameTypeByCode("2");
+      this.Data.group[2].prize[0].list = data.filter(p => p.gameType === game_type2 && p.prize === 1);
+      this.Data.group[2].prize[1].list = data.filter(p => p.gameType === game_type2 && p.prize === 2);
+      this.Data.group[2].prize[2].list = data.filter(p => p.gameType === game_type2 && p.prize === 3);
+      this.Data.group[2].prize[3].list = data.filter(p => p.gameType === game_type2 && p.prize === 4);
+
+      let game_type4 = this.getGameTypeByCode("4");
+      this.Data.group[3].prize[0].list = data.filter(p => p.gameType === game_type4 && p.prize === 1);
+      this.Data.group[3].prize[1].list = data.filter(p => p.gameType === game_type4 && p.prize === 2);
+      this.Data.group[3].prize[2].list = data.filter(p => p.gameType === game_type4 && p.prize === 3);
+      this.Data.group[3].prize[3].list = data.filter(p => p.gameType === game_type4 && p.prize === 4);
+      this.EmptyText = data.length > 0 ? "奖项空缺" : "评审中";
     },
     getGameTypeByCode(code) {
       let game_type = this.$WorksGroupCode.find(x => x.code == code);
@@ -195,34 +229,24 @@ export default {
       });
     },
     handleSearchPrize() {
-      if (this.Search === "") {
-        return;
-      }
       this.loading = true;
-      const _this = this;
-      _this.ResultPrize = "";
-      this.axios
-        .post("/api/gameWorks2/getPrizeInfo", qs.stringify({ wno: this.Search }))
-        .then(function(response) {
-          if (response.data.code == 0) {
-            _this.ResultPrize = response.data.data;
-          } else {
-            _this.$message({
-              showClose: true,
-              message: "查询失败",
-              type: "warning"
-            });
-          }
-          _this.loading = false;
-        })
-        .catch(function(err) {
-          _this.loading = false;
-          _this.$message({
-            showClose: true,
-            message: "查询失败",
-            type: "warning"
-          });
+      if (this.Search.trim() === "") {
+        this.SearchList = [];
+      } else {
+        let data = this.FullRankList.filter(p => p.wno.includes(this.Search) || p.worksName.includes(this.Search) || (p.author1 && p.author1.includes(this.Search)) || (p.author2 && p.author2.includes(this.Search)) || (p.author3 && p.author3.includes(this.Search)) || (p.author4 && p.author4.includes(this.Search)) || (p.author5 && p.author5.includes(this.Search)));
+        this.SearchList = JSON.parse(JSON.stringify(data));
+        this.SearchList.forEach(p => {
+          let game_type = this.$WorksGroupCode.find(x => x.code == p.gameType);
+          p.gameType = game_type == null ? "" : game_type.value;
+          let series = this.$WorksSeriesCode.find(x => x.code == p.worksSeries);
+          p.worksSeries = series == null ? "" : series.value;
+          let type = this.$WorksTypeCode.find(x => x.code == p.worksType);
+          p.worksType = type == null ? "" : type.value;
+          let source = this.$MaterialSurceCode.find(x => x.code == p.materialSurce);
+          p.materialSurce = source == null ? "" : source.value;
         });
+      }
+      this.loading = false;
     }
   }
 };
