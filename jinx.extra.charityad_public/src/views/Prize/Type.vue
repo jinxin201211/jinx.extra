@@ -47,6 +47,7 @@
             <el-table-column prop="gameType" label="参赛组别" width="120"> </el-table-column>
             <el-table-column prop="worksSeries" label="作品主题"> </el-table-column>
             <el-table-column prop="worksType" label="作品类别" width="120"> </el-table-column>
+            <el-table-column prop="prize" label="奖项" width="120"> </el-table-column>
             <!--<el-table-column prop="scoreTotal" label="得分" width="120"> </el-table-column>-->
             <el-table-column label="操作" width="180">
               <template slot-scope="scope">
@@ -244,6 +245,7 @@ export default {
           p.worksType = type == null ? "" : type.value;
           let source = this.$MaterialSurceCode.find(x => x.code == p.materialSurce);
           p.materialSurce = source == null ? "" : source.value;
+          p.prize = this.PrizeList[p.prize * 1 - 1];
         });
       }
       this.loading = false;
