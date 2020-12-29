@@ -323,6 +323,9 @@ export default {
     // this.$alert("紧急通知：因大赛系统服务器故障，导致10月1日之前已注册的竞争信息损坏，无法恢复，已上传作品与用户信息无法进行正常匹配。<br>在此，烦请10月1日前的参赛者重新注册信息并重新提交作品，以保障顺利参赛。自10月2日起，参赛者可正常通过大赛官网进行注册报名和提交作品。大赛组委会对所有参赛者给予公益事业的支持和本次大赛的参与深表感谢，对给所有参赛者带来的不便深表歉意！<br>根据实际情况，河北省公益广告大赛将继续征集，截止时间为2020年10月31日，欢迎社会各界踊跃报名参赛！", "", {
     //   dangerouslyUseHTMLString: true
     // });
+    this.$alert("等级奖获得者请于2021年1月10前在文件下载中将奖金发放确认函发送大赛官方邮箱", "", {
+      dangerouslyUseHTMLString: true
+    });
   },
   beforeRouteLeave(to, from, next) {
     window.clearTimeout(this.work.carousel);
