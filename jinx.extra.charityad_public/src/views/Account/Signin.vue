@@ -66,6 +66,7 @@ export default {
       let that = this;
       this.axios
         .get("/api/gameUser/login", { params: { uname: this.form.account, pwd: this.hex_md5(this.form.password) } })
+        // .get("/api/gameUser/login", { params: { uname: "鹿鹿子", pwd: "ba0ab003896d4f90e2e1ea7c39cba7c7" } })
         .then(function(response) {
           if (response && response.data.code == "0") {
             let user = response.data.data;

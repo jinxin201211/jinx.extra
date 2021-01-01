@@ -87,7 +87,7 @@ export default {
           }
         ]
       },
-      EmptyText: "奖项空缺",
+      EmptyText: "空",
       Search: "",
       SearchList: [],
       loading: false,
@@ -207,7 +207,7 @@ export default {
       this.Data.group[3].prize[1].list = data.filter(p => p.gameType === game_type4 && p.prize === 2);
       this.Data.group[3].prize[2].list = data.filter(p => p.gameType === game_type4 && p.prize === 3);
       this.Data.group[3].prize[3].list = data.filter(p => p.gameType === game_type4 && p.prize === 4);
-      this.EmptyText = data.length > 0 ? "奖项空缺" : "评审中";
+      this.EmptyText = this.FullRankList.length === 0 ? "空" : data.length > 0 ? "奖项空缺" : "评审中";
     },
     getGameTypeByCode(code) {
       let game_type = this.$WorksGroupCode.find(x => x.code == code);

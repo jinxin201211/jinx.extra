@@ -25,6 +25,7 @@
           <el-button @click="handleView(scope.row)" type="text" size="small">查看</el-button>
           <el-button @click="handleModify(scope.row)" type="text" size="small">修改</el-button>
           <el-button @click="handleDelete(scope.row)" type="text" size="small">删除</el-button>
+          <el-button @click="handleDownload(scope.row)" type="text" size="small" v-if="scope.row.ltGameCert != null && scope.row.ltGameCert.length > 0">下载证书</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -171,6 +172,13 @@ export default {
     },
     handleNewWork: function() {
       this.$router.push("/work");
+    },
+    handleDownload(data) {
+      for (let index = 0; index < data.ltGameCert.length; index++) {
+        const file = data.ltGameCert[index].certFile;
+        window.open(this.$CertFileGetServer + file);
+      }
+      // window.location.href = this.$FileGetServer + this.FileDownloads[index];
     }
   }
 };
