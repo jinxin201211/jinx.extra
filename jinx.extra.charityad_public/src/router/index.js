@@ -157,6 +157,15 @@ const routes = [
     ]
   },
   {
+    name: "prizedownload",
+    path: "/download",
+    component: () => import("../views/Prize/Download.vue"),
+    meta: {
+      title: "资源库",
+      access: false
+    }
+  },
+  {
     name: "Competitor",
     path: "/competitor",
     component: () => import("../views/Competitor/Main.vue"),
