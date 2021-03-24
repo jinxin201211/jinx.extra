@@ -1,4 +1,4 @@
-import { Form, FormItem, Input, Checkbox, Button, Link, Row, Col, Steps, Step, Divider, Select, Option, RadioGroup, Radio, Upload, Breadcrumb, BreadcrumbItem, Card, Table, TableColumn, Image, Tabs, TabPane, Collapse, CollapseItem } from "element-ui";
+import { Form, FormItem, Input, Checkbox, Button, Link, Row, Col, Steps, Step, Divider, Select, Option, RadioGroup, Radio, Upload, Breadcrumb, BreadcrumbItem, Card, Table, TableColumn, Image, Tabs, TabPane, Collapse, CollapseItem, Drawer } from "element-ui";
 
 import { Loading, MessageBox, Message, Notification } from "element-ui";
 
@@ -29,7 +29,8 @@ export default {
       .use(Tabs)
       .use(TabPane)
       .use(Collapse)
-      .use(CollapseItem);
+      .use(CollapseItem)
+      .use(Drawer);
     V.prototype.$loading = Loading.service;
     V.prototype.$msgbox = MessageBox;
     V.prototype.$alert = MessageBox.alert;
