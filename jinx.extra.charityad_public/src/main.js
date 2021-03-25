@@ -15,8 +15,12 @@ Vue.use(VueCookies);
 
 import ElementUI from "@/assets/js/element.config";
 import "@/assets/css/element-variables.scss";
-
 Vue.use(ElementUI);
+
+import Vant from "@/assets/js/vant.import.js";
+import "vant/lib/index.less";
+import "vant/lib/icon/local.css";
+Vue.use(Vant);
 
 //ie对router的支持
 if (!!window.ActiveXObject || "ActiveXObject" in window) {

@@ -1,5 +1,9 @@
 <template>
   <div class="page" :class="{ pc: DeviceType === 'PC', mobile: DeviceType === 'Mobile' }">
+    <!-- <jinx-prize-word :src="$FileGetServer + '202011120917140774_B-023尹彦利-文案-“济时者众 奋冀者先”-众美传媒.docx'"></jinx-prize-word>
+    <jinx-prize-word :src="$FileGetServer + '202011120934130986_B-064王双双-《像战士一样战役！》-河北大学工商学院.docx'"></jinx-prize-word>
+    <jinx-prize-word :src="$FileGetServer + '202010242311050408_文案类 贾菲璠 相与象 河北地质职工大学.docx'"></jinx-prize-word>
+    <jinx-prize-word :src="$FileGetServer + '202010311711570037_互动类-张智嘉-美丽河北-河北地质职工大学.docx'"></jinx-prize-word> -->
     <div class="jinx-top" v-if="DeviceType === 'Mobile'">
       <div class="drawer" :class="{ touch: DrawerTouch }" @click="handleShowDrawer" @touchstart="DrawerTouch = true" @touchend="DrawerTouch = false">
         <svg t="1616599287703" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5387" fill="#ffffff">
@@ -37,25 +41,60 @@
         </div>
       </div>
 
-      <div class="jinx-result">
+      <van-list v-if="Attr.Type === '1'" v-model="loading" :finished="finished" finished-text="没有更多了" @load="handleLoadList" class="jinx-result">
         <div class="result" v-for="(item, index) in List" :key="'Result' + index">
-          <div class="title" v-text="item.worksName"></div>
+          <div class="title" v-text="index + 1 + '. ' + item.worksName"></div>
           <div class="files">
-            <div class="image" v-for="(item2, index2) in item.files" :key="`Result${index}Files${index2}`">
-              <el-image :src="$FileGetServer + item2" style="width: 100%;" :preview-src-list="[$FileGetServer + item2]">
-                <div slot="placeholder" class="image-slot">加载中<span class="dot">...</span></div>
-                <div slot="error" class="image-slot">
-                  <i class="el-icon-picture-outline"></i>
-                </div>
-              </el-image>
-            </div>
+            <jinx-prize-image class="image" v-for="(item2, index2) in item.files" :key="`Result${index}Files${index2}`" :src="$FileGetServer + item2" :list="item.files.map(p => $FileGetServer + p)" :index="index2" :device="DeviceType"></jinx-prize-image>
             <div class="image"></div>
             <div class="image"></div>
             <div class="image"></div>
             <div class="image"></div>
           </div>
         </div>
-      </div>
+      </van-list>
+      <van-list v-if="Attr.Type === '2'" v-model="loading" :finished="finished" finished-text="没有更多了" @load="handleLoadList" class="jinx-result">
+        <div class="result" v-for="(item, index) in List" :key="'Result' + index">
+          <div class="title" v-text="index + 1 + '. ' + item.worksName"></div>
+          <div class="files" style="display: initial;">
+            <div v-for="(item2, index2) in item.files" :key="`Result${index}Files${index2}`">
+              <pdf :src="$FileGetServer + item2" v-if="isPDF(item2)" class="pdf"></pdf>
+              <jinx-prize-word :src="$FileGetServer + item2" class="word" v-else></jinx-prize-word>
+              <!-- <iframe :src="$OfficeViewerPath + $FileGetServer + item2" v-else-if="isOffice(item2)" class="word"></iframe> -->
+            </div>
+          </div>
+        </div>
+      </van-list>
+      <van-list v-if="Attr.Type === '3'" v-model="loading" :finished="finished" finished-text="没有更多了" @load="handleLoadList" class="jinx-result">
+        <div class="result" v-for="(item, index) in List" :key="'Result' + index">
+          <div class="title" v-text="index + 1 + '. ' + item.worksName"></div>
+          <div class="files">
+            <div class="audio" v-for="(item2, index2) in item.files" :key="`Result${index}Files${index2}`">
+              <audio :src="$FileGetServer + item2" controls="controls" style="width: 100%; margin: 0 auto; max-width: 960px">您的浏览器不支持 audio 标签。</audio>
+            </div>
+          </div>
+        </div>
+      </van-list>
+      <van-list v-if="Attr.Type === '4'" v-model="loading" :finished="finished" finished-text="没有更多了" @load="handleLoadList" class="jinx-result">
+        <div class="result" v-for="(item, index) in List" :key="'Result' + index">
+          <div class="title" v-text="index + 1 + '. ' + item.worksName"></div>
+          <div class="files">
+            <div class="video" :class="{ hide: Drawer }" v-for="(item2, index2) in item.files" :key="`Result${index}Files${index2}`">
+              <jinx-video-player style="z-index: -1;" :src="item2"></jinx-video-player>
+            </div>
+          </div>
+        </div>
+      </van-list>
+      <van-list v-if="Attr.Type === '5'" v-model="loading" :finished="finished" finished-text="没有更多了" @load="handleLoadList" class="jinx-result">
+        <div class="result" v-for="(item, index) in List" :key="'Result' + index">
+          <div class="title" v-text="index + 1 + '. ' + item.worksName"></div>
+          <div class="files">
+            <div class="video" :class="{ hide: Drawer }" style="" v-for="(item2, index2) in item.files" :key="`Result${index}Files${index2}`">
+              <jinx-video-player style="z-index: -1;" :src="item2"></jinx-video-player>
+            </div>
+          </div>
+        </div>
+      </van-list>
     </div>
 
     <el-drawer :withHeader="false" :visible.sync="Drawer" direction="ltr" size="75%">
@@ -82,7 +121,12 @@
 </template>
 
 <script>
+import JinxPrizeImage from "./components/JinxPrizeImage.vue";
+import JinxVideoPlayer from "@/components/JinxVideoPlayer.vue";
+import pdf from "vue-pdf";
+import JinxPrizeWord from "./components/JinxPrizeWord.vue";
 export default {
+  components: { JinxPrizeImage, JinxVideoPlayer, pdf, JinxPrizeWord },
   data() {
     return {
       DeviceType: "PC",
@@ -105,14 +149,20 @@ export default {
         Prize: 1
       },
       FullRankList: [],
+      RankList: [],
       List: [],
       Drawer: false,
-      DrawerTouch: false
+      DrawerTouch: false,
+      loading: false,
+      finished: false,
+      page: 0,
+      size: 3,
+      lock: false
     };
   },
   created() {
     this.initAttr();
-    this.getFullRankList();
+    this.getFullRankList(); //todo
   },
   mounted() {
     this.initWindowResize();
@@ -170,7 +220,7 @@ export default {
       const loading = this.$loading({
         lock: true,
         text: "Loading",
-        spinner: "el-icon-loading",
+        // spinner: "el-icon-loading",
         background: "rgba(0, 0, 0, 0.7)"
       });
       _this.FullRankList = [];
@@ -178,7 +228,6 @@ export default {
         .post("/api/gameWorksRank/getAllRankAndFiles")
         .then(function(response) {
           if (response && response.data.code == "0") {
-            console.log(response.data.data);
             _this.FullRankList = response.data.data;
             _this.getRankList();
           } else {
@@ -235,101 +284,47 @@ export default {
       this.getRankList();
     },
     getRankList() {
-      this.List = this.FullRankList.filter(p => p.worksType === this.Attr.Type && p.gameType === this.Attr.Group && p.prize === this.Attr.Prize);
-      console.log(this.List);
+      this.RankList = this.FullRankList.filter(p => p.worksType === this.Attr.Type && p.gameType === this.Attr.Group && p.prize === this.Attr.Prize);
+
+      for (var i = 0; i < this.FullRankList.length; i++) {
+        for (var j = 0; j < this.FullRankList[i].files.length; j++) {
+          if (this.FullRankList[i].files[j].includes(".doc")) {
+            console.log(this.FullRankList[i].files[j]);
+          }
+        }
+      }
+      this.page = 0;
+      this.finished = false;
+      this.List = [];
+      console.log("getRankList");
+      this.handleLoadList();
+      // console.log(this.FullRankList.filter(p => p.worksType === "1").map(p => p.files));
+      // console.log(this.FullRankList.filter(p => p.worksType === "2").map(p => p.files));
+      // console.log(this.FullRankList.filter(p => p.worksType === "3").map(p => p.files));
+      // console.log(this.FullRankList.filter(p => p.worksType === "4").map(p => p.files));
+      // console.log(this.FullRankList.filter(p => p.worksType === "5").map(p => p.files));
+      // console.log(this.FullRankList.filter(p => p.worksType === "6").map(p => p.files));
+    },
+    handleLoadList() {
+      if (!this.lock) {
+        console.log("handleLoadList");
+        this.lock = true;
+        this.page++;
+        setTimeout(() => {
+          this.List = this.RankList.slice(0, this.page * this.size);
+          if (this.List.length == this.RankList.length) {
+            this.finished = true;
+          }
+          this.loading = false;
+          this.lock = false;
+        }, 200);
+      }
     }
   }
 };
 </script>
 
 <style lang="less" scoped>
-.jinx-page-head {
-  background: url(http://hs.wenming.cn/zt/gygg2020/202102/W020210218546180799994.jpg) no-repeat top center;
-  background-size: cover;
-  transition: 0.2s all ease-in-out;
-}
-.jinx-resource-panel {
-}
-.jinx-resource {
-  // padding: 0 15px;
-  box-sizing: border-box;
-  .jinx-work {
-    display: flex;
-    align-items: flex-end;
-    border-bottom: 1px solid #ebedf0;
-    margin-bottom: 15px;
-    .title {
-      flex: 1;
-      font-family: 微软雅黑;
-      color: rgb(255, 113, 70);
-      font-weight: bold;
-      margin: 10px 0;
-    }
-    .link {
-      // line-height: 30px;
-      // font-size: 16px;
-      margin-bottom: 10px;
-    }
-  }
-  .pics {
-    display: flex;
-    justify-content: space-evenly;
-    flex-wrap: wrap;
-    .pic {
-      cursor: pointer;
-    }
-  }
-}
-
-.pc {
-  .jinx-page-head {
-    height: 733px;
-  }
-  .jinx-resource-panel {
-    width: 1000px;
-    margin: 0 auto;
-  }
-  .jinx-resource > .jinx-work {
-    margin-top: 15px;
-  }
-  .jinx-resource > .jinx-work > .title {
-    font-size: 22px;
-  }
-  .jinx-resource > .jinx-work > .link {
-    font-size: 16px;
-  }
-  .jinx-resource > .pics {
-    justify-content: space-evenly;
-  }
-  .jinx-resource > .pics > .pic {
-    width: calc((100% - 15px * 5) / 4);
-  }
-}
-
-.mobile {
-  .jinx-page-head {
-    height: 200px;
-  }
-  .jinx-resource-panel {
-    width: 100%;
-    padding: 0 15px;
-    box-sizing: border-box;
-  }
-  .jinx-resource > .jinx-work > .title {
-    font-size: 16px;
-  }
-  .jinx-resource > .jinx-work > .link {
-    font-size: 12px;
-  }
-  .jinx-resource > .pics {
-    justify-content: space-between;
-  }
-  .jinx-resource > .pics > .pic {
-    width: calc((100% - 15px) / 2);
-    margin-bottom: 15px;
-  }
-}
-
 .page.pc {
   width: 1000px;
   margin: 0 auto;
@@ -393,6 +388,30 @@ export default {
   }
   .result > .files > .image {
     width: calc((100% - 15px * 4) / 5);
+  }
+  .result > .files > .audio {
+    text-align: center;
+    width: 100%;
+  }
+  .result > .files > .video {
+    text-align: center;
+    width: 100%;
+    background: #ebedf0;
+  }
+  .result > .files > .video.hide > video {
+    visibility: hidden;
+  }
+  .result > .files .pdf,
+  .result > .files .word {
+    width: 100%;
+    max-width: 960px;
+    height: 540px;
+    overflow-y: scroll;
+    border: 1px solid #666666;
+    margin-bottom: 15px;
+  }
+  .result > .files .word {
+    padding: 15px;
   }
 }
 
@@ -492,6 +511,30 @@ export default {
   .result > .files > .image {
     width: calc((100% - 3vw * 2) / 3);
   }
+  .result > .files > .audio {
+    text-align: center;
+    width: 100%;
+  }
+  .result > .files > .video {
+    text-align: center;
+    width: 100%;
+    background: #ebedf0;
+  }
+  .result > .files > .video.hide > video {
+    visibility: hidden;
+  }
+  .result > .files .pdf,
+  .result > .files .word {
+    width: 100%;
+    // max-width: 960px;
+    // height: 540px;
+    margin-bottom: 3vw;
+    overflow-y: scroll;
+    border: 1px solid #666666;
+  }
+  .result > .files .word {
+    padding: 3vw;
+  }
 
   .jinx-drawer-attr {
     padding: 0 2vw;
@@ -517,6 +560,7 @@ export default {
     margin-bottom: 2vw;
     background: #ebedf0;
     border: 1px solid #ebedf0;
+    box-sizing: border-box;
   }
   .jinx-drawer-attr > .list > .value.active {
     background: lighten(#cf331f, 48%);

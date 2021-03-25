@@ -1,5 +1,5 @@
 <template>
-  <video ref="jinx_video_player" :src="$FileGetServer + src" controls="controls" style="max-width: 960px; width: 100%; margin: 0 auto;" muted>您的浏览器不支持 video 标签。</video>
+  <video ref="jinx_video_player" :src="$FileGetServer + src" controls="controls" style="max-width: 960px; width: 100%; margin: 0 auto;" muted webkit-playsinline="true" x5-video-player-type="h5-page" x5-video-orientation="portraint">您的浏览器不支持 video 标签。</video>
 </template>
 
 <script>

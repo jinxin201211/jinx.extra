@@ -161,7 +161,7 @@ const routes = [
     path: "/download",
     component: () => import("../views/Prize/Download.vue"),
     meta: {
-      title: "资源库",
+      title: "获奖作品",
       access: false
     }
   },

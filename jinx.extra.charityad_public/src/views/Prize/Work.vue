@@ -86,7 +86,7 @@
         <a :href="$PdfViewerPath + $FileGetServer + item.fileName" v-text="item.fileName" target="_blank"></a>
       </div>
       <div v-else-if="isOffice(item.fileName)" style="text-align: center;">
-        <a :href="$OfficeViewerPath + $ImageGetServer + item.fileName" v-text="item.fileName" target="_blank"></a>
+        <a :href="$OfficeViewerPath + $FileGetServer + item.fileName" v-text="item.fileName" target="_blank"></a>
       </div>
       <div v-else style="text-align: center;">
         <a :href="$FileGetServer + item.fileName" v-text="item.fileName" target="_blank"></a>

@@ -4,10 +4,12 @@ import axios from "axios";
 axios.interceptors.request.use(
   config => {
     config.headers["lw-token"] = sessionStorage.getItem(window.$VuexPrefix + "Token");
-    if (!config.url.startsWith("/")) {
-      config.url = "/" + config.url;
+    if (!config.url.startsWith("http")) {
+      if (!config.url.startsWith("/")) {
+        config.url = "/" + config.url;
+      }
+      config.url = config.url.replace("/api", window.$Server + ":8080");
     }
-    config.url = config.url.replace("/api", window.$Server + ":8080");
     return config;
   },
   error => {
