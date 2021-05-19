@@ -33,8 +33,8 @@ export default {
           .then(result => {
             let html = result.value; // The generated HTML
             let messages = result.messages; // Any messages, such as warnings during conversion
-            console.log(html);
-            console.log(messages);
+            // console.log(html);
+            // console.log(messages);
             _this.HTML = html;
           })
           .done();

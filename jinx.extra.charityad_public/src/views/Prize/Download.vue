@@ -173,7 +173,7 @@ export default {
     },
     IsPC() {
       var userAgentInfo = navigator.userAgent;
-      console.log(navigator);
+      // console.log(navigator);
       var Agents = ["Android", "iPhone", "SymbianOS", "Windows Phone", "iPad", "iPod"];
       var flag = true;
       for (var v = 0; v < Agents.length; v++) {
@@ -286,17 +286,17 @@ export default {
     getRankList() {
       this.RankList = this.FullRankList.filter(p => p.worksType === this.Attr.Type && p.gameType === this.Attr.Group && p.prize === this.Attr.Prize);
 
-      for (var i = 0; i < this.FullRankList.length; i++) {
-        for (var j = 0; j < this.FullRankList[i].files.length; j++) {
-          if (this.FullRankList[i].files[j].includes(".doc")) {
-            console.log(this.FullRankList[i].files[j]);
-          }
-        }
-      }
+      // for (var i = 0; i < this.FullRankList.length; i++) {
+      //   for (var j = 0; j < this.FullRankList[i].files.length; j++) {
+      //     if (this.FullRankList[i].files[j].includes(".doc")) {
+      //       console.log(this.FullRankList[i].files[j]);
+      //     }
+      //   }
+      // }
       this.page = 0;
       this.finished = false;
       this.List = [];
-      console.log("getRankList");
+      // console.log("getRankList");
       this.handleLoadList();
       // console.log(this.FullRankList.filter(p => p.worksType === "1").map(p => p.files));
       // console.log(this.FullRankList.filter(p => p.worksType === "2").map(p => p.files));

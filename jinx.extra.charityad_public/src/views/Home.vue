@@ -291,6 +291,10 @@ export default {
           path: "anchor_works"
         },
         {
+          title: "优秀作品资源库",
+          path: "anchor_display"
+        },
+        {
           title: "文件下载",
           path: "anchor_downloads"
         },
@@ -419,6 +423,8 @@ export default {
     handleScrollToView(path) {
       if (path == "anchor_home") {
         window.location.href = this.$Host;
+      } else if (path == "anchor_display") {
+        this.$router.push("/download");
       } else if (path == "anchor_downloads") {
         this.$router.push("/downloads");
       } else {
@@ -433,6 +439,8 @@ export default {
     scrollToSection(path) {
       if (path == "anchor_home") {
         window.location.href = this.$Host;
+      } else if (path == "anchor_display") {
+        this.$router.push("/download");
       } else if (path == "anchor_downloads") {
         this.$router.push("/downloads");
       } else {
