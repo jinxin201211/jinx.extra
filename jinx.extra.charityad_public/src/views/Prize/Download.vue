@@ -17,7 +17,7 @@
           <path d="M280.044244 804.140304l696.088312 0 0 112.20272-696.088312 0 0-112.20272Z" p-id="5395"></path>
         </svg>
       </div>
-      <div style="font-size: 16px;"><span v-text="ListGroup.find(p => p.Value === Attr.Group).Text"></span>，<span v-text="ListType.find(p => p.Value === Attr.Type).Text"></span>，<span v-text="ListPrize.find(p => p.Value === Attr.Prize).Text"></span></div>
+      <div style="font-size: 16px;"><span v-text="ListGroup.find(p => p.Value === Attr.Group).Text"></span>，<span v-text="ListType.find(p => p.Value === Attr.Type).Text"></span>，<span v-text="ListPrize.find(p => p.Value === Attr.Prize).Text"></span>（<span v-text="RankList.length"></span>）</div>
     </div>
     <div class="content">
       <div class="jinx-attr" v-if="DeviceType === 'PC'">
@@ -36,7 +36,7 @@
         <div class="attr">
           <div class="key">奖项</div>
           <div class="list">
-            <div class="value" v-for="(item, index) in ListPrize" :key="'ListPrize' + index" v-text="item.Text" :class="{ active: Attr.Prize === item.Value }" @click="handleChangePrize(item.Value)"></div>
+            <div class="value" v-for="(item, index) in ListPrize" :key="'ListPrize' + index" v-text="item.Text + '(' + PostPrizeCount[index] + '个)'" :class="{ active: Attr.Prize === item.Value }" @click="handleChangePrize(item.Value)"></div>
           </div>
         </div>
       </div>
@@ -58,8 +58,8 @@
           <div class="title" v-text="index + 1 + '. ' + item.worksName"></div>
           <div class="files" style="display: initial;">
             <div v-for="(item2, index2) in item.files" :key="`Result${index}Files${index2}`">
-              <pdf :src="$FileGetServer + item2" v-if="isPDF(item2)" class="pdf"></pdf>
-              <jinx-prize-word :src="$FileGetServer + item2" class="word" v-else></jinx-prize-word>
+              <pdf :src="$FileGetServer + item2" v-if="isPDF(item2)" class="pdf" @click.native="handleViewPDF($FileGetServer + item2)"></pdf>
+              <jinx-prize-word :src="$FileGetServer + item2" class="word" v-else-if="isOffice(item2)" @click.native="handleViewWord($FileGetServer + item2)"></jinx-prize-word>
               <!-- <iframe :src="$OfficeViewerPath + $FileGetServer + item2" v-else-if="isOffice(item2)" class="word"></iframe> -->
             </div>
           </div>
@@ -80,7 +80,7 @@
           <div class="title" v-text="index + 1 + '. ' + item.worksName"></div>
           <div class="files">
             <div class="video" :class="{ hide: Drawer }" v-for="(item2, index2) in item.files" :key="`Result${index}Files${index2}`">
-              <jinx-video-player style="z-index: -1;" :src="item2"></jinx-video-player>
+              <jinx-video-player :src="item2"></jinx-video-player>
             </div>
           </div>
         </div>
@@ -90,7 +90,24 @@
           <div class="title" v-text="index + 1 + '. ' + item.worksName"></div>
           <div class="files">
             <div class="video" :class="{ hide: Drawer }" style="" v-for="(item2, index2) in item.files" :key="`Result${index}Files${index2}`">
-              <jinx-video-player style="z-index: -1;" :src="item2"></jinx-video-player>
+              <jinx-video-player :src="item2"></jinx-video-player>
+            </div>
+          </div>
+        </div>
+      </van-list>
+      <van-list v-if="Attr.Type === '6'" v-model="loading" :finished="finished" finished-text="没有更多了" @load="handleLoadList" class="jinx-result">
+        <div class="result" v-for="(item, index) in List" :key="'Result' + index">
+          <div class="title" v-text="index + 1 + '. ' + item.worksName"></div>
+          <div class="files">
+            <div style="width: 100%;">
+              <div v-for="(item2, index2) in item.files" :key="`Result${index}Files${index2}`" style="width: 100%;">
+                <jinx-prize-image v-if="isImage(item2)" class="image" :src="$FileGetServer + item2" :list="[$FileGetServer + item2]" :index="0" :device="DeviceType"></jinx-prize-image>
+                <div class="video" :class="{ hide: Drawer }" v-else-if="isVideo(item2)">
+                  <jinx-video-player :src="item2"></jinx-video-player>
+                </div>
+                <pdf :src="$FileGetServer + item2" v-else-if="isPDF(item2)" class="pdf" @click.native="handleViewPDF($FileGetServer + item2)"></pdf>
+                <jinx-prize-word :src="$FileGetServer + item2" class="word" v-else-if="isOffice(item2)" @click.native="handleViewWord($FileGetServer + item2)"></jinx-prize-word>
+              </div>
             </div>
           </div>
         </div>
@@ -110,12 +127,16 @@
         </div>
         <div class="key">奖项</div>
         <div class="list">
-          <div class="value" v-for="(item, index) in ListPrize" :key="'ListPrize' + index" v-text="item.Text" :class="{ active: DrawerAttr.Prize === item.Value }" @click="handleChangeDrawerPrize(item.Value)"></div>
+          <div class="value" v-for="(item, index) in ListPrize" :key="'ListPrize' + index" v-text="item.Text + '(' + PrePrizeCount[index] + '个)'" :class="{ active: DrawerAttr.Prize === item.Value }" @click="handleChangeDrawerPrize(item.Value)"></div>
         </div>
         <div style="position: absolute; bottom: 0; right: 2vw; padding: 2vw 0;">
           <el-button type="primary" @click="handleConfirmDrawer">确定</el-button>
         </div>
       </div>
+    </el-drawer>
+
+    <el-drawer :visible.sync="Viewer.Show" direction="btt" size="100%" class="jinx-iframe-page">
+      <iframe :src="Viewer.Src" style="border: none; width: 100%; height: 100%;"></iframe>
     </el-drawer>
   </div>
 </template>
@@ -133,6 +154,7 @@ export default {
       ListGroup: [],
       ListType: [],
       ListPrize: [
+        { Value: -1, Text: "全部奖项" },
         { Value: 1, Text: "一等奖" },
         { Value: 2, Text: "二等奖" },
         { Value: 3, Text: "三等奖" },
@@ -157,7 +179,13 @@ export default {
       finished: false,
       page: 0,
       size: 3,
-      lock: false
+      lock: false,
+      Viewer: {
+        Show: false,
+        Src: ""
+      },
+      PrePrizeCount: [0, 0, 0, 0],
+      PostPrizeCount: [0, 0, 0, 0]
     };
   },
   created() {
@@ -173,7 +201,6 @@ export default {
     },
     IsPC() {
       var userAgentInfo = navigator.userAgent;
-      // console.log(navigator);
       var Agents = ["Android", "iPhone", "SymbianOS", "Windows Phone", "iPad", "iPod"];
       var flag = true;
       for (var v = 0; v < Agents.length; v++) {
@@ -201,19 +228,39 @@ export default {
     },
     initAttr() {
       this.ListGroup = this.$WorksGroupCode.map(p => {
-        return {
-          Value: p.code,
-          Text: p.value
-        };
+        return { Value: p.code, Text: p.value };
       });
-      this.Attr.Group = this.ListGroup[0].Value;
+      this.ListGroup.unshift({ Value: "-1", Text: "全部组别" });
+      this.Attr.Group = this.ListGroup[1].Value;
       this.ListType = this.$WorksTypeCode.map(p => {
-        return {
-          Value: p.code,
-          Text: p.value
-        };
+        return { Value: p.code, Text: p.value };
       });
-      this.Attr.Type = this.ListType[0].Value;
+      this.Attr.Type = this.ListType[1].Value;
+      // console.log(this.$route.query.group);
+      if (this.$route.query.group !== undefined) {
+        this.Attr.Group = this.$route.query.group;
+        if (this.ListGroup.filter(p => p.Value === this.Attr.Group).length === 0) {
+          this.Attr.Group = this.ListGroup[0].Value;
+        }
+      } else {
+        this.Attr.Group = this.ListGroup[0].Value;
+      }
+      if (this.$route.query.type !== undefined) {
+        this.Attr.Type = this.$route.query.type;
+        if (this.ListType.filter(p => p.Value === this.Attr.Type).length === 0) {
+          this.Attr.Type = this.ListType[0].Value;
+        }
+      } else {
+        this.Attr.Type = this.ListType[0].Value;
+      }
+      if (this.$route.query.prize !== undefined) {
+        this.Attr.Prize = this.$route.query.prize * 1;
+        if (this.ListPrize.filter(p => p.Value === this.Attr.Prize).length === 0) {
+          this.Attr.Prize = this.ListPrize[0].Value;
+        }
+      } else {
+        this.Attr.Prize = this.ListPrize[0].Value;
+      }
     },
     getFullRankList: function() {
       let _this = this;
@@ -230,6 +277,7 @@ export default {
           if (response && response.data.code == "0") {
             _this.FullRankList = response.data.data;
             _this.getRankList();
+            _this.changePostPrizeCount();
           } else {
             _this.$message({
               showClose: true,
@@ -252,10 +300,12 @@ export default {
     handleChangeGroup(group) {
       this.Attr.Group = group;
       this.getRankList();
+      this.changePostPrizeCount();
     },
     handleChangeType(type) {
       this.Attr.Type = type;
       this.getRankList();
+      this.changePostPrizeCount();
     },
     handleChangePrize(prize) {
       this.Attr.Prize = prize;
@@ -263,9 +313,36 @@ export default {
     },
     handleChangeDrawerGroup(group) {
       this.DrawerAttr.Group = group;
+      this.changePrePrizeCount();
     },
     handleChangeDrawerType(type) {
       this.DrawerAttr.Type = type;
+      this.changePrePrizeCount();
+    },
+    changePrePrizeCount() {
+      let list = this.FullRankList.filter(p => p.worksType === this.Attr.Type);
+      if (this.DrawerAttr.Group !== "-1") {
+        list = list.filter(p => p.gameType === this.DrawerAttr.Group);
+      }
+      if (this.DrawerAttr.Type !== "-1") {
+        list = list.filter(p => p.worksType === this.DrawerAttr.Type);
+      }
+      this.PrePrizeCount[0] = list.length;
+      this.PrePrizeCount[1] = list.filter(p => p.prize === 1).length;
+      this.PrePrizeCount[2] = list.filter(p => p.prize === 2).length;
+      this.PrePrizeCount[3] = list.filter(p => p.prize === 3).length;
+      this.PrePrizeCount[4] = list.filter(p => p.prize === 4).length;
+    },
+    changePostPrizeCount() {
+      let list = this.FullRankList.filter(p => p.worksType === this.Attr.Type);
+      if (this.Attr.Group !== "-1") {
+        list = list.filter(p => p.gameType === this.Attr.Group);
+      }
+      this.PostPrizeCount[0] = list.length;
+      this.PostPrizeCount[1] = list.filter(p => p.prize === 1).length;
+      this.PostPrizeCount[2] = list.filter(p => p.prize === 2).length;
+      this.PostPrizeCount[3] = list.filter(p => p.prize === 3).length;
+      this.PostPrizeCount[4] = list.filter(p => p.prize === 4).length;
     },
     handleChangeDrawerPrize(prize) {
       this.DrawerAttr.Prize = prize;
@@ -274,6 +351,7 @@ export default {
       this.DrawerAttr.Group = this.Attr.Group;
       this.DrawerAttr.Type = this.Attr.Type;
       this.DrawerAttr.Prize = this.Attr.Prize;
+      this.changePrePrizeCount();
       this.Drawer = true;
     },
     handleConfirmDrawer() {
@@ -284,30 +362,20 @@ export default {
       this.getRankList();
     },
     getRankList() {
-      this.RankList = this.FullRankList.filter(p => p.worksType === this.Attr.Type && p.gameType === this.Attr.Group && p.prize === this.Attr.Prize);
-
-      // for (var i = 0; i < this.FullRankList.length; i++) {
-      //   for (var j = 0; j < this.FullRankList[i].files.length; j++) {
-      //     if (this.FullRankList[i].files[j].includes(".doc")) {
-      //       console.log(this.FullRankList[i].files[j]);
-      //     }
-      //   }
-      // }
+      this.RankList = this.FullRankList.filter(p => p.worksType === this.Attr.Type);
+      if (this.Attr.Group !== "-1") {
+        this.RankList = this.RankList.filter(p => p.gameType === this.Attr.Group);
+      }
+      if (this.Attr.Prize !== -1) {
+        this.RankList = this.RankList.filter(p => p.prize === this.Attr.Prize);
+      }
       this.page = 0;
       this.finished = false;
       this.List = [];
-      // console.log("getRankList");
       this.handleLoadList();
-      // console.log(this.FullRankList.filter(p => p.worksType === "1").map(p => p.files));
-      // console.log(this.FullRankList.filter(p => p.worksType === "2").map(p => p.files));
-      // console.log(this.FullRankList.filter(p => p.worksType === "3").map(p => p.files));
-      // console.log(this.FullRankList.filter(p => p.worksType === "4").map(p => p.files));
-      // console.log(this.FullRankList.filter(p => p.worksType === "5").map(p => p.files));
-      // console.log(this.FullRankList.filter(p => p.worksType === "6").map(p => p.files));
     },
     handleLoadList() {
       if (!this.lock) {
-        console.log("handleLoadList");
         this.lock = true;
         this.page++;
         setTimeout(() => {
@@ -319,6 +387,14 @@ export default {
           this.lock = false;
         }, 200);
       }
+    },
+    handleViewPDF(file) {
+      this.Viewer.Src = this.$PdfViewerPath + file;
+      this.Viewer.Show = true;
+    },
+    handleViewWord(file) {
+      this.Viewer.Src = this.$OfficeViewerPath + file;
+      this.Viewer.Show = true;
     }
   }
 };
@@ -337,7 +413,7 @@ export default {
   }
   .attr {
     display: flex;
-    height: 50px;
+    // height: 50px;
     border-bottom: 2px solid #ebedf0;
   }
   .attr > .key {
@@ -356,10 +432,12 @@ export default {
     align-items: center;
     flex: 1;
     flex-wrap: wrap;
+    padding-top: 12px;
   }
   .attr > .list > .value {
     padding: 5px 25px;
     margin-left: 30px;
+    margin-bottom: 12px;
     background: #ebedf0;
     cursor: pointer;
     transition: 0.2s all ease-in-out;
@@ -386,19 +464,19 @@ export default {
     justify-content: space-between;
     flex-wrap: wrap;
   }
-  .result > .files > .image {
+  .result > .files .image {
     width: calc((100% - 15px * 4) / 5);
   }
-  .result > .files > .audio {
+  .result > .files .audio {
     text-align: center;
     width: 100%;
   }
-  .result > .files > .video {
+  .result > .files .video {
     text-align: center;
     width: 100%;
     background: #ebedf0;
   }
-  .result > .files > .video.hide > video {
+  .result > .files .video.hide > video {
     visibility: hidden;
   }
   .result > .files .pdf,
@@ -412,6 +490,7 @@ export default {
   }
   .result > .files .word {
     padding: 15px;
+    box-sizing: border-box;
   }
 }
 
@@ -508,19 +587,19 @@ export default {
     justify-content: space-between;
     flex-wrap: wrap;
   }
-  .result > .files > .image {
+  .result > .files .image {
     width: calc((100% - 3vw * 2) / 3);
   }
-  .result > .files > .audio {
+  .result > .files .audio {
     text-align: center;
     width: 100%;
   }
-  .result > .files > .video {
+  .result > .files .video {
     text-align: center;
     width: 100%;
     background: #ebedf0;
   }
-  .result > .files > .video.hide > video {
+  .result > .files .video.hide > video {
     visibility: hidden;
   }
   .result > .files .pdf,
@@ -534,6 +613,7 @@ export default {
   }
   .result > .files .word {
     padding: 3vw;
+    box-sizing: border-box;
   }
 
   .jinx-drawer-attr {
@@ -568,6 +648,11 @@ export default {
     border-color: #cf331f;
     // color: #ffffff;
   }
+}
+
+/deep/ .jinx-iframe-page #el-drawer__title {
+  // display: none;
+  margin-bottom: 0;
 }
 </style>
 <style>
