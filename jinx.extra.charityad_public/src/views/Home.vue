@@ -4,7 +4,8 @@
     <jinx-nav-menu :menu="menuList" style="position: absolute; top: 42px; z-index: 1;" @scrolltoview="handleScrollToView"></jinx-nav-menu>
     <!--<div id="anchor_home" class="jinx-banner" :style="{ backgroundImage: 'url(' + require('@/assets/images/banner.jpg') + ')' }">-->
     <div id="anchor_home" class="jinx-banner">
-      <div class="banner banner-1 active"></div>
+      <div class="banner banner-1" :class="{ active: bannerShow === 0, hide: bannerShow !== 0 }"></div>
+      <div class="banner banner-2" :class="{ active: bannerShow === 1, hide: bannerShow !== 1 }"></div>
     </div>
 
     <div class="jinx-banner-navbar">
@@ -44,14 +45,14 @@
       <div class="title-en">Contest Intro</div>
       <div class="title">大赛介绍</div>
       <div class="intro">
-        <p>河北省公益广告大赛于2020年首次举办，大赛由河北省市场监督管理局主办，河北省广告研究院承办，河北省广告协会、河北广播电视台、河北省消费者权益保护委员会、石家庄市市场监督管理局协办，在河北省委省政府深入开展“三创四建”活动的大背景下，为创建全国文明城市、弘扬社会主义核心价值观，在全社会积极倡导“讲文明树新风”的良好社会风尚，凝聚新时代全面建设经济强省、美丽河北的磅礴力量，共同组织开展2020河北省公益广告大赛。</p>
-        <p>本届大赛以“文明河北我创益”为主题，创作内容包括但不限于弘扬社会主义核心价值观、自然环境保护、消费者权益保护、知识产权保护、社会安全、传承关爱、美丽河北等创意方面，面向全社会征集思想性、文化性、艺术性俱佳的公益广告作品。</p>
-        <p>此次赛事主要分为专业组、高校组和公众组，广告公司、媒体单位、新媒体机构、自媒体组织、广告主单位、高等院校在校学生、学生社团、热心公益传播的组织及个人均可参加。参赛作品形式主要分为平面类、文案类、广播类、视频类、动画类、互动类6大类。</p>
+        <p>河北省公益广告大赛于2020年首次举办，2021河北省公益广告大赛在中国共产党成立100周年和“十四五”开局之年的背景下，由河北省文明办、共青团河北省委、河北省教育厅、河北省广电局指导，河北省市场监督管理局主办，河北省广告研究院承办，河北省广告协会协办，为推动公益广告建设经济强省、美丽河北，凝聚社会正能量贡献力量。</p>
+        <p>本届大赛以“奋斗河北我创益”为主题，创作内容包括但不限于爱国爱党、社会文明、美丽河北、文化传承、环境保护等创意方向，面向全社会征集专业性、思想性、文化性、艺术性俱佳的公益广告作品。</p>
+        <p>本届大赛主要分为高校组、专业组、公众组和青少年组，参赛作品形式主要分为平面类、文案类、广播类、视频类、动画类、互动类6大类。</p>
         <p>本届大赛采用在线报名和线上评审的形式，将按照参赛组别的不同作品类别设置等级奖、优秀作品奖、优秀组织奖、优秀指导奖等奖项。</p>
-        <p>大赛自6月20日至10月31日，面向全社会广泛征集公益广告作品；11月份将邀请专家对参赛作品进行权威评审，12月将组织召开大赛颁奖盛典暨河北省公益广告学术论坛；12月至次年1月将在省内主要大众媒体及新媒体平台进行优秀获奖作品展播。</p>
-        <p>大赛落地“三创四建”，推进文明城市建设。对于深入推进我省全国文明城市创建工作具有重要作用。同时集合专业与社会力量，发挥公益广告导向作用。倡导公益风尚，呼唤社会关注。通过遴选并在众多媒体展播相关优秀作品资源，发挥各大媒体传播优势，将公益广告蕴含的社会正能量向社会大众广泛传播。此外，公益广告大赛将作为河北公益广告业发展的重要吸引核，推进人才、资源交流，以赛促学，以赛促交流，以赛促大发展，在业内进一步完善人才和资源交流，促进河北公益事业发展。</p>
+        <p>大赛自2021年7月1日至10月31日面向全社会广泛征集公益广告作品；11月份将邀请专家对参赛作品进行权威评审和结果公示；12月将组织召开大赛颁奖盛典和优秀获奖作品展播。</p>
+        <p>本届大赛旨在守初心担使命中纪念建党百年，积极践行党的思想路线，助力“十四五”规划实施落地，助力我省建设发展。同时集合专业与社会力量，发挥各大媒体传播优势，将公益广告蕴含的社会正能量向社会大众广泛传播。此外，公益广告大赛将作为河北公益广告业发展的重要吸引核，推进人才、资源交流，以赛促学，以赛促交流，以赛促大发展，在业内进一步完善人才和资源交流，促进河北公益事业发展。</p>
       </div>
-      <div class="avatar" :style="{ backgroundImage: 'url(' + require('@/assets/images/home/醉美河北.png') + ')' }"></div>
+      <div class="avatar" :style="{ backgroundImage: 'url(' + require('@/assets/images/home/醉美河北.jpg') + ')' }"></div>
     </div>
 
     <div id="anchor_news" class="jinx-news">
@@ -273,6 +274,7 @@ export default {
   },
   data: function() {
     return {
+      bannerShow: 0,
       menuList: [
         {
           title: "首页",
@@ -327,9 +329,9 @@ export default {
     // this.$alert("紧急通知：因大赛系统服务器故障，导致10月1日之前已注册的竞争信息损坏，无法恢复，已上传作品与用户信息无法进行正常匹配。<br>在此，烦请10月1日前的参赛者重新注册信息并重新提交作品，以保障顺利参赛。自10月2日起，参赛者可正常通过大赛官网进行注册报名和提交作品。大赛组委会对所有参赛者给予公益事业的支持和本次大赛的参与深表感谢，对给所有参赛者带来的不便深表歉意！<br>根据实际情况，河北省公益广告大赛将继续征集，截止时间为2020年10月31日，欢迎社会各界踊跃报名参赛！", "", {
     //   dangerouslyUseHTMLString: true
     // });
-    this.$alert("①等级奖获得者请于2021年1月10前在文件下载中将《奖金发放确认函》填写并发送到大赛官方邮箱；<br/>②电子版证书下载：登陆账号在我的作品里进行下载请使用chrome浏览器(谷歌浏览器)进行下载。", "", {
-      dangerouslyUseHTMLString: true
-    });
+    // this.$alert("①等级奖获得者请于2021年1月10前在文件下载中将《奖金发放确认函》填写并发送到大赛官方邮箱；<br/>②电子版证书下载：登陆账号在我的作品里进行下载请使用chrome浏览器(谷歌浏览器)进行下载。", "", {
+    //   dangerouslyUseHTMLString: true
+    // });
   },
   beforeRouteLeave(to, from, next) {
     window.clearTimeout(this.work.carousel);
@@ -339,6 +341,11 @@ export default {
     turnBannerCarousel: function() {
       let that = this;
       let time = 0;
+      setTimeout(function f() {
+        that.bannerShow = time % 2;
+        time++;
+        setTimeout(f, 5000);
+      }, 0);
     },
     getNewsList() {
       // this.loading = true;
@@ -572,7 +579,7 @@ export default {
 
   .banner-1 {
     // background-color: #ffffff;
-    background-image: url("../assets/images/banner1.png");
+    background-image: url("../assets/images/banner1.jpg");
   }
 
   .banner-2 {
@@ -655,7 +662,7 @@ export default {
     top: 180px;
     right: 20px;
     width: 423px;
-    height: 536px;
+    height: 428px;
     background-size: cover;
     background-position-x: center;
     overflow: hidden;

@@ -60,7 +60,7 @@ export default {
   // background-color: @primary-color;
   background-position: center;
   background-size: cover;
-  background-image: url("../assets/images/banner1.png");
+  background-image: url("../assets/images/banner1.jpg");
   position: relative;
 }
 

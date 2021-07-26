@@ -66,7 +66,16 @@ const routes = [
         path: "grouppublic",
         component: () => import("../views/Work/EnterStepPublicForm.vue"),
         meta: {
-          title: "专业类、公众类报名表",
+          title: "专业组、公众组报名表",
+          access: true
+        }
+      },
+      {
+        name: "groupteens",
+        path: "groupteens",
+        component: () => import("../views/Work/EnterStepTeensForm.vue"),
+        meta: {
+          title: "青少年组报名表",
           access: true
         }
       },
@@ -75,7 +84,7 @@ const routes = [
         path: "groupschool",
         component: () => import("../views/Work/EnterStepSchoolForm.vue"),
         meta: {
-          title: "高校类报名表",
+          title: "高校组报名表",
           access: true
         }
       },

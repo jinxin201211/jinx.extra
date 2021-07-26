@@ -64,6 +64,8 @@ export default {
       let group = this.$store.state.User.type;
       if (group === "0") {
         this.$router.push("/work/groupschool");
+      } else if (group === "3") {
+        this.$router.push("/work/groupteens");
       } else {
         this.$router.push("/work/grouppublic");
       }

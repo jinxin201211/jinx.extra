@@ -22,14 +22,15 @@ export default {
   data: function() {
     return {
       // FileDownloads: ["河北省公益广告大赛报名流程.pdf", "河北省公益广告大赛评审办法.pdf", "河北省公益广告大赛章程.pdf", "河北省公益广告大赛征集启事.pdf", "河北省公益广告大赛作品格式要求.pdf", "公益广告大赛公开文件.zip", "2020年河北省公益广告大赛组合标识.zip"]
-      FileDownloads: ["公益广告大赛公开文件.zip", "2020年河北省公益广告大赛组合标识.zip", "奖金发放确认函.docx"]
+      FileDownloads: ["公益广告大赛公开文件.zip", "2021年河北省公益广告大赛组合标识.zip", "奖金发放确认函.docx"],
+      FileNameDownloads: ["PublicFile.zip", "log.zip", "bonus.docx"]
     };
   },
   mounted: function() {},
   methods: {
     handleDownload(index) {
-      window.open(this.$FileGetServer + this.FileDownloads[index]);
-      // window.location.href = this.$FileGetServer + this.FileDownloads[index];
+      window.open(this.$FileGetServer + this.FileNameDownloads[index]);
+      // window.location.href = this.$FileGetServer + this.FileNameDownloads[index];
     }
   }
 };

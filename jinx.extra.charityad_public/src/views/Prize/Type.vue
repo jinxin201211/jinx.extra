@@ -12,12 +12,12 @@
       </div>
       <div style="flex-grow: 1">
         <el-tabs v-model="tab_active" v-if="type !== 'search'">
-          <el-tab-pane :label="item.value" v-for="(item, index) in $WorksGroupCode" :key="'WorksGroupCode' + index">
+          <el-tab-pane :label="item.value" v-for="(item, gindex) in $WorksGroupCode" :key="'WorksGroupCode' + gindex">
             <el-card shadow="never" v-for="(pitem, pindex) in PrizeList" :key="'prize' + pindex">
               <div slot="header">
                 <span v-text="pitem"></span>
               </div>
-              <el-table :data="Data.group[index].prize[pindex].list" stripe style="width: 100%" @row-dblclick="handleRowDbclick" :empty-text="EmptyText">
+              <el-table :data="Data.group[gindex].prize[pindex].list" stripe style="width: 100%" @row-dblclick="handleRowDbclick" :empty-text="EmptyText">
                 <el-table-column type="index" width="50"> </el-table-column>
                 <el-table-column prop="wno" label="作品编号" width="120"> </el-table-column>
                 <el-table-column prop="worksName" label="作品名称"> </el-table-column>
@@ -63,7 +63,6 @@
 
 <script>
 import qs from "qs";
-
 export default {
   data: function() {
     return {
@@ -73,6 +72,9 @@ export default {
       FullRankList: [],
       Data: {
         group: [
+          {
+            prize: [{ list: [] }, { list: [] }, { list: [] }, { list: [] }]
+          },
           {
             prize: [{ list: [] }, { list: [] }, { list: [] }, { list: [] }]
           },
@@ -109,6 +111,9 @@ export default {
       let _this = this;
       this.Data = {
         group: [
+          {
+            prize: [{ list: [] }, { list: [] }, { list: [] }, { list: [] }]
+          },
           {
             prize: [{ list: [] }, { list: [] }, { list: [] }, { list: [] }]
           },
@@ -169,6 +174,9 @@ export default {
           },
           {
             prize: [{ list: [] }, { list: [] }, { list: [] }, { list: [] }]
+          },
+          {
+            prize: [{ list: [] }, { list: [] }, { list: [] }, { list: [] }]
           }
         ]
       };
@@ -183,30 +191,31 @@ export default {
         let source = this.$MaterialSurceCode.find(x => x.code == p.materialSurce);
         p.materialSurce = source == null ? "" : source.value;
       });
-
       let game_type0 = this.getGameTypeByCode("0");
       this.Data.group[0].prize[0].list = data.filter(p => p.gameType === game_type0 && p.prize === 1);
       this.Data.group[0].prize[1].list = data.filter(p => p.gameType === game_type0 && p.prize === 2);
       this.Data.group[0].prize[2].list = data.filter(p => p.gameType === game_type0 && p.prize === 3);
       this.Data.group[0].prize[3].list = data.filter(p => p.gameType === game_type0 && p.prize === 4);
-
       let game_type1 = this.getGameTypeByCode("1");
       this.Data.group[1].prize[0].list = data.filter(p => p.gameType === game_type1 && p.prize === 1);
       this.Data.group[1].prize[1].list = data.filter(p => p.gameType === game_type1 && p.prize === 2);
       this.Data.group[1].prize[2].list = data.filter(p => p.gameType === game_type1 && p.prize === 3);
       this.Data.group[1].prize[3].list = data.filter(p => p.gameType === game_type1 && p.prize === 4);
-
       let game_type2 = this.getGameTypeByCode("2");
       this.Data.group[2].prize[0].list = data.filter(p => p.gameType === game_type2 && p.prize === 1);
       this.Data.group[2].prize[1].list = data.filter(p => p.gameType === game_type2 && p.prize === 2);
       this.Data.group[2].prize[2].list = data.filter(p => p.gameType === game_type2 && p.prize === 3);
       this.Data.group[2].prize[3].list = data.filter(p => p.gameType === game_type2 && p.prize === 4);
-
+      let game_type3 = this.getGameTypeByCode("3");
+      this.Data.group[3].prize[0].list = data.filter(p => p.gameType === game_type3 && p.prize === 1);
+      this.Data.group[3].prize[1].list = data.filter(p => p.gameType === game_type3 && p.prize === 2);
+      this.Data.group[3].prize[2].list = data.filter(p => p.gameType === game_type3 && p.prize === 3);
+      this.Data.group[3].prize[3].list = data.filter(p => p.gameType === game_type3 && p.prize === 4);
       let game_type4 = this.getGameTypeByCode("4");
-      this.Data.group[3].prize[0].list = data.filter(p => p.gameType === game_type4 && p.prize === 1);
-      this.Data.group[3].prize[1].list = data.filter(p => p.gameType === game_type4 && p.prize === 2);
-      this.Data.group[3].prize[2].list = data.filter(p => p.gameType === game_type4 && p.prize === 3);
-      this.Data.group[3].prize[3].list = data.filter(p => p.gameType === game_type4 && p.prize === 4);
+      this.Data.group[4].prize[0].list = data.filter(p => p.gameType === game_type4 && p.prize === 1);
+      this.Data.group[4].prize[1].list = data.filter(p => p.gameType === game_type4 && p.prize === 2);
+      this.Data.group[4].prize[2].list = data.filter(p => p.gameType === game_type4 && p.prize === 3);
+      this.Data.group[4].prize[3].list = data.filter(p => p.gameType === game_type4 && p.prize === 4);
       this.EmptyText = this.FullRankList.length === 0 ? "空" : data.length > 0 ? "奖项空缺" : "评审中";
     },
     getGameTypeByCode(code) {

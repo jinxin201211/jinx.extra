@@ -1,6 +1,6 @@
 <template>
   <div class="submit" id="page">
-    <el-breadcrumb separator="/" style="margin-bottom: 20px;">
+    <el-breadcrumb separator="/" style="margin-bottom: 20px">
       <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
       <el-breadcrumb-item>作品提交</el-breadcrumb-item>
     </el-breadcrumb>
@@ -11,10 +11,10 @@
       <el-step title="结束提交"></el-step>
     </el-steps>
 
-    <el-form ref="form" :model="form" label-width="120px" style="padding: 0 20px; margin: 30px auto;">
+    <el-form ref="form" :model="form" label-width="120px" style="padding: 0 20px; margin: 30px auto">
       <el-card>
-        <div slot="header" style="text-align: center;">
-          <span>2021河北省公益广告大赛作品征集报名表（高校组）</span>
+        <div slot="header" style="text-align: center">
+          <span>2021河北省公益广告大赛作品征集报名表（青少年组）</span>
         </div>
         <el-form-item label="作品编号">
           <el-input v-model="form.wno" maxlength="100" readonly disabled></el-input>
@@ -104,15 +104,15 @@
           ]"
         >
           <div>
-            <el-input v-model="form.author1" maxlength="200" style="width: 150px;"><template slot="prepend">1</template></el-input>
-            <el-input v-model="form.author2" maxlength="200" style="width: 150px; margin-left: 20px;"><template slot="prepend">2</template></el-input>
-            <el-input v-model="form.author3" maxlength="200" style="width: 150px; margin-left: 20px;"><template slot="prepend">3</template></el-input>
-            <el-input v-if="AuthorCount > 3" v-model="form.author4" maxlength="200" style="width: 150px; margin-left: 20px;"><template slot="prepend">4</template></el-input>
-            <el-input v-if="AuthorCount > 4" v-model="form.author5" maxlength="200" style="width: 150px; margin-left: 20px;"><template slot="prepend">5</template></el-input>
+            <el-input v-model="form.author1" maxlength="200" style="width: 150px"><template slot="prepend">1</template></el-input>
+            <el-input v-model="form.author2" maxlength="200" style="width: 150px; margin-left: 20px"><template slot="prepend">2</template></el-input>
+            <el-input v-model="form.author3" maxlength="200" style="width: 150px; margin-left: 20px"><template slot="prepend">3</template></el-input>
+            <el-input v-if="AuthorCount > 3" v-model="form.author4" maxlength="200" style="width: 150px; margin-left: 20px"><template slot="prepend">4</template></el-input>
+            <el-input v-if="AuthorCount > 4" v-model="form.author5" maxlength="200" style="width: 150px; margin-left: 20px"><template slot="prepend">5</template></el-input>
           </div>
         </el-form-item>
-        <el-card style="margin: 20px;" shadow="never">
-          <div slot="header" style="text-align: center;">
+        <el-card style="margin: 20px" shadow="never">
+          <div slot="header" style="text-align: center">
             <span>第一作者联系方式</span>
           </div>
           <el-row>
@@ -229,9 +229,9 @@
             </el-col>
           </el-row>
         </el-card>
-        <el-card style="margin: 20px;" shadow="never">
-          <div slot="header" style="text-align: center;">
-            <span>指导老师信息</span>
+        <el-card style="margin: 20px" shadow="never">
+          <div slot="header" style="text-align: center">
+            <span>监护人或指导老师信息</span>
           </div>
           <el-row>
             <el-col :span="12">
@@ -272,11 +272,6 @@
           </el-row>
           <el-row>
             <el-col :span="12">
-              <el-form-item label="电子邮箱" prop="tEmail" :rules="[{ validator: validateEmail, trigger: 'blur' }]">
-                <el-input v-model="form.tEmail" maxlength="200"></el-input>
-              </el-form-item>
-            </el-col>
-            <el-col :span="12">
               <el-form-item
                 label="所属单位"
                 prop="orgName"
@@ -293,10 +288,29 @@
                 <el-input v-model="form.tOrgName" maxlength="200"></el-input>
               </el-form-item>
             </el-col>
+            <el-col :span="12">
+              <el-form-item
+                label="指导用户类型"
+                prop="guideType"
+                required
+                :rules="[
+                  {
+                    validator: (rule, value, callback) => {
+                      validateRequired(rule, value, callback, '请选择指导用户类型');
+                    },
+                    trigger: ['blur', 'change']
+                  }
+                ]"
+              >
+                <el-radio-group v-model="form.guideType">
+                  <el-radio :label="item.code" v-for="(item, index) in $GuideType" :key="'guideType' + index"> {{ item.code + ":" + item.value }}</el-radio>
+                </el-radio-group>
+              </el-form-item>
+            </el-col>
           </el-row>
         </el-card>
-        <el-card style="margin: 20px;" shadow="never">
-          <div slot="header" style="text-align: center;"><span style="color: #f56c6c; margin-right: 4px;">*</span><span>作品创意说明</span></div>
+        <el-card style="margin: 20px" shadow="never">
+          <div slot="header" style="text-align: center"><span style="color: #f56c6c; margin-right: 4px">*</span><span>作品创意说明</span></div>
           <el-form-item
             label=""
             prop="creativeOverview"
@@ -317,7 +331,7 @@
       </el-card>
     </el-form>
 
-    <div style="text-align: center;">
+    <div style="text-align: center">
       <el-button type="primary" @click="handleNextStep" :loading="loading" :disabled="disabled">下一步</el-button>
     </div>
   </div>
@@ -344,6 +358,7 @@ export default {
         tel: "",
         email: "",
         qq: "",
+        guideType: "",
         orgName: "",
         addr: "",
         creativeOverview: "",
@@ -427,6 +442,7 @@ export default {
               tel: data.tel,
               email: data.email,
               qq: data.qq,
+              guideType: data.guideType,
               orgName: data.orgName,
               addr: data.addr,
               creativeOverview: data.creativeOverview,

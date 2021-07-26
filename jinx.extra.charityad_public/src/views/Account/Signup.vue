@@ -13,6 +13,7 @@
               <el-radio label="0">高校组</el-radio>
               <el-radio label="1">专业组</el-radio>
               <el-radio label="2">公众组</el-radio>
+              <el-radio label="3">青少年组</el-radio>
             </el-radio-group>
           </el-form-item>
           <el-form-item label="邮箱" prop="email" :rules="[{ type: 'email', message: '请输入正确的邮箱地址', trigger: ['blur', 'change'] }]">

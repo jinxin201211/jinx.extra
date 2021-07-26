@@ -42,10 +42,10 @@ window.$VuexPrefix = "charity.public.";
 window.$CookieStoreDays = 7;
 // window.$Server = "http://47.108.88.211"; // todo
 // window.$Server = "http://49.233.122.67";
-window.$Server = "http://localhost";
+window.$Server = "http://211.82.246.251";
 window.$FileUploadServer = window.$Server + ":8084";
 Vue.prototype.$Host = window.$Server;
-Vue.prototype.$FileGetServer = window.$Server + "/img/";
+Vue.prototype.$FileGetServer = `${window.$Server}/img/`;
 Vue.prototype.$CertFileGetServer = window.$Server + ":8084/gameWorks2/downloadCert?file_name=";
 Vue.prototype.$PdfViewerPath = window.$Server + "/pdfjs/web/viewer.html?file=";
 Vue.prototype.$OfficeViewerPath = window.$Server + ":8012/onlinePreview?url=";
@@ -55,18 +55,17 @@ Vue.prototype.$WorksGroupCode = [
   { code: "0", value: "高校类" },
   { code: "1", value: "专业类" },
   { code: "2", value: "公众类" },
-  { code: "4", value: "战疫类" }
+  { code: "3", value: "青少年类" },
+  { code: "4", value: "抗疫类" }
 ];
 Vue.prototype.$WorksSeriesCode = [
-  { code: "A", value: "“社会主义核心价值观”系列" },
-  { code: "B", value: "“自然+环境”系列" },
-  { code: "C", value: "“消费者权益保护+知识产权”系列" },
-  { code: "D", value: "“社会+安全”系列" },
-  { code: "E", value: "“传承+关爱”系列" },
-  { code: "F", value: "“成长+校园”系列" },
-  { code: "G", value: "“美丽河北”系列" },
-  { code: "I", value: "“践行节约  拒绝浪费”系列" },
-  { code: "H", value: "其他" }
+  { code: "A", value: "“建党百年，担使命”方向" },
+  { code: "B", value: "“社会文明，树新风”方向" },
+  { code: "C", value: "“美丽河北，迎冬奥”方向" },
+  { code: "D", value: "“和谐社会，谋发展”方向" },
+  { code: "E", value: "“文化传承，助教育”方向" },
+  { code: "F", value: "“绿色环境，促和谐”方向" },
+  { code: "G", value: "“助力公益，注能量”方向" }
 ];
 Vue.prototype.$WorksTypeCode = [
   { code: "1", value: "平面类" },
@@ -79,6 +78,11 @@ Vue.prototype.$WorksTypeCode = [
 Vue.prototype.$MaterialSurceCode = [
   { code: "1", value: "我保证此作品是我的原创" },
   { code: "2", value: "我使用了素材" }
+];
+
+Vue.prototype.$GuideType = [
+  { code: "1", value: "监护人" },
+  { code: "2", value: "老师" }
 ];
 
 new Vue({
