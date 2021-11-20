@@ -8,7 +8,7 @@ axios.interceptors.request.use(
     if (!config.url.startsWith("/")) {
       config.url = "/" + config.url;
     }
-    config.url = config.url.replace("/api", window.$Server + ":8081");
+    config.url = config.url.replace("/api", window.$Server + ":9091");
     return config;
   },
   error => {
