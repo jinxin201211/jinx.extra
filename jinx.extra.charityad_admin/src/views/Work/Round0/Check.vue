@@ -235,7 +235,6 @@ export default {
           }
         })
         .then(function(response) {
-          // debugger;
           if (response && response.data.code == "0") {
             that.WorksInfo = response.data.data;
             if (that.WorksInfo.works.state != null) {
