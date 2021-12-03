@@ -70,15 +70,15 @@ Vue.prototype.$UserType = [
   { code: "2", value: "公众组" }
 ];
 Vue.prototype.$WorksSeriesCode = [
-  { code: "A", value: "“社会主义核心价值观”系列" },
-  { code: "B", value: "“自然+环境”系列" },
-  { code: "C", value: "“消费者权益保护+知识产权”系列" },
-  { code: "D", value: "“社会+安全”系列" },
-  { code: "E", value: "“传承+关爱”系列" },
-  { code: "F", value: "“成长+校园”系列" },
-  { code: "G", value: "“美丽河北”系列" },
-  { code: "I", value: "“践行节约  拒绝浪费”系列" },
-  { code: "H", value: "其他" }
+  { code: "A", value: "“建党百年，担使命”方向" },
+  { code: "B", value: "“社会文明，树新风”方向" },
+  { code: "C", value: "“美丽河北，迎冬奥”方向" },
+  { code: "D", value: "“和谐社会，谋发展”方向" },
+  { code: "E", value: "“文化传承，助教育”方向" },
+  { code: "F", value: "“绿色环境，促和谐”方向" },
+  { code: "G", value: "“助力公益，注能量”方向" },
+  { code: "I", value: "I" },
+  { code: "H", value: "H" }
 ];
 Vue.prototype.$WorksTypeCode = [
   { code: "1", value: "平面类" },
