@@ -8,7 +8,7 @@
     <el-tabs v-model="tab_active">
       <el-tab-pane :label="gitem" :name="gindex + ''" v-for="(gitem, gindex) in GroupList" :key="'group' + gindex">
         <el-button @click="handleRefreshList" :loading="loading">刷新列表</el-button>
-        <el-button @click="handleSubmit" :loading="submit_status" type="primary">确认修改</el-button>
+        <el-button @click="handleSubmit" :loading="submit_status" type="primary" v-if="User.role === 'leader'">确认修改</el-button>
 
         <el-table :data="Data.group[gindex].list" stripe style="width: 100%" @row-dblclick="handleRowDbclick">
           <el-table-column type="index" width="50"> </el-table-column>
@@ -19,7 +19,7 @@
           <el-table-column prop="worksSeries" label="作品主题"> </el-table-column>
           <el-table-column prop="worksType" label="作品类别" width="120"> </el-table-column>
           <el-table-column prop="scoreTotal" label="累计积分" width="120"> </el-table-column>
-          <el-table-column label="设置奖项" width="150">
+          <el-table-column label="设置奖项" width="150" v-if="User.role === 'leader'">
             <template slot-scope="scope">
               <el-select v-model="scope.row.prize" placeholder="设置作品奖项" size="small">
                 <el-option label="设置作品奖项" :value="null"></el-option>
@@ -53,10 +53,13 @@ export default {
   components: { JinxWorksViewer },
   data() {
     return {
-      GroupList: ["高校类", "专业类", "公众类", "战疫类"],
+      GroupList: ["高校类", "专业类", "公众类", "青少年类", "战疫类"],
       tab_active: "0",
       Data: {
         group: [
+          {
+            list: []
+          },
           {
             list: []
           },
@@ -72,6 +75,7 @@ export default {
         ]
       },
       List: [],
+      User: this.$store.state.User,
       // total: 0,
       loading: false,
       drawer: false,
@@ -80,6 +84,7 @@ export default {
     };
   },
   mounted() {
+    // console.log(this.User);
     this.getList();
   },
   methods: {
@@ -88,9 +93,12 @@ export default {
     },
     getList() {
       this.loading = true;
-      let that = this;
+      let _this = this;
       this.Data = {
         group: [
+          {
+            list: []
+          },
           {
             list: []
           },
@@ -110,58 +118,65 @@ export default {
         .then(function(response) {
           if (response && response.data.code == "0") {
             let data = response.data.data;
-            // that.List = response.data.data.list;
+            // _this.List = response.data.data.list;
             data.forEach(p => {
-              let game_type = that.$WorksGroupCode.find(x => x.code == p.gameType);
+              let game_type = _this.$WorksGroupCode.find(x => x.code == p.gameType);
               p.gameType = game_type == null ? "" : game_type.value;
-              let series = that.$WorksSeriesCode.find(x => x.code == p.worksSeries);
+              let series = _this.$WorksSeriesCode.find(x => x.code == p.worksSeries);
               p.worksSeries = series == null ? "" : series.value;
-              let type = that.$WorksTypeCode.find(x => x.code == p.worksType);
+              let type = _this.$WorksTypeCode.find(x => x.code == p.worksType);
               p.worksType = type == null ? "" : type.value;
-              let source = that.$MaterialSurceCode.find(x => x.code == p.materialSurce);
+              let source = _this.$MaterialSurceCode.find(x => x.code == p.materialSurce);
               p.materialSurce = source == null ? "" : source.value;
             });
 
-            let game_type0 = that.getGameTypeByCode("0");
-            that.Data.group[0].list = data
+            let game_type0 = _this.getGameTypeByCode("0");
+            _this.Data.group[0].list = data
               .filter(p => p.gameType === game_type0)
               .sort((a, b) => {
                 return a.prize == null && b.prize == null ? 1 : a.prize == null ? 1 : b.prize == null ? -1 : a.prize - b.prize;
               });
 
-            let game_type1 = that.getGameTypeByCode("1");
-            that.Data.group[1].list = data
+            let game_type1 = _this.getGameTypeByCode("1");
+            _this.Data.group[1].list = data
               .filter(p => p.gameType === game_type1)
               .sort((a, b) => {
                 return a.prize == null && b.prize == null ? 1 : a.prize == null ? 1 : b.prize == null ? -1 : a.prize - b.prize;
               });
 
-            let game_type2 = that.getGameTypeByCode("2");
-            that.Data.group[2].list = data
+            let game_type2 = _this.getGameTypeByCode("2");
+            _this.Data.group[2].list = data
               .filter(p => p.gameType === game_type2)
               .sort((a, b) => {
                 return a.prize == null && b.prize == null ? 1 : a.prize == null ? 1 : b.prize == null ? -1 : a.prize - b.prize;
               });
 
-            let game_type4 = that.getGameTypeByCode("4");
-            that.Data.group[3].list = data
+            let game_type3 = _this.getGameTypeByCode("3");
+            _this.Data.group[3].list = data
+              .filter(p => p.gameType === game_type3)
+              .sort((a, b) => {
+                return a.prize == null && b.prize == null ? 1 : a.prize == null ? 1 : b.prize == null ? -1 : a.prize - b.prize;
+              });
+
+            let game_type4 = _this.getGameTypeByCode("4");
+            _this.Data.group[4].list = data
               .filter(p => p.gameType === game_type4)
               .sort((a, b) => {
                 return a.prize == null && b.prize == null ? 1 : a.prize == null ? 1 : b.prize == null ? -1 : a.prize - b.prize;
               });
           } else {
-            that.$message({
+            _this.$message({
               showClose: true,
               message: response.data.msg,
               type: "warning"
             });
           }
-          that.loading = false;
+          _this.loading = false;
         })
         .catch(function(err) {
           console.log(err);
-          that.loading = false;
-          that.$message({
+          _this.loading = false;
+          _this.$message({
             showClose: true,
             message: "查询失败",
             type: "warning"
@@ -181,7 +196,7 @@ export default {
       this.drawer = true;
     },
     handleSubmit: function() {
-      let that = this;
+      let _this = this;
       let update = [];
       for (let i = 0; i < this.Data.group.length; i++) {
         for (let k = 0; k < this.Data.group[i].list.length; k++) {
@@ -193,30 +208,30 @@ export default {
           }
         }
       }
-      that.submit_status = true;
+      _this.submit_status = true;
       this.axios
         .post("/api/gameWorks2/appraisal_round3", qs.stringify({ jsonString: JSON.stringify(update) }))
         .then(function(response) {
           if (response && response.data.code == "0") {
-            that.$message({
+            _this.$message({
               showClose: true,
               message: "提交成功",
               type: "success"
             });
-            that.getList();
+            _this.getList();
           } else {
-            that.$message({
+            _this.$message({
               showClose: true,
               message: response.data.msg,
               type: "warning"
             });
           }
-          that.submit_status = false;
+          _this.submit_status = false;
         })
         .catch(function(err) {
           console.log(err);
-          that.submit_status = false;
-          that.$message({
+          _this.submit_status = false;
+          _this.$message({
             showClose: true,
             message: "提交失败",
             type: "warning"

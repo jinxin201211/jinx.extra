@@ -46,11 +46,14 @@ export default {
   components: { JinxWorksViewer },
   data() {
     return {
-      GroupList: ["高校类", "专业类", "公众类", "战疫类"],
+      GroupList: ["高校类", "专业类", "公众类", "青少年类", "战疫类"],
       PrizeList: ["一等奖", "二等奖", "三等奖", "优秀奖"],
       tab_active: "0",
       Data: {
         group: [
+          {
+            prize: [{ list: [] }, { list: [] }, { list: [] }, { list: [] }]
+          },
           {
             prize: [{ list: [] }, { list: [] }, { list: [] }, { list: [] }]
           },
@@ -86,9 +89,12 @@ export default {
     },
     getList() {
       this.loading = true;
-      let that = this;
+      let _this = this;
       this.Data = {
         group: [
+          {
+            prize: [{ list: [] }, { list: [] }, { list: [] }, { list: [] }]
+          },
           {
             prize: [{ list: [] }, { list: [] }, { list: [] }, { list: [] }]
           },
@@ -108,54 +114,60 @@ export default {
         .then(function(response) {
           if (response && response.data.code == "0") {
             let data = response.data.data;
-            // that.List = response.data.data.list;
+            // _this.List = response.data.data.list;
             data.forEach(p => {
-              let game_type = that.$WorksGroupCode.find(x => x.code == p.gameType);
+              let game_type = _this.$WorksGroupCode.find(x => x.code == p.gameType);
               p.gameType = game_type == null ? "" : game_type.value;
-              let series = that.$WorksSeriesCode.find(x => x.code == p.worksSeries);
+              let series = _this.$WorksSeriesCode.find(x => x.code == p.worksSeries);
               p.worksSeries = series == null ? "" : series.value;
-              let type = that.$WorksTypeCode.find(x => x.code == p.worksType);
+              let type = _this.$WorksTypeCode.find(x => x.code == p.worksType);
               p.worksType = type == null ? "" : type.value;
-              let source = that.$MaterialSurceCode.find(x => x.code == p.materialSurce);
+              let source = _this.$MaterialSurceCode.find(x => x.code == p.materialSurce);
               p.materialSurce = source == null ? "" : source.value;
             });
 
-            let game_type0 = that.getGameTypeByCode("0");
-            that.Data.group[0].prize[0].list = data.filter(p => p.gameType === game_type0 && p.prize === 1);
-            that.Data.group[0].prize[1].list = data.filter(p => p.gameType === game_type0 && p.prize === 2);
-            that.Data.group[0].prize[2].list = data.filter(p => p.gameType === game_type0 && p.prize === 3);
-            that.Data.group[0].prize[3].list = data.filter(p => p.gameType === game_type0 && p.prize === 4);
+            let game_type0 = _this.getGameTypeByCode("0");
+            _this.Data.group[0].prize[0].list = data.filter(p => p.gameType === game_type0 && p.prize === 1);
+            _this.Data.group[0].prize[1].list = data.filter(p => p.gameType === game_type0 && p.prize === 2);
+            _this.Data.group[0].prize[2].list = data.filter(p => p.gameType === game_type0 && p.prize === 3);
+            _this.Data.group[0].prize[3].list = data.filter(p => p.gameType === game_type0 && p.prize === 4);
 
-            let game_type1 = that.getGameTypeByCode("1");
-            that.Data.group[1].prize[0].list = data.filter(p => p.gameType === game_type1 && p.prize === 1);
-            that.Data.group[1].prize[1].list = data.filter(p => p.gameType === game_type1 && p.prize === 2);
-            that.Data.group[1].prize[2].list = data.filter(p => p.gameType === game_type1 && p.prize === 3);
-            that.Data.group[1].prize[3].list = data.filter(p => p.gameType === game_type1 && p.prize === 4);
+            let game_type1 = _this.getGameTypeByCode("1");
+            _this.Data.group[1].prize[0].list = data.filter(p => p.gameType === game_type1 && p.prize === 1);
+            _this.Data.group[1].prize[1].list = data.filter(p => p.gameType === game_type1 && p.prize === 2);
+            _this.Data.group[1].prize[2].list = data.filter(p => p.gameType === game_type1 && p.prize === 3);
+            _this.Data.group[1].prize[3].list = data.filter(p => p.gameType === game_type1 && p.prize === 4);
 
-            let game_type2 = that.getGameTypeByCode("2");
-            that.Data.group[2].prize[0].list = data.filter(p => p.gameType === game_type2 && p.prize === 1);
-            that.Data.group[2].prize[1].list = data.filter(p => p.gameType === game_type2 && p.prize === 2);
-            that.Data.group[2].prize[2].list = data.filter(p => p.gameType === game_type2 && p.prize === 3);
-            that.Data.group[2].prize[3].list = data.filter(p => p.gameType === game_type2 && p.prize === 4);
+            let game_type2 = _this.getGameTypeByCode("2");
+            _this.Data.group[2].prize[0].list = data.filter(p => p.gameType === game_type2 && p.prize === 1);
+            _this.Data.group[2].prize[1].list = data.filter(p => p.gameType === game_type2 && p.prize === 2);
+            _this.Data.group[2].prize[2].list = data.filter(p => p.gameType === game_type2 && p.prize === 3);
+            _this.Data.group[2].prize[3].list = data.filter(p => p.gameType === game_type2 && p.prize === 4);
 
-            let game_type4 = that.getGameTypeByCode("4");
-            that.Data.group[3].prize[0].list = data.filter(p => p.gameType === game_type4 && p.prize === 1);
-            that.Data.group[3].prize[1].list = data.filter(p => p.gameType === game_type4 && p.prize === 2);
-            that.Data.group[3].prize[2].list = data.filter(p => p.gameType === game_type4 && p.prize === 3);
-            that.Data.group[3].prize[3].list = data.filter(p => p.gameType === game_type4 && p.prize === 4);
+            let game_type3 = _this.getGameTypeByCode("3");
+            _this.Data.group[3].prize[0].list = data.filter(p => p.gameType === game_type3 && p.prize === 1);
+            _this.Data.group[3].prize[1].list = data.filter(p => p.gameType === game_type3 && p.prize === 2);
+            _this.Data.group[3].prize[2].list = data.filter(p => p.gameType === game_type3 && p.prize === 3);
+            _this.Data.group[3].prize[3].list = data.filter(p => p.gameType === game_type3 && p.prize === 4);
+
+            let game_type4 = _this.getGameTypeByCode("4");
+            _this.Data.group[4].prize[0].list = data.filter(p => p.gameType === game_type4 && p.prize === 1);
+            _this.Data.group[4].prize[1].list = data.filter(p => p.gameType === game_type4 && p.prize === 2);
+            _this.Data.group[4].prize[2].list = data.filter(p => p.gameType === game_type4 && p.prize === 3);
+            _this.Data.group[4].prize[3].list = data.filter(p => p.gameType === game_type4 && p.prize === 4);
           } else {
-            that.$message({
+            _this.$message({
               showClose: true,
               message: response.data.msg,
               type: "warning"
             });
           }
-          that.loading = false;
+          _this.loading = false;
         })
         .catch(function(err) {
           console.log(err);
-          that.loading = false;
-          that.$message({
+          _this.loading = false;
+          _this.$message({
             showClose: true,
             message: "查询失败",
             type: "warning"

@@ -266,7 +266,7 @@ const routes = [
         component: () => import("../views/Work/Round3/Main.vue"),
         meta: {
           title: "作品打分(第三轮)",
-          access: ["leader"]
+          access: ["judge", "leader"]
         }
       },
       {
