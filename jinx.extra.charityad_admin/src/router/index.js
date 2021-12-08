@@ -10,7 +10,7 @@ const routes = [
     component: () => import("../views/Home.vue"),
     meta: {
       title: "首页",
-      access: ["admin", "judge", "leader"]
+      access: ["admin", "judge", "leader", "audit"]
     },
     children: [
       // {
@@ -275,7 +275,7 @@ const routes = [
         component: () => import("../views/Work/Round3/Rank.vue"),
         meta: {
           title: "获奖查询",
-          access: ["judge", "leader"]
+          access: ["judge", "leader", "audit"]
         }
       },
       {
@@ -284,7 +284,7 @@ const routes = [
         component: () => import("../views/Work/Regular.vue"),
         meta: {
           title: "评审办法",
-          access: ["judge", "leader"]
+          access: ["judge", "leader", "audit"]
         }
       },
       {

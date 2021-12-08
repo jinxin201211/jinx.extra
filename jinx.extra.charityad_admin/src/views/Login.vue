@@ -69,6 +69,9 @@ export default {
             if (data.role === "judge" && data.groupLeader === "1") {
               data.role = "leader";
             }
+            if (data.uname.startsWith("audit")) {
+              data.role = "audit";
+            }
             that.$store.commit("changeAccount", data);
             that.$router.replace("/");
           } else {
