@@ -243,7 +243,7 @@ export default {
       if (this.Search.trim() === "") {
         this.SearchList = [];
       } else {
-        let data = this.FullRankList.filter(p => p.wno.includes(this.Search) || p.worksName.includes(this.Search) || (p.author1 && p.author1.includes(this.Search)) || (p.author2 && p.author2.includes(this.Search)) || (p.author3 && p.author3.includes(this.Search)) || (p.author4 && p.author4.includes(this.Search)) || (p.author5 && p.author5.includes(this.Search)));
+        let data = this.FullRankList.filter(p => (p.wno && p.wno.includes(this.Search)) || (p.worksName && p.worksName.includes(this.Search)) || (p.author1 && p.author1.includes(this.Search)) || (p.author2 && p.author2.includes(this.Search)) || (p.author3 && p.author3.includes(this.Search)) || (p.author4 && p.author4.includes(this.Search)) || (p.author5 && p.author5.includes(this.Search)));
         this.SearchList = JSON.parse(JSON.stringify(data));
         this.SearchList.forEach(p => {
           let game_type = this.$WorksGroupCode.find(x => x.code == p.gameType);
