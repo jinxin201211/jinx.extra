@@ -19,14 +19,14 @@
       <el-table-column prop="author1" label="作者"> </el-table-column>
       <el-table-column prop="tUname" label="指导老师"> </el-table-column>
       <el-table-column prop="submitState" label="提交状态"> </el-table-column>
-      <el-table-column fixed="right" label="操作" width="240">
+      <el-table-column fixed="right" label="操作" width="120">
         <template slot-scope="scope">
           <el-button @click="handleSubmit(scope.row)" type="text" size="small" v-if="scope.row.submitState == '未提交'">提交</el-button>
           <el-button @click="handleView(scope.row)" type="text" size="small">查看</el-button>
           <el-button @click="handleModify(scope.row)" type="text" size="small">修改</el-button>
           <el-button @click="handleDelete(scope.row)" type="text" size="small">删除</el-button>
           <el-button @click="handleDownload(scope.row)" type="text" size="small" v-if="scope.row.ltGameCert != null && scope.row.ltGameCert.length > 0">下载证书</el-button>
-          <el-button @click="handleDownloadReply(scope.row)" type="text" size="small" v-if="scope.row.ltGameCert != null && scope.row.ltGameCert.length > 0">下载回函</el-button>
+          <el-button @click="handleDownloadReply(scope.row)" type="text" size="small" v-if="scope.row.ltGameCert != null && scope.row.ltGameCert.length > 0">下载证明文件</el-button>
         </template>
       </el-table-column>
     </el-table>

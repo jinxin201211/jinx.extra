@@ -314,7 +314,8 @@ export default {
         file: 0,
         carousel: -1,
         interval: 10000
-      }
+      },
+      message: null
     };
   },
   mounted: function() {
@@ -326,21 +327,27 @@ export default {
     if (view) {
       this.scrollToSection(view);
     }
-    this.$message({
-      showClose: true,
-      message: "网站将于1月15号更换新的域名(www.hbsggyjy.cn)，请及时更新收藏夹",
-      type: "info",
-      duration: 0
-    });
+    // this.message = this.$message({
+    //   showClose: true,
+    //   message: "网站将于1月15号更换新的域名(www.hbsggyjy.cn)，请及时更新收藏夹",
+    //   type: "info",
+    //   duration: 0
+    // });
+
     // this.$alert("紧急通知：因大赛系统服务器故障，导致10月1日之前已注册的竞争信息损坏，无法恢复，已上传作品与用户信息无法进行正常匹配。<br>在此，烦请10月1日前的参赛者重新注册信息并重新提交作品，以保障顺利参赛。自10月2日起，参赛者可正常通过大赛官网进行注册报名和提交作品。大赛组委会对所有参赛者给予公益事业的支持和本次大赛的参与深表感谢，对给所有参赛者带来的不便深表歉意！<br>根据实际情况，河北省公益广告大赛将继续征集，截止时间为2020年10月31日，欢迎社会各界踊跃报名参赛！", "", {
     //   dangerouslyUseHTMLString: true
     // });
     // this.$alert("①等级奖获得者请于2021年1月10前在文件下载中将《奖金发放确认函》填写并发送到大赛官方邮箱；<br/>②电子版证书下载：登陆账号在我的作品里进行下载请使用chrome浏览器(谷歌浏览器)进行下载。", "", {
     //   dangerouslyUseHTMLString: true
     // });
+    // this.$alert("电子版获奖证书下载，请于1月4号开始。登陆账号后在我的作品里面下载电子版证书");
+    this.$alert("①电子版证书请于2022年1月4号后登陆账号在我的作品里进行下载。<br />②如需指导及主办单位证明材料，下载路径同上。<br />③网站将于1月15号更换新的域名(www.hbsggyjy.cn)，请及时更新收藏夹", "", {
+      dangerouslyUseHTMLString: true
+    });
   },
   beforeRouteLeave(to, from, next) {
     window.clearTimeout(this.work.carousel);
+    // this.message.close();
     next();
   },
   methods: {
