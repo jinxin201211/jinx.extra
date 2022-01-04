@@ -19,13 +19,14 @@
       <el-table-column prop="author1" label="作者"> </el-table-column>
       <el-table-column prop="tUname" label="指导老师"> </el-table-column>
       <el-table-column prop="submitState" label="提交状态"> </el-table-column>
-      <el-table-column fixed="right" label="操作" width="180">
+      <el-table-column fixed="right" label="操作" width="240">
         <template slot-scope="scope">
           <el-button @click="handleSubmit(scope.row)" type="text" size="small" v-if="scope.row.submitState == '未提交'">提交</el-button>
           <el-button @click="handleView(scope.row)" type="text" size="small">查看</el-button>
           <el-button @click="handleModify(scope.row)" type="text" size="small">修改</el-button>
           <el-button @click="handleDelete(scope.row)" type="text" size="small">删除</el-button>
           <el-button @click="handleDownload(scope.row)" type="text" size="small" v-if="scope.row.ltGameCert != null && scope.row.ltGameCert.length > 0">下载证书</el-button>
+          <el-button @click="handleDownloadReply(scope.row)" type="text" size="small" v-if="scope.row.ltGameCert != null && scope.row.ltGameCert.length > 0">下载回函</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -62,6 +63,15 @@ export default {
               }
             }
             p.author1 = authors.join("，");
+
+            if (p.ltGameCert && p.ltGameCert.length > 0) {
+              p.ltGameCert.push({
+                certFile: "优秀组织奖/" + p.orgName + ".jpg"
+              });
+              p.ltGameCert.push({
+                certFile: "优秀指导老师/" + p.tUname + ".jpg"
+              });
+            }
           });
         } else {
           that.$message({
@@ -176,19 +186,69 @@ export default {
     handleDownload(data) {
       for (let index = 0; index < data.ltGameCert.length; index++) {
         const file = data.ltGameCert[index].certFile;
-        this.downloadFile(this.$CertFileGetServer + file);
+        // this.downloadFile(this.$CertFileGetServer + file);
+        this.downloadUrlFile(`${window.$Server}/certfile/` + file);
       }
     },
-    downloadFile(url) {
-      const iframe = document.createElement("iframe");
-      iframe.style.display = "none"; // 防止影响页面
-      iframe.style.height = 0; // 防止影响页面
-      iframe.src = url;
-      document.body.appendChild(iframe); // 这一行必须，iframe挂在到dom树上才会发请求
-      // 5分钟之后删除（onload方法对于下载链接不起作用，就先抠脚一下吧）
-      setTimeout(() => {
-        iframe.remove();
-      }, 5 * 60 * 1000);
+    handleDownloadReply() {
+      this.downloadUrlFile(`${window.$Server}/certfile/` + "回函.zip");
+    },
+    // downloadFile(url) {
+    //   window.open(url);
+    //   return;
+    //   const iframe = document.createElement("iframe");
+    //   iframe.style.display = "none"; // 防止影响页面
+    //   iframe.style.height = 0; // 防止影响页面
+    //   iframe.src = url;
+    //   document.body.appendChild(iframe); // 这一行必须，iframe挂在到dom树上才会发请求
+    //   // 5分钟之后删除（onload方法对于下载链接不起作用，就先抠脚一下吧）
+    //   setTimeout(() => {
+    //     iframe.remove();
+    //   }, 5 * 60 * 1000);
+    // },
+    /**
+     * 获取页面文件名
+     * @param url 文件url
+     */
+    downloadUrlFile(url) {
+      url = url.replace(/\\/g, "/");
+      const xhr = new XMLHttpRequest();
+      xhr.open("GET", url, true);
+      xhr.responseType = "blob";
+      //xhr.setRequestHeader('Authorization', 'Basic a2VybWl0Omtlcm1pdA==');
+      const _this = this;
+      xhr.onload = () => {
+        if (xhr.status === 200) {
+          // 获取文件blob数据并保存
+          var fileName = _this.getFileName(url);
+          _this.saveAs(xhr.response, fileName);
+        }
+      };
+      xhr.send();
+    },
+    /**
+     * URL方式保存文件到本地
+     * @param data 文件的blob数据
+     * @param name 文件名
+     */
+    saveAs(data, name) {
+      var urlObject = window.URL || window.webkitURL || window;
+      var export_blob = new Blob([data]);
+      var save_link = document.createElementNS("http://www.w3.org/1999/xhtml", "a");
+      save_link.href = urlObject.createObjectURL(export_blob);
+      save_link.download = name;
+      save_link.click();
+    },
+    /**
+     * 根据文件url获取文件名
+     * @param url 文件url
+     */
+    getFileName(url) {
+      var num = url.lastIndexOf("/") + 1;
+      var fileName = url.substring(num);
+      //把参数和文件名分割开
+      fileName = decodeURI(fileName.split("?")[0]);
+      return fileName;
     }
   }
 };
