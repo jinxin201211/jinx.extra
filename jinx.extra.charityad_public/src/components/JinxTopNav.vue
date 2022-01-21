@@ -15,36 +15,36 @@
         </span>
       </div>
       <div class="float_right" v-if="account != null && account != '' && authorize">
+        <span><a @click="handleMailAddress" href="#">邮寄地址</a></span>
+        <span>|</span>
         <span>
           <router-link to="/competitor/works">我的作品</router-link>
         </span>
         <span>|</span>
-        <!--<span>
-          <router-link to="/work">作品提交</router-link>
-        </span>
-        <span>|</span>-->
         <span v-text="account + '，您好！'"></span>
         <span>|</span>
         <span><a @click="handleSignOut" href="#">退出</a></span>
       </div>
     </div>
+
+    <jinx-mail-address v-model="dialogMailAddress"></jinx-mail-address>
   </div>
 </template>
 
 <script>
+import JinxMailAddress from "./JinxMailAddress.vue";
 export default {
+  components: { JinxMailAddress },
   props: ["authorize"],
   data() {
     return {
-      account: this.$store.state.Account
+      account: this.$store.state.Account,
+      dialogMailAddress: false
     };
   },
-  mounted() {
-    // console.log(this.$route);
-    // console.log("--------------JinxTopNav----------------");
-    // console.log(this.$store.state.Account);
-    // console.log("JinxTopNav");
-    // console.log(this.login);
+  created() {
+    // let user = this.$store.state.User;
+    // this.form.mailAddress = user.mailAddress || "";
   },
   inject: ["reload"],
   methods: {
@@ -72,10 +72,9 @@ export default {
     },
     scrollToSection(path) {
       this.$emit("scrolltoview", path);
-      // let section = document.getElementById(path);
-      // if (section) {
-      //   section.scrollIntoView({ behavior: "smooth" });
-      // }
+    },
+    handleMailAddress() {
+      this.dialogMailAddress = true;
     }
   }
 };

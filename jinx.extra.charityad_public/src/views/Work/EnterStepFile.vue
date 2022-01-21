@@ -215,15 +215,10 @@ export default {
               type: "warning"
             });
           });
-        // let data = [];
-        // for (let i = 0; i < this.successList.length; i++) {}
       }
     },
     handlePrevStep: function() {
       let group = this.$store.state.User.type;
-      // console.log(this.$store.state.User);
-      // console.log(group);
-      // group = 0; //todo
       if (group === 0) {
         this.$router.replace({
           path: "/work/groupschool",

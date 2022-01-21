@@ -40,11 +40,7 @@ export default {
 .jinx-panel {
   width: @typical-width;
   margin: 30px auto 0 auto;
-  // padding: 30px 150px;
   box-sizing: border-box;
-  // -moz-box-shadow: 0px -6px 20px #e0e4e9;
-  // -webkit-box-shadow: 0px -6px 20px #e0e4e9;
-  // box-shadow: 0px -6px 20px #e0e4e9;
 }
 
 .jinx-downloads {

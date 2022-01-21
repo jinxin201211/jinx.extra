@@ -12,9 +12,6 @@ export default new Vuex.Store({
   },
   mutations: {
     changeAccount(state, user) {
-      // debugger;
-      // console.log("------------------------changeAccount---------------------");
-      // console.log(user);
       if (user != null) {
         state.Token = user.token;
         state.Account = user.uname;
@@ -40,23 +37,17 @@ export default new Vuex.Store({
       sessionStorage.removeItem(window.$VuexPrefix + "User");
     },
     syncAccount(state) {
-      // console.log("------------------------syncAccount---------------------");
       if (VueCookies.isKey(window.$VuexPrefix + "account") && VueCookies.isKey(window.$VuexPrefix + "token") && VueCookies.isKey(window.$VuexPrefix + "user")) {
         let account = VueCookies.get(window.$VuexPrefix + "account");
         let token = VueCookies.get(window.$VuexPrefix + "token");
-        // console.log(VueCookies.get(window.$VuexPrefix + "user"));
         let user = VueCookies.get(window.$VuexPrefix + "user");
-        // console.log(user);
         this.commit("changeAccount", user);
-        // this.commit("changeCookie", { Token: token, Account: account });
       }
     },
     changeCookie(state, user) {
-      // console.log("------------------------changeCookie---------------------");
       VueCookies.set(window.$VuexPrefix + "token", user.token, 60 * 60 * 24 * window.$CookieStoreDays);
       VueCookies.set(window.$VuexPrefix + "account", user.uname, 60 * 60 * 24 * window.$CookieStoreDays);
       VueCookies.set(window.$VuexPrefix + "user", JSON.stringify(user), 60 * 60 * 24 * window.$CookieStoreDays);
-      // console.log(VueCookies.get(window.$VuexPrefix + "user"));
     },
     removeCookie(state) {
       VueCookies.remove(window.$VuexPrefix + "token");

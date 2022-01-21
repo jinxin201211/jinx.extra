@@ -336,7 +336,6 @@ export default {
   },
   mounted: function() {
     let wid = this.$route.query.wid;
-    // console.log(wid);
     if (wid) {
       let loading_data = this.$loading({ target: "#page" });
       let that = this;

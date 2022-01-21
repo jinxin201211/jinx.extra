@@ -152,7 +152,6 @@ export default {
         empty: true
       },
       game_type: -1
-      // loading: false
     };
   },
   mounted() {
@@ -165,7 +164,6 @@ export default {
     getNextWork: function() {
       let loading = this.$loading({ target: "#page" });
       let that = this;
-      // this.next_status.loading = true;
       this.axios
         .post("/api/gameWorks2/getWorksByWid", qs.stringify({ wid: this.$route.query.wid }))
         .then(function(response) {
@@ -196,12 +194,10 @@ export default {
             });
           }
           loading.close();
-          // that.next_status.loading = false;
         })
         .catch(function(err) {
           console.log(err);
           loading.close();
-          // that.next_status.loading = false;
           that.$message({
             showClose: true,
             message: "获取作品信息失败",
@@ -235,7 +231,6 @@ export default {
   .title {
     width: 150px;
     font-weight: bold;
-    // margin: 0 10px;
   }
 
   .value {

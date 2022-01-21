@@ -10,7 +10,6 @@
 
     <el-table :data="List" stripe style="width: 100%; margin: 30px auto;" @row-dblclick="handleRowDbclick">
       <el-table-column type="index" width="50"> </el-table-column>
-      <!--<el-table-column prop="area" label="赛区"> </el-table-column>-->
       <el-table-column prop="wno" label="作品编号"> </el-table-column>
       <el-table-column prop="worksName" label="作品名称"> </el-table-column>
       <el-table-column prop="gameType" label="参赛组别"> </el-table-column>
@@ -25,22 +24,30 @@
           <el-button @click="handleView(scope.row)" type="text" size="small">查看</el-button>
           <el-button @click="handleModify(scope.row)" type="text" size="small">修改</el-button>
           <el-button @click="handleDelete(scope.row)" type="text" size="small">删除</el-button>
-          <el-button @click="handleDownload(scope.row)" type="text" size="small" v-if="scope.row.ltGameCert != null && scope.row.ltGameCert.length > 0">下载证书</el-button>
-          <el-button @click="handleDownloadReply(scope.row)" type="text" size="small" v-if="scope.row.ltGameCert != null && scope.row.ltGameCert.length > 0">下载证明文件</el-button>
+          <template v-if="scope.row.ltGameCert != null && scope.row.ltGameCert.length > 0">
+            <el-button @click="handleDownload(scope.row)" type="text" size="small">下载证书</el-button>
+            <el-button @click="handleDownloadReply(scope.row)" type="text" size="small">下载证明文件</el-button>
+            <!-- <el-button @click="dialogMailAddress = true" type="text" size="small">邮寄地址</el-button> -->
+          </template>
         </template>
       </el-table-column>
     </el-table>
+
+    <jinx-mail-address v-model="dialogMailAddress"></jinx-mail-address>
   </div>
 </template>
 
 <script>
 import qs from "qs";
+import JinxMailAddress from "@/components/JinxMailAddress.vue";
 
 export default {
+  components: { JinxMailAddress },
   data: function() {
     return {
       loading: false,
-      List: []
+      List: [],
+      dialogMailAddress: false
     };
   },
   mounted: function() {

@@ -37,15 +37,11 @@ export default {
       form: {
         account: "",
         password: ""
-        // account: "jinxin",
-        // password: "jinxin20200510"
       },
       rememberMe: true
     };
   },
-  created() {
-    // console.log("created signin");
-  },
+  created() {},
   mounted() {
     this.$store.commit("resetAccount");
     this.$store.commit("removeCookie");
@@ -66,7 +62,6 @@ export default {
       let that = this;
       this.axios
         .get("/api/gameUser/login", { params: { uname: this.form.account, pwd: this.hex_md5(this.form.password) } })
-        // .get("/api/gameUser/login", { params: { uname: "鹿鹿子", pwd: "ba0ab003896d4f90e2e1ea7c39cba7c7" } })
         .then(function(response) {
           if (response && response.data.code == "0") {
             let user = response.data.data;
@@ -102,15 +97,10 @@ export default {
 
 <style lang="less" scoped>
 .jinx-panel {
-  // border: 1px solid #e6e6e6;
   background: white;
   width: @typical-width;
   padding: 15px;
-  // margin: 20px auto;
   box-sizing: border-box;
   margin: 30px auto 0 auto;
-  // -moz-box-shadow: 0px -6px 20px #e0e4e9;
-  // -webkit-box-shadow: 0px -6px 20px #e0e4e9;
-  // box-shadow: 0px -6px 20px #e0e4e9;
 }
 </style>

@@ -11,11 +11,10 @@ axios.interceptors.request.use(
       if (!config.url.startsWith("/")) {
         config.url = "/" + config.url;
       }
-      config.url = config.url.replace("/api", window.$Server + ":8084");
+      config.url = config.url.replace("/api", window.$Server + ":8084"); // todo
       // config.url = config.url.replace("/api", window.$Server + ":8080");
       // config.url = config.url.replace("/api", window.$Server + "/server_gyggds");
     }
-    // console.log(config);
     return config;
   },
   error => {

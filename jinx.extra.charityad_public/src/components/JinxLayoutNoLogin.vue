@@ -7,10 +7,10 @@ a<template>
     <slot></slot>
 
     <div class="jinx-footer">
-      <div>版权所有&nbsp;2020&nbsp;河北省广告研究院&nbsp;（hbsggyjy.hebtu.edu.cn）</div>
+      <div>版权所有&nbsp;2020&nbsp;河北省广告研究院&nbsp;（{{ $Host }}）</div>
       <div>
         <span style="display: inline-block; vertical-align: bottom; margin-right: 20px;">© 2020&nbsp;</span>
-        <a href="http://hbsggyjy.hebtu.edu.cn">hbsggyjy.hebtu.edu.cn</a>
+        <a :href="$Domain">{{ $Host }}</a>
       </div>
       <div>冀ICP备18011017号-3 冀公网安备 13010802000630号</div>
     </div>
@@ -56,8 +56,6 @@ export default {
 .jinx-banner {
   min-width: @typical-width;
   height: 480px;
-  // color: #000;
-  // background-color: @primary-color;
   background-position: center;
   background-size: cover;
   background-image: url("../assets/images/banner1.jpg");
@@ -66,7 +64,6 @@ export default {
 
 .jinx-footer {
   min-width: @typical-width;
-  // margin-top: 98px;
   padding-top: 10px;
   background: #292929;
 

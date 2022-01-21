@@ -40,16 +40,12 @@ import "@/assets/js/file.type.js";
 
 window.$VuexPrefix = "charity.public.";
 window.$CookieStoreDays = 7;
-// window.$Server = "http://47.108.88.211"; // todo
-// window.$Server = "http://49.233.122.67";
-// window.$Server = "http://211.82.246.251";
 window.$Server = "http://hbsggyjy.hebtu.edu.cn";
-// window.$Server = "http://www.lxw112190.top";
-// window.$Server = "http://1.14.31.88:1840";
-// window.$Server = "http://127.0.0.1:52025";
+// window.$Server = "http://127.0.0.1";
 window.$FileUploadServer = window.$Server + ":8084";
-// window.$FileUploadServer = window.$Server + "/server_gyggds";
-Vue.prototype.$Host = window.$Server;
+
+Vue.prototype.$Host = "hbsggyjy.hebtu.edu.cn";
+Vue.prototype.$Domain = "http://" + Vue.prototype.$Host;
 Vue.prototype.$FileGetServer = `${window.$Server}/img/`;
 Vue.prototype.$CertFileGetServer = window.$Server + ":8084/gameWorks2/downloadCert?file_name=";
 Vue.prototype.$PdfViewerPath = window.$Server + "/pdfjs/web/viewer.html?file=";

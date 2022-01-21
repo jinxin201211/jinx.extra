@@ -24,7 +24,6 @@
                 <el-table-column prop="gameType" label="参赛组别" width="120"> </el-table-column>
                 <el-table-column prop="worksSeries" label="作品主题"> </el-table-column>
                 <el-table-column prop="worksType" label="作品类别" width="120"> </el-table-column>
-                <!--<el-table-column prop="scoreTotal" label="得分" width="120"> </el-table-column>-->
                 <el-table-column label="操作" width="180">
                   <template slot-scope="scope">
                     <el-button @click="handleView(scope.row)" type="text" size="small">查看</el-button>
@@ -48,7 +47,6 @@
             <el-table-column prop="worksSeries" label="作品主题"> </el-table-column>
             <el-table-column prop="worksType" label="作品类别" width="120"> </el-table-column>
             <el-table-column prop="prize" label="奖项" width="120"> </el-table-column>
-            <!--<el-table-column prop="scoreTotal" label="得分" width="120"> </el-table-column>-->
             <el-table-column label="操作" width="180">
               <template slot-scope="scope">
                 <el-button @click="handleView(scope.row)" type="text" size="small">查看</el-button>
@@ -270,17 +268,14 @@ export default {
   box-sizing: border-box;
 }
 .jinx-types {
-  // position: absolute;
   display: flex;
   flex-direction: column;
-  // padding: 20px 0;
   justify-content: flex-start;
   width: 180px;
   padding-right: 20px;
   .type {
     width: 100%;
     div {
-      // border: 1px solid @primary-color;
       background: #ececec;
       margin-bottom: 5px;
       padding: 20px;

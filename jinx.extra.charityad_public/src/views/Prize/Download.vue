@@ -1,9 +1,5 @@
 <template>
   <div class="page" :class="{ pc: DeviceType === 'PC', mobile: DeviceType === 'Mobile' }">
-    <!-- <jinx-prize-word :src="$FileGetServer + '202011120917140774_B-023尹彦利-文案-“济时者众 奋冀者先”-众美传媒.docx'"></jinx-prize-word>
-    <jinx-prize-word :src="$FileGetServer + '202011120934130986_B-064王双双-《像战士一样战役！》-河北大学工商学院.docx'"></jinx-prize-word>
-    <jinx-prize-word :src="$FileGetServer + '202010242311050408_文案类 贾菲璠 相与象 河北地质职工大学.docx'"></jinx-prize-word>
-    <jinx-prize-word :src="$FileGetServer + '202010311711570037_互动类-张智嘉-美丽河北-河北地质职工大学.docx'"></jinx-prize-word> -->
     <div class="jinx-top" v-if="DeviceType === 'Mobile'">
       <div class="drawer" :class="{ touch: DrawerTouch }" @click="handleShowDrawer" @touchstart="DrawerTouch = true" @touchend="DrawerTouch = false">
         <svg t="1616599287703" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="5387" fill="#ffffff">
@@ -236,7 +232,6 @@ export default {
         return { Value: p.code, Text: p.value };
       });
       this.Attr.Type = this.ListType[1].Value;
-      // console.log(this.$route.query.group);
       if (this.$route.query.group !== undefined) {
         this.Attr.Group = this.$route.query.group;
         if (this.ListGroup.filter(p => p.Value === this.Attr.Group).length === 0) {
@@ -267,7 +262,6 @@ export default {
       const loading = this.$loading({
         lock: true,
         text: "Loading",
-        // spinner: "el-icon-loading",
         background: "rgba(0, 0, 0, 0.7)"
       });
       _this.FullRankList = [];
@@ -413,7 +407,6 @@ export default {
   }
   .attr {
     display: flex;
-    // height: 50px;
     border-bottom: 2px solid #ebedf0;
   }
   .attr > .key {
@@ -536,7 +529,6 @@ export default {
   }
   .attr {
     display: flex;
-    // height: 50px;
     border-bottom: 2px solid #ebedf0;
   }
   .attr > .key {
@@ -605,8 +597,6 @@ export default {
   .result > .files .pdf,
   .result > .files .word {
     width: 100%;
-    // max-width: 960px;
-    // height: 540px;
     margin-bottom: 3vw;
     overflow-y: scroll;
     border: 1px solid #666666;
@@ -646,12 +636,10 @@ export default {
     background: lighten(#cf331f, 48%);
     color: #cf331f;
     border-color: #cf331f;
-    // color: #ffffff;
   }
 }
 
 /deep/ .jinx-iframe-page #el-drawer__title {
-  // display: none;
   margin-bottom: 0;
 }
 </style>

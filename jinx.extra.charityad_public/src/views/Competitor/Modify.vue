@@ -511,7 +511,6 @@ export default {
     getNextWork: function() {
       let loading = this.$loading({ target: "#page" });
       let that = this;
-      // this.next_status.loading = true;
       this.axios
         .post("/api/gameWorks2/getWorksByWid", qs.stringify({ wid: this.$route.query.wid }))
         .then(function(response) {
@@ -553,12 +552,10 @@ export default {
             });
           }
           loading.close();
-          // that.next_status.loading = false;
         })
         .catch(function(err) {
           console.log(err);
           loading.close();
-          // that.next_status.loading = false;
           that.$message({
             showClose: true,
             message: "获取作品信息失败",

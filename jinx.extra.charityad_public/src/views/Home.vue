@@ -2,7 +2,6 @@
   <div style="padding-top: 102px;">
     <jinx-top-nav style="position: absolute; top: 0; z-index: 2;" :authorize="true" @scrolltoview="handleScrollToView"></jinx-top-nav>
     <jinx-nav-menu :menu="menuList" style="position: absolute; top: 42px; z-index: 1;" @scrolltoview="handleScrollToView"></jinx-nav-menu>
-    <!--<div id="anchor_home" class="jinx-banner" :style="{ backgroundImage: 'url(' + require('@/assets/images/banner.jpg') + ')' }">-->
     <div id="anchor_home" class="jinx-banner">
       <div class="banner banner-1" :class="{ active: bannerShow === 0, hide: bannerShow !== 0 }"></div>
       <div class="banner banner-2" :class="{ active: bannerShow === 1, hide: bannerShow !== 1 }"></div>
@@ -250,10 +249,10 @@
     </div>
 
     <div class="jinx-footer">
-      <div>版权所有&nbsp;2020&nbsp;河北省广告研究院&nbsp;（hbsggyjy.hebtu.edu.cn）</div>
+      <div>版权所有&nbsp;2020&nbsp;河北省广告研究院&nbsp;（{{ $Host }}）</div>
       <div>
         <span style="display: inline-block; vertical-align: bottom; margin-right: 20px;">© 2020&nbsp;</span>
-        <a :href="$Host">hbsggyjy.hebtu.edu.cn</a>
+        <a :href="$Domain">{{ $Host }}</a>
       </div>
       <div>冀ICP备18011017号-3 冀公网安备 13010802000630号</div>
     </div>
@@ -361,7 +360,6 @@ export default {
       }, 0);
     },
     getNewsList() {
-      // this.loading = true;
       let that = this;
       that.newsList = [];
       let month_dict = ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"];
@@ -406,13 +404,6 @@ export default {
               }
               that.newsList.push(newsRow);
             }
-            // that.NewsList = response.data.data;
-            // that.total = response.data.count;
-            // that.$message({
-            //   showClose: true,
-            //   message: "发布成功",
-            //   type: "success"
-            // });
           } else {
             that.$message({
               showClose: true,
@@ -420,11 +411,9 @@ export default {
               type: "warning"
             });
           }
-          // that.loading = false;
         })
         .catch(function(err) {
           console.log(err);
-          // that.loading = false;
           that.$message({
             showClose: true,
             message: "获取新闻动态失败",
@@ -442,7 +431,7 @@ export default {
     },
     handleScrollToView(path) {
       if (path == "anchor_home") {
-        window.location.href = this.$Host;
+        window.location.href = this.$Domain;
       } else if (path == "anchor_display") {
         this.$router.push("/download");
       } else if (path == "anchor_downloads") {
@@ -458,7 +447,7 @@ export default {
     },
     scrollToSection(path) {
       if (path == "anchor_home") {
-        window.location.href = this.$Host;
+        window.location.href = this.$Domain;
       } else if (path == "anchor_display") {
         this.$router.push("/download");
       } else if (path == "anchor_downloads") {
@@ -473,7 +462,6 @@ export default {
       }
     },
     getWorksList() {
-      // this.loading = true;
       let that = this;
       that.work.list = [];
       that.work.index = 0;
@@ -562,11 +550,6 @@ export default {
 .jinx-banner {
   min-width: @typical-width;
   height: 480px;
-  // color: #000;
-  // background-color: @primary-color;
-  // background-position: center;
-  // background-size: cover;
-  // background-image: url("../assets/images/广告大赛网站图2.png");
   position: relative;
   z-index: -1;
 
@@ -591,12 +574,10 @@ export default {
   }
 
   .banner-1 {
-    // background-color: #ffffff;
     background-image: url("../assets/images/banner1.jpg");
   }
 
   .banner-2 {
-    // background-color: #b70102;
     background-image: url("../assets/images/banner2.jpg");
   }
 
@@ -639,7 +620,6 @@ export default {
 
 .jinx-contest-intro {
   padding: 50px 0;
-  // padding-top: 165px;
   position: relative;
   width: @typical-width;
   margin: 0 auto;
@@ -665,12 +645,6 @@ export default {
   }
 
   .avatar {
-    // position: absolute;
-    // top: 50px;
-    // right: 0;
-    // width: 463px;
-    // height: 523px;
-    // background-size: contain;
     position: absolute;
     top: 180px;
     right: 20px;
@@ -859,7 +833,6 @@ export default {
         width: 732px;
         height: calc(100% - 60px);
         border-radius: 16px;
-        // background: #ffffff;
         position: relative;
 
         .left {
@@ -969,14 +942,10 @@ export default {
         width: 100%;
         height: 100%;
         overflow: hidden;
-        // overflow-x: auto;
 
         .works-list-scroll {
           height: 100%;
           width: 100%;
-          // width: auto;
-          // overflow-y: hidden;
-          // overflow-x: auto;
           white-space: nowrap;
           position: absolute;
           top: 0;
@@ -1111,12 +1080,9 @@ export default {
 
       .item-pos {
         display: inline-block;
-        // width: 20%;
         height: 60px;
         box-sizing: border-box;
         padding: 0 15px;
-        // line-height: 60px;
-        // text-align: center;
 
         .link-item {
           width: 100%;
@@ -1150,14 +1116,11 @@ export default {
       box-sizing: border-box;
       margin: 0 auto;
       color: #ffffff;
-      // background-image: url("../assets/images/home/contact_us_back.png");
       background-size: cover;
       background-color: @primary-color;
       text-align: center;
 
       .title-en {
-        // text-align: center;
-        // color: @primary-color;
         font-size: 14px;
       }
 
@@ -1165,8 +1128,6 @@ export default {
         font-size: 24px;
         margin-bottom: 50px;
         margin-top: 10px;
-        // text-align: center;
-        // color: @primary-color-dark;
       }
     }
   }
@@ -1174,7 +1135,6 @@ export default {
 
 .jinx-footer {
   min-width: @typical-width;
-  // margin-top: 98px;
   padding-top: 130px;
   background: #292929;
 

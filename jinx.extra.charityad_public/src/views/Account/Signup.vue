@@ -1,10 +1,5 @@
 <template>
   <div class="jinx-panel">
-    <!--<el-row>
-        <el-col :span="24">
-          <div style="border-bottom: 1px solid #e6e6e6; line-height: 50px; font-size: 24px;">登录平台</div>
-        </el-col>
-      </el-row>-->
     <el-row style="padding: 15px 0;">
       <el-col :span="18" style="border-right: 1px solid #e6e6e6;">
         <el-form ref="form" :model="form" label-width="80px" style="padding: 0 20px; margin: 0 auto;">
@@ -234,15 +229,10 @@ export default {
 
 <style lang="less" scoped>
 .jinx-panel {
-  // border: 1px solid #e6e6e6;
   background: white;
   width: @typical-width;
   padding: 15px;
   box-sizing: border-box;
-  // margin: 20px auto;
   margin: 30px auto 0 auto;
-  // -moz-box-shadow: 0px -6px 20px #e0e4e9;
-  // -webkit-box-shadow: 0px -6px 20px #e0e4e9;
-  // box-shadow: 0px -6px 20px #e0e4e9;
 }
 </style>

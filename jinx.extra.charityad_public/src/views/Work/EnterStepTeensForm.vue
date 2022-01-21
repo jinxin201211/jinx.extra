@@ -541,7 +541,6 @@ export default {
     handleNextStep: function() {
       this.ValidateErrorMessage = [];
       this.$refs["form"].validate(valid => {
-        // console.log(this.ValidateErrorMessage);
         if (valid) {
           this.submit();
         } else {

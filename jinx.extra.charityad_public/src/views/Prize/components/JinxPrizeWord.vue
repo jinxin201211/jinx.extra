@@ -33,8 +33,6 @@ export default {
           .then(result => {
             let html = result.value; // The generated HTML
             let messages = result.messages; // Any messages, such as warnings during conversion
-            // console.log(html);
-            // console.log(messages);
             _this.HTML = html;
           })
           .done();
@@ -45,22 +43,17 @@ export default {
     // this.axios
     //   .get(this.src)
     //   .then(function(response) {
-    //     console.log(response.data);
     //     let str = response.data;
     //     let buf = new ArrayBuffer(str.length * 2); // 每个字符占用2个字节
     //     let bufView = new Uint16Array(buf);
     //     for (let i = 0, strLen = str.length; i < strLen; i++) {
     //       bufView[i] = str.charCodeAt(i);
     //     }
-    //     console.log(buf);
-    //     console.log(bufView);
     //     mammoth
     //       .convertToHtml({ arrayBuffer: buf })
     //       .then(function(result) {
     //         let html = result.value; // The generated HTML
     //         let messages = result.messages; // Any messages, such as warnings during conversion
-    //         console.log(html);
-    //         console.log(messages);
     //         this.HTML = html;
     //       })
     //       .done();
@@ -73,8 +66,6 @@ export default {
     //   .then(function(result) {
     //     let html = result.value; // The generated HTML
     //     let messages = result.messages; // Any messages, such as warnings during conversion
-    //     console.log(html);
-    //     console.log(messages);
     //     this.HTML = html;
     //   })
     //   .done();

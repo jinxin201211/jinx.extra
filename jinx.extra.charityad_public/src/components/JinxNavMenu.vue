@@ -20,10 +20,6 @@ export default {
   methods: {
     scrollToSection(path) {
       this.$emit("scrolltoview", path);
-      // let section = document.getElementById(path);
-      // if (section) {
-      //   section.scrollIntoView({ behavior: "smooth" });
-      // }
     }
   }
 };
@@ -48,7 +44,6 @@ export default {
     padding: 0;
     width: @typical-width;
     list-style: none;
-    // border-bottom: none;
     height: 60px;
     line-height: 60px;
     text-align: right;
