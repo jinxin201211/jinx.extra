@@ -40,11 +40,12 @@ import "@/assets/js/file.type.js";
 
 window.$VuexPrefix = "charity.public.";
 window.$CookieStoreDays = 7;
-window.$Server = "http://hbsggyjy.hebtu.edu.cn";
+// window.$Server = "http://hbsggyjy.hebtu.edu.cn";
+window.$Server = "http://www.hbsggyjy.cn";
 // window.$Server = "http://127.0.0.1";
 window.$FileUploadServer = window.$Server + ":8084";
 
-Vue.prototype.$Host = "hbsggyjy.hebtu.edu.cn";
+Vue.prototype.$Host = "www.hbsggyjy.cn";
 Vue.prototype.$Domain = "http://" + Vue.prototype.$Host;
 Vue.prototype.$FileGetServer = `${window.$Server}/img/`;
 Vue.prototype.$CertFileGetServer = window.$Server + ":8084/gameWorks2/downloadCert?file_name=";

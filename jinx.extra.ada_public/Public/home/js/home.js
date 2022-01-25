@@ -407,3 +407,7 @@ $(function(){
         
     })
 })
+
+$(function () {
+  $('#home').attr('href', 'http://www.hbsggyjy.cn');
+})

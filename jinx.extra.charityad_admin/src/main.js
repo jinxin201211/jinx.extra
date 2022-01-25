@@ -46,7 +46,9 @@ import "@/assets/js/file.type.js";
 
 window.$VuexPrefix = "charity.admin.";
 // window.$Server = "http://47.108.88.211"; // todo
-window.$Server = "http://hbsggyjy.hebtu.edu.cn";
+// window.$Server = "http://hbsggyjy.hebtu.edu.cn";
+window.$Server = "http://www.hbsggyjy.cn"; // todo
+// window.$Server = "http://127.0.0.1";
 // window.$Server = "http://49.233.122.67";
 // window.$Server = "http://localhost";
 Vue.prototype.$ImagePostServer = window.$Server + ":9091";
