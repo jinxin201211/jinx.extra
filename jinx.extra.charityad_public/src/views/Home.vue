@@ -343,7 +343,7 @@ export default {
     // this.$alert("①电子版证书请于2022年1月4号后登陆账号在我的作品里进行下载（使用chrome浏览器下载）。<br />②如需指导及主办单位证明材料，下载路径同上。<br />③网站将于1月25号更换新的域名(www.hbsggyjy.cn)，请及时更新收藏夹", "", {
     //   dangerouslyUseHTMLString: true
     // });
-    this.$alert("因疫情影响导致邮寄的证书可能会延迟，请大家耐心等待一下");
+    this.$alert("因疫情影响导致邮寄的证书可能会延迟，请大家耐心等待一下，如急需请与组委会联系");
   },
   beforeRouteLeave(to, from, next) {
     window.clearTimeout(this.work.carousel);
