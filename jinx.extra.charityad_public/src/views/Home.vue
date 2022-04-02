@@ -340,9 +340,10 @@ export default {
     //   dangerouslyUseHTMLString: true
     // });
     // this.$alert("电子版获奖证书下载，请于1月4号开始。登陆账号后在我的作品里面下载电子版证书");
-    this.$alert("①电子版证书请于2022年1月4号后登陆账号在我的作品里进行下载（使用chrome浏览器下载）。<br />②如需指导及主办单位证明材料，下载路径同上。<br />③网站将于1月25号更换新的域名(www.hbsggyjy.cn)，请及时更新收藏夹", "", {
-      dangerouslyUseHTMLString: true
-    });
+    // this.$alert("①电子版证书请于2022年1月4号后登陆账号在我的作品里进行下载（使用chrome浏览器下载）。<br />②如需指导及主办单位证明材料，下载路径同上。<br />③网站将于1月25号更换新的域名(www.hbsggyjy.cn)，请及时更新收藏夹", "", {
+    //   dangerouslyUseHTMLString: true
+    // });
+    this.$alert("因疫情影响导致邮寄的证书可能会延迟，请大家耐心等待一下");
   },
   beforeRouteLeave(to, from, next) {
     window.clearTimeout(this.work.carousel);
