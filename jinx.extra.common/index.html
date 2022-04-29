@@ -90,86 +90,10 @@
       letter-spacing: 2px;
       background-image: linear-gradient(0deg, #a22f23, #e7948d);
     }
-
-    .jinx-message {
-      position: fixed;
-      top: 20px;
-      min-width: 380px;
-      box-sizing: border-box;
-      border-radius: 4px;
-      border-width: 1px;
-      border-style: solid;
-      border-color: #EBEEF5;
-      position: fixed;
-      left: 50%;
-      top: 20px;
-      transform: translateX(-50%);
-      background-color: #edf2fc;
-      transition: opacity .3s, transform .4s, top .4s;
-      overflow: hidden;
-      padding: 15px 15px 15px 20px;
-      display: flex;
-      align-items: center;
-      top: -20px;
-      /* visibility: hidden; */
-      opacity: 0;
-      transition: all .2s ease-in-out;
-    }
-
-    .jinx-message.display {
-      top: 20px;
-      opacity: 1;
-      /* visibility: visible; */
-    }
-
-    .jinx-message>.info {
-      fill: #909399;
-      width: 14px;
-      height: 14px;
-      margin-right: 10px;
-    }
-
-    .jinx-message>.content {
-      padding: 0;
-      font-size: 14px;
-      line-height: 1;
-      color: #909399;
-      margin: 0;
-      /* padding-right: 16px; */
-    }
-
-    .jinx-message>.close {
-      fill: #C0C4CC;
-      width: 14px;
-      height: 14px;
-      cursor: pointer;
-    }
-
-    .jinx-message>.close:hover {
-      fill: #909399;
-    }
   </style>
 </head>
 
 <body id="app">
-  <div role="alert" id="notification" class="jinx-message">
-    <svg t="1640312860142" class="info" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
-      p-id="2036">
-      <path
-        d="M512 96c-229.76 0-416 186.24-416 416s186.24 416 416 416 416-186.24 416-416-186.24-416-416-416zM577.248 665.056c-31.392 47.136-63.328 83.456-117.056 83.456-36.672-5.984-51.744-32.256-43.808-59.04l69.12-228.928c1.696-5.6-1.12-11.584-6.24-13.408-5.088-1.792-15.072 4.832-23.712 14.304l-41.792 50.272c-1.12-8.448-0.128-22.4-0.128-28.032 31.392-47.136 82.976-84.32 117.952-84.32 33.248 3.392 48.992 29.984 43.2 59.2l-69.6 230.048c-0.928 5.184 1.824 10.464 6.528 12.128 5.12 1.792 15.872-4.832 24.544-14.304l41.76-50.24c1.12 8.448-0.768 23.232-0.768 28.864zM567.936 366.048c-26.432 0-47.872-19.264-47.872-47.616s21.44-47.584 47.872-47.584 47.872 19.264 47.872 47.584c0 28.384-21.44 47.616-47.872 47.616z"
-        p-id="2037"></path>
-    </svg>
-    <p class="content">网站将于1月25号更换新的域名(www.hbsggyjy.cn)，请及时更新收藏夹</p>
-    <svg t="1640313000663" class="close" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
-      p-id="2822" onclick="handleCloseMessage()">
-      <path
-        d="M176.661601 817.172881C168.472798 825.644055 168.701706 839.149636 177.172881 847.338438 185.644056 855.527241 199.149636 855.298332 207.338438 846.827157L826.005105 206.827157C834.193907 198.355983 833.964998 184.850403 825.493824 176.661601 817.02265 168.472798 803.517069 168.701706 795.328267 177.172881L176.661601 817.172881Z"
-        p-id="2823"></path>
-      <path
-        d="M795.328267 846.827157C803.517069 855.298332 817.02265 855.527241 825.493824 847.338438 833.964998 839.149636 834.193907 825.644055 826.005105 817.172881L207.338438 177.172881C199.149636 168.701706 185.644056 168.472798 177.172881 176.661601 168.701706 184.850403 168.472798 198.355983 176.661601 206.827157L795.328267 846.827157Z"
-        p-id="2824"></path>
-    </svg>
-  </div>
   <div
     style="width: 100%; height: 100%; margin: 0 atuo; text-align: center; display: flex; justify-content: center; align-items: center;">
     <div>
