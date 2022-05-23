@@ -54,7 +54,8 @@ export default {
         { path: "/score/round2", access: ["judge", "leader"], title: "作品打分(第二轮)" },
         { path: "/score/round3", access: ["leader"], title: "作品打分(第三轮)" },
         { path: "/score/round32", access: ["judge"], title: "作品打分(第三轮)" },
-        { path: "/score/rank", access: ["judge", "leader"], title: "获奖查询" }
+        { path: "/score/rank", access: ["judge", "leader"], title: "获奖查询" },
+        { path: "/score/progress", access: ["admin"], title: "评审进度" }
       ],
       RouteList: [],
       User: this.$store.state.User,

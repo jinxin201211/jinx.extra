@@ -66,10 +66,11 @@
 
     <div style="position: absolute; bottom: 0; left: 0; width: 100%; padding: 20px; box-shadow: rgba(0, 0, 0, 0.5) 0px 1px 5px 0px; background: #ffffff; box-sizing: border-box;">
       <div style="position: relative; text-align: center;">
-        <el-radio-group v-model="appraisal" :disabled="submit_status.disabled || submit_status.loading" @change="handleAppraisalChange" :loading="submit_status.loading">
+        <el-rate v-model="Score" :max="10" :disabled="submit_status.disabled || submit_status.loading" show-score score-template="{value}" style="display: inline-block; margin-right: 20px;" @change="handleScoreChange"></el-rate>
+        <!-- <el-radio-group v-model="appraisal" :disabled="submit_status.disabled || submit_status.loading" @change="handleAppraisalChange" :loading="submit_status.loading">
           <el-radio label="1" border>通过</el-radio>
           <el-radio label="2" border>不通过</el-radio>
-        </el-radio-group>
+        </el-radio-group> -->
         <!--<el-button size="small" type="primary" @click="handleSubmit" :loading="submit_status.loading" :disabled="submit_status.disabled || appraisal === null || appraisal === ''" style="margin: 15px;">确 定</el-button>-->
       </div>
       <el-divider></el-divider>
@@ -105,7 +106,7 @@ export default {
         loading: false,
         disabled: false
       },
-      appraisal: null,
+      Score: 0,
       query: {
         limit: this.$route.query.limit * 1,
         page: this.$route.query.page * 1,
@@ -130,33 +131,33 @@ export default {
     },
     getList: function() {
       let loading = this.$loading({ target: "#page" });
-      let that = this;
-      that.next_status.disabled = false;
+      let _this = this;
+      _this.next_status.disabled = false;
       this.axios
         .post("/api/gameWorks3/getNoAppraisalList_Round1", qs.stringify(this.query))
         .then(function(response) {
           if (response && response.data.code == "0") {
-            that.count = response.data.count * 1;
+            _this.count = response.data.count * 1;
             if (response.data.data.length == 0) {
-              that.WorksInfo = {
+              _this.WorksInfo = {
                 works: {},
                 works_file: {}
               };
-              that.submit_status.disabled = true;
-              that.next_status.disabled = true;
-              that.query.index = 0;
-              // that.query.page--;
-              that.$message({
+              _this.submit_status.disabled = true;
+              _this.next_status.disabled = true;
+              _this.query.index = 0;
+              // _this.query.page--;
+              _this.$message({
                 showClose: true,
                 message: "没有更多的作品需要评审",
                 type: "warning"
               });
             } else {
-              that.List = response.data.data;
-              that.getNextWork();
+              _this.List = response.data.data;
+              _this.getNextWork();
             }
           } else {
-            that.$message({
+            _this.$message({
               showClose: true,
               message: response.data.msg,
               type: "warning"
@@ -167,7 +168,7 @@ export default {
         .catch(function(err) {
           console.log(err);
           loading.close();
-          that.$message({
+          _this.$message({
             showClose: true,
             message: "获取作品失败",
             type: "warning"
@@ -196,62 +197,62 @@ export default {
     },
     getNextWork: function() {
       let loading = this.$loading({ target: "#page" });
-      let that = this;
+      let _this = this;
       this.next_status.loading = true;
-      that.submit_status.disabled = false;
+      _this.submit_status.disabled = false;
       if (this.query.index > this.List.length - 1) {
         this.query.index = this.List.length - 1;
       }
-      this.appraisal = null;
+      this.Score = 0;
       this.PreviewSrcList = [];
       this.axios
         .get("/api/gameWorks3/getOne", { params: { wid: this.List[this.query.index].wid } })
         .then(function(response) {
           if (response && response.data.code == "0") {
-            that.WorksInfo.works = response.data.data;
-            let type = that.$WorksTypeCode.find(x => x.code == that.WorksInfo.works.worksType);
-            that.WorksInfo.works.worksType = type == null ? "" : type.value;
-            if (that.WorksInfo.works.state != null) {
-              that.appraisal = that.WorksInfo.works.state + "";
+            _this.WorksInfo.works = response.data.data;
+            if (_this.WorksInfo.works.state != null) {
+              _this.Score = _this.WorksInfo.works.state * 1;
             }
-            that.WorksInfo.works_file = [];
-            if (that.WorksInfo.works.file1) {
-              that.WorksInfo.works_file.push(that.WorksInfo.works.file1);
+            let type = _this.$WorksTypeCode.find(x => x.code == _this.WorksInfo.works.worksType);
+            _this.WorksInfo.works.worksType = type == null ? "" : type.value;
+            _this.WorksInfo.works_file = [];
+            if (_this.WorksInfo.works.file1) {
+              _this.WorksInfo.works_file.push(_this.WorksInfo.works.file1);
             }
-            if (that.WorksInfo.works.file2) {
-              that.WorksInfo.works_file.push(that.WorksInfo.works.file2);
+            if (_this.WorksInfo.works.file2) {
+              _this.WorksInfo.works_file.push(_this.WorksInfo.works.file2);
             }
-            if (that.WorksInfo.works.file3) {
-              that.WorksInfo.works_file.push(that.WorksInfo.works.file3);
+            if (_this.WorksInfo.works.file3) {
+              _this.WorksInfo.works_file.push(_this.WorksInfo.works.file3);
             }
-            if (that.WorksInfo.works.file4) {
-              that.WorksInfo.works_file.push(that.WorksInfo.works.file4);
+            if (_this.WorksInfo.works.file4) {
+              _this.WorksInfo.works_file.push(_this.WorksInfo.works.file4);
             }
-            if (that.WorksInfo.works.file5) {
-              that.WorksInfo.works_file.push(that.WorksInfo.works.file5);
+            if (_this.WorksInfo.works.file5) {
+              _this.WorksInfo.works_file.push(_this.WorksInfo.works.file5);
             }
-            for (let i = 0; i < that.WorksInfo.works_file.length; i++) {
-              if (that.isImage(that.WorksInfo.works_file[i])) {
-                that.PreviewSrcList.push(that.$ImageGetServer + that.WorksInfo.works_file[i]);
+            for (let i = 0; i < _this.WorksInfo.works_file.length; i++) {
+              if (_this.isImage(_this.WorksInfo.works_file[i])) {
+                _this.PreviewSrcList.push(_this.$ImageGetServer + _this.WorksInfo.works_file[i]);
               }
             }
           } else {
-            that.submit_status.disabled = true;
-            that.$message({
+            _this.submit_status.disabled = true;
+            _this.$message({
               showClose: true,
               message: response.data.msg,
               type: "warning"
             });
           }
           loading.close();
-          that.next_status.loading = false;
+          _this.next_status.loading = false;
         })
         .catch(function(err) {
           console.log(err);
           loading.close();
-          that.submit_status.disabled = true;
-          that.next_status.loading = false;
-          that.$message({
+          _this.submit_status.disabled = true;
+          _this.next_status.loading = false;
+          _this.$message({
             showClose: true,
             message: "获取作品信息失败",
             type: "warning"
@@ -259,49 +260,49 @@ export default {
         });
     },
     handleSubmit: function() {
-      if (this.appraisal == "") {
+      if (this.Score === 0) {
         this.$message({
           type: "warning",
-          message: "请选择是否通过"
+          message: "没有打分，不能提交"
         });
         return;
       }
 
       this.submit();
     },
-    handleAppraisalChange() {
+    handleScoreChange() {
       this.submit();
     },
     submit: function() {
-      let that = this;
+      let _this = this;
       let data = {
         wid: this.WorksInfo.works.wid,
-        state: this.appraisal
+        state: this.Score
       };
-      that.submit_status.loading = true;
+      _this.submit_status.loading = true;
       this.axios
         .post("/api/gameWorks3/appraisal_round1", qs.stringify(data))
         .then(function(response) {
           if (response && response.data.code == "0") {
-            that.$message({
+            _this.$message({
               showClose: true,
               message: "提交成功",
               type: "success"
             });
-            that.handleNextWorks();
+            _this.handleNextWorks();
           } else {
-            that.$message({
+            _this.$message({
               showClose: true,
               message: response.data.msg,
               type: "warning"
             });
           }
-          that.submit_status.loading = false;
+          _this.submit_status.loading = false;
         })
         .catch(function(err) {
           console.log(err);
-          that.submit_status.loading = false;
-          that.$message({
+          _this.submit_status.loading = false;
+          _this.$message({
             showClose: true,
             message: "提交失败",
             type: "warning"

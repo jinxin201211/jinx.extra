@@ -253,6 +253,15 @@ const routes = [
           title: "评审结果",
           access: ["admin"]
         }
+      },
+      {
+        path: "/score/progress",
+        name: "scoreprogress",
+        component: () => import("../views/Work/Progress/Main.vue"),
+        meta: {
+          title: "评审进度",
+          access: ["admin"]
+        }
       }
     ]
   },

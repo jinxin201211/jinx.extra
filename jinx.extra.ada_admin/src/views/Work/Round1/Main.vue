@@ -6,19 +6,23 @@
     </el-breadcrumb>
 
     <div>
-      <el-select v-model="query.state" placeholder="全部" style="width: 120px; margin-right: 10px;" @change="handleRefreshList">
+      <!-- <el-select v-model="query.state" placeholder="全部" style="width: 120px; margin-right: 10px;" @change="handleRefreshList">
         <el-option label="全部" value=""></el-option>
         <el-option label="未评审" value="0"></el-option>
         <el-option label="通过" value="1"></el-option>
         <el-option label="不通过" value="2"></el-option>
-      </el-select>
+      </el-select> -->
       <el-button @click="handleRefreshList" :loading="loading">刷新列表</el-button>
       <el-button @click="handleBeginScore" type="primary">开始评审</el-button>
     </div>
     <div style="line-height: 40px; color: #787878;">
-      <span style="margin: 0 20px;">总数：<span v-text="statistics.total_num"></span></span>
+      <span style="margin-right: 20px;">作品总数：<span v-text="statistics.total_num"></span></span>
+      <span style="margin: 0 20px;">需评审数：<span v-text="statistics.appraisal_total_num"></span></span>
       <span style="margin: 0 20px;">已评审数：<span v-text="statistics.appraisal_num"></span></span>
-      <span style="margin: 0 20px;">通过数：<span v-text="statistics.pass_num"></span></span>
+      <!-- <span style="margin: 0 20px;">通过数：<span v-text="statistics.pass_num"></span></span> -->
+      <!-- <span style="margin: 0 20px;">总数：<span v-text="statistics.total_num"></span></span>
+      <span style="margin: 0 20px;">已评审数：<span v-text="statistics.appraisal_num"></span></span>
+      <span style="margin: 0 20px;">通过数：<span v-text="statistics.pass_num"></span></span> -->
     </div>
 
     <el-table :data="List" stripe style="width: 100%" @row-dblclick="handleRowDbclick">
@@ -48,13 +52,13 @@ export default {
       List: [],
       query: {
         page: 1,
-        limit: 10,
-        state: ""
+        limit: 10
       },
       total: 0,
       loading: false,
       statistics: {
         total_num: 0,
+        appraisal_total_num: 0,
         appraisal_num: 0,
         pass_num: 0
       }
@@ -72,17 +76,18 @@ export default {
     },
     getList() {
       this.loading = true;
-      let that = this;
+      const _this = this;
       this.axios
         .post("/api/gameWorks3/getNoAppraisalList_Round1", qs.stringify(this.query))
         .then(function(response) {
           if (response && response.data.code == "0") {
-            that.List = response.data.data;
-            that.List.forEach(p => {
-              let type = that.$WorksTypeCode.find(x => x.code == p.worksType);
+            _this.List = response.data.data;
+            _this.List.forEach(p => {
+              let type = _this.$WorksTypeCode.find(x => x.code == p.worksType);
               p.worksType = type == null ? "" : type.value;
 
-              p.state = p.state == null || p.state * 1 === 0 ? "-" : p.state * 1 === 1 ? "通过" : "不通过";
+              // p.state = p.state == null || p.state * 1 === 0 ? "-" : p.state * 1 === 1 ? "通过" : "不通过";
+              p.state = p.state == null || p.state * 1 === 0 ? "-" : p.state;
               let authors = [];
               if (p.author1 != null && p.author1 != "") {
                 authors.push(p.author1);
@@ -101,20 +106,20 @@ export default {
               }
               p.author1 = authors.join("，");
             });
-            that.total = response.data.count;
+            _this.total = response.data.count;
           } else {
-            that.$message({
+            _this.$message({
               showClose: true,
               message: response.data.msg,
               type: "warning"
             });
           }
-          that.loading = false;
+          _this.loading = false;
         })
         .catch(function(err) {
           console.log(err);
-          that.loading = false;
-          that.$message({
+          _this.loading = false;
+          _this.$message({
             showClose: true,
             message: "查询列表失败",
             type: "warning"
@@ -122,16 +127,17 @@ export default {
         });
     },
     getProgress() {
-      let that = this;
+      const _this = this;
       this.axios
         .post("/api/gameWorks3/AppraisalProgress_Round1")
         .then(function(response) {
           if (response && response.data.code == "0") {
-            that.statistics.total_num = response.data.data.total_num;
-            that.statistics.appraisal_num = response.data.data.appraisal_num;
-            that.statistics.pass_num = response.data.data.pass_num;
+            _this.statistics.total_num = response.data.data.total_num;
+            _this.statistics.appraisal_total_num = response.data.data.appraisal_total_num;
+            _this.statistics.appraisal_num = response.data.data.appraisal_num;
+            _this.statistics.pass_num = response.data.data.pass_num;
           } else {
-            that.$message({
+            _this.$message({
               showClose: true,
               message: response.data.msg,
               type: "warning"
@@ -140,7 +146,7 @@ export default {
         })
         .catch(function(err) {
           console.log(err);
-          that.$message({
+          _this.$message({
             showClose: true,
             message: "查询进度失败",
             type: "warning"
