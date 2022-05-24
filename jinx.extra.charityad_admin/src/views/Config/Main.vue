@@ -97,7 +97,7 @@ export default {
       this.loading_judge = true;
       const _this = this;
       this.axios
-        .get("/api//gameProcess/GenerateAppraisalInfoForRound1")
+        .get("/api/gameProcess/GenerateAppraisalInfoForRound1")
         .then(function(response) {
           if (response && response.data.code == "0") {
             _this.$message({
