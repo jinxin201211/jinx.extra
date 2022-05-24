@@ -12,6 +12,10 @@
         <el-option label="通过" value="1"></el-option>
         <el-option label="不通过" value="2"></el-option>
       </el-select> -->
+      <el-select v-model="query.state" placeholder="全部" style="width: 120px; margin-right: 10px;" @change="handleRefreshList">
+        <el-option label="全部" value=""></el-option>
+        <el-option label="未评审" value="0"></el-option>
+      </el-select>
       <el-button @click="handleRefreshList" :loading="loading">刷新列表</el-button>
       <el-button @click="handleBeginScore" type="primary">开始评审</el-button>
     </div>
@@ -52,7 +56,8 @@ export default {
       List: [],
       query: {
         page: 1,
-        limit: 10
+        limit: 10,
+        state: ""
       },
       total: 0,
       loading: false,
