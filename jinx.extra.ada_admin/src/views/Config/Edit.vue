@@ -9,7 +9,9 @@
         <el-input v-model="form.remark" style="width: 250px;" disabled readonly></el-input>
       </el-form-item>
       <el-form-item label="值">
-        <el-date-picker v-model="form.sysValue" type="date" placeholder="选择日期" style="width: 250px;" format="yyyy-MM-dd" value-format="yyyy-MM-dd"> </el-date-picker>
+        <el-date-picker v-if="form.sysKey.endsWith('_date')" v-model="form.sysValue" type="date" placeholder="选择日期" style="width: 250px;" format="yyyy-MM-dd" value-format="yyyy-MM-dd"> </el-date-picker>
+        <el-input v-else v-model="form.sysValue" style="width: 250px;"></el-input>
+        <!-- <el-date-picker v-model="form.sysValue" type="date" placeholder="选择日期" style="width: 250px;" format="yyyy-MM-dd" value-format="yyyy-MM-dd"> </el-date-picker> -->
       </el-form-item>
       <el-form-item>
         <el-button type="primary" @click="handleSubmit" :loading="loading">提 交</el-button>
