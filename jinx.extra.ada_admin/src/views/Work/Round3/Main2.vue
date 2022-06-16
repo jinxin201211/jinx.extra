@@ -40,7 +40,7 @@ export default {
       // total: 0,
       loading: false,
       drawer: false,
-      view_wid: -1,
+      view_wid: "-1",
       submit_status: false
     };
   },
@@ -90,11 +90,11 @@ export default {
         });
     },
     handleView: function(data) {
-      this.view_wid = data.wid;
+      this.view_wid = data.wid + "";
       this.drawer = true;
     },
     handleRowDbclick: function(row, column, event) {
-      this.view_wid = row.wid;
+      this.view_wid = row.wid + "";
       this.drawer = true;
     },
     handleSubmit: function() {

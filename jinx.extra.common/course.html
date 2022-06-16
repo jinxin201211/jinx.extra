@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <title>河北品牌营销大讲堂</title>
+  <meta name="description" content="大广赛  中国大学生好创意 全国大学生广告艺术大赛 河北省公益广告大赛" />
+  <meta name="keywords" content="大广赛  中国大学生好创意 全国大学生广告艺术大赛 河北省公益广告大赛" />
+  <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="./src/js/home.js"></script>
+  <script src="./src/js/axios.min.js"></script>
+  <style>
+    html,
+    body {
+      padding: 0;
+      margin: 0;
+      height: 100%;
+    }
+
+    .jinx-footer {
+      /* bottom: 0;
+      left: 0;
+      position: absolute; */
+      width: 100%;
+      min-width: 1200px;
+      padding-top: 0;
+      background: #292929;
+    }
+
+    .jinx-footer>div {
+      margin: 0 auto;
+      color: #fff;
+      padding: 8px 0;
+      text-align: center;
+    }
+
+    .jinx-footer>a {
+      color: #fff;
+    }
+
+    .jinx-footer>div:first-child {
+      padding-top: 30px;
+    }
+
+    .jinx-footer>div:last-child {
+      padding-bottom: 30px;
+    }
+
+    body {
+      width: 100%;
+      height: 100%;
+      padding-bottom: 155px;
+      box-sizing: border-box;
+      background-size: cover;
+    }
+
+    #courses {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+    }
+
+    .course {
+      width: 300px;
+      height: 200px;
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      margin-bottom: 15px;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .course.hidden {
+      height: 0px;
+      margin: 0;
+    }
+
+    .progress {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      /* background: linear-gradient(to right, rgba(0, 0, 0, 0.75) 0%, rgba(0, 0, 0, 0.75) 50%, rgba(0, 0, 0, 0.25) 50%, rgba(0, 0, 0, 0.25) 100%); */
+      display: flex;
+      font-size: 24px;
+      justify-content: center;
+      align-items: center;
+      color: #ffffff;
+    }
+  </style>
+</head>
+
+<body>
+  <div style="width: 1200px; margin: 0 auto; height: 100%">
+    <div id="courses" style="margin-top: 15px">
+    </div>
+  </div>
+
+  <div data-v-991366fa="" class="jinx-footer">
+    <div>版权所有&nbsp;2020&nbsp;河北省广告研究院&nbsp;（<span id="home_t">hbsggyjy.hebtu.edu.cn</span>）</div>
+    <div>
+      <span style="display: inline-block; vertical-align: bottom; margin-right: 20px;">© 2020&nbsp;</span>
+      <a href="http://hbsggyjy.hebtu.edu.cn" id="home">hbsggyjy.hebtu.edu.cn</a>
+    </div>
+    <div>冀ICP备18011017号-3 冀公网安备 13010802000630号</div>
+  </div>
+
+  <script>
+    let listCourse = [{
+      cover: '/网页内容-大讲堂各期培训/第1场/第1场-大讲堂各期培训背景图.png',
+      video: [{
+        url: '/网页内容-大讲堂各期培训/第1场/22河北品牌大讲堂第1次（22年首场）线上培训会.mp4',
+        loaded: 0,
+        total: 0,
+        downloading: false,
+        complete: false,
+        error: false
+      }]
+    }, {
+      cover: '/网页内容-大讲堂各期培训/第2场/第2场-大讲堂各期培训背景图.png',
+      video: [{
+        url: '/网页内容-大讲堂各期培训/第2场/22年河北品牌营销大讲堂第2次大讲堂会议记录.mp4',
+        loaded: 0,
+        total: 0,
+        downloading: false,
+        complete: false,
+        error: false
+      }]
+    }, {
+      cover: '/网页内容-大讲堂各期培训/第3场/第3场-大讲堂各期培训背景图.png',
+      video: [{
+        url: '/网页内容-大讲堂各期培训/第3场/2022-河北品牌营销大讲堂第3次线上培训会.mp4',
+        loaded: 0,
+        total: 0,
+        downloading: false,
+        complete: false,
+        error: false
+      }]
+    }, {
+      cover: '/网页内容-大讲堂各期培训/第4场/第4场-大讲堂各期培训背景图.png',
+      video: [{
+        url: '/网页内容-大讲堂各期培训/第4场/22年品牌大讲堂第4次线上培训.mp4',
+        loaded: 0,
+        total: 0,
+        downloading: false,
+        complete: false,
+        error: false
+      }, {
+        url: '/网页内容-大讲堂各期培训/第4场/22年品牌大讲堂第4次线上培训的副本.mp4',
+        loaded: 0,
+        total: 0,
+        downloading: false,
+        complete: false,
+        error: false
+      }]
+    }, {
+      cover: '/网页内容-大讲堂各期培训/第5场/第5场-大讲堂各期培训背景图.png',
+      video: [{
+        url: '/网页内容-大讲堂各期培训/第5场/2022三助工程-河北品牌营销大讲堂第5场线上培训.mp4',
+        loaded: 0,
+        total: 0,
+        downloading: false,
+        complete: false,
+        error: false
+      }]
+    }, {
+      cover: '/网页内容-大讲堂各期培训/第6场/第6场-大讲堂各期培训背景图.png',
+      video: [{
+        url: '/网页内容-大讲堂各期培训/第6场/22年品牌大讲堂第6次线上培训.mp4',
+        loaded: 0,
+        total: 0,
+        downloading: false,
+        complete: false,
+        error: false
+      }]
+    }, {
+      cover: '/网页内容-大讲堂各期培训/第7场/第7场-大讲堂各期培训背景图.png',
+      video: [{
+        url: '/网页内容-大讲堂各期培训/第7场/22河北品牌营销大讲堂第7场线上培训会.mp4',
+        loaded: 0,
+        total: 0,
+        downloading: false,
+        complete: false,
+        error: false
+      }]
+    }]
+
+    window.onload = function () {
+      let courses = document.getElementById('courses');
+      courses.innerHTML = '';
+      for (let i = 0; i < listCourse.length; i++) {
+        courses.innerHTML += `<div class="course" onclick="handleCourseClick(${i})" style="background-image: url('${'http://www.hbsggyjy.cn' + '/common/courses' + listCourse[i].cover}')"></div>`
+      }
+      courses.innerHTML += `<div class="course hidden"></div>`
+      courses.innerHTML += `<div class="course hidden"></div>`
+      courses.innerHTML += `<div class="course hidden"></div>`
+    }
+
+    function refreshCourseList(i) {
+      let loaded = 0;
+      let total = 0;
+      let message = [];
+      for (let j = 0; j < listCourse[i].video.length; j++) {
+        if (listCourse[i].video[j].downloading) {
+          const progress = ((listCourse[i].video[j].loaded / listCourse[i].video[j].total) * 100).toFixed(2);
+          message.push('文件' + (j + 1) + '正在下载' + progress + '%')
+        } else if (listCourse[i].video[j].complete) {
+          message.push('文件' + (j + 1) + '下载完成')
+        } else if (listCourse[i].video[j].error) {
+          message.push('文件' + (j + 1) + '下载失败')
+        }
+        loaded += listCourse[i].video[j].loaded;
+        total += listCourse[i].video[j].total;
+      }
+      let innerHTML = '';
+      if (message.length > 0) {
+        const progress = parseInt((loaded / total) * 100);
+        innerHTML = `<div class="progress" style="background: linear-gradient(to right, rgba(0, 0, 0, 0.75) 0%, rgba(0, 0, 0, 0.75) ${progress}%, rgba(120, 120, 120, 0.75) ${progress}%, rgba(120, 120, 120, 0.75) 100%);">${message.join('<br />')}</div>`
+      }
+
+      document.querySelector('.course:nth-child(' + (i + 1) + ')').innerHTML = innerHTML;
+    }
+
+    function handleCourseClick(index) {
+      for (let i = 0; i < listCourse[index].video.length; i++) {
+        if (listCourse[index].video[i].downloading) {
+          return
+        }
+      }
+      for (let i = 0; i < listCourse[index].video.length; i++) {
+        let url = '/common/courses' + listCourse[index].video[i].url;
+        let name = url.split('/')[url.split('/').length - 1];
+        listCourse[index].video[i].downloading = true;
+        listCourse[index].video[i].complete = false;
+        listCourse[index].video[i].error = false;
+        listCourse[index].video[i].total = 0;
+        listCourse[index].video[i].loaded = 0;
+        // downloadAxiosTest(url, name, index, i, refreshCourseList)
+        downloadAxios(url, name, index, i, refreshCourseList)
+      }
+    }
+
+    function downloadAxiosTest(url, name, li, vi, callback) {
+      setTimeout(function f() {
+        listCourse[li].video[vi].loaded = 1 + listCourse[li].video[vi].loaded;
+        listCourse[li].video[vi].total = 100;
+        if (listCourse[li].video[vi].loaded === 80) {
+          listCourse[li].video[vi].downloading = false;
+          listCourse[li].video[vi].error = true;
+          callback(li);
+        }
+        else if (listCourse[li].video[vi].loaded === listCourse[li].video[vi].total) {
+          listCourse[li].video[vi].downloading = false;
+          listCourse[li].video[vi].complete = true;
+          callback(li);
+        } else {
+          callback(li);
+          setTimeout(f, 10);
+        }
+      }, 0);
+    }
+
+    function downloadAxios(url, name, li, vi, callback) {
+      return new Promise((resolve, reject) => {
+        axios(url, {
+          method: 'get',
+          responseType: 'blob',
+          onDownloadProgress: (evt) => {
+            if (typeof callback === 'function') {
+              const progress = parseInt((evt.loaded / evt.total) * 100)
+              listCourse[li].video[vi].loaded = evt.loaded;
+              listCourse[li].video[vi].total = evt.total;
+              if (evt.loaded === evt.total) {
+                listCourse[li].video[vi].downloading = false;
+                listCourse[li].video[vi].complete = true;
+              }
+              callback(li)
+            }
+          },
+        })
+          .then(res => {
+            const type = res.headers['content-type'] //请求头中文件类型
+            const blob = new Blob([res.data])
+            const a = document.createElement('a')
+            a.download = name + '.' + type?.replace('video/', '')
+            a.href = URL.createObjectURL(blob)
+            a.click()
+            URL.revokeObjectURL(a.href)
+            a.remove()
+            resolve()
+          })
+          .catch(err => {
+            if (listCourse[li].video[vi].total === 0) {
+              listCourse[li].video[vi].loaded = 1;
+              listCourse[li].video[vi].total = 1;
+            }
+            listCourse[li].video[vi].error = true
+            listCourse[li].video[vi].downloading = false
+            alert('下载失败')
+            callback(li)
+            reject(err)
+          })
+      })
+    }
+  </script>
+</body>
+
+</html>
