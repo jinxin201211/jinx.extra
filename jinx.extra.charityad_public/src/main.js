@@ -41,8 +41,8 @@ import "@/assets/js/file.type.js";
 window.$VuexPrefix = "charity.public.";
 window.$CookieStoreDays = 7;
 // window.$Server = "http://hbsggyjy.hebtu.edu.cn";
-window.$Server = "http://www.hbsggyjy.cn";
-// window.$Server = "http://127.0.0.1";
+// window.$Server = "http://www.hbsggyjy.cn";
+window.$Server = "http://127.0.0.1";
 window.$FileUploadServer = window.$Server + ":8084";
 
 Vue.prototype.$Host = "www.hbsggyjy.cn";
@@ -61,15 +61,110 @@ Vue.prototype.$WorksGroupCode = [
   { code: "4", value: "抗疫类" }
 ];
 Vue.prototype.$WorksSeriesCode = [
-  { code: "A", value: "“建党百年，担使命”方向" },
-  { code: "B", value: "“社会文明，树新风”方向" },
-  { code: "C", value: "“美丽河北，迎冬奥”方向" },
-  { code: "D", value: "“和谐社会，谋发展”方向" },
-  { code: "E", value: "“文化传承，助教育”方向" },
-  { code: "F", value: "“绿色环境，促和谐”方向" },
-  { code: "G", value: "“助力公益，注能量”方向" },
-  { code: "I", value: "I" },
-  { code: "H", value: "H" }
+  {
+    code: "A",
+    value: "“我心向党，喜迎二十大”作品方向",
+    children: [
+      { code: "1", value: "喜迎二十大，奋斗新征程" },
+      { code: "2", value: "传承革命思想，牢记红色党史" },
+      { code: "3", value: "学习革命精神，贡献时代力量" },
+      { code: "4", value: "传播党建文化，助力伟大复兴" },
+      { code: "5", value: "其他" }
+    ]
+  },
+  {
+    code: "B",
+    value: "“崇德向法，社会筑和谐”作品方向",
+    children: [
+      { code: "1", value: "弘扬社会主义核心价值观" },
+      { code: "2", value: "强化法治建设，弘扬法律精神" },
+      { code: "3", value: "净化网络环境，倡导网络道德" },
+      { code: "4", value: "坚持防微杜渐，守护国家安全" },
+      { code: "5", value: "弘扬廉政文化，推进防腐倡廉" },
+      { code: "6", value: "优化营商环境，激发市场活力" },
+      { code: "7", value: "维护市场秩序，保护消费者权益" },
+      { code: "8", value: "其他" }
+    ]
+  },
+  {
+    code: "C",
+    value: "“美丽河北，文明新风尚”作品方向",
+    children: [
+      { code: "1", value: "展示城市形象，塑造城市特色" },
+      { code: "2", value: "推进乡村振兴，建设美丽乡村" },
+      { code: "3", value: "呼吁文明行为，引领城市文明" },
+      { code: "4", value: "倡导全民阅读，构建书香社会" },
+      { code: "5", value: "其他" }
+    ]
+  },
+  {
+    code: "D",
+    value: "“传承文化，科技促发展”作品方向",
+    children: [
+      { code: "1", value: "传承中华文化，弘扬民族精神" },
+      { code: "2", value: "建设文化强国，提高文化自信" },
+      { code: "3", value: "加强科技创新，保护知识产权" },
+      { code: "4", value: "保护传统节日，彰显文化内涵" },
+      { code: "5", value: "其他" }
+    ]
+  },
+  {
+    code: "E",
+    value: "“保护环境，发展可持续”作品方向",
+    children: [
+      { code: "1", value: "节约生态资源，践行持续发展" },
+      { code: "2", value: "厉行节约粮食，制止餐饮浪费" },
+      { code: "3", value: "倡导低碳出行，践行绿色生活" },
+      { code: "4", value: "加强污染治理，守护生存环境" },
+      { code: "5", value: "保护野生生物，共创绿色家园" },
+      { code: "6", value: "其他" }
+    ]
+  },
+  {
+    code: "F",
+    value: "“守护健康，生命有保障”作品方向",
+    children: [
+      { code: "1", value: "关注眼睛健康，守望精彩世界" },
+      { code: "2", value: "弘扬体育精神，倡导全民运动" },
+      { code: "3", value: "筑牢食药安全，减少健康隐患" },
+      { code: "4", value: "倡导全民防疫，致敬医护战士" },
+      { code: "5", value: "其他" }
+    ]
+  },
+  {
+    code: "G",
+    value: "“敬老助老，关爱老年人”作品方向",
+    children: [
+      { code: "1", value: "打击养老诈骗，保护老人权益" },
+      { code: "2", value: "聚焦涉老产品，降低生命隐患" },
+      { code: "3", value: "关注养老需求，丰富老年生活" },
+      { code: "4", value: "传承孝善家风，开展敬老服务" },
+      { code: "5", value: "其他" }
+    ]
+  },
+  {
+    code: "H",
+    value: "“成长护航，呵护青少年”作品方向",
+    children: [
+      { code: "1", value: "树立人生理想，心怀责任担当" },
+      { code: "2", value: "关注校园安全，抵制校园霸凌" },
+      { code: "3", value: "推动教育双减，推动素质发展" },
+      { code: "4", value: "强化心理教育，呵护心理健康" },
+      { code: "5", value: "遵守文明礼仪，共创文明校园" },
+      { code: "6", value: "心系希望工程，助梦贫困学子" },
+      { code: "7", value: "其他" }
+    ]
+  },
+  {
+    code: "I",
+    value: "“全民参与，公益无止境”作品方向",
+    children: [
+      { code: "1", value: "弘扬公益精神，传播公益文化" },
+      { code: "2", value: "褒扬善行义举，汇聚文明正气" },
+      { code: "3", value: "全民心向公益，传递社会爱心" },
+      { code: "4", value: "其他" }
+    ]
+  }
 ];
 Vue.prototype.$WorksTypeCode = [
   { code: "1", value: "平面类" },

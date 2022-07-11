@@ -35,7 +35,7 @@
           <el-input v-model="form.worksName" maxlength="200"></el-input>
         </el-form-item>
         <el-row>
-          <el-col :span="12">
+          <el-col :span="8">
             <el-form-item
               label="作品类别"
               prop="worksSeries"
@@ -49,12 +49,36 @@
                 }
               ]"
             >
-              <el-radio-group v-model="form.worksSeries" id="radioWorksSeries">
+              <el-select v-model="form.worksSeries" placeholder="请选择">
+                <el-option v-for="(item, index) in $WorksSeriesCode" :key="'worksseries' + index" :label="item.code + ':' + item.value" :value="item.code"> </el-option>
+              </el-select>
+              <!-- <el-radio-group v-model="form.worksSeries" id="radioWorksSeries">
                 <el-radio :label="item.code" v-for="(item, index) in $WorksSeriesCode" :key="'series' + index"> {{ item.code + ":" + item.value }}</el-radio>
-              </el-radio-group>
+              </el-radio-group> -->
             </el-form-item>
           </el-col>
-          <el-col :span="12">
+          <el-col :span="8">
+            <el-form-item
+              prop="worksSeriesSub"
+              required
+              :rules="[
+                {
+                  validator: (rule, value, callback) => {
+                    validateRequired(rule, value, callback, '请选择作品主题');
+                  },
+                  trigger: ['blur', 'change']
+                }
+              ]"
+            >
+              <el-select v-model="form.worksSeriesSub" placeholder="请选择">
+                <el-option v-for="(item, index) in $WorksSeriesSubCode" :key="'worksseriessub' + index" :label="item.code + ':' + item.value" :value="item.code"> </el-option>
+              </el-select>
+              <!-- <el-radio-group v-model="form.worksSeriesSub" id="radioWorksSeriesSub">
+                <el-radio :label="item.code" v-for="(item, index) in $WorksSeriesSubCode" :key="'series' + index"> {{ item.code + ":" + item.value }}</el-radio>
+              </el-radio-group> -->
+            </el-form-item>
+          </el-col>
+          <el-col :span="8">
             <el-form-item
               prop="worksType"
               required
@@ -67,9 +91,9 @@
                 }
               ]"
             >
-              <el-radio-group v-model="form.worksType" @change="handleWorksTypeChange">
-                <el-radio :label="item.code" v-for="(item, index) in $WorksTypeCode" :key="'series' + index"> {{ item.code + ":" + item.value }}</el-radio>
-              </el-radio-group>
+              <el-select v-model="form.worksType" placeholder="请选择">
+                <el-option v-for="(item, index) in $WorksTypeCode" :key="'workstype' + index" :label="item.code + ':' + item.value" :value="item.code"> </el-option>
+              </el-select>
             </el-form-item>
           </el-col>
         </el-row>
@@ -333,6 +357,7 @@ export default {
         wno: "",
         worksName: "",
         worksSeries: "",
+        worksSeriesSub: "",
         worksType: "",
         materialSurce: "",
         author1: "",
@@ -393,6 +418,15 @@ export default {
       ValidateErrorMessage: [],
       ErrorNotify: null
     };
+  },
+  computed: {
+    $WorksSeriesSubCode() {
+      if (this.form.worksSeries) {
+        return this.$WorksSeriesCode.find(p => p.code === this.form.worksSeries).children;
+      } else {
+        return [];
+      }
+    }
   },
   beforeRouteLeave(to, from, next) {
     if (this.ErrorNotify) {
@@ -588,10 +622,6 @@ export default {
 .el-radio {
   margin-bottom: 5px;
   margin-top: 5px;
-}
-
-#radioWorksSeries > .el-radio {
-  min-width: 170px;
 }
 
 /deep/ #txtCreativeOverview > .el-form-item__content {
