@@ -66,7 +66,7 @@
           <div class="title" v-text="index + 1 + '. ' + item.worksName"></div>
           <div class="files">
             <div class="audio" v-for="(item2, index2) in item.files" :key="`Result${index}Files${index2}`">
-              <audio :src="$FileGetServer + item2" controls="controls" style="width: 100%; margin: 0 auto; max-width: 960px">您的浏览器不支持 audio 标签。</audio>
+              <audio :src="$FileGetServer + item2" controls="controls" controlsList="nodownload" oncontextmenu="return false" style="width: 100%; margin: 0 auto; max-width: 960px">您的浏览器不支持 audio 标签。</audio>
             </div>
           </div>
         </div>
@@ -185,6 +185,7 @@ export default {
     };
   },
   created() {
+    this.initFobidenDuplicate();
     this.initAttr();
     this.getFullRankList(); //todo
   },
@@ -192,6 +193,32 @@ export default {
     this.initWindowResize();
   },
   methods: {
+    initFobidenDuplicate() {
+      // var threshold = 200;
+      // var widthThreshold = window.outerWidth - window.innerWidth > threshold;
+      // var heightThreshold = window.outerHeight - window.innerHeight > threshold;
+      // if (widthThreshold || heightThreshold) {
+      //   window.location.href = "http://www.archcollege.com/archcollege/2018/07/41200.html@";
+      // }
+      const _this = this;
+      this.$nextTick(() => {
+        // 禁止右键
+        document.oncontextmenu = new Function("event.returnValue=false");
+        // 禁止F12
+        document.onkeydown = function(e) {
+          let currKey = 0,
+            evt = e || window.event;
+          currKey = evt.keyCode || evt.which || evt.charCode;
+          if (currKey == 123 || (evt.ctrlKey && currKey == 67)) {
+            //F12或Ctrl+c
+            _this.$alert("涉及版权，如需下载，请联系韩老师(15632194562)，薛老师(15226528135)");
+            e.preventDefault();
+            e.stopPropagation();
+            return false;
+          }
+        };
+      });
+    },
     handleOpenBaiduYunPan(link) {
       window.open(link);
     },
@@ -648,5 +675,14 @@ export default {
 .el-drawer__container:focus:hover,
 .el-drawer__wrapper:focus {
   outline: none;
+}
+
+audio::-webkit-media-controls {
+  overflow: hidden !important;
+}
+
+audio::-webkit-media-controls-enclosure {
+  width: calc(100% + 32px);
+  margin-left: auto;
 }
 </style>
