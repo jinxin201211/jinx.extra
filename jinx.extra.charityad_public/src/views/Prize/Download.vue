@@ -685,4 +685,8 @@ audio::-webkit-media-controls-enclosure {
   width: calc(100% + 32px);
   margin-left: auto;
 }
+
+.el-image > img {
+  user-select: none;
+}
 </style>
