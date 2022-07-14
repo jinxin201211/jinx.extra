@@ -142,6 +142,7 @@ import JinxPrizeImage from "./components/JinxPrizeImage.vue";
 import JinxVideoPlayer from "@/components/JinxVideoPlayer.vue";
 import pdf from "vue-pdf";
 import JinxPrizeWord from "./components/JinxPrizeWord.vue";
+import { finished } from "stream";
 export default {
   components: { JinxPrizeImage, JinxVideoPlayer, pdf, JinxPrizeWord },
   data() {
@@ -218,6 +219,17 @@ export default {
           }
         };
       });
+      setTimeout(function f() {
+        let images = document.getElementsByTagName("img");
+        for (let i = 0; i < images.length; i++) {
+          images[i].ondragstart = e => {
+            e.stopPropagation();
+            e.preventDefault();
+            return false;
+          };
+        }
+        setTimeout(f, 1000);
+      }, 0);
     },
     handleOpenBaiduYunPan(link) {
       window.open(link);
