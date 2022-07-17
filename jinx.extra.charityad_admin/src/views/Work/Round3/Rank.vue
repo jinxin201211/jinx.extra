@@ -118,8 +118,6 @@ export default {
             data.forEach(p => {
               let game_type = _this.$WorksGroupCode.find(x => x.code == p.gameType);
               p.gameType = game_type == null ? "" : game_type.value;
-              let series = _this.$WorksSeriesCode.find(x => x.code == p.worksSeries);
-              p.worksSeries = series == null ? "" : series.value;
               let type = _this.$WorksTypeCode.find(x => x.code == p.worksType);
               p.worksType = type == null ? "" : type.value;
               let source = _this.$MaterialSurceCode.find(x => x.code == p.materialSurce);

@@ -29,7 +29,7 @@
         </div>
         <div class="jinx-works-info">
           <span>作品主题</span>
-          <span v-text="WorksInfo.works.worksSeries"></span>
+          <span v-text="WorksSeries"></span>
         </div>
         <div class="jinx-works-info">
           <span>作品类别</span>
@@ -96,45 +96,56 @@ export default {
       game_type: -1
     };
   },
+  computed: {
+    WorksSeries() {
+      let series = "";
+      if (this.WorksInfo.works.worksSeries) {
+        series += this.WorksInfo.works.worksSeries;
+      }
+      if (this.WorksInfo.works.worksSeriesSub) {
+        series += " | " + this.WorksInfo.works.worksSeriesSub;
+      }
+      return series;
+    }
+  },
   mounted() {
     this.getWorksData();
   },
   methods: {
     getWorksData: function() {
       let loading = this.$loading({ target: "#page" });
-      let that = this;
+      let _this = this;
       // this.next_status.loading = true;
-      // that.submit_status.disabled = false;
+      // _this.submit_status.disabled = false;
       this.axios
         .get("/api/gameWorks2/getOne", { params: { wid: this.wid } })
         .then(function(response) {
           if (response && response.data.code == "0") {
-            that.WorksInfo = response.data.data;
-            that.game_type = that.WorksInfo.works.gameType;
-            if (that.WorksInfo.works.gameType === "4") {
-              that.WorksInfo.works.gameType = that.$WorksGroupCode.find(p => p.code == that.WorksInfo.works.gameType).value;
-              that.WorksInfo.works.worksType = that.$WorksTypeCode.find(p => p.code == that.WorksInfo.works.worksType).value;
+            _this.WorksInfo = response.data.data;
+            _this.game_type = _this.WorksInfo.works.gameType;
+            if (_this.WorksInfo.works.gameType === "4") {
+              _this.WorksInfo.works.gameType = _this.$WorksGroupCode.find(p => p.code == _this.WorksInfo.works.gameType).value;
+              _this.WorksInfo.works.worksType = _this.$WorksTypeCode.find(p => p.code == _this.WorksInfo.works.worksType).value;
             } else {
-              that.WorksInfo.works.gameType = that.$WorksGroupCode.find(p => p.code == that.WorksInfo.works.gameType).value;
-              that.WorksInfo.works.worksSeries = that.$WorksSeriesCode.find(p => p.code == that.WorksInfo.works.worksSeries).value;
-              that.WorksInfo.works.worksType = that.$WorksTypeCode.find(p => p.code == that.WorksInfo.works.worksType).value;
-              that.WorksInfo.works.materialSurce = that.$MaterialSurceCode.find(p => p.code == that.WorksInfo.works.materialSurce).value;
+              _this.WorksInfo.works.gameType = _this.$WorksGroupCode.find(p => p.code == _this.WorksInfo.works.gameType).value;
+              _this.WorksInfo.works.worksType = _this.$WorksTypeCode.find(p => p.code == _this.WorksInfo.works.worksType).value;
+              _this.WorksInfo.works.materialSurce = _this.$MaterialSurceCode.find(p => p.code == _this.WorksInfo.works.materialSurce).value;
             }
           } else {
-            that.$message({
+            _this.$message({
               showClose: true,
               message: response.data.msg,
               type: "warning"
             });
           }
           loading.close();
-          // that.next_status.loading = false;
+          // _this.next_status.loading = false;
         })
         .catch(function(err) {
           console.log(err);
           loading.close();
-          // that.next_status.loading = false;
-          that.$message({
+          // _this.next_status.loading = false;
+          _this.$message({
             showClose: true,
             message: "获取作品信息失败",
             type: "warning"

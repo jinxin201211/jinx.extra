@@ -27,7 +27,7 @@ el-inputel-inputel-inputel-inputel-input<template>
               <el-input v-model="form.worksName" maxlength="200"></el-input>
             </el-form-item>
             <el-row>
-              <el-col :span="12">
+              <el-col :span="8">
                 <el-form-item
                   label="作品类别"
                   prop="worksSeries"
@@ -41,12 +41,30 @@ el-inputel-inputel-inputel-inputel-input<template>
                     }
                   ]"
                 >
-                  <el-radio-group v-model="form.worksSeries" id="radioWorksSeries">
-                    <el-radio :label="item.code" v-for="(item, index) in $WorksSeriesCode" :key="'series' + index"> {{ item.code + ":" + item.value }}</el-radio>
-                  </el-radio-group>
+                  <el-select v-model="form.worksSeries" placeholder="请选择" @change="handleWorksSeriesChange">
+                    <el-option v-for="(item, index) in WorksSeriesCode" :key="'worksseries' + index" :label="item.code + ':' + item.value" :value="item.code"> </el-option>
+                  </el-select>
                 </el-form-item>
               </el-col>
-              <el-col :span="12">
+              <el-col :span="8">
+                <el-form-item
+                  prop="worksSeriesSub"
+                  required
+                  :rules="[
+                    {
+                      validator: (rule, value, callback) => {
+                        validateRequired(rule, value, callback, '请选择作品主题');
+                      },
+                      trigger: ['blur', 'change']
+                    }
+                  ]"
+                >
+                  <el-select v-model="form.worksSeriesSub" placeholder="请选择">
+                    <el-option v-for="(item, index) in WorksSeriesSubCode" :key="'worksseriessub' + index" :label="item.code + ':' + item.value" :value="item.code"> </el-option>
+                  </el-select>
+                </el-form-item>
+              </el-col>
+              <el-col :span="8">
                 <el-form-item
                   prop="worksType"
                   required
@@ -59,9 +77,12 @@ el-inputel-inputel-inputel-inputel-input<template>
                     }
                   ]"
                 >
-                  <el-radio-group v-model="form.worksType" @change="handleWorksTypeChange">
+                  <el-select v-model="form.worksType" placeholder="请选择">
+                    <el-option v-for="(item, index) in $WorksTypeCode" :key="'workstype' + index" :label="item.code + ':' + item.value" :value="item.code"> </el-option>
+                  </el-select>
+                  <!-- <el-radio-group v-model="form.worksType" @change="handleWorksTypeChange">
                     <el-radio :label="item.code" v-for="(item, index) in $WorksTypeCode" :key="'series' + index"> {{ item.code + ":" + item.value }}</el-radio>
-                  </el-radio-group>
+                  </el-radio-group> -->
                 </el-form-item>
               </el-col>
             </el-row>
@@ -374,6 +395,7 @@ export default {
         wno: "",
         worksName: "",
         worksSeries: "",
+        worksSeriesSub: "",
         worksType: "",
         materialSurce: "",
         author1: "",
@@ -411,10 +433,13 @@ export default {
       fileList: [],
       successList: [],
       action: window.$FileUploadServer + "/gameWorksFile/upload",
-      maxSize: 300
+      maxSize: 300,
+      WorksSeriesCode: [],
+      WorksSeriesSubCode: []
     };
   },
   mounted() {
+    this.initWorksSeries();
     this.getNextWork();
   },
   methods: {
@@ -508,21 +533,45 @@ export default {
     handleBack: function() {
       this.$router.go(-1);
     },
+    initWorksSeries() {
+      let _this = this;
+      this.axios
+        .post("/api/gameWorksSeries/getActiveList")
+        .then(function(response) {
+          if (response && response.data.code == "0") {
+            let series = response.data.data;
+            _this.WorksSeriesCode = series.filter(p => p.pid === -1).map(p => ({ id: p.id, code: p.code, value: p.value, children: [] }));
+            _this.WorksSeriesCode.forEach(p => {
+              p.children = series.filter(x => x.pid === p.id).map(p => ({ id: p.id, code: p.code, value: p.value }));
+            });
+          } else {
+            _this.initWorksSeries();
+          }
+        })
+        .catch(function(err) {
+          console.log(err);
+          _this.initWorksSeries();
+        });
+    },
+    handleWorksSeriesChange() {
+      this.WorksSeriesSubCode = this.WorksSeriesCode.find(p => p.code === this.form.worksSeries).children;
+    },
     getNextWork: function() {
       let loading = this.$loading({ target: "#page" });
-      let that = this;
+      let _this = this;
       this.axios
         .post("/api/gameWorks2/getWorksByWid", qs.stringify({ wid: this.$route.query.wid }))
         .then(function(response) {
           if (response && response.data.code == "0") {
-            that.WorksInfo = response.data.data;
+            _this.WorksInfo = response.data.data;
 
             let data = response.data.data.works;
-            that.form = {
+            _this.form = {
               wid: data.wid,
               wno: data.wno,
               worksName: data.worksName,
               worksSeries: data.worksSeries,
+              worksSeriesSub: data.worksSeriesSub,
               worksType: data.worksType,
               materialSurce: data.materialSurce,
               author1: data.author1,
@@ -544,8 +593,16 @@ export default {
               tOrgName: data.tOrgName,
               tUname: data.tUname
             };
+
+            setTimeout(function f() {
+              if (_this.WorksSeriesCode.length === 0) {
+                setTimeout(f, 100);
+              } else {
+                _this.WorksSeriesSubCode = _this.WorksSeriesCode.find(p => p.code === _this.form.worksSeries).children;
+              }
+            }, 0);
           } else {
-            that.$message({
+            _this.$message({
               showClose: true,
               message: response.data.msg,
               type: "warning"
@@ -556,7 +613,7 @@ export default {
         .catch(function(err) {
           console.log(err);
           loading.close();
-          that.$message({
+          _this.$message({
             showClose: true,
             message: "获取作品信息失败",
             type: "warning"
@@ -598,29 +655,29 @@ export default {
     },
     submit: function() {
       this.loading = true;
-      let that = this;
+      let _this = this;
       this.axios
         .post("/api/gameWorks2/add", qs.stringify(this.form))
         .then(function(response) {
           if (response && response.data.code == "0") {
-            that.$message({
+            _this.$message({
               showClose: true,
               message: "修改成功",
               type: "success"
             });
           } else {
-            that.$message({
+            _this.$message({
               showClose: true,
               message: response.data.msg,
               type: "warning"
             });
           }
-          that.loading = false;
+          _this.loading = false;
         })
         .catch(function(err) {
           console.log(err);
-          that.loading = false;
-          that.$message({
+          _this.loading = false;
+          _this.$message({
             showClose: true,
             message: "修改失败",
             type: "warning"
@@ -628,7 +685,12 @@ export default {
         });
     },
     submitUpload() {
-      this.$refs.upload.submit();
+      this.$alert(`1.平面类和视频类，动画类要加公益广告大赛的水印，否则将被做不合规处理；<br/>2.提交的作品如果不切合主题也将做不合规处理。`, {
+        dangerouslyUseHTMLString: true,
+        showCancelButton: true
+      }).then(() => {
+        this.$refs.upload.submit();
+      });
     },
     handleRemove(file, fileList) {
       this.successList.splice(this.successList.indexOf(file), 1);
@@ -637,7 +699,7 @@ export default {
       if (response.code == -1) {
         this.$message({
           showClose: true,
-          message: `${file.name} 上传失败`,
+          message: response.msg,
           type: "error"
         });
         fileList.splice(fileList.indexOf(file), 1);
@@ -670,20 +732,20 @@ export default {
     handleBeforeRemove: function(file, list) {
       if (file.status === "success") {
         let delete_file = this.successList[list.indexOf(file)];
-        let that = this;
+        let _this = this;
         this.axios
           .post("/api/gameWorksFile/delete", qs.stringify({ id: delete_file.serverid }))
           .then(function(response) {
             if (response && response.data.code == "0") {
               //删除页面列表上的数据
-              that.$message({
+              _this.$message({
                 showClose: true,
                 message: `文件删除成功`,
                 type: "info"
               });
               list.splice(list.indexOf(file), 1);
             } else {
-              that.$message({
+              _this.$message({
                 showClose: true,
                 message: response.data.msg,
                 type: "warning"
@@ -692,7 +754,7 @@ export default {
           })
           .catch(function(err) {
             console.log(err);
-            that.$message({
+            _this.$message({
               showClose: true,
               message: "文件删除失败",
               type: "warning"
@@ -702,20 +764,20 @@ export default {
       }
     },
     handleFileDelete(id, index) {
-      let that = this;
+      let _this = this;
       this.axios
         .post("/api/gameWorksFile/delete", qs.stringify({ id: id }))
         .then(function(response) {
           if (response && response.data.code == "0") {
             //删除页面列表上的数据
-            that.$message({
+            _this.$message({
               showClose: true,
               message: "删除成功",
               type: "info"
             });
-            that.WorksInfo.works_file.splice(index, 1);
+            _this.WorksInfo.works_file.splice(index, 1);
           } else {
-            that.$message({
+            _this.$message({
               showClose: true,
               message: response.data.msg,
               type: "warning"
@@ -724,7 +786,7 @@ export default {
         })
         .catch(function(err) {
           console.log(err);
-          that.$message({
+          _this.$message({
             showClose: true,
             message: "文件删除失败",
             type: "warning"

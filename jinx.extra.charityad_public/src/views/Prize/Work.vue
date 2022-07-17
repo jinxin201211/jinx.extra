@@ -35,7 +35,7 @@
         </div>
         <div class="jinx-works-info">
           <span>作品主题</span>
-          <span class="value" v-text="WorksInfo.works.worksSeries"></span>
+          <span class="value" v-text="WorksSeries"></span>
         </div>
         <div class="jinx-works-info">
           <span>作品类别</span>
@@ -108,6 +108,18 @@ export default {
       game_type: -1
     };
   },
+  computed: {
+    WorksSeries() {
+      let series = "";
+      if (this.WorksInfo.works.worksSeries) {
+        series += this.WorksInfo.works.worksSeries;
+      }
+      if (this.WorksInfo.works.worksSeriesSub) {
+        series += " | " + this.WorksInfo.works.worksSeriesSub;
+      }
+      return series;
+    }
+  },
   mounted() {
     this.getNextWork();
   },
@@ -136,7 +148,6 @@ export default {
               that.WorksInfo.works.worksType = that.$WorksTypeCode.find(p => p.code == that.WorksInfo.works.worksType).value;
             } else {
               that.WorksInfo.works.gameType = that.$WorksGroupCode.find(p => p.code == that.WorksInfo.works.gameType).value;
-              that.WorksInfo.works.worksSeries = that.$WorksSeriesCode.find(p => p.code == that.WorksInfo.works.worksSeries).value;
               that.WorksInfo.works.worksType = that.$WorksTypeCode.find(p => p.code == that.WorksInfo.works.worksType).value;
               that.WorksInfo.works.materialSurce = that.$MaterialSurceCode.find(p => p.code == that.WorksInfo.works.materialSurce).value;
             }

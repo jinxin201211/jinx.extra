@@ -60,12 +60,11 @@ export default {
           that.List = response.data.data;
           that.List.forEach(p => {
             p.worksType = that.$WorksTypeCode.find(x => x.code == p.worksType).value;
-            p.worksSeries = that.$WorksSeriesCode.find(x => x.code == p.worksSeries).value;
             p.gameType = that.$WorksGroupCode.find(x => x.code == p.gameType).value;
             p.submitState = p.submitState == null || p.submitState == "" ? "未提交" : "已提交";
             let authors = [];
             for (let i = 1; i <= 5; i++) {
-              if (p["author" + i] !== "") {
+              if (p["author" + i]) {
                 authors.push(p["author" + i]);
               }
             }

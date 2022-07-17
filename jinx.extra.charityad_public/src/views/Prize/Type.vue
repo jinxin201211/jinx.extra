@@ -182,8 +182,6 @@ export default {
       data.forEach(p => {
         let game_type = this.$WorksGroupCode.find(x => x.code == p.gameType);
         p.gameType = game_type == null ? "" : game_type.value;
-        let series = this.$WorksSeriesCode.find(x => x.code == p.worksSeries);
-        p.worksSeries = series == null ? "" : series.value;
         let type = this.$WorksTypeCode.find(x => x.code == p.worksType);
         p.worksType = type == null ? "" : type.value;
         let source = this.$MaterialSurceCode.find(x => x.code == p.materialSurce);
@@ -246,8 +244,6 @@ export default {
         this.SearchList.forEach(p => {
           let game_type = this.$WorksGroupCode.find(x => x.code == p.gameType);
           p.gameType = game_type == null ? "" : game_type.value;
-          let series = this.$WorksSeriesCode.find(x => x.code == p.worksSeries);
-          p.worksSeries = series == null ? "" : series.value;
           let type = this.$WorksTypeCode.find(x => x.code == p.worksType);
           p.worksType = type == null ? "" : type.value;
           let source = this.$MaterialSurceCode.find(x => x.code == p.materialSurce);

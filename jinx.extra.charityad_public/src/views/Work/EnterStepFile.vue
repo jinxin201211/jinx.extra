@@ -104,7 +104,12 @@ export default {
   },
   methods: {
     submitUpload() {
-      this.$refs.upload.submit();
+      this.$alert(`1.平面类和视频类，动画类要加公益广告大赛的水印，否则将被做不合规处理；<br/>2.提交的作品如果不切合主题也将做不合规处理。`, {
+        dangerouslyUseHTMLString: true,
+        showCancelButton: true
+      }).then(() => {
+        this.$refs.upload.submit();
+      });
     },
     handleRemove(file, fileList) {
       this.successList.splice(this.successList.indexOf(file), 1);

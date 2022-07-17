@@ -50,11 +50,8 @@
               ]"
             >
               <el-select v-model="form.worksSeries" placeholder="请选择">
-                <el-option v-for="(item, index) in $WorksSeriesCode" :key="'worksseries' + index" :label="item.code + ':' + item.value" :value="item.code"> </el-option>
+                <el-option v-for="(item, index) in WorksSeriesCode" :key="'worksseries' + index" :label="item.code + ':' + item.value" :value="item.code"> </el-option>
               </el-select>
-              <!-- <el-radio-group v-model="form.worksSeries" id="radioWorksSeries">
-                <el-radio :label="item.code" v-for="(item, index) in $WorksSeriesCode" :key="'series' + index"> {{ item.code + ":" + item.value }}</el-radio>
-              </el-radio-group> -->
             </el-form-item>
           </el-col>
           <el-col :span="8">
@@ -71,11 +68,8 @@
               ]"
             >
               <el-select v-model="form.worksSeriesSub" placeholder="请选择">
-                <el-option v-for="(item, index) in $WorksSeriesSubCode" :key="'worksseriessub' + index" :label="item.code + ':' + item.value" :value="item.code"> </el-option>
+                <el-option v-for="(item, index) in WorksSeriesSubCode" :key="'worksseriessub' + index" :label="item.code + ':' + item.value" :value="item.code"> </el-option>
               </el-select>
-              <!-- <el-radio-group v-model="form.worksSeriesSub" id="radioWorksSeriesSub">
-                <el-radio :label="item.code" v-for="(item, index) in $WorksSeriesSubCode" :key="'series' + index"> {{ item.code + ":" + item.value }}</el-radio>
-              </el-radio-group> -->
             </el-form-item>
           </el-col>
           <el-col :span="8">
@@ -350,13 +344,14 @@ export default {
         { type: "6", count: 4 }
       ],
       ValidateErrorMessage: [],
-      ErrorNotify: null
+      ErrorNotify: null,
+      WorksSeriesCode: []
     };
   },
   computed: {
-    $WorksSeriesSubCode() {
+    WorksSeriesSubCode() {
       if (this.form.worksSeries) {
-        return this.$WorksSeriesCode.find(p => p.code === this.form.worksSeries).children;
+        return this.WorksSeriesCode.find(p => p.code === this.form.worksSeries).children;
       } else {
         return [];
       }
@@ -368,17 +363,20 @@ export default {
     }
     next();
   },
+  created() {
+    this.initWorksSeries();
+  },
   mounted: function() {
     let wid = this.$route.query.wid;
     if (wid) {
       let loading_data = this.$loading({ target: "#page" });
-      let that = this;
+      let _this = this;
       this.axios
         .post("/api/gameWorks2/getWorksByWid", qs.stringify({ wid: wid }))
         .then(function(response) {
           if (response && response.data.code == "0") {
             let data = response.data.data.works;
-            that.form = {
+            _this.form = {
               wid: data.wid,
               wno: data.wno,
               worksName: data.worksName,
@@ -405,7 +403,7 @@ export default {
               tUname: data.tUname
             };
           } else {
-            that.$message({
+            _this.$message({
               showClose: true,
               message: response.data.msg,
               type: "warning"
@@ -416,7 +414,7 @@ export default {
         .catch(function(err) {
           console.log(err);
           loading_data.close();
-          that.$message({
+          _this.$message({
             showClose: true,
             message: "获取作品信息失败",
             type: "warning"
@@ -480,6 +478,26 @@ export default {
         }
       }, 100);
     },
+    initWorksSeries() {
+      let _this = this;
+      this.axios
+        .post("/api/gameWorksSeries/getActiveList")
+        .then(function(response) {
+          if (response && response.data.code == "0") {
+            let series = response.data.data;
+            _this.WorksSeriesCode = series.filter(p => p.pid === -1).map(p => ({ id: p.id, code: p.code, value: p.value, children: [] }));
+            _this.WorksSeriesCode.forEach(p => {
+              p.children = series.filter(x => x.pid === p.id).map(p => ({ id: p.id, code: p.code, value: p.value }));
+            });
+          } else {
+            _this.initWorksSeries();
+          }
+        })
+        .catch(function(err) {
+          console.log(err);
+          _this.initWorksSeries();
+        });
+    },
     handleWorksTypeChange: function(val) {
       this.AuthorCount = this.AuthorCountCode.find(p => p.type === val).count;
       if (this.AuthorCount === 3) {
@@ -512,30 +530,30 @@ export default {
     },
     submit: function() {
       this.loading = true;
-      let that = this;
+      let _this = this;
       this.axios
         .post("/api/gameWorks2/add", qs.stringify(this.form))
         .then(function(response) {
           if (response && response.data.code == "0") {
-            that.wid = response.data.data;
-            that.disabled = true;
-            that.$router.replace({
+            _this.wid = response.data.data;
+            _this.disabled = true;
+            _this.$router.replace({
               path: "/work/file",
-              query: { wid: that.wid, type: that.form.worksType }
+              query: { wid: _this.wid, type: _this.form.worksType }
             });
           } else {
-            that.$message({
+            _this.$message({
               showClose: true,
               message: response.data.msg,
               type: "warning"
             });
           }
-          that.loading = false;
+          _this.loading = false;
         })
         .catch(function(err) {
           console.log(err);
-          that.loading = false;
-          that.$message({
+          _this.loading = false;
+          _this.$message({
             showClose: true,
             message: "提交失败",
             type: "warning"

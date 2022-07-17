@@ -13,10 +13,16 @@
           <path d="M280.044244 804.140304l696.088312 0 0 112.20272-696.088312 0 0-112.20272Z" p-id="5395"></path>
         </svg>
       </div>
-      <div style="font-size: 16px;"><span v-text="ListGroup.find(p => p.Value === Attr.Group).Text"></span>，<span v-text="ListType.find(p => p.Value === Attr.Type).Text"></span>，<span v-text="ListPrize.find(p => p.Value === Attr.Prize).Text"></span>（<span v-text="RankList.length"></span>）</div>
+      <div style="font-size: 16px;"><span v-text="Attr.Period"></span>，<span v-text="ListGroup.find(p => p.Value === Attr.Group).Text"></span>，<span v-text="ListType.find(p => p.Value === Attr.Type).Text"></span>，<span v-text="ListPrize.find(p => p.Value === Attr.Prize).Text"></span>（<span v-text="RankList.length"></span>）</div>
     </div>
     <div class="content">
       <div class="jinx-attr" v-if="DeviceType === 'PC'">
+        <div class="attr">
+          <div class="key">比赛届数：</div>
+          <div class="list">
+            <div class="value" v-for="(item, index) in ListPeriod" :key="'ListPeriod' + index" v-text="item" :class="{ active: Attr.Period === item }" @click="handleChangePeriod(item)"></div>
+          </div>
+        </div>
         <div class="attr">
           <div class="key">参赛组别：</div>
           <div class="list">
@@ -113,6 +119,10 @@
     <el-drawer :withHeader="false" :visible.sync="Drawer" direction="ltr" size="75%">
       <div slot="title"></div>
       <div class="jinx-drawer-attr">
+        <div class="key">比赛届数：</div>
+        <div class="list">
+          <div class="value" v-for="(item, index) in ListPeriod" :key="'ListPeriod' + index" v-text="item" :class="{ active: DrawerAttr.Period === item }" @click="handleChangeDrawerPeriod(item)"></div>
+        </div>
         <div class="key">参赛组别：</div>
         <div class="list">
           <div class="value" v-for="(item, index) in ListGroup" :key="'ListGroup' + index" v-text="item.Text" :class="{ active: DrawerAttr.Group === item.Value }" @click="handleChangeDrawerGroup(item.Value)"></div>
@@ -142,7 +152,7 @@ import JinxPrizeImage from "./components/JinxPrizeImage.vue";
 import JinxVideoPlayer from "@/components/JinxVideoPlayer.vue";
 import pdf from "vue-pdf";
 import JinxPrizeWord from "./components/JinxPrizeWord.vue";
-import { finished } from "stream";
+import qs from "qs";
 export default {
   components: { JinxPrizeImage, JinxVideoPlayer, pdf, JinxPrizeWord },
   data() {
@@ -157,15 +167,18 @@ export default {
         { Value: 3, Text: "三等奖" },
         { Value: 4, Text: "优秀奖" }
       ],
+      ListPeriod: [],
       Attr: {
         Group: "",
         Type: "",
-        Prize: 1
+        Prize: 1,
+        Period: -1
       },
       DrawerAttr: {
         Group: "",
         Type: "",
-        Prize: 1
+        Prize: 1,
+        Period: -1
       },
       FullRankList: [],
       RankList: [],
@@ -186,21 +199,15 @@ export default {
     };
   },
   created() {
-    this.initFobidenDuplicate();
+    this.initFobidenDuplicate(); //todo
     this.initAttr();
-    this.getFullRankList(); //todo
+    this.getPeriodList(); //todo
   },
   mounted() {
     this.initWindowResize();
   },
   methods: {
     initFobidenDuplicate() {
-      // var threshold = 200;
-      // var widthThreshold = window.outerWidth - window.innerWidth > threshold;
-      // var heightThreshold = window.outerHeight - window.innerHeight > threshold;
-      // if (widthThreshold || heightThreshold) {
-      //   window.location.href = "http://www.archcollege.com/archcollege/2018/07/41200.html@";
-      // }
       const _this = this;
       this.$nextTick(() => {
         // 禁止右键
@@ -296,6 +303,36 @@ export default {
         this.Attr.Prize = this.ListPrize[0].Value;
       }
     },
+    getPeriodList: function() {
+      let _this = this;
+      _this.ListPeriod = [];
+      this.axios
+        .post("/api/gameWorksRank/getPeriodList")
+        .then(function(response) {
+          if (response && response.data.code == "0") {
+            _this.ListPeriod = response.data.data;
+            // _this.ListPeriod.push(2020); //todo
+            if (_this.ListPeriod.length > 0) {
+              _this.Attr.Period = _this.ListPeriod[0];
+              _this.getFullRankList();
+            }
+          } else {
+            _this.$message({
+              showClose: true,
+              message: response.data.msg,
+              type: "warning"
+            });
+          }
+        })
+        .catch(function(err) {
+          console.log(err);
+          _this.$message({
+            showClose: true,
+            message: "比赛届数查询失败",
+            type: "warning"
+          });
+        });
+    },
     getFullRankList: function() {
       let _this = this;
       const loading = this.$loading({
@@ -305,12 +342,13 @@ export default {
       });
       _this.FullRankList = [];
       this.axios
-        .post("/api/gameWorksRank/getAllRankAndFiles")
+        .post("/api/gameWorksRank/getAllRankAndFiles", { period: _this.Attr.Period })
         .then(function(response) {
           if (response && response.data.code == "0") {
             _this.FullRankList = response.data.data;
             _this.getRankList();
             _this.changePostPrizeCount();
+            _this.changePrePrizeCount();
           } else {
             _this.$message({
               showClose: true,
@@ -344,6 +382,10 @@ export default {
       this.Attr.Prize = prize;
       this.getRankList();
     },
+    handleChangePeriod(period) {
+      this.Attr.Period = period;
+      this.getFullRankList();
+    },
     handleChangeDrawerGroup(group) {
       this.DrawerAttr.Group = group;
       this.changePrePrizeCount();
@@ -352,8 +394,13 @@ export default {
       this.DrawerAttr.Type = type;
       this.changePrePrizeCount();
     },
+    handleChangeDrawerPeriod(period) {
+      this.DrawerAttr.Period = period;
+      this.Attr.Period = period;
+      this.getFullRankList();
+    },
     changePrePrizeCount() {
-      let list = this.FullRankList.filter(p => p.worksType === this.Attr.Type);
+      let list = this.FullRankList; //.filter(p => p.worksType === this.Attr.Type);
       if (this.DrawerAttr.Group !== "-1") {
         list = list.filter(p => p.gameType === this.DrawerAttr.Group);
       }
@@ -384,6 +431,7 @@ export default {
       this.DrawerAttr.Group = this.Attr.Group;
       this.DrawerAttr.Type = this.Attr.Type;
       this.DrawerAttr.Prize = this.Attr.Prize;
+      this.DrawerAttr.Period = this.Attr.Period;
       this.changePrePrizeCount();
       this.Drawer = true;
     },
@@ -391,6 +439,7 @@ export default {
       this.Attr.Group = this.DrawerAttr.Group;
       this.Attr.Type = this.DrawerAttr.Type;
       this.Attr.Prize = this.DrawerAttr.Prize;
+      this.Attr.Period = this.DrawerAttr.Period;
       this.Drawer = false;
       this.getRankList();
     },
