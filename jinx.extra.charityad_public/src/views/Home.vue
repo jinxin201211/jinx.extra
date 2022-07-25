@@ -560,8 +560,8 @@ export default {
     width: 100%;
     height: 100%;
     background-position: center;
-    // background-size: cover;
-    background-size: contain;
+    background-size: cover;
+    // background-size: contain;
     // background-repeat: no-repeat;
     transition: left 0.6s ease, opacity 0.6s, visibility 0.6s;
   }
@@ -578,12 +578,12 @@ export default {
 
   .banner-1 {
     // background-image: url("../assets/images/banner1.jpg");
-    background-image: url("../assets/images/banner2022/banner.jpg");
+    background-image: url("../assets/images/banner2022/banner1.jpg");
   }
 
   .banner-2 {
     // background-image: url("../assets/images/banner2.jpg");
-    background-image: url("../assets/images/banner2022/banner.jpg");
+    background-image: url("../assets/images/banner2022/banner2.jpg");
   }
 
   .banner-3 {
