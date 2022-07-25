@@ -51,7 +51,7 @@
         <p>大赛自2021年7月1日至10月31日面向全社会广泛征集公益广告作品；11月份将邀请专家对参赛作品进行权威评审和结果公示；12月将组织召开大赛颁奖盛典和优秀获奖作品展播。</p>
         <p>本届大赛旨在守初心担使命中纪念建党百年，积极践行党的思想路线，助力“十四五”规划实施落地，助力我省建设发展。同时集合专业与社会力量，发挥各大媒体传播优势，将公益广告蕴含的社会正能量向社会大众广泛传播。此外，公益广告大赛将作为河北公益广告业发展的重要吸引核，推进人才、资源交流，以赛促学，以赛促交流，以赛促大发展，在业内进一步完善人才和资源交流，促进河北公益事业发展。</p>
       </div>
-      <div class="avatar" :style="{ backgroundImage: 'url(' + require('@/assets/images/home/醉美河北.jpg') + ')' }"></div>
+      <div class="avatar" :style="{ backgroundImage: 'url(' + require('@/assets/images/home/醉美河北-s.jpg') + ')' }"></div>
     </div>
 
     <div id="anchor_news" class="jinx-news">
@@ -352,17 +352,17 @@ export default {
   },
   methods: {
     turnBannerCarousel: function() {
-      let that = this;
+      let _this = this;
       let time = 0;
       setTimeout(function f() {
-        that.bannerShow = time % 2;
+        _this.bannerShow = time % 2;
         time++;
         setTimeout(f, 5000);
       }, 0);
     },
     getNewsList() {
-      let that = this;
-      that.newsList = [];
+      let _this = this;
+      _this.newsList = [];
       let month_dict = ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"];
       this.axios
         .post("/api/gameNews/getData", qs.stringify(this.query))
@@ -403,10 +403,10 @@ export default {
                   month: moment(response.data.data[i + 1].utime).get("year") + "-" + month_dict[moment(response.data.data[i + 1].utime).get("month")]
                 };
               }
-              that.newsList.push(newsRow);
+              _this.newsList.push(newsRow);
             }
           } else {
-            that.$message({
+            _this.$message({
               showClose: true,
               message: response.data.msg,
               type: "warning"
@@ -415,7 +415,7 @@ export default {
         })
         .catch(function(err) {
           console.log(err);
-          that.$message({
+          _this.$message({
             showClose: true,
             message: "获取新闻动态失败",
             type: "warning"
@@ -463,10 +463,10 @@ export default {
       }
     },
     getWorksList() {
-      let that = this;
-      that.work.list = [];
-      that.work.index = 0;
-      that.work.file = 0;
+      let _this = this;
+      _this.work.list = [];
+      _this.work.index = 0;
+      _this.work.file = 0;
 
       this.axios
         .post("/api/gameWorks2/getExcellentWorks")
@@ -482,16 +482,16 @@ export default {
               for (let j = 0; j < response.data.data[i].gameWorksFiles.length; j++) {
                 work.files.push(response.data.data[i].gameWorksFiles[j].fileName);
               }
-              that.work.list.push(work);
+              _this.work.list.push(work);
             }
-            that.work.carousel = setTimeout(function f() {
-              that.work.index = (that.work.index + 1) % that.work.list.length;
-              that.work.file = 0;
-              that.work.scroll = that.work.index - 2 >= 0 ? that.work.index - 2 : 0;
-              that.work.carousel = setTimeout(f, that.work.interval);
-            }, that.work.interval);
+            _this.work.carousel = setTimeout(function f() {
+              _this.work.index = (_this.work.index + 1) % _this.work.list.length;
+              _this.work.file = 0;
+              _this.work.scroll = _this.work.index - 2 >= 0 ? _this.work.index - 2 : 0;
+              _this.work.carousel = setTimeout(f, _this.work.interval);
+            }, _this.work.interval);
           } else {
-            that.$message({
+            _this.$message({
               showClose: true,
               message: "获取优秀作品失败",
               type: "warning"
@@ -500,7 +500,7 @@ export default {
         })
         .catch(function(err) {
           console.log(err);
-          that.$message({
+          _this.$message({
             showClose: true,
             message: "获取优秀作品失败",
             type: "warning"
@@ -510,14 +510,14 @@ export default {
     handleCarouselClick(index) {
       this.work.index = index;
       this.work.file = 0;
-      const that = this;
+      const _this = this;
       window.clearTimeout(this.work.carousel);
       this.work.carousel = setTimeout(function f() {
-        that.work.index = (that.work.index + 1) % that.work.list.length;
-        that.work.file = 0;
-        that.work.scroll = that.work.index - 2 >= 0 ? that.work.index - 2 : 0;
-        that.work.carousel = setTimeout(f, that.work.interval);
-      }, that.work.interval);
+        _this.work.index = (_this.work.index + 1) % _this.work.list.length;
+        _this.work.file = 0;
+        _this.work.scroll = _this.work.index - 2 >= 0 ? _this.work.index - 2 : 0;
+        _this.work.carousel = setTimeout(f, _this.work.interval);
+      }, _this.work.interval);
     },
     isImage: function(file) {
       file = file.toLowerCase();
@@ -577,17 +577,11 @@ export default {
   }
 
   .banner-1 {
-    // background-image: url("../assets/images/banner1.jpg");
-    background-image: url("../assets/images/banner2022/banner1.jpg");
+    background-image: url("../assets/images/banner2022/banner1-s.jpg");
   }
 
   .banner-2 {
-    // background-image: url("../assets/images/banner2.jpg");
-    background-image: url("../assets/images/banner2022/banner2.jpg");
-  }
-
-  .banner-3 {
-    background-image: url("../assets/images/banner3.png");
+    background-image: url("../assets/images/banner2022/banner2-s.jpg");
   }
 }
 

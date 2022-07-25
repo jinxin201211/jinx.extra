@@ -58,7 +58,7 @@ export default {
   height: 480px;
   background-position: center;
   background-size: cover;
-  background-image: url("../assets/images/banner1.jpg");
+  background-image: url("../assets/images/banner2022/banner1-s.jpg");
   position: relative;
 }
 
