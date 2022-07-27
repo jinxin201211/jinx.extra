@@ -44,6 +44,15 @@ const routes = [
           title: "注册协议",
           access: false
         }
+      },
+      {
+        name: "reset",
+        path: "reset",
+        component: () => import("../views/Account/Reset.vue"),
+        meta: {
+          title: "重置密码",
+          access: false
+        }
       }
     ]
   },

@@ -11,7 +11,7 @@
           </el-form-item>
           <el-form-item>
             <el-checkbox label="下次自动登录" name="type" v-model="rememberMe"></el-checkbox>
-            <!--<el-link type="primary" :underline="false" style="margin-left: 20px;">忘记密码？</el-link>-->
+            <el-link type="primary" :underline="false" style="margin-left: 20px;" @click="$router.push('/account/reset')">忘记密码</el-link>
           </el-form-item>
           <el-form-item>
             <el-button type="primary" @click="handleSubmit">立即登录</el-button>
