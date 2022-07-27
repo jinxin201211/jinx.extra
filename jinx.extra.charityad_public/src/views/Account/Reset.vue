@@ -24,7 +24,7 @@
           >
             <div style="display: flex;">
               <div style="display: flex; justify-content: space-between; width: 250px;">
-                <el-input v-model="form.code" style="width: 120px;"></el-input>
+                <el-input v-model="form.code" style="width: 120px;" :disabled="!verify_code.send"></el-input>
                 <el-button type="text" @click="handleSendSMS" :disabled="!verify_code.enabled"><span v-text="verify_code.text"></span></el-button>
               </div>
               <label style="margin-left: 20px;">请输入验证码</label>
@@ -70,13 +70,15 @@ export default {
   data: function() {
     return {
       form: {
-        // phone: "",
-        phone: "18708117389",
+        phone: "",
+        // phone: "18708117389", //todo
         password: "",
         repassword: "",
         code: ""
       },
       verify_code: {
+        send: false,
+        // send: true, //todo
         code: "",
         text: "发送短信验证码",
         enabled: true
@@ -87,31 +89,6 @@ export default {
   mixins: [md5],
   mounted: function() {},
   methods: {
-    getVerifyCode() {
-      let code = Math.floor(Math.random() * 1000000);
-      this.verify_code.code = code;
-    },
-    setVerifyCodeSession() {
-      let storeData = {
-        code: this.verify_code.code,
-        expire: 15 * 60 * 1000,
-        timestamp: new Date().getTime()
-      };
-      sessionStorage.setItem("reset-password-verify-code", JSON.stringify(storeData));
-    },
-    getVerifyCodeSession() {
-      let storeSession = sessionStorage.getItem("reset-password-verify-code");
-      console.log(storeSession);
-      let code = "";
-      if (storeSession) {
-        let storeData = JSON.parse(storeSession);
-        console.log(storeData);
-        if (new Date() < new Date(storeData.timestamp + storeData.expire)) {
-          code = storeData.code;
-        }
-      }
-      return code;
-    },
     handleSendSMS() {
       const _this = this;
       if (!this.form.phone) {
@@ -122,12 +99,12 @@ export default {
         });
         return;
       }
-      _this.getVerifyCode();
+      _this.verify_code.send = false;
       this.axios
-        .post("/api/common/sendSms", { phone: this.form.phone, code: this.verify_code.code })
+        .post("/api/common/sendSms", { phone: this.form.phone })
         .then(function(response) {
           if (response && response.data.code == "0") {
-            _this.setVerifyCodeSession();
+            _this.verify_code.send = true;
             _this.$message({
               showClose: true,
               message: `短信验证码发送成功，请及时查收，有效时间15分钟`,
@@ -176,7 +153,7 @@ export default {
       this.loading = true;
       let _this = this;
       this.axios
-        .post("/api/gameUser/resetPwd", { phone: this.form.phone, pwd: this.hex_md5(this.form.password) })
+        .post("/api/gameUser/resetPwd", { phone: this.form.phone, code: this.form.code, pwd: this.hex_md5(this.form.password) })
         .then(function(response) {
           if (response && response.data.code == "0") {
             let second = 3;
@@ -241,16 +218,8 @@ export default {
       }, 100);
     },
     validateVerifyCode: function(rule, value, callback) {
-      let code = this.getVerifyCodeSession();
-      console.log("validateVerifyCode code: " + code);
-      console.log("validateVerifyCode value: " + value);
-      console.log(code, value, code === value);
-      if (code === "") {
-        callback(new Error("请发送短信验证码"));
-      } else if (value === "") {
+      if (value === "") {
         callback(new Error("请输入验证码"));
-      } else if (value != code) {
-        callback(new Error("验证码错误!"));
       } else {
         callback();
       }
