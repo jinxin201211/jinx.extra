@@ -41,8 +41,8 @@ import "@/assets/js/file.type.js";
 window.$VuexPrefix = "charity.public.";
 window.$CookieStoreDays = 7;
 // window.$Server = "http://hbsggyjy.hebtu.edu.cn";
-window.$Server = "http://www.hbsggyjy.cn";
-// window.$Server = "http://127.0.0.1";
+// window.$Server = "http://www.hbsggyjy.cn";
+window.$Server = "http://127.0.0.1";
 window.$FileUploadServer = window.$Server + ":8084";
 
 Vue.prototype.$Host = "www.hbsggyjy.cn";

@@ -15,7 +15,7 @@ const routes = [
   },
   {
     path: "/account",
-    name: "Account",
+    name: "account",
     component: () => import("../views/Account/Main.vue"),
     children: [
       {
@@ -49,6 +49,49 @@ const routes = [
         name: "reset",
         path: "reset",
         component: () => import("../views/Account/Reset.vue"),
+        meta: {
+          title: "重置密码",
+          access: false
+        }
+      }
+    ]
+  },
+  {
+    path: "/m/account",
+    name: "mobileAccount",
+    component: () => import("../views-mobile/Account/Main.vue"),
+    children: [
+      {
+        name: "mobileSignin",
+        path: "signin",
+        component: () => import("../views-mobile/Account/Signin.vue"),
+        meta: {
+          title: "登录",
+          access: false
+        }
+      },
+      {
+        name: "mobileSignup",
+        path: "signup",
+        component: () => import("../views-mobile/Account/Signup.vue"),
+        meta: {
+          title: "注册",
+          access: false
+        }
+      },
+      {
+        name: "mobileAgreement",
+        path: "agreement",
+        component: () => import("../views-mobile/Account/Agreement.vue"),
+        meta: {
+          title: "注册协议",
+          access: false
+        }
+      },
+      {
+        name: "mobileReset",
+        path: "reset",
+        component: () => import("../views-mobile/Account/Reset.vue"),
         meta: {
           title: "重置密码",
           access: false
@@ -227,11 +270,20 @@ const router = new VueRouter({
   routes
 });
 
+import isPC from "../assets/js/isPC";
+
 router.beforeEach((to, from, next) => {
   window.scrollTo(0, 0);
   const title = to.meta && to.meta.title;
   if (title) {
     document.title = title + " - " + Vue.prototype.$WebSiteName;
+  }
+
+  const responsive_path = ["/account/signin", "/account/signup", "/account/reset", "/account/agreement"];
+  if (responsive_path.includes(to.path) && !isPC()) {
+    next({
+      path: "/m" + to.path
+    });
   }
 
   if (to.path === "/account/signin") {

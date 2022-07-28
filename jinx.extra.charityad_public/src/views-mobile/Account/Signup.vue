@@ -1,15 +1,15 @@
 <template>
-  <div class="jinx-panel">
-    <el-row style="padding: 15px 0;">
-      <el-col :span="18" style="border-right: 1px solid #e6e6e6;">
-        <el-form ref="form" :model="form" label-width="80px" style="padding: 0 20px; margin: 0 auto;">
+  <div>
+    <van-nav-bar left-arrow @click-left="$router.go(-1)" />
+    <van-popup v-model="type.picker" position="bottom">
+      <van-picker title="选择用户组" show-toolbar :columns="type.columns" @confirm="handleConfirmType" @cancel="handleCancelType" @change="handleChangeType" />
+    </van-popup>
+    <div class="jinx-panel">
+      <div style="width: 100%">
+        <div class="title">用户注册</div>
+        <el-form ref="form" :model="form" label-width="80px" label-position="top">
           <el-form-item label="用户组" prop="type" :rules="[{ required: true, message: '请选择用户组', trigger: 'blur' }]">
-            <el-radio-group v-model="form.type">
-              <el-radio label="0">高校组</el-radio>
-              <el-radio label="1">专业组</el-radio>
-              <el-radio label="2">公众组</el-radio>
-              <el-radio label="3">青少年组</el-radio>
-            </el-radio-group>
+            <el-input placeholder="用户组" v-model="form.type" readonly @focus="type.picker = true"></el-input>
           </el-form-item>
           <el-form-item
             label="邮箱"
@@ -19,19 +19,17 @@
               { type: 'email', message: '请输入正确的邮箱地址', trigger: ['blur', 'change'] }
             ]"
           >
-            <el-input v-model="form.email" style="width: 250px;"></el-input>
-            <label style="margin-left: 20px;">请牢记并填写有效邮箱地址，可用于登录平台</label>
+            <el-input placeholder="请牢记并填写有效邮箱地址，可用于登录平台" v-model="form.email"></el-input>
           </el-form-item>
           <el-form-item
-            label="手机"
+            label="手机号码"
             prop="phone"
             :rules="[
               { required: true, message: '请输入手机号码', trigger: 'blur' },
               { validator: validatePhone, trigger: 'blur' }
             ]"
           >
-            <el-input v-model="form.phone" style="width: 250px;" maxlength="11"></el-input>
-            <label style="margin-left: 20px;">请输入有效的手机号码，可用于登录平台</label>
+            <el-input placeholder="请输入有效的手机号码，可用于登录平台" v-model="form.phone" maxlength="11"></el-input>
           </el-form-item>
           <el-form-item
             label="昵称"
@@ -41,8 +39,7 @@
               { min: 2, max: 18, message: '长度在 2 到 18 个字符', trigger: 'blur' }
             ]"
           >
-            <el-input v-model="form.nickname" style="width: 250px;" show-word-limit maxlength="18" minlength="2"></el-input>
-            <label style="margin-left: 20px;">昵称至少2个字符，最多18个字符</label>
+            <el-input placeholder="昵称至少2个字符，最多18个字符" v-model="form.nickname" show-word-limit maxlength="18" minlength="2"></el-input>
           </el-form-item>
           <el-form-item
             label="密码"
@@ -52,8 +49,7 @@
               { min: 6, max: 15, message: '长度在 6 到 15 个字符', trigger: 'blur' }
             ]"
           >
-            <el-input v-model="form.password" show-password style="width: 250px;" maxlength="15" minlength="6"></el-input>
-            <label style="margin-left: 20px;">密码为6到15个字符，只能含有半角英文字母及数字</label>
+            <el-input placeholder="密码为6到15个字符，只能含有半角英文字母及数字" v-model="form.password" show-password maxlength="15" minlength="6"></el-input>
           </el-form-item>
           <el-form-item
             label="确认密码"
@@ -63,8 +59,7 @@
               { validator: validateRePassword, trigger: 'blur' }
             ]"
           >
-            <el-input v-model="form.repassword" show-password style="width: 250px;" maxlength="15" minlength="6"></el-input>
-            <label style="margin-left: 20px;">请再输入一遍密码</label>
+            <el-input placeholder="请再输入一遍密码" v-model="form.repassword" show-password maxlength="15" minlength="6"></el-input>
           </el-form-item>
           <el-form-item
             label="验证码"
@@ -74,27 +69,25 @@
               { validator: validateVerifyCode, trigger: 'blur' }
             ]"
           >
-            <el-input v-model="form.security" style="width: 120px;"></el-input>
-            <div style="display: inline-block; vertical-align: middle;" @click="handleRefreshCode">
-              <jinx-verify-code :identifyCode="verify_code"></jinx-verify-code>
+            <div style="display: flex;">
+              <el-input placeholder="请输入验证码" v-model="form.security" style="flex: 1"></el-input>
+              <div style="display: inline-block; vertical-align: middle;" @click="handleRefreshCode">
+                <jinx-verify-code :identifyCode="verify_code"></jinx-verify-code>
+              </div>
             </div>
-            <label style="margin-left: 20px;">请输入验证码</label>
           </el-form-item>
           <el-form-item prop="agree" :rules="[{ required: true, message: '请先同意注册协议', trigger: 'blur' }]">
             <el-checkbox name="agree" v-model="form.agree">勾选同意<el-link @click.stop.prevent="$router.push('/account/agreement')">《注册协议》</el-link></el-checkbox>
           </el-form-item>
           <el-form-item>
             <el-button type="primary" @click="handleSubmit" :loading="loading" :disabled="!form.agree">提交注册</el-button>
-            <!--<el-link type="primary" :underline="false" style="margin-left: 20px;" @click="$router.push('signin')">登录</el-link>-->
+            <div style="display: flex; justify-content: flex-end;">
+              <el-link type="primary" @click="$router.replace('signin')">登录</el-link>
+            </div>
           </el-form-item>
         </el-form>
-      </el-col>
-      <el-col :span="6" style="padding: 30px;">
-        <div style="margin-bottom: 15px;">已经有了账号？</div>
-        <div style="margin-bottom: 15px;">请直接登录</div>
-        <el-button type="primary" size="small" @click="$router.replace('signin')">登录</el-button>
-      </el-col>
-    </el-row>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -102,6 +95,7 @@
 import JinxVerifyCode from "@/components/JinxVerifyCode.vue";
 import md5 from "@/assets/js/md5.js";
 import qs from "qs";
+import { type } from "os";
 
 export default {
   components: { JinxVerifyCode },
@@ -116,7 +110,7 @@ export default {
         repassword: "",
         security: "",
         agree: false
-        // type: "1", //todo
+        // type: "专业组", //todo
         // email: "1137617085@qq.com",
         // phone: "18708117389",
         // nickname: "jinxin",
@@ -124,6 +118,11 @@ export default {
         // repassword: "jinxin20200510",
         // security: "",
         // agree: true
+      },
+      type: {
+        picker: false,
+        value: "",
+        columns: ["高校组", "专业组", "公众组", "青少年组"]
       },
       verify_code: "",
       loading: false
@@ -134,6 +133,16 @@ export default {
     this.handleRefreshCode();
   },
   methods: {
+    handleConfirmType(value) {
+      this.form.type = value;
+      this.type.picker = false;
+    },
+    handleCancelType() {
+      this.type.picker = false;
+    },
+    handleChangeType(picker, value) {
+      this.form.type = value;
+    },
     handleSubmit: function() {
       this.$refs["form"].validate(valid => {
         if (valid) {
@@ -145,13 +154,14 @@ export default {
     },
     signup: function() {
       this.loading = true;
-      let that = this;
+      let _this = this;
+      let type = this.type.columns.indexOf(this.form.type);
       this.axios
-        .post("/api/gameUser/register", qs.stringify({ type: this.form.type, email: this.form.email, tel: this.form.phone, uname: this.form.nickname, pwd: this.hex_md5(this.form.password) }))
+        .post("/api/gameUser/register", qs.stringify({ type: type, email: this.form.email, tel: this.form.phone, uname: this.form.nickname, pwd: this.hex_md5(this.form.password) }))
         .then(function(response) {
           if (response && response.data.code == "0") {
             let second = 3;
-            let message = that.$message({
+            let message = _this.$message({
               showClose: true,
               message: `注册成功，${second}秒后跳转到登录页面`,
               type: "success"
@@ -163,22 +173,22 @@ export default {
                 setTimeout(f, 1000);
               } else {
                 message.close();
-                that.$router.replace("/account/signin");
+                _this.$router.replace("/account/signin");
               }
             }, 1000);
           } else {
-            that.$message({
+            _this.$message({
               showClose: true,
               message: response.data.msg,
               type: "warning"
             });
           }
-          that.loading = false;
+          _this.loading = false;
         })
         .catch(function(err) {
           console.log(err);
-          that.loading = false;
-          that.$message({
+          _this.loading = false;
+          _this.$message({
             showClose: true,
             message: "注册失败",
             type: "warning"
@@ -236,10 +246,34 @@ export default {
 
 <style lang="less" scoped>
 .jinx-panel {
-  background: white;
-  width: @typical-width;
-  padding: 15px;
-  box-sizing: border-box;
-  margin: 30px auto 0 auto;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+
+  .title {
+    font-size: 32px;
+    text-align: center;
+    margin-bottom: 30px;
+  }
+
+  /deep/ .el-form-item__label {
+    line-height: 30px;
+    padding: 0;
+  }
+
+  /deep/ .el-input input {
+    background: #f6f6f6;
+    border: none;
+    height: 50px;
+    // font-size: 18px;
+  }
+
+  /deep/ .el-button {
+    margin: 15px 0;
+    width: 100%;
+    height: 50px;
+  }
 }
 </style>
