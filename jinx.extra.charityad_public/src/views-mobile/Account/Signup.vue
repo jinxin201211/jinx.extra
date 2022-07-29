@@ -77,12 +77,12 @@
             </div>
           </el-form-item>
           <el-form-item prop="agree" :rules="[{ required: true, message: '请先同意注册协议', trigger: 'blur' }]">
-            <el-checkbox name="agree" v-model="form.agree">勾选同意<el-link @click.stop.prevent="$router.push('/account/agreement')">《注册协议》</el-link></el-checkbox>
+            <el-checkbox name="agree" v-model="form.agree">勾选同意<el-link @click.stop.prevent="$router.push('/m/account/agreement')">《注册协议》</el-link></el-checkbox>
           </el-form-item>
           <el-form-item>
             <el-button type="primary" @click="handleSubmit" :loading="loading" :disabled="!form.agree">提交注册</el-button>
             <div style="display: flex; justify-content: flex-end;">
-              <el-link type="primary" @click="$router.replace('signin')">登录</el-link>
+              <el-link type="primary" @click="$router.replace('/m/account/signin')">登录</el-link>
             </div>
           </el-form-item>
         </el-form>
@@ -173,7 +173,7 @@ export default {
                 setTimeout(f, 1000);
               } else {
                 message.close();
-                _this.$router.replace("/account/signin");
+                _this.$router.replace("/m/account/signin");
               }
             }, 1000);
           } else {

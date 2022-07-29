@@ -447,6 +447,7 @@ export default {
               wno: data.wno,
               worksName: data.worksName,
               worksSeries: data.worksSeries,
+              worksSeriesSub: data.worksSeriesSub,
               worksType: data.worksType,
               materialSurce: data.materialSurce,
               author1: data.author1,

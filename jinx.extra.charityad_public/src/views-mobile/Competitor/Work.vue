@@ -1,11 +1,8 @@
 <template>
-  <div id="page" class="jinx-page">
-    <el-breadcrumb separator="/" style="margin: 30px 0;">
-      <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-      <el-breadcrumb-item>我的作品</el-breadcrumb-item>
-    </el-breadcrumb>
+  <div id="page">
+    <van-nav-bar title="我的作品" left-arrow @click-left="$router.go(-1)" />
 
-    <el-card>
+    <div style="margin: 15px">
       <div>
         <span style="font-size: 24px; font-weight: bold;" v-text="WorksInfo.works.worksName"></span>
       </div>
@@ -63,18 +60,24 @@
         <div class="jinx-works-info">
           <span class="title">身份证号</span>
           <span class="value" v-text="WorksInfo.works.idcardNo"></span>
+        </div>
+        <div class="jinx-works-info">
           <span class="title">联系电话</span>
           <span class="value" v-text="WorksInfo.works.tel"></span>
         </div>
         <div class="jinx-works-info">
           <span class="title">电子邮箱</span>
           <span class="value" v-text="WorksInfo.works.email"></span>
+        </div>
+        <div class="jinx-works-info">
           <span class="title">QQ</span>
           <span class="value" v-text="WorksInfo.works.qq"></span>
         </div>
         <div class="jinx-works-info">
           <span class="title">所属单位</span>
           <span class="value" v-text="WorksInfo.works.orgName"></span>
+        </div>
+        <div class="jinx-works-info">
           <span class="title">有效通讯地址</span>
           <span class="value" v-text="WorksInfo.works.addr"></span>
         </div>
@@ -85,12 +88,16 @@
           <div class="jinx-works-info">
             <span class="title">姓名</span>
             <span class="value" v-text="WorksInfo.works.tuname"></span>
+          </div>
+          <div class="jinx-works-info">
             <span class="title">联系电话</span>
             <span class="value" v-text="WorksInfo.works.tTel"></span>
           </div>
           <div class="jinx-works-info">
             <span class="title">电子邮箱</span>
             <span class="value" v-text="WorksInfo.works.tEmail"></span>
+          </div>
+          <div class="jinx-works-info">
             <span class="title">所属单位</span>
             <span class="value" v-text="WorksInfo.works.tOrgName"></span>
           </div>
@@ -100,9 +107,9 @@
         <span class="title" style="display: inline-block;">作品创意说明</span>
         <span class="value" style="display: inline-block;" v-text="WorksInfo.works.creativeOverview"></span>
       </div>
-    </el-card>
+    </div>
 
-    <el-card v-for="(item, index) in WorksInfo.works_file" :key="'works_file' + index" style="margin-top: 15px;">
+    <el-card v-for="(item, index) in WorksInfo.works_file" :key="'works_file' + index" style="margin: 15px;">
       <div slot="header" class="clearfix">
         <span v-text="'文件' + (index + 1) + '. ' + item.fileName"></span>
         <el-link v-if="isVideo(item.fileName) || isFlash(item.fileName)" :href="$FileGetServer + item.fileName" target="blank" type="primary" style="float: right;">下载</el-link>
@@ -224,11 +231,6 @@ export default {
 </script>
 
 <style lang="less" scoped>
-.jinx-page {
-  width: @typical-width;
-  margin: 0 auto;
-}
-
 .jinx-works-group {
   margin: 5px 0;
   padding: 10px 30px;

@@ -22,6 +22,9 @@ import "vant/lib/index.less";
 import "vant/lib/icon/local.css";
 Vue.use(Vant);
 
+import Directives from "./directives/index.js";
+Vue.use(Directives);
+
 //ie对router的支持
 if (!!window.ActiveXObject || "ActiveXObject" in window) {
   window.addEventListener(

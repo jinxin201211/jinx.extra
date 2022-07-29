@@ -14,8 +14,8 @@
           <el-button type="primary" @click="handleSubmit" :disabled="form.account === '' || form.password === ''">立即登录</el-button>
         </div>
         <div class="form-item" style="display: flex; justify-content: space-between;">
-          <el-link type="primary" :underline="false" @click="$router.push('/account/reset')">忘记密码</el-link>
-          <el-link type="primary" @click="$router.replace('signup')">注册</el-link>
+          <el-link type="primary" :underline="false" @click="$router.push('/m/account/reset')">忘记密码</el-link>
+          <el-link type="primary" @click="$router.replace('/m/account/signup')">注册</el-link>
         </div>
       </div>
     </div>
@@ -56,7 +56,7 @@ export default {
             if (_this.rememberMe) {
               _this.$store.commit("changeCookie", user);
             }
-            _this.$router.replace("/");
+            _this.$router.replace("/m/competitor/works");
           } else {
             _this.$message({
               showClose: true,

@@ -1,4 +1,4 @@
-import { List, NavBar, Picker, Popup } from "vant";
+import { List, NavBar, Picker, Popup, PullRefresh } from "vant";
 import { ImagePreview } from "vant";
 
 export default {
@@ -6,7 +6,8 @@ export default {
     V.use(List)
       .use(NavBar)
       .use(Picker)
-      .use(Popup);
+      .use(Popup)
+      .use(PullRefresh);
     V.prototype.$imagepreview = ImagePreview;
   }
 };

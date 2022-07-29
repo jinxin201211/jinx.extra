@@ -166,7 +166,7 @@ export default {
                 setTimeout(f, 1000);
               } else {
                 message.close();
-                _this.$router.replace("/account/signin");
+                _this.$router.replace("/m/account/signin");
               }
             }, 1000);
           } else {

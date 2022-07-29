@@ -7,7 +7,7 @@ Vue.use(VueRouter);
 const routes = [
   {
     path: "/",
-    name: "Home",
+    name: "home",
     component: Home,
     meta: {
       title: "首页"
@@ -101,7 +101,7 @@ const routes = [
   },
   {
     path: "/work",
-    name: "Work",
+    name: "work",
     component: () => import("../views/Work/Main.vue"),
     children: [
       {
@@ -161,6 +161,67 @@ const routes = [
     ]
   },
   {
+    path: "/m/work",
+    name: "mobileWork",
+    component: () => import("../views-mobile/Work/Main.vue"),
+    children: [
+      {
+        name: "mobileGetconvenant",
+        path: "getconvenant",
+        component: () => import("../views-mobile/Work/EnterStepConvenant.vue"),
+        meta: {
+          title: "勾选承诺书",
+          access: true
+        }
+      },
+      {
+        name: "mobileGrouppublic",
+        path: "grouppublic",
+        component: () => import("../views-mobile/Work/EnterStepPublicForm.vue"),
+        meta: {
+          title: "专业组、公众组报名表",
+          access: true
+        }
+      },
+      {
+        name: "mobileGroupteens",
+        path: "groupteens",
+        component: () => import("../views-mobile/Work/EnterStepTeensForm.vue"),
+        meta: {
+          title: "青少年组报名表",
+          access: true
+        }
+      },
+      {
+        name: "mobileGroupschool",
+        path: "groupschool",
+        component: () => import("../views-mobile/Work/EnterStepSchoolForm.vue"),
+        meta: {
+          title: "高校组报名表",
+          access: true
+        }
+      },
+      {
+        name: "mobileFile",
+        path: "file",
+        component: () => import("../views-mobile/Work/EnterStepFile.vue"),
+        meta: {
+          title: "作品上传",
+          access: true
+        }
+      },
+      {
+        name: "mobileFinish",
+        path: "finish",
+        component: () => import("../views-mobile/Work/EnterStepFinish.vue"),
+        meta: {
+          title: "结束提交",
+          access: true
+        }
+      }
+    ]
+  },
+  {
     name: "news",
     path: "/news",
     component: () => import("../views/News/Main.vue"),
@@ -170,7 +231,7 @@ const routes = [
     }
   },
   {
-    name: "Regulation",
+    name: "regulation",
     path: "/regulation",
     component: () => import("../views/Home/Regulation.vue"),
     meta: {
@@ -179,7 +240,7 @@ const routes = [
     }
   },
   {
-    name: "Downloads",
+    name: "downloads",
     path: "/downloads",
     component: () => import("../views/Home/Downloads.vue"),
     meta: {
@@ -188,7 +249,7 @@ const routes = [
     }
   },
   {
-    name: "Prize",
+    name: "prize",
     path: "/prize",
     component: () => import("../views/Prize/Main.vue"),
     meta: {
@@ -263,6 +324,44 @@ const routes = [
         }
       }
     ]
+  },
+  {
+    name: "mobileCompetitor",
+    path: "/m/competitor",
+    component: () => import("../views-mobile/Competitor/Main.vue"),
+    meta: {
+      title: "我的作品",
+      access: false
+    },
+    children: [
+      {
+        name: "mobileWorks",
+        path: "works",
+        component: () => import("../views-mobile/Competitor/Works.vue"),
+        meta: {
+          title: "我的作品",
+          access: true
+        }
+      },
+      {
+        name: "mobileWork",
+        path: "work",
+        component: () => import("../views-mobile/Competitor/Work.vue"),
+        meta: {
+          title: "我的作品",
+          access: true
+        }
+      },
+      {
+        name: "mobileModify",
+        path: "modify",
+        component: () => import("../views-mobile/Competitor/Modify.vue"),
+        meta: {
+          title: "作品更改",
+          access: true
+        }
+      }
+    ]
   }
 ];
 
@@ -279,8 +378,12 @@ router.beforeEach((to, from, next) => {
     document.title = title + " - " + Vue.prototype.$WebSiteName;
   }
 
-  const responsive_path = ["/account/signin", "/account/signup", "/account/reset", "/account/agreement"];
+  const responsive_path = ["/account/signin", "/account/signup", "/account/reset", "/account/agreement", "/competitor/works", "/competitor/work", "/competitor/modify", "/work", "/work/getconvenant", "/work/grouppublic", "/work/groupteens", "/work/groupschool", "/work/file", "/work/finish"];
+  console.log(responsive_path);
+  console.log(to.path);
+  console.log(responsive_path.includes(to.path));
   if (responsive_path.includes(to.path) && !isPC()) {
+    console.log("移动端页面");
     next({
       path: "/m" + to.path
     });
