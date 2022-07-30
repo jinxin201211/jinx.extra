@@ -1,5 +1,5 @@
 <template>
-  <div id="page">
+  <div id="page" style="padding-bottom: 15px;">
     <van-nav-bar title="我的作品" left-arrow @click-left="$router.go(-1)" />
 
     <div style="margin: 15px">
@@ -82,7 +82,7 @@
           <span class="value" v-text="WorksInfo.works.addr"></span>
         </div>
       </div>
-      <div v-if="WorksInfo.works.tuname !== null && WorksInfo.works.tuname !== ''">
+      <div v-if="WorksInfo.works.gameType === '高校类'">
         <div class="jinx-works-group">
           <span>指导老师信息</span>
           <div class="jinx-works-info">
@@ -103,13 +103,34 @@
           </div>
         </div>
       </div>
+      <div v-if="WorksInfo.works.gameType === '青少年类'">
+        <div class="jinx-works-group">
+          <span>监护人或指导老师信息</span>
+          <div class="jinx-works-info">
+            <span class="title">姓名</span>
+            <span class="value" v-text="WorksInfo.works.tuname"></span>
+          </div>
+          <div class="jinx-works-info">
+            <span class="title">联系电话</span>
+            <span class="value" v-text="WorksInfo.works.tTel"></span>
+          </div>
+          <div class="jinx-works-info">
+            <span class="title">所属单位</span>
+            <span class="value" v-text="WorksInfo.works.tOrgName"></span>
+          </div>
+          <div class="jinx-works-info">
+            <span class="title">指导用户类型</span>
+            <span class="value" v-text="WorksInfo.works.guideType"></span>
+          </div>
+        </div>
+      </div>
       <div class="jinx-works-info">
         <span class="title" style="display: inline-block;">作品创意说明</span>
         <span class="value" style="display: inline-block;" v-text="WorksInfo.works.creativeOverview"></span>
       </div>
     </div>
 
-    <el-card v-for="(item, index) in WorksInfo.works_file" :key="'works_file' + index" style="margin: 15px;">
+    <el-card v-for="(item, index) in WorksInfo.works_file" :key="'works_file' + index" style="margin: 15px 15px 0 15px;">
       <div slot="header" class="clearfix">
         <span v-text="'文件' + (index + 1) + '. ' + item.fileName"></span>
         <el-link v-if="isVideo(item.fileName) || isFlash(item.fileName)" :href="$FileGetServer + item.fileName" target="blank" type="primary" style="float: right;">下载</el-link>
@@ -200,6 +221,9 @@ export default {
               _this.WorksInfo.works.gameType = _this.$WorksGroupCode.find(p => p.code == _this.WorksInfo.works.gameType).value;
               _this.WorksInfo.works.worksType = _this.$WorksTypeCode.find(p => p.code == _this.WorksInfo.works.worksType).value;
             } else {
+              if (_this.WorksInfo.works.gameType === "3") {
+                _this.WorksInfo.works.guideType = _this.$GuideType.find(p => p.code == _this.WorksInfo.works.guideType).value;
+              }
               _this.WorksInfo.works.gameType = _this.$WorksGroupCode.find(p => p.code == _this.WorksInfo.works.gameType).value;
               _this.WorksInfo.works.worksType = _this.$WorksTypeCode.find(p => p.code == _this.WorksInfo.works.worksType).value;
               _this.WorksInfo.works.materialSurce = _this.$MaterialSurceCode.find(p => p.code == _this.WorksInfo.works.materialSurce).value;

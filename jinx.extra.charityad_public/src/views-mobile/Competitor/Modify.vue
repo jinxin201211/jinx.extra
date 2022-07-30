@@ -206,7 +206,7 @@
                 <el-input v-model="form.addr" maxlength="200"></el-input>
               </el-form-item>
             </div>
-            <div shadow="never">
+            <div shadow="never" v-if="form.gameType === '0'">
               <el-divider> <span>指导老师信息</span> </el-divider>
               <el-form-item
                 label="姓名"
@@ -258,6 +258,74 @@
                 <el-input v-model="form.tOrgName" maxlength="200"></el-input>
               </el-form-item>
             </div>
+
+            <div shadow="never" v-if="form.gameType === '3'">
+              <el-divider> <span>监护人或指导老师信息</span> </el-divider>
+
+              <el-form-item
+                label="姓名"
+                prop="tUname"
+                required
+                :rules="[
+                  {
+                    validator: (rule, value, callback) => {
+                      validateRequired(rule, value, callback, '请填写指导老师姓名');
+                    },
+                    trigger: ['blur', 'change']
+                  }
+                ]"
+              >
+                <el-input v-model="form.tUname" maxlength="200"></el-input>
+              </el-form-item>
+              <el-form-item
+                label="联系电话"
+                prop="tTel"
+                required
+                :rules="[
+                  {
+                    validator: (rule, value, callback) => {
+                      validateRequired(rule, value, callback, '请填写指导老师联系电话');
+                    },
+                    trigger: ['blur', 'change']
+                  },
+                  { validator: validatePhone, trigger: ['blur', 'change'] }
+                ]"
+              >
+                <el-input v-model="form.tTel" maxlength="200"></el-input>
+              </el-form-item>
+              <el-form-item
+                label="所属单位"
+                prop="orgName"
+                required
+                :rules="[
+                  {
+                    validator: (rule, value, callback) => {
+                      validateRequired(rule, value, callback, '请填写指导老师所属单位');
+                    },
+                    trigger: ['blur', 'change']
+                  }
+                ]"
+              >
+                <el-input v-model="form.tOrgName" maxlength="200"></el-input>
+              </el-form-item>
+              <el-form-item
+                label="指导用户类型"
+                prop="guideType"
+                required
+                :rules="[
+                  {
+                    validator: (rule, value, callback) => {
+                      validateRequired(rule, value, callback, '请选择指导用户类型');
+                    },
+                    trigger: ['blur', 'change']
+                  }
+                ]"
+              >
+                <el-radio-group v-model="form.guideType">
+                  <el-radio :label="item.code" v-for="(item, index) in $GuideType" :key="'guideType' + index"> {{ item.code + ":" + item.value }}</el-radio>
+                </el-radio-group>
+              </el-form-item>
+            </div>
             <div shadow="never">
               <el-divider><span style="color: #f56c6c; margin-right: 4px;">*</span><span>作品创意说明</span></el-divider>
               <el-form-item
@@ -293,7 +361,7 @@
             <div slot="tip" class="el-upload__tip">点击‘选取文件’按钮选取要上传的文件，选取完成后，点击‘上传到服务器’按钮将文件上传到服务器，待文件全部上传成功之后单击‘提交本作品’按钮结束本次上传，单个文件大小不超过<span v-text="maxSize"></span>Mb</div>
           </el-upload>
         </div>
-        <div v-for="(item, index) in WorksInfo.works_file" :key="'works_file' + index" style="margin-top: 15px;">
+        <el-card v-for="(item, index) in WorksInfo.works_file" :key="'works_file' + index" style="margin-top: 15px;">
           <div slot="header" class="clearfix">
             <span v-text="'文件' + (index + 1) + '. ' + item.fileName"></span>
             <el-link v-if="isVideo(item.fileName)" :href="$FileGetServer + item.fileName" target="blank" type="primary" style="float: right;">下载</el-link>
@@ -319,7 +387,7 @@
           <div v-else style="text-align: center;">
             <a :href="$FileGetServer + item.fileName" v-text="item.fileName" target="_blank"></a>
           </div>
-        </div>
+        </el-card>
       </el-tab-pane>
     </el-tabs>
   </div>
@@ -362,6 +430,7 @@ export default {
         creativeOverview: "",
         gameUname: this.$store.state.User.uname,
         gameType: this.$store.state.User.type ?? "1",
+        guideType: "",
         tTel: "",
         tEmail: "",
         tOrgName: "",
@@ -538,6 +607,7 @@ export default {
               creativeOverview: data.creativeOverview,
               gameUname: data.gameUname,
               gameType: data.gameType,
+              guideType: data.guideType,
               tTel: data.tTel,
               tEmail: data.tEmail,
               tOrgName: data.tOrgName,
@@ -769,5 +839,9 @@ export default {
 /deep/ .el-form-item__label {
   line-height: 30px;
   padding: 0;
+}
+
+/deep/ .el-tabs__nav {
+  margin-left: 15px;
 }
 </style>

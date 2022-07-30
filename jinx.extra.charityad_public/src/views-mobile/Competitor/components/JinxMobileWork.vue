@@ -1,5 +1,5 @@
 <template>
-  <div class="jinx-mobile-work" v-jinx-tap>
+  <div class="jinx-mobile-work" v-jinx-tap @click="$emit('view')">
     <div class="item"><span class="name">作品编号：</span><span class="value" v-text="info.wno"></span></div>
     <div class="item"><span class="name">作品名称：</span><span class="value" v-text="info.worksName"></span></div>
     <div style="display: flex;">

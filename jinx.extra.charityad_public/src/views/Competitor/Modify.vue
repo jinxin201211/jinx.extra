@@ -242,7 +242,7 @@
                 </el-col>
               </el-row>
             </el-card>
-            <el-card style="margin: 20px;" shadow="never" v-if="form.tUname != null && form.tUname != ''">
+            <el-card style="margin: 20px;" shadow="never" v-if="form.gameType === '0'">
               <div slot="header" style="text-align: center;">
                 <span>指导老师信息</span>
               </div>
@@ -304,6 +304,86 @@
                     ]"
                   >
                     <el-input v-model="form.tOrgName" maxlength="200"></el-input>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+            </el-card>
+            <el-card style="margin: 20px" shadow="never" v-if="form.gameType === '3'">
+              <div slot="header" style="text-align: center">
+                <span>监护人或指导老师信息</span>
+              </div>
+              <el-row>
+                <el-col :span="12">
+                  <el-form-item
+                    label="姓名"
+                    prop="tUname"
+                    required
+                    :rules="[
+                      {
+                        validator: (rule, value, callback) => {
+                          validateRequired(rule, value, callback, '请填写指导老师姓名');
+                        },
+                        trigger: ['blur', 'change']
+                      }
+                    ]"
+                  >
+                    <el-input v-model="form.tUname" maxlength="200"></el-input>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="12">
+                  <el-form-item
+                    label="联系电话"
+                    prop="tTel"
+                    required
+                    :rules="[
+                      {
+                        validator: (rule, value, callback) => {
+                          validateRequired(rule, value, callback, '请填写指导老师联系电话');
+                        },
+                        trigger: ['blur', 'change']
+                      },
+                      { validator: validatePhone, trigger: ['blur', 'change'] }
+                    ]"
+                  >
+                    <el-input v-model="form.tTel" maxlength="200"></el-input>
+                  </el-form-item>
+                </el-col>
+              </el-row>
+              <el-row>
+                <el-col :span="12">
+                  <el-form-item
+                    label="所属单位"
+                    prop="orgName"
+                    required
+                    :rules="[
+                      {
+                        validator: (rule, value, callback) => {
+                          validateRequired(rule, value, callback, '请填写指导老师所属单位');
+                        },
+                        trigger: ['blur', 'change']
+                      }
+                    ]"
+                  >
+                    <el-input v-model="form.tOrgName" maxlength="200"></el-input>
+                  </el-form-item>
+                </el-col>
+                <el-col :span="12">
+                  <el-form-item
+                    label="指导用户类型"
+                    prop="guideType"
+                    required
+                    :rules="[
+                      {
+                        validator: (rule, value, callback) => {
+                          validateRequired(rule, value, callback, '请选择指导用户类型');
+                        },
+                        trigger: ['blur', 'change']
+                      }
+                    ]"
+                  >
+                    <el-radio-group v-model="form.guideType">
+                      <el-radio :label="item.code" v-for="(item, index) in $GuideType" :key="'guideType' + index"> {{ item.code + ":" + item.value }}</el-radio>
+                    </el-radio-group>
                   </el-form-item>
                 </el-col>
               </el-row>
@@ -412,6 +492,7 @@ export default {
         creativeOverview: "",
         gameUname: this.$store.state.User.uname,
         gameType: this.$store.state.User.type ?? "1",
+        guideType: "",
         tTel: "",
         tEmail: "",
         tOrgName: "",

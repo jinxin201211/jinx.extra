@@ -1,12 +1,12 @@
 <template>
   <div style="min-height: 100%; box-sizing: border-box; ">
-    <van-nav-bar title="我的作品" left-arrow @click-left="$router.go(-1)" />
+    <van-nav-bar title="我的作品" left-arrow @click-left="$router.go(-1)" right-text="退出" @click-right="handleSignOut" />
+    <div style="width: 100%; padding: 0 15px; box-sizing: border-box; margin-top: 15px;">
+      <el-button type="primary" @click="handleNewWork" style="width: 100%;">新增作品</el-button>
+    </div>
     <van-pull-refresh v-model="refreshing" @refresh="handleRefresh">
       <jinx-mobile-work v-for="item in List" :key="'jinx-mobile-work-' + item.wid" :info="item" @submit="handleSubmit(item)" @view="handleView(item)" @modify="handleModify(item)" @delete="handleDelete(item)" @download="handleDownload(item)" @reply="handleDownloadReply(item)"></jinx-mobile-work>
     </van-pull-refresh>
-    <div style="position: fixed; bottom: 15px; right: 15px; z-index: 1;">
-      <el-button type="primary" @click="handleNewWork">新增作品</el-button>
-    </div>
   </div>
 </template>
 
@@ -28,6 +28,11 @@ export default {
   },
   inject: ["reload"],
   methods: {
+    handleSignOut: function() {
+      this.$store.commit("resetAccount");
+      this.$store.commit("removeCookie");
+      this.$router.replace("/m/account/signin");
+    },
     getList() {
       let _this = this;
       this.List = [];
@@ -240,7 +245,7 @@ body,
 
 <style lang="less" scoped>
 /deep/ .van-pull-refresh {
-  height: calc(100% - 46px);
+  height: calc(100% - 46px - 55px);
   min-height: 500px;
   padding: 15px 0;
   box-sizing: border-box;

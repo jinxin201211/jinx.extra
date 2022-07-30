@@ -79,7 +79,7 @@
           <span class="value" v-text="WorksInfo.works.addr"></span>
         </div>
       </div>
-      <div v-if="WorksInfo.works.tuname !== null && WorksInfo.works.tuname !== ''">
+      <div v-if="WorksInfo.works.gameType === '高校类'">
         <div class="jinx-works-group">
           <span>指导老师信息</span>
           <div class="jinx-works-info">
@@ -93,6 +93,23 @@
             <span class="value" v-text="WorksInfo.works.tEmail"></span>
             <span class="title">所属单位</span>
             <span class="value" v-text="WorksInfo.works.tOrgName"></span>
+          </div>
+        </div>
+      </div>
+      <div v-if="WorksInfo.works.gameType === '青少年类'">
+        <div class="jinx-works-group">
+          <span>监护人或指导老师信息</span>
+          <div class="jinx-works-info">
+            <span class="title">姓名</span>
+            <span class="value" v-text="WorksInfo.works.tuname"></span>
+            <span class="title">联系电话</span>
+            <span class="value" v-text="WorksInfo.works.tTel"></span>
+          </div>
+          <div class="jinx-works-info">
+            <span class="title">所属单位</span>
+            <span class="value" v-text="WorksInfo.works.tOrgName"></span>
+            <span class="title">指导用户类型</span>
+            <span class="value" v-text="WorksInfo.works.guideType"></span>
           </div>
         </div>
       </div>
@@ -193,6 +210,9 @@ export default {
               _this.WorksInfo.works.gameType = _this.$WorksGroupCode.find(p => p.code == _this.WorksInfo.works.gameType).value;
               _this.WorksInfo.works.worksType = _this.$WorksTypeCode.find(p => p.code == _this.WorksInfo.works.worksType).value;
             } else {
+              if (_this.WorksInfo.works.gameType === "3") {
+                _this.WorksInfo.works.guideType = _this.$GuideType.find(p => p.code == _this.WorksInfo.works.guideType).value;
+              }
               _this.WorksInfo.works.gameType = _this.$WorksGroupCode.find(p => p.code == _this.WorksInfo.works.gameType).value;
               _this.WorksInfo.works.worksType = _this.$WorksTypeCode.find(p => p.code == _this.WorksInfo.works.worksType).value;
               _this.WorksInfo.works.materialSurce = _this.$MaterialSurceCode.find(p => p.code == _this.WorksInfo.works.materialSurce).value;

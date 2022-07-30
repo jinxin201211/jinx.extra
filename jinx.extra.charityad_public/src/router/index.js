@@ -379,11 +379,7 @@ router.beforeEach((to, from, next) => {
   }
 
   const responsive_path = ["/account/signin", "/account/signup", "/account/reset", "/account/agreement", "/competitor/works", "/competitor/work", "/competitor/modify", "/work", "/work/getconvenant", "/work/grouppublic", "/work/groupteens", "/work/groupschool", "/work/file", "/work/finish"];
-  console.log(responsive_path);
-  console.log(to.path);
-  console.log(responsive_path.includes(to.path));
   if (responsive_path.includes(to.path) && !isPC()) {
-    console.log("移动端页面");
     next({
       path: "/m" + to.path
     });
