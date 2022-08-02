@@ -14,7 +14,7 @@
     <el-form ref="form" :model="form" label-width="120px" style="padding: 0 20px; margin: 30px auto;">
       <el-card>
         <div slot="header" style="text-align: center;">
-          <span>2021河北省公益广告大赛作品征集报名表（专业组、公众组）</span>
+          <span>2022河北省公益广告大赛作品征集报名表（专业组、公众组）</span>
         </div>
         <el-form-item label="作品编号">
           <el-input v-model="form.wno" maxlength="100" readonly disabled></el-input>

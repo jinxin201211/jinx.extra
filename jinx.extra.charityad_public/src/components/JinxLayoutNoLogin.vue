@@ -42,7 +42,7 @@ export default {
   methods: {
     handleScrollToView: function(path) {
       this.$router.push({
-        name: "Home",
+        name: "home",
         params: {
           view: path
         }

@@ -199,17 +199,7 @@
           </div>
           <div class="item-pos">
             <div class="link-item">
-              <el-link href="http://www.hebtu.edu.cn/" target="'_blank'">河北师范大学</el-link>
-            </div>
-          </div>
-          <div class="item-pos">
-            <div class="link-item">
-              <el-link href="http://xwcbxy.hebtu.edu.cn/a/2019/04/19/AE56753B9B30477D8B23405AA82DCF18.html" target="_blank">河北省广告研究院</el-link>
-            </div>
-          </div>
-          <div class="item-pos">
-            <div class="link-item">
-              <el-link href="http://www.hbggw.com.cn/" target="_blank">河北省广告协会</el-link>
+              <el-link href="http://hb.wenming.cn/" target="_blank">河北文明网</el-link>
             </div>
           </div>
           <div class="item-pos">
@@ -219,12 +209,17 @@
           </div>
           <div class="item-pos">
             <div class="link-item">
-              <el-link href="http://www.heb315.org.cn/" target="_blank">河北省消费者权益保护委员会</el-link>
+              <el-link href="http://www.54heb.org.cn/" target="_blank">河北共青团</el-link>
             </div>
           </div>
           <div class="item-pos">
             <div class="link-item">
-              <el-link href="http://scjg.sjz.gov.cn/" target="_blank">石家庄市场监管局</el-link>
+              <el-link href="http://jyt.hebei.gov.cn/" target="_blank">河北省教育厅</el-link>
+            </div>
+          </div>
+          <div class="item-pos">
+            <div class="link-item">
+              <el-link href="http://www.hbggw.com.cn/" target="_blank">河北省广告协会</el-link>
             </div>
           </div>
         </div>
@@ -266,7 +261,7 @@ import qs from "qs";
 import moment from "moment";
 
 export default {
-  name: "Home",
+  name: "home",
   components: {
     JinxNavMenu,
     JinxTopNav
@@ -343,7 +338,7 @@ export default {
     // this.$alert("①电子版证书请于2022年1月4号后登陆账号在我的作品里进行下载（使用chrome浏览器下载）。<br />②如需指导及主办单位证明材料，下载路径同上。<br />③网站将于1月25号更换新的域名(www.hbsggyjy.cn)，请及时更新收藏夹", "", {
     //   dangerouslyUseHTMLString: true
     // });
-    this.$alert("因疫情影响导致邮寄的证书可能会延迟，请大家耐心等待一下，如急需请与组委会联系");
+    // this.$alert("因疫情影响导致邮寄的证书可能会延迟，请大家耐心等待一下，如急需请与组委会联系");
   },
   beforeRouteLeave(to, from, next) {
     window.clearTimeout(this.work.carousel);

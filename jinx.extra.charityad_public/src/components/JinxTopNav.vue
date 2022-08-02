@@ -64,7 +64,7 @@ export default {
     handleSignOut: function() {
       this.$store.commit("resetAccount");
       this.$store.commit("removeCookie");
-      if (this.$route.name === "Home") {
+      if (this.$route.name === "home") {
         this.reload();
       } else {
         this.$router.replace("/");
