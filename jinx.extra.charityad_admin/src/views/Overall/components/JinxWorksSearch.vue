@@ -57,20 +57,20 @@ export default {
   methods: {
     getList() {
       this.loading = true;
-      let that = this;
+      let _this = this;
       this.axios
         .post("/api/gameWorks2/getData", qs.stringify(this.query))
         .then(function(response) {
           if (response && response.data.code == "0") {
-            that.List = response.data.data;
-            that.List.forEach(p => {
-              let game_type = that.$WorksGroupCode.find(x => x.code == p.gameType);
+            _this.List = response.data.data;
+            _this.List.forEach(p => {
+              let game_type = _this.$WorksGroupCode.find(x => x.code == p.gameType);
               p.gameType = game_type == null ? "" : game_type.value;
-              let series = that.$WorksSeriesCode.find(x => x.code == p.worksSeries);
-              p.worksSeries = series == null ? "" : series.value;
-              let type = that.$WorksTypeCode.find(x => x.code == p.worksType);
+              // let series = _this.$WorksSeriesCode.find(x => x.code == p.worksSeries);
+              // p.worksSeries = series == null ? "" : series.value;
+              let type = _this.$WorksTypeCode.find(x => x.code == p.worksType);
               p.worksType = type == null ? "" : type.value;
-              let source = that.$MaterialSurceCode.find(x => x.code == p.materialSurce);
+              let source = _this.$MaterialSurceCode.find(x => x.code == p.materialSurce);
               p.materialSurce = source == null ? "" : source.value;
 
               p.state = p.state == null || p.state * 1 === 0 ? "-" : p.state * 1 === 1 ? "通过" : "不通过";
@@ -93,20 +93,20 @@ export default {
               }
               p.author1 = authors.join("，");
             });
-            that.total = response.data.count;
+            _this.total = response.data.count;
           } else {
-            that.$message({
+            _this.$message({
               showClose: true,
               message: response.data.msg,
               type: "warning"
             });
           }
-          that.loading = false;
+          _this.loading = false;
         })
         .catch(function(err) {
           console.log(err);
-          that.loading = false;
-          that.$message({
+          _this.loading = false;
+          _this.$message({
             showClose: true,
             message: "查询失败",
             type: "warning"
