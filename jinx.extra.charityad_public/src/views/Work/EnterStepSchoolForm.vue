@@ -85,7 +85,7 @@
                 }
               ]"
             >
-              <el-select v-model="form.worksType" placeholder="请选择">
+              <el-select v-model="form.worksType" placeholder="请选择" @change="handleWorksTypeChange">
                 <el-option v-for="(item, index) in $WorksTypeCode" :key="'workstype' + index" :label="item.code + ':' + item.value" :value="item.code"> </el-option>
               </el-select>
             </el-form-item>
