@@ -219,7 +219,7 @@
           </div>
           <div class="item-pos">
             <div class="link-item">
-              <el-link href="http://www.hbggw.com.cn/" target="_blank">河北省广告协会</el-link>
+              <el-link href="http://www.hbsggxh.com/" target="_blank">河北省广告协会</el-link>
             </div>
           </div>
         </div>
