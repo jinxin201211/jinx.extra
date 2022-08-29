@@ -586,11 +586,11 @@ export default {
   }
 
   .banner-1 {
-    background-image: url("../assets/images/banner2022/banner1-s.jpg");
+    background-image: url("../assets/images/banner2022/banner0829-s.jpg");
   }
 
   .banner-2 {
-    background-image: url("../assets/images/banner2022/banner2-s.jpg");
+    background-image: url("../assets/images/banner2022/banner0829-s.jpg");
   }
 }
 
