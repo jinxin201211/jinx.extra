@@ -340,9 +340,9 @@ export default {
     // });
     // this.$alert("因疫情影响导致邮寄的证书可能会延迟，请大家耐心等待一下，如急需请与组委会联系");
 
-    this.$alert(`<a class="el-link el-link--primary is-underline" onclick="handleOpenNews()">“我心向党，喜迎二十大”特别主题前置征集中，9月30日截止</a> `, "", {
-      dangerouslyUseHTMLString: true
-    });
+    // this.$alert(`<a class="el-link el-link--primary is-underline" onclick="handleOpenNews()">“我心向党，喜迎二十大”特别主题前置征集中，9月30日截止</a> `, "", {
+    //   dangerouslyUseHTMLString: true
+    // });
     const _this = this;
     window.handleOpenNews = () => {
       _this.$msgbox.close();
