@@ -291,6 +291,10 @@ export default {
           path: "anchor_display"
         },
         {
+          title: "新闻宣传",
+          path: "anchor_propagate"
+        },
+        {
           title: "文件下载",
           path: "anchor_downloads"
         },
@@ -446,6 +450,8 @@ export default {
         this.$router.push("/download");
       } else if (path == "anchor_downloads") {
         this.$router.push("/downloads");
+      } else if (path == "anchor_propagate") {
+        this.$router.push("/news/propagate");
       } else {
         let section = document.getElementById(path);
         if (section) {
@@ -462,6 +468,8 @@ export default {
         this.$router.push("/download");
       } else if (path == "anchor_downloads") {
         this.$router.push("/downloads");
+      } else if (path == "anchor_propagate") {
+        this.$router.push("/news/propagate");
       } else {
         let section = document.getElementById(path);
         if (section) {

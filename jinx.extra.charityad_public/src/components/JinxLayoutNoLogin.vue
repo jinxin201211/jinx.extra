@@ -33,6 +33,7 @@ export default {
         { title: "新闻动态", path: "anchor_news" },
         { title: "作品展示", path: "anchor_works" },
         { title: "优秀作品资源库", path: "anchor_display" },
+        { title: "新闻宣传", path: "anchor_propagate" },
         { title: "文件下载", path: "anchor_downloads" },
         { title: "联系我们", path: "anchor_contact_us" }
       ]

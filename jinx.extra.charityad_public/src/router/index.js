@@ -231,6 +231,16 @@ const routes = [
     }
   },
   {
+    name: "propagate",
+    path: "/news/propagate",
+    component: () => import("../views/News/Propagate.vue"),
+    meta: {
+      title: "新闻宣传",
+      access: false,
+      keepAlive: true
+    }
+  },
+  {
     name: "regulation",
     path: "/regulation",
     component: () => import("../views/Home/Regulation.vue"),
