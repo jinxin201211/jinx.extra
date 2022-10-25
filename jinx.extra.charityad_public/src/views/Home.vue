@@ -64,13 +64,13 @@
               <div class="news-panel">
                 <div class="date">
                   <div class="date-pos">
-                    <div class="date-day" v-text="item.col1.date">11</div>
-                    <div class="date-month" v-text="item.col1.month">2020-05</div>
+                    <div class="date-day" v-text="item.col1.date"></div>
+                    <div class="date-month" v-text="item.col1.month"></div>
                   </div>
                 </div>
                 <div class="news-info">
-                  <div class="news-title" v-text="item.col1.title" @click="handleViewNews(item.col1.id)">这是一条新闻标题</div>
-                  <div class="news-body" v-html="item.col1.content">5月12日下午14:00，第12届全国大学生广告艺术大赛各赛区负责人沟通会借助腾讯会议平台在线举行。全国29个赛区负责人、联络人及赛区相关工作人员代表准时参会。</div>
+                  <div class="news-title" v-text="item.col1.title" @click="handleViewNews(item.col1.id)"></div>
+                  <div class="news-body" v-html="item.col1.content"></div>
                 </div>
               </div>
             </div>
@@ -79,13 +79,13 @@
               <div class="news-panel">
                 <div class="date">
                   <div class="date-pos">
-                    <div class="date-day" v-text="item.col2.date">11</div>
-                    <div class="date-month" v-text="item.col2.month">2020-05</div>
+                    <div class="date-day" v-text="item.col2.date"></div>
+                    <div class="date-month" v-text="item.col2.month"></div>
                   </div>
                 </div>
                 <div class="news-info">
-                  <div class="news-title" v-text="item.col2.title" @click="handleViewNews(item.col2.id)">这是一条新闻标题</div>
-                  <div class="news-body" v-html="item.col2.content">5月12日下午14:00，第12届全国大学生广告艺术大赛各赛区负责人沟通会借助腾讯会议平台在线举行。全国29个赛区负责人、联络人及赛区相关工作人员代表准时参会。</div>
+                  <div class="news-title" v-text="item.col2.title" @click="handleViewNews(item.col2.id)"></div>
+                  <div class="news-body" v-html="item.col2.content"></div>
                 </div>
               </div>
             </div>
@@ -109,7 +109,7 @@
             <div v-show="work.list.length > 0 && work.file < work.list[work.index].files.length - 1" class="right" @click="work.file++"></div>
           </div>
           <div class="works-info">
-            <span class="author" v-text="work.list.length > 0 ? work.list[work.index].author : ''">作者名字</span>
+            <span class="author" v-text="work.list.length > 0 ? work.list[work.index].author : ''"></span>
             <span class="avatar"></span>
           </div>
         </div>
@@ -347,16 +347,18 @@ export default {
     // this.$alert(`<a class="el-link el-link--primary is-underline" onclick="handleOpenNews()">“我心向党，喜迎二十大”特别主题前置征集中，9月30日截止</a> `, "", {
     //   dangerouslyUseHTMLString: true
     // });
-    const _this = this;
-    window.handleOpenNews = () => {
-      _this.$msgbox.close();
-      _this.$router.push({
-        path: "/news",
-        query: {
-          id: 59
-        }
-      });
-    };
+    // const _this = this;
+    // window.handleOpenNews = () => {
+    //   _this.$msgbox.close();
+    //   _this.$router.push({
+    //     path: "/news",
+    //     query: {
+    //       id: 59
+    //     }
+    //   });
+    // };
+
+    this.$alert("征集作品延长到11月20号");
   },
   beforeRouteLeave(to, from, next) {
     window.clearTimeout(this.work.carousel);
