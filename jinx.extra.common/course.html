@@ -93,8 +93,10 @@
 </head>
 
 <body>
-  <div style="width: 1200px; margin: 0 auto; height: 100%">
-    <div id="courses" style="margin-top: 15px">
+  <div style="height: 100%; overflow-y: auto;">
+    <div style="width: 1200px; margin: 0 auto; height: 100%">
+      <div id="courses" style="margin-top: 15px">
+      </div>
     </div>
   </div>
 
@@ -205,13 +207,77 @@
         complete: false,
         error: false
       }]
+    }, {
+      cover: '/网页内容-大讲堂各期培训/第10场/第10场.png',
+      video: [{
+        url: '/网页内容-大讲堂各期培训/第10场/教育培训广告合规须知.mp4',
+        loaded: 0,
+        total: 0,
+        downloading: false,
+        complete: false,
+        error: false
+      }]
+    }, {
+      cover: '/网页内容-大讲堂各期培训/第11场/第11场.png',
+      video: [{
+        url: '/网页内容-大讲堂各期培训/第11场/公共关系与公关思维.mp4',
+        loaded: 0,
+        total: 0,
+        downloading: false,
+        complete: false,
+        error: false
+      }]
+    }, {
+      cover: '/网页内容-大讲堂各期培训/第12场/第12场.png',
+      video: [{
+        url: '/网页内容-大讲堂各期培训/第12场/内容营销时代，解码品牌营销的背后.mp4',
+        loaded: 0,
+        total: 0,
+        downloading: false,
+        complete: false,
+        error: false
+      }]
+    }, {
+      cover: '/网页内容-大讲堂各期培训/第13场/第13场.jpg',
+      video: [{
+        url: '/网页内容-大讲堂各期培训/第13场/大众传媒（含户外广告）广告合规发布指南.mp4',
+        loaded: 0,
+        total: 0,
+        downloading: false,
+        complete: false,
+        error: false
+      }]
+    }, {
+      cover: '/网页内容-大讲堂各期培训/第14场（暂缺）/第14场.png',
+      video: [{
+        url: '',
+        loaded: 0,
+        total: 0,
+        downloading: false,
+        complete: false,
+        error: false
+      }]
+    }, {
+      cover: '/网页内容-大讲堂各期培训/第15场/第15场.png',
+      video: [{
+        url: '/网页内容-大讲堂各期培训/第15场/产品即购买理由——产品的本质解读.mp4',
+        loaded: 0,
+        total: 0,
+        downloading: false,
+        complete: false,
+        error: false
+      }]
     }]
 
     window.onload = function () {
       let courses = document.getElementById('courses');
       courses.innerHTML = '';
       for (let i = 0; i < listCourse.length; i++) {
-        courses.innerHTML += `<div class="course" onclick="handleCourseClick(${i})" style="background-image: url('${'http://www.hbsggyjy.cn' + '/common/courses' + listCourse[i].cover}')"></div>`
+        if (listCourse[i].video[0].url === '') {
+          courses.innerHTML += `<div class="course"  style="background-image: url('${'http://www.hbsggyjy.cn' + '/common/courses' + listCourse[i].cover}')"><div class="progress" style="background: linear-gradient(to right, rgba(0, 0, 0, 0.75) 0%, rgba(0, 0, 0, 0.75) 100%, rgba(120, 120, 120, 0.75) 100%, rgba(120, 120, 120, 0.75) 100%);">暂缺</div></div>`
+        } else {
+          courses.innerHTML += `<div class="course" onclick="handleCourseClick(${i})" style="background-image: url('${'http://www.hbsggyjy.cn' + '/common/courses' + listCourse[i].cover}')"></div>`
+        }
       }
       courses.innerHTML += `<div class="course hidden"></div>`
       courses.innerHTML += `<div class="course hidden"></div>`
