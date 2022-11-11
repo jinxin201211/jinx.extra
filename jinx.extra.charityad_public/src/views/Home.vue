@@ -358,7 +358,11 @@ export default {
     //   });
     // };
 
-    this.$alert("征集作品延长到11月20号");
+    // this.$alert("征集作品延长到11月20号");
+
+    this.$alert("由于临近作品征集截止日期，网站访问量骤增导致网络拥堵，请各位参赛者提前记录组委会电话，如遇网站登陆异常、作品提交等问题请与组委会联系！<br />任老师 18830155671<br />栗老师 15232181775<br />吴老师 19933140906", "", {
+      dangerouslyUseHTMLString: true
+    });
   },
   beforeRouteLeave(to, from, next) {
     window.clearTimeout(this.work.carousel);
