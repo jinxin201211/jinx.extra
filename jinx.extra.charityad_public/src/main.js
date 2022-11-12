@@ -45,11 +45,13 @@ window.$VuexPrefix = "charity.public.";
 window.$CookieStoreDays = 7;
 // window.$Server = "http://hbsggyjy.hebtu.edu.cn";
 window.$Server = "http://www.hbsggyjy.cn";
+// window.$Server = "http://43.135.119.85";
 // window.$Server = "http://127.0.0.1";
 // window.$Server = "http://192.168.0.111";
 window.$FileUploadServer = window.$Server + ":8084";
 
 Vue.prototype.$Host = "www.hbsggyjy.cn";
+// Vue.prototype.$Host = "43.135.119.85";
 Vue.prototype.$Domain = "http://" + Vue.prototype.$Host;
 Vue.prototype.$FileGetServer = `${window.$Server}/img/`;
 Vue.prototype.$CertFileGetServer = window.$Server + ":8084/gameWorks2/downloadCert?file_name=";
