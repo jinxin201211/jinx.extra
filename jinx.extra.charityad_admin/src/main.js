@@ -48,6 +48,7 @@ window.$VuexPrefix = "charity.admin.";
 // window.$Server = "http://47.108.88.211"; // todo
 // window.$Server = "http://hbsggyjy.hebtu.edu.cn";
 window.$Server = "http://www.hbsggyjy.cn"; // todo
+// window.$Server = "http://43.135.119.85";
 // window.$Server = "http://127.0.0.1";
 // window.$Server = "http://49.233.122.67";
 // window.$Server = "http://localhost";
