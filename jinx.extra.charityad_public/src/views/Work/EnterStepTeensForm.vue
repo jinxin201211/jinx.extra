@@ -292,7 +292,7 @@
             <el-col :span="12">
               <el-form-item
                 label="所属单位"
-                prop="orgName"
+                prop="tOrgName"
                 required
                 :rules="[
                   {

@@ -246,7 +246,7 @@
             </el-form-item>
             <el-form-item
               label="所属单位"
-              prop="orgName"
+              prop="tOrgName"
               required
               :rules="[
                 {

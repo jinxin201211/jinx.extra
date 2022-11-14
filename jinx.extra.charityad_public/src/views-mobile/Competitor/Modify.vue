@@ -732,6 +732,7 @@ export default {
       }
     },
     handleError: function(err, file, fileList) {
+      console.log(err, file, fileList);
       this.$message({
         showClose: true,
         message: `${file.name} 上传失败`,

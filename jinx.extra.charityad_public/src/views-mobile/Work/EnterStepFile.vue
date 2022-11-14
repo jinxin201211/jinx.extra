@@ -102,7 +102,7 @@ export default {
       if (response.code == -1) {
         this.$message({
           showClose: true,
-          message: `${file.name} 上传失败`,
+          message: response.msg,
           type: "error"
         });
         fileList.splice(fileList.indexOf(file), 1);
