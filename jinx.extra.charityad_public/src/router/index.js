@@ -372,6 +372,15 @@ const routes = [
         }
       }
     ]
+  },
+  {
+    name: "aier",
+    path: "/aier",
+    component: () => import("../views/Aier/Main.vue"),
+    meta: {
+      title: "爱尔眼科",
+      access: false
+    }
   }
 ];
 

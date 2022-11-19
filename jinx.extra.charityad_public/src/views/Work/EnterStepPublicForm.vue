@@ -424,7 +424,7 @@ export default {
   },
   methods: {
     validateRequired: function(rule, value, callback, msg) {
-      if (value == null || value.trim().length == 0) {
+      if (value == null || (value + "").trim().length == 0) {
         this.ValidateErrorMessage.push(msg);
         return callback(new Error(msg));
       } else {

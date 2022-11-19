@@ -1,42 +1,44 @@
 <template>
   <div style="padding-top: 102px;">
-    <jinx-top-nav style="position: absolute; top: 0; z-index: 2;" :authorize="true" @scrolltoview="handleScrollToView"></jinx-top-nav>
-    <jinx-nav-menu :menu="menuList" style="position: absolute; top: 42px; z-index: 1;" @scrolltoview="handleScrollToView"></jinx-nav-menu>
-    <div id="anchor_home" class="jinx-banner">
-      <div class="banner banner-1" :class="{ active: bannerShow === 0, hide: bannerShow !== 0 }"></div>
-      <div class="banner banner-2" :class="{ active: bannerShow === 1, hide: bannerShow !== 1 }"></div>
-    </div>
+    <jinx-top-nav style="position: absolute; top: 0;" :authorize="true" @scrolltoview="handleScrollToView"></jinx-top-nav>
+    <jinx-nav-menu :menu="menuList" style="position: absolute; top: 42px;" @scrolltoview="handleScrollToView"></jinx-nav-menu>
 
-    <div class="jinx-banner-navbar">
-      <div class="nav" v-if="false">
-        <div>
-          <div class="icon" :style="{ backgroundImage: 'url(' + require('@/assets/images/home/banner大赛介绍@2x.png') + ')' }"></div>
-          <div class="title">大赛介绍</div>
+    <div style="display: flex; flex-direction: column-reverse;">
+      <div class="jinx-banner-navbar" style="z-index: 1;">
+        <div class="nav" v-if="false">
+          <div>
+            <div class="icon" :style="{ backgroundImage: 'url(' + require('@/assets/images/home/banner大赛介绍@2x.png') + ')' }"></div>
+            <div class="title">大赛介绍</div>
+          </div>
+        </div>
+        <div class="nav">
+          <div @click="$router.push('/regulation')">
+            <div class="icon" :style="{ backgroundImage: 'url(' + require('@/assets/images/home/banner大赛章程@2x.png') + ')' }"></div>
+            <div class="title">大赛章程</div>
+          </div>
+        </div>
+        <div class="nav">
+          <div @click="$router.push('/account/signup')">
+            <div class="icon" :style="{ backgroundImage: 'url(' + require('@/assets/images/home/banner注册报名@2x.png') + ')' }"></div>
+            <div class="title">注册报名</div>
+          </div>
+        </div>
+        <div class="nav">
+          <div @click="$router.push('/work')">
+            <div class="icon" :style="{ backgroundImage: 'url(' + require('@/assets/images/home/banner作品提交@2x.png') + ')' }"></div>
+            <div class="title">作品提交</div>
+          </div>
+        </div>
+        <div class="nav">
+          <div @click="$router.push('/prize')">
+            <div class="icon" :style="{ backgroundImage: 'url(' + require('@/assets/images/home/banner结果查询@2x.png') + ')' }"></div>
+            <div class="title">结果查询</div>
+          </div>
         </div>
       </div>
-      <div class="nav">
-        <div @click="$router.push('/regulation')">
-          <div class="icon" :style="{ backgroundImage: 'url(' + require('@/assets/images/home/banner大赛章程@2x.png') + ')' }"></div>
-          <div class="title">大赛章程</div>
-        </div>
-      </div>
-      <div class="nav">
-        <div @click="$router.push('/account/signup')">
-          <div class="icon" :style="{ backgroundImage: 'url(' + require('@/assets/images/home/banner注册报名@2x.png') + ')' }"></div>
-          <div class="title">注册报名</div>
-        </div>
-      </div>
-      <div class="nav">
-        <div @click="$router.push('/work')">
-          <div class="icon" :style="{ backgroundImage: 'url(' + require('@/assets/images/home/banner作品提交@2x.png') + ')' }"></div>
-          <div class="title">作品提交</div>
-        </div>
-      </div>
-      <div class="nav">
-        <div @click="$router.push('/prize')">
-          <div class="icon" :style="{ backgroundImage: 'url(' + require('@/assets/images/home/banner结果查询@2x.png') + ')' }"></div>
-          <div class="title">结果查询</div>
-        </div>
+      <div id="anchor_home" class="jinx-banner">
+        <div class="banner banner-1" :class="{ active: bannerShow === 0, hide: bannerShow !== 0 }"></div>
+        <div class="banner banner-2 aier" :class="{ active: bannerShow === 1, hide: bannerShow !== 1 }" @click="handleAierClick"></div>
       </div>
     </div>
 
@@ -542,6 +544,9 @@ export default {
         _this.work.carousel = setTimeout(f, _this.work.interval);
       }, _this.work.interval);
     },
+    handleAierClick() {
+      this.$router.push("/aier");
+    },
     isImage: function(file) {
       file = file.toLowerCase();
       if (file.endsWith(".jpg") || file.endsWith(".jpeg") || file.endsWith(".png") || file.endsWith(".gif")) {
@@ -575,7 +580,7 @@ export default {
   min-width: @typical-width;
   height: 480px;
   position: relative;
-  z-index: -1;
+  // z-index: -1;
 
   .banner {
     position: absolute;
@@ -604,7 +609,11 @@ export default {
   }
 
   .banner-2 {
-    background-image: url("../assets/images/banner2022/banner0829-s.jpg");
+    background-image: url("../assets/images/banner2022/banner-aier-s.jpg");
+  }
+
+  .aier {
+    cursor: pointer;
   }
 }
 
@@ -615,7 +624,7 @@ export default {
   box-shadow: 0px 0px 43px 0px rgba(48, 4, 4, 0.18);
   border-radius: 6px;
   background: #ffffff;
-  z-index: 1;
+  // z-index: 1;
   margin-top: -65px;
 
   .nav {
