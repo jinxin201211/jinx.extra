@@ -609,7 +609,7 @@ export default {
   }
 
   .banner-2 {
-    background-image: url("../assets/images/banner2022/banner-aier-s.jpg");
+    background-image: url("../assets/images/banner2022/banner-aier2-s.jpg");
   }
 
   .aier {
