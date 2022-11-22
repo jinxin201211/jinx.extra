@@ -36,7 +36,7 @@
       <el-table-column prop="standard" label="检查结果" width="120"> </el-table-column>
       <el-table-column label="操作" width="180">
         <template slot-scope="scope">
-          <el-button @click="handleWorksScore(scope)" type="text" size="small" v-if="scope.row.standard === '-'">检查</el-button>
+          <el-button @click="handleWorksScore(scope)" type="text" size="small" v-if="scope.row.standard === '未检查'">检查</el-button>
           <el-button @click="handleWorksScore(scope)" type="text" size="small" v-else>已检查</el-button>
         </template>
       </el-table-column>

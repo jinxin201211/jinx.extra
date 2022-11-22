@@ -249,9 +249,7 @@ export default {
         .then(function(response) {
           if (response && response.data.code == "0") {
             _this.WorksInfo = response.data.data;
-            if (_this.WorksInfo.works.state != null) {
-              _this.standard = _this.WorksInfo.works.standard + "";
-            }
+            _this.standard = _this.WorksInfo.works.standard + "";
 
             _this.game_type = _this.WorksInfo.works.gameType;
             if (_this.WorksInfo.works.gameType === "4") {
