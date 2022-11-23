@@ -129,7 +129,7 @@ export default {
             } else {
               _this.WorksInfo.works.gameType = _this.$WorksGroupCode.find(p => p.code == _this.WorksInfo.works.gameType).value;
               _this.WorksInfo.works.worksType = _this.$WorksTypeCode.find(p => p.code == _this.WorksInfo.works.worksType).value;
-              _this.WorksInfo.works.materialSurce = _this.$MaterialSurceCode.find(p => p.code == _this.WorksInfo.works.materialSurce).value;
+              _this.WorksInfo.works.materialSurce = _this.WorksInfo.works.materialSurce == null ? "" : _this.$MaterialSurceCode.find(p => p.code == _this.WorksInfo.works.materialSurce).value;
             }
           } else {
             _this.$message({
