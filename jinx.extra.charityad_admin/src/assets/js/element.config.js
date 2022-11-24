@@ -1,4 +1,4 @@
-import { Form, FormItem, Input, Checkbox, Button, Link, Row, Col, Steps, Step, Divider, Select, Option, RadioGroup, Radio, Upload, Menu, MenuItem, Submenu, MenuItemGroup, Dialog, Table, TableColumn, Breadcrumb, BreadcrumbItem, PageHeader, Pagination, Card, Image, Tabs, TabPane, Tooltip, Icon, Drawer, Rate, DatePicker } from "element-ui";
+import { Form, FormItem, Input, Checkbox, Button, Link, Row, Col, Steps, Step, Divider, Select, Option, RadioGroup, Radio, Upload, Menu, MenuItem, Submenu, MenuItemGroup, Dialog, Table, TableColumn, Breadcrumb, BreadcrumbItem, PageHeader, Pagination, Card, Image, Tabs, TabPane, Tooltip, Icon, Drawer, Rate, DatePicker, InputNumber } from "element-ui";
 
 import { Loading, MessageBox, Message, Notification } from "element-ui";
 
@@ -37,7 +37,8 @@ export default {
       .use(Rate)
       .use(Upload)
       .use(DatePicker)
-      .use(Loading);
+      .use(Loading)
+      .use(InputNumber);
     V.prototype.$loading = Loading.service;
     V.prototype.$msgbox = MessageBox;
     V.prototype.$alert = MessageBox.alert;
