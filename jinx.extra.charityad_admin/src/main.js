@@ -53,7 +53,7 @@ window.$Server = "http://www.hbsggyjy.cn"; // todo
 // window.$Server = "http://49.233.122.67";
 // window.$Server = "http://localhost";
 Vue.prototype.$ImagePostServer = window.$Server + ":9091";
-Vue.prototype.$ImageGetServer = "http://43.135.119.85/img/";
+Vue.prototype.$ImageGetServer = `${window.$Server}/img/`;
 Vue.prototype.$PdfViewerPath = window.$Server + "/pdfjs/web/viewer.html?file=";
 // Vue.prototype.$OfficeViewerPath = "https://view.officeapps.live.com/op/view.aspx?src=";
 // Vue.prototype.$OfficeViewerPath = window.$Server + ":8012/onlinePreview?url=";

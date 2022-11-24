@@ -17,8 +17,13 @@
         <el-option v-for="item in SelectGameType" :key="item.value" :label="item.label" :value="item.value"> </el-option>
       </el-select>-->
       <el-input v-model="query.author1" placeholder="请输入作者姓名" size="" style="width: 150px; margin-right: 10px;" @keyup.enter.native="handleRefreshList"></el-input>
-      <el-input v-model="query.orgName" placeholder="请输入所属单位" size="" style="width: 150px; margin-right: 10px;" @keyup.enter.native="handleRefreshList"></el-input>
+      <!-- <el-input v-model="query.orgName" placeholder="请输入所属单位" size="" style="width: 150px; margin-right: 10px;" @keyup.enter.native="handleRefreshList"></el-input> -->
       <el-input v-model="query.worksName" placeholder="请输入作品名称" size="" style="width: 150px; margin-right: 10px;" @keyup.enter.native="handleRefreshList"></el-input>
+      <el-select v-model="query.appraisalState" placeholder="请选择评审状态" style="width: 150px; margin-right: 10px;" size="">
+        <el-option label="全部" value=""> </el-option>
+        <el-option label="未评审" value="0"> </el-option>
+        <el-option label="已评审" value="1"> </el-option>
+      </el-select>
       <el-button @click="handleRefreshList" :loading="loading" type="primary">刷 新</el-button>
       <el-button @click="handleBeginScore" type="primary">开始评审</el-button>
     </div>
@@ -58,7 +63,8 @@ export default {
         gameType: "",
         author1: "",
         orgName: "",
-        worksName: ""
+        worksName: "",
+        appraisalState: ""
       },
       total: 0,
       loading: false,

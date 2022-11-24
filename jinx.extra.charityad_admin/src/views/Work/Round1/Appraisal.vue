@@ -94,7 +94,7 @@
         </el-radio-group>-->
         <!--<el-button size="small" type="primary" @click="handleSubmit" :loading="submit_status.loading" :disabled="submit_status.disabled || appraisal === null || appraisal === ''" style="margin: 15px;">确 定</el-button>-->
         <!-- <el-input v-model="Score" :disabled="submit_status.disabled || submit_status.loading" style="display: inline-block; margin-right: 20px;" @change="handleScoreChange"></el-input> -->
-        <el-input-number v-model="Score" :step="5" :min="0" :max="100" :disabled="submit_status.disabled || submit_status.loading" style="display: inline-block; margin-right: 20px;" @change="handleScoreChange"></el-input-number>
+        <el-input-number v-model="Score" :step="5" :min="0" :max="100" :disabled="submit_status.disabled || submit_status.loading" style="display: inline-block; margin-right: 20px;"></el-input-number>
         <el-button size="small" type="primary" @click="handleScoreChange" :loading="submit_status.loading" :disabled="submit_status.disabled || submit_status.loading" style="margin: 15px;">确 定</el-button>
       </div>
       <el-divider></el-divider>
