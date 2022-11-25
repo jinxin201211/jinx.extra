@@ -94,7 +94,8 @@
         </el-radio-group>-->
         <!--<el-button size="small" type="primary" @click="handleSubmit" :loading="submit_status.loading" :disabled="submit_status.disabled || appraisal === null || appraisal === ''" style="margin: 15px;">确 定</el-button>-->
         <!-- <el-input v-model="Score" :disabled="submit_status.disabled || submit_status.loading" style="display: inline-block; margin-right: 20px;" @change="handleScoreChange"></el-input> -->
-        <el-input-number v-model="Score" :step="5" :min="0" :max="100" :disabled="submit_status.disabled || submit_status.loading" style="display: inline-block; margin-right: 20px;"></el-input-number>
+        <!-- <el-input-number ref="inputAppraisal" v-model="Score" :step="5" :min="0" :max="100" :disabled="submit_status.disabled || submit_status.loading" style="display: inline-block; margin-right: 20px;" @keyup.native.enter="handleScoreChange"></el-input-number> -->
+        <el-input ref="inputAppraisal" v-model="Score" :step="5" :min="0" :max="100" :disabled="submit_status.disabled || submit_status.loading" style="display: inline-block; margin-right: 20px; width: 100px;" size="small" @keyup.native.enter="handleScoreChange"></el-input>
         <el-button size="small" type="primary" @click="handleScoreChange" :loading="submit_status.loading" :disabled="submit_status.disabled || submit_status.loading" style="margin: 15px;">确 定</el-button>
       </div>
       <el-divider></el-divider>
@@ -110,6 +111,7 @@
 <script>
 import qs from "qs";
 import JinxVideoPlayer from "@/components/JinxVideoPlayer.vue";
+import { isNumber } from "highcharts";
 
 export default {
   components: { JinxVideoPlayer },
@@ -129,7 +131,7 @@ export default {
         loading: false,
         disabled: false
       },
-      Score: 0,
+      Score: null,
       query: {
         limit: this.$route.query.limit * 1,
         page: this.$route.query.page * 1,
@@ -236,7 +238,7 @@ export default {
       if (this.query.index > this.List.length - 1) {
         this.query.index = this.List.length - 1;
       }
-      this.Score = 0;
+      this.Score = null;
       this.PreviewSrcList = [];
       this.axios
         .get("/api/gameWorks2/getOne", { params: { wid: this.List[this.query.index].wid } })
@@ -261,6 +263,7 @@ export default {
                 _this.PreviewSrcList.push(_this.$ImageGetServer + _this.WorksInfo.works_file[i].fileName);
               }
             }
+            _this.$refs.inputAppraisal.focus();
 
             // _this.Score = Math.ceil(Math.random() * 100); //todo 测试自动打分
             // _this.submit();
@@ -306,6 +309,19 @@ export default {
       this.submit();
     },
     handleScoreChange() {
+      this.Score = this.Score * 1;
+      if (!isNumber(this.Score)) {
+        this.Score = "";
+      }
+      if (this.Score === null || this.Score === "") {
+        return;
+      }
+      if (this.Score > 100) {
+        this.Score = 100;
+      }
+      if (this.Score < 0) {
+        this.Score = 0;
+      }
       this.submit();
     },
     submit: function() {
