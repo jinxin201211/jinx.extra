@@ -73,7 +73,7 @@
             <audio :src="$ImageGetServer + item.fileName" controls="controls" style="width: 960px; margin: 0 auto;">您的浏览器不支持 audio 标签。</audio>
           </div>
           <div v-else-if="isPDF(item.fileName)" style="text-align: center;">
-            <a :href="$PdfViewerPath + $ImageGetServer + item.fileName" v-text="encryptFileName(item.fileName)" target="_blank"></a>
+            <a :href="$PdfViewerPath + $PdfGetServer + item.fileName" v-text="encryptFileName(item.fileName)" target="_blank"></a>
           </div>
           <div v-else-if="isOffice(item.fileName)" style="text-align: center;">
             <a :href="$OfficeViewerPath + $ImageGetServer + item.fileName" v-text="encryptFileName(item.fileName)" target="_blank"></a>
@@ -139,6 +139,7 @@ export default {
         author1: this.$route.query.author1,
         orgName: this.$route.query.orgName,
         worksName: this.$route.query.worksName,
+        appraisalState: this.$route.query.appraisalState,
         index: this.$route.query.index * 1
       },
       count: 0,
@@ -168,6 +169,13 @@ export default {
       let loading = this.$loading({ target: "#page" });
       let _this = this;
       _this.next_status.disabled = false;
+      let page = this.query.page;
+      let limit = this.query.limit;
+      let index = this.query.index;
+      if (this.query.appraisalState !== null && this.query.appraisalState !== undefined && this.query.appraisalState !== "") {
+        this.query.limit = 9999;
+        this.query.page = 1;
+      }
       this.axios
         .post("/api/gameWorks2/getNoAppraisalList_Round1", qs.stringify(this.query))
         .then(function(response) {
@@ -188,7 +196,11 @@ export default {
                 type: "warning"
               });
             } else {
-              _this.List = response.data.data;
+              if (_this.query.limit === 9999) {
+                _this.List = response.data.data.slice(limit * (page - 1));
+              } else {
+                _this.List = response.data.data;
+              }
               _this.getNextWork();
             }
           } else {

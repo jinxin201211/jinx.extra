@@ -53,7 +53,7 @@
         <el-card v-for="(item, index) in WorksInfo.works_file" :key="'works_file' + index" style="margin-top: 15px;">
           <div slot="header" class="clearfix">
             <span v-text="'文件' + (index + 1) + '. ' + encryptFileName(item.fileName)"></span>
-            <el-link v-if="isVideo(item.fileName) || isFlash(item.fileName)" :href="$ImageGetServer + item.fileName" target="blank" type="primary" style="float: right;">下载</el-link>
+            <el-link v-if="isVideo(item.fileName) || isFlash(item.fileName) || isOffice(item.fileName)" :href="$ImageGetServer + item.fileName" target="blank" type="primary" style="float: right;">下载</el-link>
           </div>
           <div v-if="isImage(item.fileName)" style="text-align: center;">
             <el-image :src="$ImageGetServer + item.fileName" style="max-width: 960px; margin: 0 auto;" :preview-src-list="PreviewSrcList">
@@ -73,7 +73,7 @@
             <audio :src="$ImageGetServer + item.fileName" controls="controls" style="width: 960px; margin: 0 auto;">您的浏览器不支持 audio 标签。</audio>
           </div>
           <div v-else-if="isPDF(item.fileName)" style="text-align: center;">
-            <a :href="$PdfViewerPath + $ImageGetServer + item.fileName" v-text="encryptFileName(item.fileName)" target="_blank"></a>
+            <a :href="$PdfViewerPath + $PdfGetServer + item.fileName" v-text="encryptFileName(item.fileName)" target="_blank"></a>
           </div>
           <div v-else-if="isOffice(item.fileName)" style="text-align: center;">
             <a :href="$OfficeViewerPath + $ImageGetServer + item.fileName" v-text="encryptFileName(item.fileName)" target="_blank"></a>
@@ -90,7 +90,8 @@
         <!-- <el-rate v-model="Score" :max="10" :disabled="submit_status.disabled || submit_status.loading" show-score score-template="{value}" style="display: inline-block; margin-right: 20px;" @change="handleScoreChange"></el-rate> -->
         <!--<el-button size="small" type="primary" @click="handleSubmit" :loading="submit_status.loading" :disabled="submit_status.disabled || Score === null || Score === 0" style="margin: 15px;">确 定</el-button>-->
         <!-- <el-input-number ref="inputScore" v-model="Score" :step="5" :min="0" :max="100" :disabled="submit_status.disabled || submit_status.loading" style="display: inline-block; margin-right: 20px;" @keyup.native.enter="handleScoreChange"></el-input-number> -->
-        <el-input-number ref="inputScore" v-model="Score" :step="5" :min="0" :max="100" :disabled="submit_status.disabled || submit_status.loading" style="display: inline-block; margin-right: 20px; width: 100px;" size="small" @keyup.native.enter="handleScoreChange"></el-input-number>
+        <el-input ref="inputScore" v-model="Score" :step="5" :min="0" :max="100" :disabled="submit_status.disabled || submit_status.loading" style="display: inline-block; margin-right: 20px; width: 100px;" size="small" @keyup.native.enter="handleScoreChange"></el-input>
+        <!-- <el-input-number ref="inputScore" v-model="Score" :step="5" :min="0" :max="100" :disabled="submit_status.disabled || submit_status.loading" style="display: inline-block; margin-right: 20px; width: 100px;" size="small" @keyup.native.enter="handleScoreChange"></el-input-number> -->
         <el-button size="small" type="primary" @click="handleScoreChange" :loading="submit_status.loading" :disabled="submit_status.disabled || submit_status.loading" style="margin: 15px;">确 定</el-button>
       </div>
       <el-divider></el-divider>
@@ -118,7 +119,7 @@ export default {
         index: this.$route.query.index * 1,
         gameType: this.$route.query.gameType,
         author1: this.$route.query.author1,
-        orgName: this.$route.query.orgName,
+        appraisalState: this.$route.query.appraisalState,
         worksName: this.$route.query.worksName
       },
       count: 0,
@@ -163,6 +164,14 @@ export default {
       let loading = this.$loading({ target: "#page" });
       let _this = this;
       _this.next_status.disabled = false;
+      let page = this.query.page;
+      let limit = this.query.limit;
+      let index = this.query.index;
+      if (this.query.appraisalState !== null && this.query.appraisalState !== undefined && this.query.appraisalState !== "") {
+        this.query.limit = 9999;
+        this.query.page = 1;
+      }
+      // console.log(this.query);
       this.axios
         .post("/api/gameWorks2/getNoAppraisalList_Round2", qs.stringify(this.query))
         .then(function(response) {
@@ -184,7 +193,11 @@ export default {
                 type: "warning"
               });
             } else {
-              _this.List = response.data.data;
+              if (_this.query.limit === 9999) {
+                _this.List = response.data.data.slice(limit * (page - 1));
+              } else {
+                _this.List = response.data.data;
+              }
               _this.getNextWork();
             }
           } else {

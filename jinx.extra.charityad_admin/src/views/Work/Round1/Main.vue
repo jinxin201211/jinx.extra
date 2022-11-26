@@ -70,6 +70,7 @@ export default {
         worksName: "",
         appraisalState: ""
       },
+      storeQuery: {},
       total: 0,
       loading: false,
       statistics: {
@@ -108,6 +109,7 @@ export default {
         .post("/api/gameWorks2/getNoAppraisalList_Round1", qs.stringify(this.query))
         .then(function(response) {
           if (response && response.data.code == "0") {
+            _this.storeQuery = _this.query;
             _this.List = response.data.data;
             _this.List.forEach(p => {
               let game_type = _this.$WorksGroupCode.find(x => x.code == p.gameType);
@@ -216,10 +218,11 @@ export default {
         query: {
           limit: this.query.limit,
           page: this.query.page,
-          gameType: this.query.gameType,
-          author1: this.query.author1,
-          orgName: this.query.orgName,
-          worksName: this.query.worksName,
+          gameType: this.storeQuery.gameType,
+          author1: this.storeQuery.author1,
+          orgName: this.storeQuery.orgName,
+          worksName: this.storeQuery.worksName,
+          appraisalState: this.storeQuery.appraisalState,
           index: index
         }
       });

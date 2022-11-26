@@ -23,7 +23,7 @@
         <audio :src="$ImageGetServer + item" controls="controls" style="width: 960px; margin: 0 auto;">您的浏览器不支持 audio 标签。</audio>
       </div>
       <div v-else-if="isPDF(item)" style="text-align: center;">
-        <a :href="$PdfViewerPath + $ImageGetServer + item" v-text="item" target="_blank"></a>
+        <a :href="$PdfViewerPath + $PdfGetServer + item" v-text="item" target="_blank"></a>
       </div>
       <div v-else style="text-align: center;">
         <a :href="$ImageGetServer + item" v-text="item" target="_blank"></a>
@@ -49,7 +49,7 @@
         <audio :src="$ImageGetServer + item2" controls="controls" style="width: 960px; margin: 0 auto;">您的浏览器不支持 audio 标签。</audio>
       </div>
       <div v-else-if="isPDF(item2)" style="text-align: center;">
-        <a :href="$PdfViewerPath + $ImageGetServer + item2" v-text="item2" target="_blank"></a>
+        <a :href="$PdfViewerPath + $PdfGetServer + item2" v-text="item2" target="_blank"></a>
       </div>
       <div v-else style="text-align: center;">
         <a :href="$ImageGetServer + item2" v-text="item2" target="_blank"></a>
