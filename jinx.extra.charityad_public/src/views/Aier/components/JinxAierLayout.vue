@@ -6,14 +6,14 @@
 
     <slot></slot>
 
-    <div class="jinx-footer">
+    <!-- <div class="jinx-footer">
       <div>版权所有&nbsp;2020&nbsp;河北省广告研究院&nbsp;（{{ $Host }}）</div>
       <div>
         <span style="display: inline-block; vertical-align: bottom; margin-right: 20px;">© 2020&nbsp;</span>
         <a :href="$Domain">{{ $Host }}</a>
       </div>
       <div>冀ICP备18011017号-3 冀公网安备 13010802000630号</div>
-    </div>
+    </div> -->
   </div>
 </template>
 

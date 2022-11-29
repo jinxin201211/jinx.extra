@@ -76,8 +76,8 @@
 
       <div class="aier-panel" style="min-height: 540px; margin-top: 15px;">
         <div class="aier-navigate">
-          <div class="nav" :class="{ active: aierNav === 1 }" @click="aierNav = 1">爱尔眼科·河北</div>
-          <div class="split">|</div>
+          <!-- <div class="nav" :class="{ active: aierNav === 1 }" @click="aierNav = 1">爱尔眼科·河北</div>
+          <div class="split">|</div> -->
           <div class="nav" :class="{ active: aierNav === 2 }" @click="aierNav = 2">各市医院联系方式</div>
           <div class="split">|</div>
           <div class="nav" :class="{ active: aierNav === 3 }" @click="aierNav = 3">全省代表专家（部分）</div>
@@ -132,7 +132,7 @@ export default {
   components: { JinxAierLayout },
   data: function() {
     return {
-      aierNav: 1,
+      aierNav: 2,
       ListAierContact: [
         {
           title: "爱尔眼科•石家庄",
