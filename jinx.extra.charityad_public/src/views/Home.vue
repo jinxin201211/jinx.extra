@@ -366,7 +366,6 @@ export default {
     //   dangerouslyUseHTMLString: true
     // });
 
-
     this.$alert("疫情影响大赛获奖名单将于12月底进行公示，请大家登陆河北省公益广告大赛官网查询。");
   },
   beforeRouteLeave(to, from, next) {
@@ -612,7 +611,7 @@ export default {
   }
 
   .banner-2 {
-    background-image: url("../assets/images/banner2022/banner-aier2-s.jpg");
+    background-image: url("../assets/images/banner2022/banner-aier3-s.jpg");
   }
 
   .aier {

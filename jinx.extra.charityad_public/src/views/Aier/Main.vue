@@ -76,8 +76,8 @@
 
       <div class="aier-panel" style="min-height: 540px; margin-top: 15px;">
         <div class="aier-navigate">
-          <!-- <div class="nav" :class="{ active: aierNav === 1 }" @click="aierNav = 1">爱尔眼科·河北</div>
-          <div class="split">|</div> -->
+          <div class="nav" :class="{ active: aierNav === 1 }" @click="aierNav = 1">爱尔眼科·河北</div>
+          <div class="split">|</div>
           <div class="nav" :class="{ active: aierNav === 2 }" @click="aierNav = 2">各市医院联系方式</div>
           <div class="split">|</div>
           <div class="nav" :class="{ active: aierNav === 3 }" @click="aierNav = 3">全省代表专家（部分）</div>
@@ -85,9 +85,8 @@
 
         <div v-if="aierNav === 1">
           <div class="aire-introduce">
-            <p>截至2022年，爱尔眼科医院覆盖河北省11个地市，共计32家眼科医疗机构。现有职工1600余人，眼科医生330人，副主任级别以上医师94人、主治医师112人；博士13人，硕士65人。</p>
-            <p>省区拥有国家级享受国务院政府特殊津贴的专家、省级、地区级有突出贡献的知名眼科专家组成的医疗专家团队，带领省区全体眼科同仁们积极进取，共同致力河北省眼病事业。</p>
-            <p>同时省会医院及其他大部分医院设有屈光近视手术专科、近视防控门诊、小儿眼病与斜视科、青光眼白内障科、眼底病科、眼表及角膜病科、泪道整形与眼外伤科、预防保健科等专业科室，开展全眼科领域医疗项目。</p>
+            <p>爱尔眼科医院集团河北省区负责集团在河北省地区医院的建设和运营。目前已经开设有石家庄、邯郸、承德、唐山、保定、秦皇岛、廊坊、沧州、衡水、张家口、邢台11家地级市爱尔眼科医院,完成了对河北省地级市全覆盖。同时开设有无极、藁城、晋州、新乐、鹿泉、孟村、盐山、青县、东光、蔚县、迁安、古冶、魏县、广平、鸡泽、邱县、永年、大名、临漳、高碑店等20家县级市爱尔眼科医院，年门诊量超23万人次，年手术量超3万台次。</p>
+            <p>省区拥有国家级享受国务院政府特殊津贴的专家、省级、地区级有突出贡献的知名眼科专家组成的医疗专家团队，带领省区全体眼科同仁们积极进取，共同致力河北省眼病事业。 同时省会医院及其他大部分医院设有屈光近视手术专科、视光科、小儿眼病与斜视科、青光眼白内障科、眼底病科、眼表及角膜病科、泪道整形与眼外伤科、预防保健科等专业科室，开展全眼科领域医疗项目。</p>
           </div>
         </div>
         <div v-else-if="aierNav === 2">
@@ -132,7 +131,7 @@ export default {
   components: { JinxAierLayout },
   data: function() {
     return {
-      aierNav: 2,
+      aierNav: 1,
       ListAierContact: [
         {
           title: "爱尔眼科•石家庄",
@@ -193,27 +192,27 @@ export default {
       ListExpert: [
         {
           name: "马景学",
-          photo: "",
+          photo: require("@/views/Aier/photos/majingxue.jpg"),
           titles: ["主任医师、二级教授、留德医学博士、博士生导师，享受国务院特殊津贴专家，河北省“双十双百”人才。", "爱尔眼科医院集团河北省区总院长", "石家庄爱尔眼科医院院长", "河北省眼病防治研究中心主任"]
         },
         {
           name: "姜彩辉",
-          photo: "",
+          photo: require("@/views/Aier/photos/jiangcaihui.jpg"),
           titles: ["主任医师、医学博士、副教授、硕士生导师", "爱尔眼科医院集团河北省区常务副总院长", "中国老年医学会眼科学分会委员"]
         },
         {
           name: "宋秀君",
-          photo: "",
+          photo: require("@/views/Aier/photos/songxiujun.jpg"),
           titles: ["主任医师、教授、博士生导师、留美博士后，河北省有突出贡献中青年专家，享受国务院特殊津贴。", "爱尔眼科医院集团河北省区副总院长", "石家庄爱尔眼科医院常务副院长", "河北省眼科医师协会副主任委员"]
         },
         {
           name: "苏鸣",
-          photo: "",
+          photo: require("@/views/Aier/photos/suming.jpg"),
           titles: ["主任医师、教授、硕士生导师", "爱尔眼科医院集团河北省区副总院长", "石家庄爱尔眼科医院副院长", "河北省医学会眼科学分会副主任委员"]
         },
         {
           name: "韩贤奎",
-          photo: "",
+          photo: require("@/views/Aier/photos/hanxiangui.jpg"),
           titles: ["副主任医师", "石家庄爱尔眼科医院副院长", "爱尔眼科河北省区屈光学组组长", "石家庄爱尔眼科医院屈光手术科主任"]
         },
         {
@@ -597,7 +596,7 @@ export default {
           transition: transform 0.3s linear;
         }
         .img:hover {
-          transform: scale(1.1);
+          transform: scale(1.15);
         }
       }
     }

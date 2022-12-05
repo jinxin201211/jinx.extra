@@ -59,7 +59,7 @@ export default {
   height: 480px;
   background-position: center;
   background-size: cover;
-  background-image: url("../../../assets/images/banner2022/banner-aier2-s.jpg");
+  background-image: url("../../../assets/images/banner2022/banner-aier3-s.jpg");
   position: relative;
 }
 
