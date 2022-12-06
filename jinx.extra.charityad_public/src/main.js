@@ -55,6 +55,7 @@ Vue.prototype.$Host = "www.hbsggyjy.cn";
 Vue.prototype.$Domain = "http://" + Vue.prototype.$Host;
 // Vue.prototype.$FileGetServer = `${window.$Server}/img/`;
 Vue.prototype.$FileGetServer = "http://43.135.119.85/img/";
+// Vue.prototype.$FileGetServer = "http://127.0.0.1/img/";
 Vue.prototype.$CertFileGetServer = window.$Server + ":8084/gameWorks2/downloadCert?file_name=";
 Vue.prototype.$PdfViewerPath = window.$Server + "/pdfjs/web/viewer.html?file=";
 Vue.prototype.$OfficeViewerPath = window.$Server + "/office/onlinePreview?url=";

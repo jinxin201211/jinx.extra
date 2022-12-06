@@ -90,7 +90,8 @@
           </div>
         </div>
         <div v-else-if="aierNav === 2">
-          <div class="aier-contact-detail" v-for="(item, index) in ListAierContact" :key="'aier-contact-' + index">
+          <div style="width: 899px; height: 2185px; background-size: contain;" :style="{ 'background-image': `url(${require('@/views/Aier/photos/aier-contract-s.jpg')})` }"></div>
+          <!-- <div class="aier-contact-detail" v-for="(item, index) in ListAierContact" :key="'aier-contact-' + index">
             <div class="title"><span v-text="item.title"></span></div>
             <div class="telephone">
               <svg t="1668845133886" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="6937"><path d="M704 640c-64 64-64 128-128 128s-128-64-192-128-128-128-128-192 64-64 128-128-128-256-192-256-192 192-192 192c0 128 131.488 387.488 256 512s384 256 512 256c0 0 192-128 192-192s-192-256-256-192z" p-id="6938"></path></svg>
@@ -102,7 +103,7 @@
               </svg>
               <span v-text="item.address"></span>
             </div>
-          </div>
+          </div> -->
         </div>
         <div class="aier-experts" v-else>
           <div class="aier-expert" v-for="(item, index) in ListExpert" :key="'aier-expert-' + index">
