@@ -366,7 +366,8 @@ export default {
     //   dangerouslyUseHTMLString: true
     // });
 
-    this.$alert("疫情影响大赛获奖名单将于12月底进行公示，请大家登陆河北省公益广告大赛官网查询。");
+    // this.$alert("疫情影响大赛获奖名单将于12月底进行公示，请大家登陆河北省公益广告大赛官网查询。");
+    this.getMessageList();
   },
   beforeRouteLeave(to, from, next) {
     window.clearTimeout(this.work.carousel);
@@ -382,6 +383,26 @@ export default {
         time++;
         setTimeout(f, 5000);
       }, 0);
+    },
+    getMessageList() {
+      let _this = this;
+      this.axios
+        .post("/api/homeMessage/getValidList")
+        .then(function(response) {
+          if (response && response.data.code == "0") {
+            let list = response.data.data;
+            for (let i = 0; i < list.length; i++) {
+              if (list[i].html) {
+                _this.$alert(list[i].content, "", { dangerouslyUseHTMLString: true });
+              } else {
+                _this.$alert(list[i].content);
+              }
+            }
+          }
+        })
+        .catch(function(err) {
+          console.log(err);
+        });
     },
     getNewsList() {
       let _this = this;
