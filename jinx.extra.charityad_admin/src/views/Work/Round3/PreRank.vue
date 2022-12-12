@@ -85,32 +85,17 @@ export default {
 
             let game_type0 = _this.getGameTypeByCode("0");
             _this.Data.group[0].list = data.filter(p => p.gameType === game_type0);
-            _this.Data.group[0].list = data.filter(p => p.gameType === game_type0);
-            _this.Data.group[0].list = data.filter(p => p.gameType === game_type0);
-            _this.Data.group[0].list = data.filter(p => p.gameType === game_type0);
 
             let game_type1 = _this.getGameTypeByCode("1");
-            _this.Data.group[1].list = data.filter(p => p.gameType === game_type1);
-            _this.Data.group[1].list = data.filter(p => p.gameType === game_type1);
-            _this.Data.group[1].list = data.filter(p => p.gameType === game_type1);
             _this.Data.group[1].list = data.filter(p => p.gameType === game_type1);
 
             let game_type2 = _this.getGameTypeByCode("2");
             _this.Data.group[2].list = data.filter(p => p.gameType === game_type2);
-            _this.Data.group[2].list = data.filter(p => p.gameType === game_type2);
-            _this.Data.group[2].list = data.filter(p => p.gameType === game_type2);
-            _this.Data.group[2].list = data.filter(p => p.gameType === game_type2);
 
             let game_type3 = _this.getGameTypeByCode("3");
             _this.Data.group[3].list = data.filter(p => p.gameType === game_type3);
-            _this.Data.group[3].list = data.filter(p => p.gameType === game_type3);
-            _this.Data.group[3].list = data.filter(p => p.gameType === game_type3);
-            _this.Data.group[3].list = data.filter(p => p.gameType === game_type3);
 
             let game_type4 = _this.getGameTypeByCode("4");
-            _this.Data.group[4].list = data.filter(p => p.gameType === game_type4);
-            _this.Data.group[4].list = data.filter(p => p.gameType === game_type4);
-            _this.Data.group[4].list = data.filter(p => p.gameType === game_type4);
             _this.Data.group[4].list = data.filter(p => p.gameType === game_type4);
           } else {
             _this.$message({
