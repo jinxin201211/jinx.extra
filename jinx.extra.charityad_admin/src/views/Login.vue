@@ -72,6 +72,9 @@ export default {
             if (data.uname.startsWith("audit")) {
               data.role = "audit";
             }
+            if (data.uname.startsWith("pre_audit")) {
+              data.role = "preaudit";
+            }
             that.$store.commit("changeAccount", data);
             that.$router.replace("/");
           } else {
