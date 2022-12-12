@@ -7,7 +7,8 @@
 
     <el-tabs v-model="tab_active">
       <el-tab-pane :label="gitem" :name="gindex + ''" v-for="(gitem, gindex) in GroupList" :key="'group' + gindex">
-        <el-table :data="Data.group[gindex].list" stripe style="width: 100%" @row-dblclick="handleRowDbclick">
+        <el-table ref="prizeTable" :data="Data.group[gindex].list" stripe style="width: 100%" @row-dblclick="handleRowDbclick" @select="handleSelectRowChange">
+          <el-table-column type="selection" width="50"> </el-table-column>
           <el-table-column type="index" width="80"> </el-table-column>
           <el-table-column prop="wno" label="作品编号" width="120"> </el-table-column>
           <el-table-column prop="worksName" label="作品名称"> </el-table-column>
@@ -97,6 +98,12 @@ export default {
 
             let game_type4 = _this.getGameTypeByCode("4");
             _this.Data.group[4].list = data.filter(p => p.gameType === game_type4);
+
+            _this.$nextTick(() => {
+              let markRows = _this.Data.group[0].list.filter(p => p.mark === "1");
+              console.log(markRows);
+              _this.toggleSelection(markRows);
+            });
           } else {
             _this.$message({
               showClose: true,
@@ -127,6 +134,60 @@ export default {
     handleRowDbclick: function(row, column, event) {
       this.view_wid = row.wid;
       this.drawer = true;
+    },
+    toggleSelection(rows) {
+      if (rows) {
+        rows.forEach(row => {
+          this.$refs.prizeTable.toggleRowSelection(row);
+        });
+      } else {
+        this.$refs.prizeTable.clearSelection();
+      }
+    },
+    handleSelectRowChange(selection, row) {
+      let mark = "";
+      if (selection.includes(row)) {
+        console.log(true);
+        mark = "1";
+      } else {
+        console.log(false);
+        mark = "0";
+      }
+      console.log(selection, row);
+
+      let data = {
+        wid: row.wid,
+        mark: mark
+      };
+      const _this = this;
+      this.axios
+        .post("/api/gameWorksRank/mark", data)
+        .then(function(response) {
+          if (response && response.data.code == "0") {
+            let data = response.data.data;
+            _this.$message({
+              showClose: true,
+              message: mark === "1" ? "标记成功" : "取消标记成功",
+              type: "success"
+            });
+          } else {
+            _this.$message({
+              showClose: true,
+              message: mark === "1" ? "标记失败" : "取消标记失败",
+              type: "warning"
+            });
+          }
+          _this.loading = false;
+        })
+        .catch(function(err) {
+          console.log(err);
+          _this.loading = false;
+          _this.$message({
+            showClose: true,
+            message: mark === "1" ? "标记失败" : "取消标记失败",
+            type: "warning"
+          });
+        });
     }
   }
 };
