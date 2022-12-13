@@ -136,12 +136,13 @@ export default {
       this.drawer = true;
     },
     toggleSelection(rows) {
+      const _this = this;
       if (rows) {
         rows.forEach(row => {
-          this.$refs.prizeTable.toggleRowSelection(row);
+          _this.$refs.prizeTable[0].toggleRowSelection(row);
         });
       } else {
-        this.$refs.prizeTable.clearSelection();
+        _this.$refs.prizeTable[0].clearSelection();
       }
     },
     handleSelectRowChange(selection, row) {
@@ -206,5 +207,10 @@ export default {
 
 /deep/ .el-drawer {
   overflow-y: scroll;
+}
+
+/deep/ .el-table__header .el-checkbox {
+  opacity: 0;
+  display: none;
 }
 </style>
