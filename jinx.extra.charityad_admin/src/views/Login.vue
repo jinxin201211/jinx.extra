@@ -78,6 +78,9 @@ export default {
             if (data.uname.startsWith("rank_audit")) {
               data.role = "rankaudit";
             }
+            if (data.uname.startsWith("aier")) {
+              data.role = "aier";
+            }
             _this.$store.commit("changeAccount", data);
             _this.$router.replace("/");
           } else {
