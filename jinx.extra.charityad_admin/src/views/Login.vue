@@ -60,7 +60,7 @@ export default {
     },
     signin: function() {
       this.loading = true;
-      let that = this;
+      let _this = this;
       this.axios
         .post("/api/sysUser/login", qs.stringify({ uname: this.form.account, pwd: this.hex_md5(this.form.password) }))
         .then(function(response) {
@@ -75,21 +75,24 @@ export default {
             if (data.uname.startsWith("pre_audit")) {
               data.role = "preaudit";
             }
-            that.$store.commit("changeAccount", data);
-            that.$router.replace("/");
+            if (data.uname.startsWith("rank_audit")) {
+              data.role = "rankaudit";
+            }
+            _this.$store.commit("changeAccount", data);
+            _this.$router.replace("/");
           } else {
-            that.$message({
+            _this.$message({
               showClose: true,
               message: response.data.msg,
               type: "warning"
             });
           }
-          that.loading = false;
+          _this.loading = false;
         })
         .catch(function(err) {
           console.log(err);
-          that.loading = false;
-          that.$message({
+          _this.loading = false;
+          _this.$message({
             showClose: true,
             message: "登录失败",
             type: "warning"

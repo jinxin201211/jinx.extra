@@ -101,7 +101,6 @@ export default {
 
             _this.$nextTick(() => {
               let markRows = _this.Data.group[0].list.filter(p => p.mark === "1");
-              console.log(markRows);
               _this.toggleSelection(markRows);
             });
           } else {
@@ -148,13 +147,10 @@ export default {
     handleSelectRowChange(selection, row) {
       let mark = "";
       if (selection.includes(row)) {
-        console.log(true);
         mark = "1";
       } else {
-        console.log(false);
         mark = "0";
       }
-      console.log(selection, row);
 
       let data = {
         wid: row.wid,

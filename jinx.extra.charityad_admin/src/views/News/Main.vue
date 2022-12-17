@@ -121,7 +121,6 @@ export default {
           this.deleteData(data);
         })
         .catch(e => {
-          console.log(e);
           this.$message({
             type: "info",
             message: "已取消删除"

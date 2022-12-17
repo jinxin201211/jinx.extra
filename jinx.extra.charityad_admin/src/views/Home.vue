@@ -49,13 +49,14 @@ export default {
         { path: "/news", access: ["admin"], title: "发布新闻" },
         { path: "/announcement", access: ["admin"], title: "发布公告" },
         { path: "/workimport", access: ["admin"], title: "作品导入" },
-        { path: "/workregular", access: ["judge", "leader", "audit", "preaudit"], title: "评审办法" },
+        { path: "/workregular", access: ["judge", "leader", "audit", "preaudit", "rankaudit"], title: "评审办法" },
         { path: "/score/round0", access: ["admin"], title: "作品合规检查" },
         { path: "/score/round1", access: ["judge", "leader"], title: "作品打分(第一轮)" },
         { path: "/score/round2", access: ["judge", "leader"], title: "作品打分(第二轮)" },
         { path: "/score/round3", access: ["judge", "leader"], title: "作品打分(第三轮)" },
         { path: "/score/rank", access: ["judge", "leader", "audit"], title: "获奖查询" },
         { path: "/score/prerank", access: ["preaudit"], title: "获奖查询" },
+        { path: "/score/rankrank", access: ["rankaudit"], title: "获奖查询" },
         { path: "/score/progress", access: ["admin"], title: "评审进度" }
         // { path: "/workrank", access: ["judge"], title: "作品排行" }
       ],
