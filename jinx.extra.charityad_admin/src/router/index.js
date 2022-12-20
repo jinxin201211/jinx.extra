@@ -288,9 +288,9 @@ const routes = [
         }
       },
       {
-        path: "/score/rankrank",
-        name: "scorerankrank",
-        component: () => import("../views/Work/Round3/RankRank.vue"),
+        path: "/score/auditrank",
+        name: "scoreauditrank",
+        component: () => import("../views/Work/Round3/AuditRank.vue"),
         meta: {
           title: "获奖查询",
           access: ["rankaudit"]

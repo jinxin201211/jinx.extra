@@ -21,8 +21,13 @@
             <el-table-column prop="gameType" label="参赛组别" width="120"> </el-table-column>
             <el-table-column prop="worksSeries" label="作品主题"> </el-table-column>
             <el-table-column prop="worksType" label="作品类别" width="120"> </el-table-column>
-            <!--<el-table-column prop="scoreTotal" label="得分" width="120"> </el-table-column>-->
-            <el-table-column label="操作" width="180">
+            <el-table-column label="不同意设置该奖项" width="150">
+              <template slot-scope="scope">
+                <el-button v-if="scope.row.auditRank === '0'" :loading="scope.row.loading" @click="handleAudit(scope.row)" type="primary" size="small">确定</el-button>
+                <el-button v-else :loading="scope.row.loading" @click="handleAudit(scope.row)" type="plain" size="small">取消</el-button>
+              </template>
+            </el-table-column>
+            <el-table-column label="操作" width="100">
               <template slot-scope="scope">
                 <el-button @click="handleView(scope.row)" type="text" size="small">查看</el-button>
               </template>
@@ -122,6 +127,7 @@ export default {
               p.worksType = type == null ? "" : type.value;
               let source = _this.$MaterialSurceCode.find(x => x.code == p.materialSurce);
               p.materialSurce = source == null ? "" : source.value;
+              p.loading = false;
             });
 
             let game_type0 = _this.getGameTypeByCode("0");
@@ -183,6 +189,42 @@ export default {
     handleRowDbclick: function(row, column, event) {
       this.view_wid = row.wid;
       this.drawer = true;
+    },
+    handleAudit(row) {
+      row.loading = true;
+      this.axios
+        .post("/api/gameWorksRank/auditRank", { wid: row.wid })
+        .then(function(response) {
+          if (response && response.data.code == "0") {
+            if (response.data.data === null) {
+              row.auditRank = "0";
+            } else {
+              row.auditRank = "1";
+            }
+            _this.$message({
+              showClose: true,
+              message: "提交成功",
+              type: "success"
+            });
+            // _this.getList();
+          } else {
+            _this.$message({
+              showClose: true,
+              message: response.data.msg,
+              type: "warning"
+            });
+          }
+          row.loading = false;
+        })
+        .catch(function(err) {
+          console.log(err);
+          row.loading = false;
+          _this.$message({
+            showClose: true,
+            message: "提交失败",
+            type: "warning"
+          });
+        });
     }
   }
 };
