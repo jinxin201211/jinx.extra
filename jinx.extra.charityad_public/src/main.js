@@ -65,8 +65,8 @@ Vue.prototype.$WorksGroupCode = [
   { code: "0", value: "高校类" },
   { code: "1", value: "专业类" },
   { code: "2", value: "公众类" },
-  { code: "3", value: "青少年类" },
-  { code: "4", value: "抗疫类" }
+  { code: "3", value: "青少年类" }
+  // { code: "4", value: "抗疫类" }
 ];
 Vue.prototype.$WorksTypeCode = [
   { code: "1", value: "平面类" },
