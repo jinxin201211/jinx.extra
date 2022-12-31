@@ -107,7 +107,7 @@
                 <div class="video" :class="{ hide: Drawer }" v-else-if="isVideo(item2)">
                   <jinx-video-player :src="item2"></jinx-video-player>
                 </div>
-                <pdf :src="$FileGetServer + item2" v-else-if="isPDF(item2)" class="pdf" @click.native="handleViewPDF($FileGetServer + item2)"></pdf>
+                <pdf :src="$PdfGetServer + item2" v-else-if="isPDF(item2)" class="pdf" @click.native="handleViewPDF($PdfGetServer + item2)"></pdf>
                 <jinx-prize-word :src="$FileGetServer + item2" class="word" v-else-if="isOffice(item2)" @click.native="handleViewWord($FileGetServer + item2)"></jinx-prize-word>
               </div>
             </div>

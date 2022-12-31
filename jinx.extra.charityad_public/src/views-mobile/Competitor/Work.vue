@@ -153,7 +153,7 @@
         <audio :src="$FileGetServer + item.fileName" controls="controls" style="width: 960px; margin: 0 auto;">您的浏览器不支持 audio 标签。</audio>
       </div>
       <div v-else-if="isPDF(item.fileName)" style="text-align: center;">
-        <a :href="$PdfViewerPath + $FileGetServer + item.fileName" v-text="item.fileName" target="_blank"></a>
+        <a :href="$PdfViewerPath + $PdfGetServer + item.fileName" v-text="item.fileName" target="_blank"></a>
       </div>
       <div v-else-if="isOffice(item.fileName)" style="text-align: center;">
         <a :href="$OfficeViewerPath + $FileGetServer + item.fileName" v-text="item.fileName" target="_blank"></a>
