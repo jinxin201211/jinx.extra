@@ -62,6 +62,7 @@ export default {
   methods: {
     handleNextStep: function() {
       let group = this.$store.state.User.type;
+      // group = "3";
       if (group === "0") {
         this.$router.push("/work/groupschool");
       } else if (group === "3") {

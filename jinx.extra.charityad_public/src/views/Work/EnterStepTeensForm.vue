@@ -391,6 +391,7 @@ export default {
         // wno: "",
         // worksName: "作品名称1qaz",
         // worksSeries: "A",
+        // worksSeriesSub: "2",
         // worksType: "1",
         // materialSurce: "1",
         // author1: "金鑫",
@@ -407,10 +408,11 @@ export default {
         // creativeOverview: "创意说明创意说明创意说明创意说明创意说明创意说明创意说明创意说明创意说明创意说明",
         // gameUname: this.$store.state.User.uname,
         // gameType: this.$store.state.User.type ?? "1",
-        // tTel: "",
-        // tEmail: "",
-        // tOrgName: "",
-        // tUname: ""
+        // tTel: "17360262847",
+        // tEmail: "11111@sdd.com",
+        // tOrgName: "刷屏了",
+        // tUname: "杀破狼",
+        // guideType: "1"
       },
       loading: false,
       disabled: false,
@@ -592,10 +594,21 @@ export default {
       }
     },
     handleNextStep: function() {
+      const _this = this;
       this.ValidateErrorMessage = [];
       this.$refs["form"].validate(valid => {
         if (valid) {
-          this.submit();
+          // this.submit();
+          let age = this.getAge(this.form.idcardNo);
+          if (age === "" || age >= 18) {
+            _this.$message({
+              showClose: true,
+              message: "青少年组仅限未成年人参赛",
+              type: "warning"
+            });
+          } else {
+            this.submit();
+          }
         } else {
           let msg = "";
           for (let i = 0; i < this.ValidateErrorMessage.length; i++) {
@@ -643,6 +656,45 @@ export default {
             type: "warning"
           });
         });
+    },
+    getAge(IDCard) {
+      let age = 0,
+        yearBirth,
+        monthBirth,
+        dayBirth;
+      //获取用户身份证号码
+      let userCard = IDCard;
+      //如果身份证号码为undefind则返回空
+      if (!userCard) {
+        return age;
+      }
+      let reg = /(^\d{15}$)|(^\d{17}([0-9]|X)$)/; //验证身份证号码的正则
+      if (reg.test(userCard)) {
+        if (userCard.length == 15) {
+          let org_birthday = userCard.substring(6, 12);
+          //获取出生年月日
+          yearBirth = "19" + org_birthday.substring(0, 2);
+          monthBirth = org_birthday.substring(2, 4);
+          dayBirth = org_birthday.substring(4, 6);
+        } else if (userCard.length == 18) {
+          //获取出生年月日
+          yearBirth = userCard.substring(6, 10);
+          monthBirth = userCard.substring(10, 12);
+          dayBirth = userCard.substring(12, 14);
+        }
+        //获取当前年月日并计算年龄
+        let myDate = new Date();
+        let monthNow = myDate.getMonth() + 1;
+        let dayNow = myDate.getDate();
+        let age = myDate.getFullYear() - yearBirth;
+        if (monthNow < monthBirth || (monthNow == monthBirth && dayNow < dayBirth)) {
+          age--;
+        }
+        //返回年龄
+        return age;
+      } else {
+        return "";
+      }
     }
   }
 };
