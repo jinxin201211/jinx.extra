@@ -293,7 +293,7 @@ const routes = [
     path: "/download",
     component: () => import("../views/Prize/Download.vue"),
     meta: {
-      title: "优秀公益广告特色资源库",
+      title: "优秀公益广告作品资源库",
       access: false
     }
   },
