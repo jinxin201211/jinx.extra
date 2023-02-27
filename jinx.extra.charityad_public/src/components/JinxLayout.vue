@@ -12,7 +12,7 @@
         <span style="display: inline-block; vertical-align: bottom; margin-right: 20px;">© 2020&nbsp;</span>
         <a :href="$Domain">{{ $Host }}</a>
       </div>
-      <div>冀ICP备18011017号-3 冀公网安备 13010802000630号</div>
+      <div>沪ICP备2023004616号</div>
     </div>
   </div>
 </template>
